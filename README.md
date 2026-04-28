@@ -20,6 +20,40 @@ python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
+Or via npm (matches what Railway runs):
+
+```bash
+npm install
+npm start
+# default http://localhost:3000
+```
+
+## Deploy to Railway
+
+Two options.
+
+**Option A — Dashboard (easiest):**
+1. Push this branch (already done).
+2. On [railway.app](https://railway.app) → **New Project → Deploy from GitHub repo**.
+3. Pick `JackColeProductions/Editor-Facing-Sales-Page` and the
+   `claude/clone-vpplus-landing-nJ27X` branch.
+4. Railway auto-detects Node via `package.json` and runs `npm start`. The
+   `serve` package binds to `$PORT` so no extra config is needed.
+5. After the first deploy, click **Settings → Networking → Generate Domain**
+   to get a public URL (e.g. `vpplus-landing-production.up.railway.app`).
+
+**Option B — Railway CLI:**
+
+```bash
+npm i -g @railway/cli
+railway login
+railway init        # create a new project
+railway up          # deploy current directory
+railway domain      # generate a public URL
+```
+
+`railway.json` pins the builder to Nixpacks and the start command to `npm start`.
+
 ## Design system
 
 | Token        | Value                          | Use                       |

@@ -735,22 +735,22 @@ button { font: inherit; cursor: pointer; }
   padding-top: clamp(140px, 20vh, 220px);
 }
 
-/* Stage that holds the light. Two children stacked deliberately:
-   bloom (radial, soft) underneath, line (linear + box-shadow, crisp) on top.
-   Keeping it to two layers prevents the wash-out from earlier attempts. */
+/* Stage extends ~80px PAST the padding into the image's vertical space.
+   Image (z-index:1) covers that overlap so the bloom blends directly into
+   the panel top with no visible gap or cutoff. */
 .showcase__lights {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: clamp(140px, 20vh, 220px);
+  height: calc(clamp(140px, 20vh, 220px) + 80px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Wide bloom that connects the line to the panel.
-   Linear vertical fade for the down-direction softness, masked into an
-   ellipse so horizontal edges feather without hard rectangle boundaries. */
+/* Wide soft bloom — pure radial gradient (naturally feathered all around),
+   wide enough to span panel width, tall enough to extend past the visible
+   area so the fade never hits transparent within view. */
 .showcase__lights-bloom {
   position: absolute;
   top: 0;
@@ -758,34 +758,27 @@ button { font: inherit; cursor: pointer; }
   transform: translateX(-50%);
   width: min(95%, 1100px);
   height: 100%;
-  background: linear-gradient(180deg,
-    hsl(180 74% 63% / .25) 0%,
-    hsl(180 74% 63% / .14) 30%,
-    hsl(180 74% 63% / .05) 65%,
-    transparent 95%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 100% at 50% 0%,
-    black 0%,
-    black 45%,
-    transparent 95%);
-          mask-image: radial-gradient(ellipse 60% 100% at 50% 0%,
-    black 0%,
-    black 45%,
-    transparent 95%);
+  background: radial-gradient(ellipse 90% 180% at 50% 0%,
+    hsl(180 74% 63% / .32) 0%,
+    hsl(180 74% 63% / .2) 22%,
+    hsl(180 74% 63% / .1) 48%,
+    hsl(180 74% 63% / .04) 75%,
+    transparent 100%);
 }
 
-/* Concentrated brighter focal glow directly under the line's hot spot */
+/* Concentrated bright focal directly under the line's hot center */
 .showcase__lights-focal {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(280px, 35%, 520px);
-  height: 70%;
-  background: radial-gradient(ellipse 60% 100% at 50% 0%,
+  width: clamp(320px, 40%, 580px);
+  height: 60%;
+  background: radial-gradient(ellipse 70% 110% at 50% 0%,
     hsl(180 100% 92% / .55),
     hsl(180 74% 73% / .25) 25%,
-    hsl(180 74% 63% / .08) 55%,
-    transparent 85%);
+    hsl(180 74% 63% / .08) 60%,
+    transparent 92%);
 }
 
 /* The hero: crisp 2px streak with rounded ends and a layered glow */

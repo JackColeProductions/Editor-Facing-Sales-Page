@@ -200,12 +200,11 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
   /* Lock hero to viewport minus sticky nav (68px) so everything
      is visible without scrolling on standard device sizes. */
   min-height: calc(100svh - 68px);
-  padding: 1.25rem 0 0;
+  padding: 1.5rem 0;
 }
 
 .hero__bg {
@@ -245,7 +244,6 @@ button { font: inherit; cursor: pointer; }
   align-items: center;
   gap: 2rem;
   width: 100%;
-  flex: 1;
 }
 @media (min-width: 900px) {
   .hero__inner {
@@ -276,18 +274,15 @@ button { font: inherit; cursor: pointer; }
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .4rem .8rem;
+  padding: .4rem .85rem;
   border-radius: 999px;
-  border: 1px solid hsl(180 74% 63% / .35);
-  background:
-    radial-gradient(ellipse at left, hsl(180 74% 63% / .15), transparent 70%),
-    hsl(180 74% 63% / .04);
+  border: 1px solid hsl(180 74% 63% / .25);
+  background: hsl(180 74% 63% / .06);
   color: var(--primary);
-  font-size: .7rem;
+  font-size: .72rem;
   font-weight: 600;
-  letter-spacing: .08em;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  box-shadow: 0 0 0 1px hsl(180 74% 63% / .1) inset, 0 8px 24px -12px hsl(180 74% 63% / .55);
 }
 .eyebrow span { color: var(--primary); }
 .eyebrow__icon {
@@ -366,18 +361,19 @@ button { font: inherit; cursor: pointer; }
 }
 .hero__lede strong { color: var(--fg); font-weight: 600; }
 
-/* CTA glow */
+/* CTA glow — static, no pulse */
 .btn--glow {
   box-shadow:
     0 0 0 1px hsl(180 74% 73% / .5) inset,
-    0 0 30px -4px hsl(180 74% 63% / .8),
-    0 16px 40px -10px hsl(180 74% 63% / .55);
-  animation: ctaPulse 2.6s ease-in-out infinite;
+    0 0 24px -4px hsl(180 74% 63% / .55),
+    0 14px 32px -10px hsl(180 74% 63% / .45);
 }
 .btn--glow svg { width: 18px; height: 18px; }
-@keyframes ctaPulse {
-  0%,100% { box-shadow: 0 0 0 1px hsl(180 74% 73% / .5) inset, 0 0 30px -4px hsl(180 74% 63% / .8), 0 16px 40px -10px hsl(180 74% 63% / .55); }
-  50%     { box-shadow: 0 0 0 1px hsl(180 74% 80%) inset, 0 0 50px -4px hsl(180 74% 63% / 1), 0 22px 50px -10px hsl(180 74% 63% / .8); }
+.btn--glow:hover {
+  box-shadow:
+    0 0 0 1px hsl(180 74% 80%) inset,
+    0 0 36px -4px hsl(180 74% 63% / .8),
+    0 18px 40px -10px hsl(180 74% 63% / .6);
 }
 .hero__ctas {
   display: flex;
@@ -453,24 +449,17 @@ button { font: inherit; cursor: pointer; }
   white-space: nowrap;
   animation: floatBob 5s ease-in-out infinite;
 }
-.hero__notif--top {
-  top: -52px;
-  left: 8px;
-  animation-delay: -.5s;
-}
 .hero__notif--bottom {
-  bottom: -42px;
-  right: 8px;
-  animation-delay: -2.5s;
+  bottom: -28px;
+  right: 16px;
   border-color: hsl(160 76% 56% / .3);
   box-shadow:
     0 0 0 1px hsl(160 76% 56% / .08) inset,
     0 20px 40px -16px hsl(0 0% 0% / .8),
-    0 0 30px -10px hsl(160 76% 56% / .4);
+    0 0 24px -10px hsl(160 76% 56% / .35);
 }
 @media (max-width: 1100px) {
-  .hero__notif--top { top: -46px; left: 0; }
-  .hero__notif--bottom { bottom: -36px; right: 0; }
+  .hero__notif--bottom { bottom: -24px; right: 8px; }
 }
 @keyframes floatBob {
   0%,100% { transform: translateY(0); }
@@ -563,50 +552,11 @@ button { font: inherit; cursor: pointer; }
   display: block;
 }
 
-/* ---- Marquee feature strip (bottom of hero) ---- */
-.marquee {
-  position: relative;
-  margin-top: 1.5rem;
-  padding: .9rem 0;
-  border-top: 1px solid hsl(180 74% 63% / .15);
-  border-bottom: 1px solid hsl(180 74% 63% / .15);
-  background:
-    linear-gradient(180deg, transparent, hsl(180 74% 63% / .04), transparent);
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
-          mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
-}
-.marquee__track {
-  display: inline-flex;
-  align-items: center;
-  gap: 1.75rem;
-  white-space: nowrap;
-  animation: marqueeScroll 38s linear infinite;
-  will-change: transform;
-}
-.marquee__track > span {
-  font-size: .82rem;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-}
-.marquee__track .marquee__dot {
-  color: var(--primary);
-  font-weight: 800;
-  opacity: .7;
-}
-@keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
 /* On smaller screens, drop the strict viewport lock so content
    doesn't get squeezed, but keep proportions clean. */
 @media (max-width: 899px) {
-  .hero { min-height: 0; padding: 2.5rem 0 0; }
+  .hero { min-height: 0; padding: 2.5rem 0 3rem; }
   .hero__proof { justify-content: center; align-self: center; }
-  .marquee { margin-top: 2.5rem; }
 }
 .avatar {
   position: relative;

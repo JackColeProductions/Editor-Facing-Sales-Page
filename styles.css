@@ -113,48 +113,32 @@ button { font: inherit; cursor: pointer; }
 .btn--xl  { padding: 1.15rem 1.8rem; font-size: 1.1rem; border-radius: var(--radius-lg); }
 
 /* =========================================================
-   Nav — floating SaaS pill
+   Nav — floating SaaS pill, transparent
    ========================================================= */
 .nav {
-  position: sticky;
+  position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: linear-gradient(180deg, hsl(240 20% 4% / .65), hsl(240 20% 4% / .35));
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: transparent;
 }
 .nav__inner {
   display: flex;
   align-items: center;
   gap: 1rem;
-  height: 68px;
+  height: 80px;
   position: relative;
 }
 .nav__brand {
   display: inline-flex;
   align-items: center;
-  gap: .65rem;
-  font-weight: 700;
-  letter-spacing: -.005em;
   z-index: 2;
 }
-.nav__logo-mark {
-  display: inline-grid;
-  place-items: center;
-  width: 34px; height: 34px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, hsl(180 74% 63%), hsl(160 76% 56%));
-  color: hsl(240 20% 4%);
-  font-weight: 800;
-  font-size: .85rem;
-  letter-spacing: 0;
-  box-shadow: 0 8px 24px -8px hsl(180 74% 63% / .65);
-}
-.nav__logo-mark .plus { color: hsl(240 20% 4%); }
-.nav__logo-text {
-  font-size: .92rem;
-  font-weight: 600;
-  color: var(--fg);
+.nav__logo {
+  height: 26px;
+  width: auto;
+  display: block;
 }
 
 .nav__pill {
@@ -193,14 +177,12 @@ button { font: inherit; cursor: pointer; }
   gap: 1rem;
   z-index: 2;
 }
-.nav__signin {
-  font-size: .85rem;
-  font-weight: 500;
-  color: var(--fg-muted);
-}
-.nav__signin:hover { color: var(--fg); }
 @media (min-width: 640px) { .nav__right { display: inline-flex; } }
-.nav__cta { display: inline-flex; }
+.nav__cta {
+  display: inline-flex;
+  padding: .65rem 1.15rem;
+  font-size: .88rem;
+}
 
 .nav__menu {
   display: inline-flex;
@@ -242,10 +224,9 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Lock hero to viewport minus sticky nav (68px) so everything
-     is visible without scrolling on standard device sizes. */
-  min-height: calc(100svh - 68px);
-  padding: clamp(1rem, 4vh, 2.75rem) 0 0;
+  /* Lock hero to full viewport; nav now overlays so we pad to clear it. */
+  min-height: 100svh;
+  padding: clamp(5.5rem, 12vh, 7.5rem) 0 0;
 }
 
 /* Aurora light beam streaming down from the top */
@@ -388,31 +369,63 @@ button { font: inherit; cursor: pointer; }
   margin-top: clamp(.4rem, 1vh, .9rem);
   position: relative;
 }
-/* CTA neon glow — static, brighter on hover */
+
+/* Hero CTA — glossy gradient pill with neon halo + sheen */
 .btn--glow {
   position: relative;
+  isolation: isolate;
+  padding: 1.15rem 2rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -.005em;
+  border-radius: 999px;
+  color: hsl(240 25% 6%);
+  background:
+    linear-gradient(180deg, hsl(180 80% 80%) 0%, hsl(180 74% 63%) 45%, hsl(160 76% 56%) 100%);
+  border: 1px solid hsl(180 74% 80% / .9);
   box-shadow:
-    0 0 0 1px hsl(180 74% 73% / .5) inset,
-    0 0 30px -2px hsl(180 74% 63% / .7),
-    0 18px 50px -10px hsl(180 74% 63% / .6);
+    /* top inner glossy highlight */
+    inset 0 1px 0 hsl(0 0% 100% / .55),
+    /* outer halo */
+    0 0 0 6px hsl(180 74% 63% / .12),
+    0 0 60px -10px hsl(180 74% 63% / .9),
+    0 22px 60px -10px hsl(180 74% 63% / .65);
+  transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
 }
 .btn--glow svg { width: 18px; height: 18px; }
-.btn--glow:hover {
-  box-shadow:
-    0 0 0 1px hsl(180 74% 80%) inset,
-    0 0 50px 0 hsl(180 74% 63% / .9),
-    0 22px 60px -10px hsl(180 74% 63% / .75);
+
+/* Glossy sheen overlay */
+.btn--glow::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, hsl(0 0% 100% / .35) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: -1;
 }
+/* Outer bloom */
 .btn--glow::after {
   content: "";
   position: absolute;
-  inset: -50%;
+  inset: -60%;
   border-radius: inherit;
-  background: radial-gradient(ellipse at center, hsl(180 74% 63% / .35), transparent 60%);
-  filter: blur(28px);
-  z-index: -1;
-  opacity: .9;
+  background:
+    radial-gradient(ellipse at center, hsl(180 74% 63% / .55), transparent 55%);
+  filter: blur(36px);
+  z-index: -2;
   pointer-events: none;
+  opacity: .95;
+}
+.btn--glow:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06) saturate(1.05);
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / .65),
+    0 0 0 8px hsl(180 74% 63% / .18),
+    0 0 80px -10px hsl(180 74% 63% / 1),
+    0 26px 70px -10px hsl(180 74% 63% / .8);
 }
 
 /* =========================================================
@@ -559,6 +572,12 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   align-items: center;
   gap: .55rem;
+}
+/* Right-aligned price for the right-side fan cards so it stays visible
+   when the left half of the card sits behind the center card. */
+.job-card--pos4 .job-card__price-row,
+.job-card--pos5 .job-card__price-row {
+  justify-content: flex-end;
 }
 .job-card__price {
   color: var(--mint);

@@ -249,12 +249,15 @@ button { font: inherit; cursor: pointer; }
 }
 @media (min-width: 900px) {
   .hero__inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     gap: 2.5rem;
   }
 }
 @media (min-width: 1200px) {
-  .hero__inner { gap: 3.5rem; }
+  .hero__inner {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 3rem;
+  }
 }
 
 .hero__content {
@@ -272,17 +275,17 @@ button { font: inherit; cursor: pointer; }
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: .55rem;
-  padding: .45rem .9rem;
+  gap: .5rem;
+  padding: .4rem .8rem;
   border-radius: 999px;
   border: 1px solid hsl(180 74% 63% / .35);
   background:
     radial-gradient(ellipse at left, hsl(180 74% 63% / .15), transparent 70%),
     hsl(180 74% 63% / .04);
   color: var(--primary);
-  font-size: .78rem;
+  font-size: .7rem;
   font-weight: 600;
-  letter-spacing: .04em;
+  letter-spacing: .08em;
   text-transform: uppercase;
   box-shadow: 0 0 0 1px hsl(180 74% 63% / .1) inset, 0 8px 24px -12px hsl(180 74% 63% / .55);
 }
@@ -301,19 +304,11 @@ button { font: inherit; cursor: pointer; }
 
 .hero__title {
   margin: 0;
-  font-size: clamp(2.25rem, 5.4vw, 4.75rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 800;
   letter-spacing: -.025em;
-  line-height: 1;
-  display: flex;
-  flex-direction: column;
-  gap: .15em;
-}
-.hero__title-line { display: block; }
-.hero__title-line:last-child {
-  display: inline-flex;
-  align-items: baseline;
-  flex-wrap: wrap;
+  line-height: 1.02;
+  text-wrap: balance;
 }
 
 /* Glow on the gradient text — drop-shadow works through background-clip */
@@ -459,19 +454,23 @@ button { font: inherit; cursor: pointer; }
   animation: floatBob 5s ease-in-out infinite;
 }
 .hero__notif--top {
-  top: -18px;
-  left: -22px;
+  top: -52px;
+  left: 8px;
   animation-delay: -.5s;
 }
 .hero__notif--bottom {
-  bottom: -18px;
-  right: -22px;
+  bottom: -42px;
+  right: 8px;
   animation-delay: -2.5s;
   border-color: hsl(160 76% 56% / .3);
   box-shadow:
     0 0 0 1px hsl(160 76% 56% / .08) inset,
     0 20px 40px -16px hsl(0 0% 0% / .8),
     0 0 30px -10px hsl(160 76% 56% / .4);
+}
+@media (max-width: 1100px) {
+  .hero__notif--top { top: -46px; left: 0; }
+  .hero__notif--bottom { bottom: -36px; right: 0; }
 }
 @keyframes floatBob {
   0%,100% { transform: translateY(0); }

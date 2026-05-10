@@ -721,7 +721,9 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Marketplace showcase — screenshot with spotlight glow above
+   Marketplace showcase — screenshot under a soft cyan spotlight
+   Pure radial gradients (no linear strips) so edges feather
+   naturally; one crisp hairline on top.
    ========================================================= */
 .showcase { padding-top: clamp(4rem, 8vh, 6rem); overflow: hidden; }
 .showcase__head { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
@@ -730,30 +732,38 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   max-width: 1100px;
   margin: 0 auto;
-  padding-top: clamp(150px, 22vh, 240px);
+  padding-top: clamp(140px, 20vh, 220px);
 }
 
-/* Full-stage container for all light effects above the screenshot.
-   Composed of: hairline streak (::before), vertical light beams (::after),
-   and a wide atmospheric bloom (background). */
+/* Stage that holds the light. Three layered radial blooms stacked as
+   background images give a smooth, volumetric spotlight feel. */
 .showcase__lights {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  height: clamp(150px, 22vh, 240px);
+  height: clamp(140px, 20vh, 220px);
   pointer-events: none;
   z-index: 0;
-  /* Wide atmospheric bloom underneath the beams */
   background:
-    radial-gradient(ellipse 55% 100% at 50% -10%,
-      hsl(180 74% 63% / .38),
-      hsl(180 74% 63% / .12) 35%,
-      transparent 70%);
+    /* Tight bright spotlight cone at center */
+    radial-gradient(ellipse 24% 90% at 50% 0%,
+      hsl(180 90% 88% / .35),
+      hsl(180 74% 63% / .18) 30%,
+      transparent 65%),
+    /* Wider mid-density bloom */
+    radial-gradient(ellipse 50% 100% at 50% 0%,
+      hsl(180 74% 63% / .28),
+      hsl(180 74% 63% / .08) 40%,
+      transparent 72%),
+    /* Soft outer haze that ties into the image edge */
+    radial-gradient(ellipse 85% 100% at 50% 0%,
+      hsl(180 74% 63% / .1),
+      transparent 75%);
 }
 
-/* Horizontal hairline with a hot center */
+/* Crisp horizontal hairline with a hot white-cyan focal center */
 .showcase__lights::before {
   content: "";
   position: absolute;
@@ -764,71 +774,34 @@ button { font: inherit; cursor: pointer; }
   height: 1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    hsl(180 74% 63% / .1) 8%,
+    hsl(180 74% 63% / .12) 8%,
     hsl(180 74% 63% / .55) 32%,
     hsl(180 100% 96%) 50%,
     hsl(180 74% 63% / .55) 68%,
-    hsl(180 74% 63% / .1) 92%,
+    hsl(180 74% 63% / .12) 92%,
     transparent 100%);
   box-shadow:
     0 0 4px hsl(180 100% 96% / .95),
-    0 0 14px hsl(180 74% 63% / .8),
-    0 0 32px hsl(180 74% 63% / .45),
-    0 0 60px hsl(180 74% 63% / .25);
+    0 0 16px hsl(180 74% 63% / .85),
+    0 0 42px hsl(180 74% 63% / .5),
+    0 0 90px hsl(180 74% 63% / .25);
 }
 
-/* Vertical light beams cascading down from the line */
+/* Concentrated brighter glow right at the focal point of the hairline */
 .showcase__lights::after {
   content: "";
   position: absolute;
-  top: 0;
+  top: -8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 1100px;
-  height: 100%;
+  width: clamp(260px, 30vw, 420px);
+  height: clamp(80px, 12vh, 140px);
   background:
-    /* Center: razor-thin bright beam */
-    linear-gradient(180deg,
-      hsl(180 100% 96% / .9) 0%,
-      hsl(180 74% 73% / .45) 12%,
-      hsl(180 74% 63% / .15) 35%,
-      transparent 70%) 50% 0 / 3px 100% no-repeat,
-    /* Center: wide soft spotlight cone */
-    linear-gradient(180deg,
-      hsl(180 74% 63% / .32) 0%,
-      hsl(180 74% 63% / .14) 25%,
-      hsl(180 74% 63% / .04) 55%,
-      transparent 85%) 50% 0 / 280px 100% no-repeat,
-    /* Mid-left thin beam */
-    linear-gradient(180deg,
-      hsl(180 74% 73% / .4) 0%,
-      hsl(180 74% 63% / .1) 30%,
-      transparent 70%) 36% 0 / 2px 100% no-repeat,
-    /* Mid-left soft cone */
-    linear-gradient(180deg,
-      hsl(180 74% 63% / .16) 0%,
-      hsl(180 74% 63% / .05) 30%,
-      transparent 65%) 36% 0 / 160px 100% no-repeat,
-    /* Mid-right thin beam */
-    linear-gradient(180deg,
-      hsl(180 74% 73% / .4) 0%,
-      hsl(180 74% 63% / .1) 30%,
-      transparent 70%) 64% 0 / 2px 100% no-repeat,
-    /* Mid-right soft cone */
-    linear-gradient(180deg,
-      hsl(180 74% 63% / .16) 0%,
-      hsl(180 74% 63% / .05) 30%,
-      transparent 65%) 64% 0 / 160px 100% no-repeat,
-    /* Far-left subtle */
-    linear-gradient(180deg,
-      hsl(180 74% 63% / .09) 0%,
-      transparent 55%) 20% 0 / 100px 100% no-repeat,
-    /* Far-right subtle */
-    linear-gradient(180deg,
-      hsl(180 74% 63% / .09) 0%,
-      transparent 55%) 80% 0 / 100px 100% no-repeat;
-  filter: blur(.3px);
+    radial-gradient(ellipse 50% 70% at 50% 30%,
+      hsl(180 100% 92% / .55),
+      hsl(180 74% 73% / .22) 35%,
+      transparent 65%);
+  filter: blur(6px);
 }
 
 .showcase__img {
@@ -840,12 +813,12 @@ button { font: inherit; cursor: pointer; }
   border-radius: clamp(.75rem, 1.2vw, 1.1rem);
   border: 1px solid hsl(180 74% 63% / .25);
   box-shadow:
-    /* Inner top glow — simulates beams hitting the panel surface */
-    inset 0 36px 90px -50px hsl(180 100% 96% / .85),
-    /* Crisp top-edge highlight */
-    inset 0 1px 0 hsl(180 100% 92% / .6),
-    /* Outer cyan halo bleeding up to meet the beams */
-    0 -20px 80px -20px hsl(180 74% 63% / .75),
+    /* Inner top glow — beams 'hitting' the panel */
+    inset 0 30px 70px -50px hsl(180 100% 96% / .75),
+    /* 1px highlight along the very top edge */
+    inset 0 1px 0 hsl(180 100% 92% / .55),
+    /* Cyan halo bleeding up to meet the bloom above */
+    0 -16px 70px -20px hsl(180 74% 63% / .55),
     /* Deep lift shadow */
     0 50px 100px -20px hsl(0 0% 0% / .9);
 }

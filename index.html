@@ -20,16 +20,19 @@
       <div class="container nav__inner">
         <a class="nav__brand" href="#top" aria-label="Video Production Plus home">
           <span class="nav__logo-mark" aria-hidden="true">VP<span class="plus">+</span></span>
-          <span class="nav__logo-text">VIDEO PRODUCTION<span class="plus">+</span></span>
+          <span class="nav__logo-text">Video Production<span class="plus">+</span></span>
         </a>
-        <nav class="nav__links" aria-label="Primary">
+        <nav class="nav__pill" aria-label="Primary">
           <a href="#vp-way">The VP+ Way</a>
           <a href="#features">Features</a>
           <a href="#marketplace">Marketplace</a>
           <a href="#testimonials">Testimonials</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <a class="btn btn--primary nav__cta" href="#apply">Apply</a>
+        <div class="nav__right">
+          <a class="nav__signin" href="#apply">Sign in</a>
+          <a class="btn btn--primary nav__cta" href="#apply">Apply</a>
+        </div>
         <button class="nav__menu" id="navMenu" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -47,17 +50,21 @@
 
       <div class="container hero__inner">
         <div class="hero__content">
-          <div class="eyebrow">
-            <svg class="eyebrow__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="m12 2-1.5 6L4 9.5l6.5 1.5L12 17l1.5-6L20 9.5l-6.5-1.5L12 2z"/>
-              <path d="M19 14.5 19.6 17 22 17.6 19.6 18.2 19 21l-.6-2.8L16 17.6l2.4-.6.6-2.5z" opacity=".7"/>
-            </svg>
-            <span>NEW · 4,000+ clients landed inside</span>
+          <div class="trusted-pill">
+            <div class="avatars" aria-hidden="true">
+              <span class="avatar"><img src="media/avatar-1.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="media/avatar-2.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="media/avatar-3.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="media/avatar-4.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="media/avatar-5.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="media/avatar-6.jpg" alt="" loading="lazy" /></span>
+            </div>
+            <span>Trusted by <strong>600+ editors</strong> worldwide</span>
           </div>
 
           <h1 class="hero__title">
-            The Future of Editing<br />
-            is <span class="grad grad--glow">Gated.</span>
+            Never Outreach Again.<br />
+            <span class="grad grad--glow">We Do the Hunting For You.</span>
           </h1>
 
           <p class="hero__lede">
@@ -93,7 +100,6 @@
             </header>
             <div class="job-card__price-row">
               <span class="job-card__price">$700</span>
-              <span class="chip chip--well-paid">WELL PAID</span>
             </div>
             <div class="job-card__tags">
               <span class="tag tag--cyan">LONG FORM</span>
@@ -109,7 +115,7 @@
             </div>
           </article>
 
-          <article class="job-card job-card--pos2">
+          <article class="job-card job-card--pos3 job-card--featured">
             <header class="job-card__head">
               <div class="job-card__title-block">
                 <h3 class="job-card__title">Full Time Editor</h3>
@@ -128,7 +134,6 @@
             </header>
             <div class="job-card__price-row">
               <span class="job-card__price">$1,000</span>
-              <span class="chip chip--well-paid">WELL PAID</span>
             </div>
             <div class="job-card__tags">
               <span class="tag tag--cyan">LONG FORM</span>
@@ -144,7 +149,7 @@
             </div>
           </article>
 
-          <article class="job-card job-card--pos3 job-card--featured">
+          <article class="job-card job-card--pos2">
             <header class="job-card__head">
               <div class="job-card__title-block">
                 <h3 class="job-card__title">Poker / Sports</h3>
@@ -163,7 +168,6 @@
             </header>
             <div class="job-card__price-row">
               <span class="job-card__price">$1,500<span class="job-card__price-unit">/month</span></span>
-              <span class="chip chip--well-paid">WELL PAID</span>
             </div>
             <div class="job-card__tags">
               <span class="tag tag--cyan">LONG FORM</span>
@@ -200,7 +204,6 @@
             </header>
             <div class="job-card__price-row">
               <span class="job-card__price">$750<span class="job-card__price-unit">/month</span></span>
-              <span class="chip chip--competitive">COMPETITIVE</span>
             </div>
             <div class="job-card__tags">
               <span class="tag tag--cyan">SHORT FORM</span>
@@ -237,7 +240,6 @@
             </header>
             <div class="job-card__price-row">
               <span class="job-card__price">$1,000<span class="job-card__price-unit">/month</span></span>
-              <span class="chip chip--competitive">COMPETITIVE</span>
             </div>
             <div class="job-card__tags">
               <span class="tag tag--cyan">LONG FORM</span>

@@ -113,35 +113,36 @@ button { font: inherit; cursor: pointer; }
 .btn--xl  { padding: 1.15rem 1.8rem; font-size: 1.1rem; border-radius: var(--radius-lg); }
 
 /* =========================================================
-   Nav
+   Nav — floating SaaS pill
    ========================================================= */
 .nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: hsl(240 20% 4% / .7);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid hsl(240 10% 15% / .6);
+  background: linear-gradient(180deg, hsl(240 20% 4% / .65), hsl(240 20% 4% / .35));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 .nav__inner {
   display: flex;
   align-items: center;
   gap: 1rem;
   height: 68px;
+  position: relative;
 }
 .nav__brand {
   display: inline-flex;
   align-items: center;
   gap: .65rem;
   font-weight: 700;
-  letter-spacing: .04em;
+  letter-spacing: -.005em;
+  z-index: 2;
 }
 .nav__logo-mark {
   display: inline-grid;
   place-items: center;
   width: 34px; height: 34px;
-  border-radius: 9px;
+  border-radius: 10px;
   background: linear-gradient(135deg, hsl(180 74% 63%), hsl(160 76% 56%));
   color: hsl(240 20% 4%);
   font-weight: 800;
@@ -150,20 +151,56 @@ button { font: inherit; cursor: pointer; }
   box-shadow: 0 8px 24px -8px hsl(180 74% 63% / .65);
 }
 .nav__logo-mark .plus { color: hsl(240 20% 4%); }
-.nav__logo-text { font-size: .82rem; }
+.nav__logo-text {
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--fg);
+}
 
-.nav__links {
-  margin-inline: auto;
+.nav__pill {
   display: none;
-  gap: 1.6rem;
-  font-size: .9rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  gap: .35rem;
+  padding: .45rem .55rem;
+  border-radius: 999px;
+  border: 1px solid hsl(0 0% 100% / .08);
+  background: hsl(240 15% 8% / .55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 0 0 1px hsl(0 0% 100% / .02) inset, 0 12px 30px -16px hsl(0 0% 0% / .8);
+}
+.nav__pill a {
+  padding: .45rem .85rem;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--fg-muted);
+  transition: color .2s ease, background .2s ease;
+}
+.nav__pill a:hover {
+  color: var(--fg);
+  background: hsl(0 0% 100% / .04);
+}
+@media (min-width: 980px) { .nav__pill { display: inline-flex; } }
+
+.nav__right {
+  display: none;
+  margin-left: auto;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+}
+.nav__signin {
+  font-size: .85rem;
+  font-weight: 500;
   color: var(--fg-muted);
 }
-.nav__links a:hover { color: var(--fg); }
-@media (min-width: 900px) { .nav__links { display: inline-flex; } }
-
-.nav__cta { display: none; }
-@media (min-width: 640px) { .nav__cta { display: inline-flex; } }
+.nav__signin:hover { color: var(--fg); }
+@media (min-width: 640px) { .nav__right { display: inline-flex; } }
+.nav__cta { display: inline-flex; }
 
 .nav__menu {
   display: inline-flex;
@@ -180,17 +217,20 @@ button { font: inherit; cursor: pointer; }
   background: var(--fg-muted);
   border-radius: 2px;
 }
-@media (min-width: 900px) { .nav__menu { display: none; } }
+@media (min-width: 980px) { .nav__menu { display: none; } }
 
 /* Mobile menu open */
-.nav.is-open .nav__links {
+.nav.is-open .nav__pill {
   display: flex;
   position: absolute;
   inset: 68px 0 auto 0;
   flex-direction: column;
   padding: 1rem 1.25rem 1.25rem;
   background: hsl(240 15% 6%);
-  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  transform: none;
+  left: 0;
+  border-top: 1px solid var(--border);
 }
 
 /* =========================================================
@@ -249,12 +289,12 @@ button { font: inherit; cursor: pointer; }
 .hero__grid {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(hsl(240 10% 15% / .55) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(240 10% 15% / .55) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at 50% 25%, black 0%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 0%, transparent 70%);
-  opacity: .35;
+    linear-gradient(hsl(240 10% 22% / .8) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(240 10% 22% / .8) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 35%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, black 0%, transparent 75%);
+  opacity: .55;
 }
 
 .hero__inner {
@@ -272,46 +312,45 @@ button { font: inherit; cursor: pointer; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: clamp(.65rem, 1.4vh, 1.1rem);
-  max-width: 880px;
+  gap: clamp(.6rem, 1.3vh, 1rem);
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-.eyebrow {
+/* Trusted-by pill (replaces eyebrow) */
+.trusted-pill {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: .4rem .9rem;
+  gap: .7rem;
+  padding: .35rem .85rem .35rem .55rem;
   border-radius: 999px;
-  border: 1px solid hsl(180 74% 63% / .28);
-  background:
-    linear-gradient(180deg, hsl(180 74% 63% / .08), transparent),
-    hsl(0 0% 100% / .02);
-  color: var(--primary);
-  font-size: .72rem;
-  font-weight: 600;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid hsl(0 0% 100% / .08);
+  background: hsl(240 15% 8% / .55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: .8rem;
+  color: var(--fg-muted);
 }
-.eyebrow__icon {
-  width: 14px; height: 14px;
-  color: var(--primary);
-  filter: drop-shadow(0 0 8px hsl(180 74% 63% / .9));
-  animation: sparkleSpin 8s linear infinite;
+.trusted-pill strong { color: var(--fg); font-weight: 600; }
+.trusted-pill .avatars { padding-left: 10px; }
+.trusted-pill .avatar {
+  width: 24px; height: 24px;
+  border: 2px solid hsl(240 20% 4%);
+  margin-left: -10px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--card);
+  display: inline-block;
 }
-@keyframes sparkleSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
+.trusted-pill .avatar:first-child { margin-left: 0; }
+.trusted-pill .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .hero__title {
   margin: 0;
-  font-size: clamp(2.4rem, 6.4vw, 5.5rem);
+  font-size: clamp(2.1rem, 5.4vw, 4.5rem);
   font-weight: 800;
   letter-spacing: -.03em;
-  line-height: 1.02;
+  line-height: 1.04;
   text-wrap: balance;
   color: hsl(0 0% 96%);
 }
@@ -377,26 +416,25 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Job card fan
+   Job card fan (decorative, non-interactive)
    ========================================================= */
 .hero__cards {
-  --card-w: 320px;
-  --card-h: 340px;
-  --offset-near: 200px;
-  --offset-far: 400px;
-  --rot-near: 7deg;
-  --rot-far: 14deg;
+  --card-w: 300px;
+  --card-h: 290px;
+  --offset-near: 195px;
+  --offset-far: 390px;
+  --rot-near: 6deg;
+  --rot-far: 12deg;
   position: relative;
   width: 100%;
-  height: clamp(220px, 32vh, 320px);
-  margin-top: auto;
-  margin-bottom: 0;
-  perspective: 1400px;
+  height: clamp(220px, 30vh, 280px);
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  pointer-events: none;
 }
 
 .job-card {
   position: absolute;
-  bottom: -60px;
+  top: 0;
   left: 50%;
   width: var(--card-w);
   height: var(--card-h);
@@ -404,28 +442,50 @@ button { font: inherit; cursor: pointer; }
   padding: 1.1rem 1.15rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: .7rem;
+  gap: .65rem;
   border-radius: 1.1rem;
   background:
-    radial-gradient(ellipse at top, hsl(180 74% 63% / .06), transparent 70%),
+    radial-gradient(ellipse at top, hsl(180 74% 63% / .05), transparent 70%),
     linear-gradient(180deg, hsl(240 15% 10%), hsl(240 15% 7%));
   border: 1px solid hsl(240 10% 18%);
   box-shadow:
     0 0 0 1px hsl(0 0% 100% / .02) inset,
     0 30px 60px -20px hsl(0 0% 0% / .8);
-  transform-origin: 50% 100%;
   font-size: .78rem;
   color: var(--fg-muted);
-  transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+  user-select: none;
   will-change: transform;
 }
 
-/* Fan positions */
-.job-card--pos1 { transform: translate(-50%, 56px) translateX(calc(-1 * var(--offset-far))) rotate(calc(-1 * var(--rot-far))); z-index: 1; opacity: .85; }
-.job-card--pos2 { transform: translate(-50%, 28px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); z-index: 2; opacity: .95; }
-.job-card--pos3 { transform: translate(-50%, -8px); z-index: 5; }
-.job-card--pos4 { transform: translate(-50%, 28px) translateX(var(--offset-near)) rotate(var(--rot-near)); z-index: 2; opacity: .95; }
-.job-card--pos5 { transform: translate(-50%, 56px) translateX(var(--offset-far)) rotate(var(--rot-far)); z-index: 1; opacity: .85; }
+/* Fan positions — anchored to top of container, fanning down + outward.
+   Each card has its own keyframe baking in rotation + position + a subtle
+   vertical float, so transforms compose cleanly without wrappers. */
+.job-card--pos1 { animation: floatPos1 7s ease-in-out infinite; z-index: 1; opacity: .85; }
+.job-card--pos2 { animation: floatPos2 6s ease-in-out infinite -1s; z-index: 2; opacity: .95; }
+.job-card--pos3 { animation: floatPos3 5s ease-in-out infinite -2s; z-index: 5; }
+.job-card--pos4 { animation: floatPos4 6s ease-in-out infinite -.5s; z-index: 2; opacity: .95; }
+.job-card--pos5 { animation: floatPos5 7s ease-in-out infinite -1.5s; z-index: 1; opacity: .85; }
+
+@keyframes floatPos1 {
+  0%,100% { transform: translate(-50%, 56px) translateX(calc(-1 * var(--offset-far))) rotate(calc(-1 * var(--rot-far))); }
+  50%     { transform: translate(-50%, 48px) translateX(calc(-1 * var(--offset-far))) rotate(calc(-1 * var(--rot-far))); }
+}
+@keyframes floatPos2 {
+  0%,100% { transform: translate(-50%, 28px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
+  50%     { transform: translate(-50%, 20px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
+}
+@keyframes floatPos3 {
+  0%,100% { transform: translate(-50%, -4px); }
+  50%     { transform: translate(-50%, -12px); }
+}
+@keyframes floatPos4 {
+  0%,100% { transform: translate(-50%, 28px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
+  50%     { transform: translate(-50%, 20px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
+}
+@keyframes floatPos5 {
+  0%,100% { transform: translate(-50%, 56px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
+  50%     { transform: translate(-50%, 48px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
+}
 
 .job-card--featured {
   border-color: hsl(180 74% 63% / .35);
@@ -438,16 +498,13 @@ button { font: inherit; cursor: pointer; }
     0 40px 80px -20px hsl(0 0% 0% / .8);
 }
 
-.hero__cards:hover .job-card { opacity: .55; }
-.hero__cards .job-card:hover {
-  opacity: 1;
-  z-index: 10;
-  transform: translate(-50%, -20px) scale(1.04);
-  border-color: hsl(180 74% 63% / .45);
-  box-shadow:
-    0 0 0 1px hsl(180 74% 63% / .2) inset,
-    0 0 80px -10px hsl(180 74% 63% / .5),
-    0 50px 100px -20px hsl(0 0% 0% / .9);
+@media (prefers-reduced-motion: reduce) {
+  .job-card { animation: none !important; }
+  .job-card--pos1 { transform: translate(-50%, 56px) translateX(calc(-1 * var(--offset-far))) rotate(calc(-1 * var(--rot-far))); }
+  .job-card--pos2 { transform: translate(-50%, 28px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
+  .job-card--pos3 { transform: translate(-50%, -4px); }
+  .job-card--pos4 { transform: translate(-50%, 28px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
+  .job-card--pos5 { transform: translate(-50%, 56px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
 }
 
 /* Card internals */
@@ -603,24 +660,24 @@ button { font: inherit; cursor: pointer; }
    ========================================================= */
 @media (max-width: 1280px) {
   .hero__cards {
-    --card-w: 300px;
-    --card-h: 320px;
+    --card-w: 280px;
+    --card-h: 280px;
     --offset-near: 175px;
-    --offset-far: 350px;
+    --offset-far: 345px;
   }
 }
 @media (max-width: 1024px) {
   .hero__cards {
-    --card-w: 280px;
-    --card-h: 300px;
-    --offset-near: 160px;
-    --offset-far: 320px;
+    --card-w: 270px;
+    --card-h: 270px;
+    --offset-near: 155px;
+    --offset-far: 305px;
   }
 }
 @media (max-width: 900px) {
   .hero__cards {
     --card-w: 280px;
-    --offset-near: 110px;
+    --offset-near: 130px;
     --offset-far: 0;
   }
   .job-card--pos1, .job-card--pos5 { display: none; }
@@ -630,10 +687,12 @@ button { font: inherit; cursor: pointer; }
   .hero__cards {
     --card-w: 280px;
     --offset-near: 0;
-    height: 280px;
+    height: 290px;
+    margin-top: 2rem;
   }
   .job-card--pos2, .job-card--pos4 { display: none; }
-  .job-card--pos3 { transform: translate(-50%, 0); }
+  /* On mobile, only show centered card without floating */
+  .job-card--pos3 { animation: none; transform: translate(-50%, 0); }
 }
 
 /* Standalone VSL section (was inline in hero) */

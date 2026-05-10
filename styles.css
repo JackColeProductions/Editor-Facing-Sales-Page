@@ -748,25 +748,44 @@ button { font: inherit; cursor: pointer; }
   z-index: 0;
 }
 
-/* Soft bloom shaft directly under the line */
+/* Wide bloom that connects the line to the panel.
+   Linear vertical fade for the down-direction softness, masked into an
+   ellipse so horizontal edges feather without hard rectangle boundaries. */
 .showcase__lights-bloom {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(440px, 60%, 880px);
+  width: min(95%, 1100px);
   height: 100%;
-  background:
-    /* Bright narrow shaft at the focal point */
-    radial-gradient(ellipse 9% 100% at 50% 0%,
-      hsl(180 100% 92% / .42),
-      hsl(180 74% 63% / .18) 35%,
-      transparent 72%),
-    /* Wide soft haze that fills the rest of the gap */
-    radial-gradient(ellipse 55% 100% at 50% 0%,
-      hsl(180 74% 63% / .18),
-      hsl(180 74% 63% / .05) 45%,
-      transparent 78%);
+  background: linear-gradient(180deg,
+    hsl(180 74% 63% / .25) 0%,
+    hsl(180 74% 63% / .14) 30%,
+    hsl(180 74% 63% / .05) 65%,
+    transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 100% at 50% 0%,
+    black 0%,
+    black 45%,
+    transparent 95%);
+          mask-image: radial-gradient(ellipse 60% 100% at 50% 0%,
+    black 0%,
+    black 45%,
+    transparent 95%);
+}
+
+/* Concentrated brighter focal glow directly under the line's hot spot */
+.showcase__lights-focal {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(280px, 35%, 520px);
+  height: 70%;
+  background: radial-gradient(ellipse 60% 100% at 50% 0%,
+    hsl(180 100% 92% / .55),
+    hsl(180 74% 73% / .25) 25%,
+    hsl(180 74% 63% / .08) 55%,
+    transparent 85%);
 }
 
 /* The hero: crisp 2px streak with rounded ends and a layered glow */
@@ -801,12 +820,13 @@ button { font: inherit; cursor: pointer; }
   width: 100%;
   height: auto;
   border-radius: clamp(.75rem, 1.2vw, 1.1rem);
-  border: 1px solid hsl(180 74% 63% / .25);
+  border: 1px solid hsl(180 74% 63% / .3);
   box-shadow:
-    /* Top inner glow — beams 'landing' on the panel */
-    inset 0 26px 70px -50px hsl(180 100% 96% / .65),
-    /* 1px highlight along the very top edge */
-    inset 0 1px 0 hsl(180 100% 92% / .45),
+    /* Top inner glow — bloom 'landing' on the panel */
+    inset 0 40px 100px -60px hsl(180 100% 96% / .9),
+    inset 0 60px 140px -80px hsl(180 74% 63% / .8),
+    /* Crisp top-edge highlight */
+    inset 0 1px 0 hsl(180 100% 92% / .65),
     /* Deep lift shadow */
     0 50px 100px -20px hsl(0 0% 0% / .9);
 }

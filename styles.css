@@ -749,48 +749,50 @@ button { font: inherit; cursor: pointer; }
   overflow: visible;
 }
 
-/* Wide soft bloom — fixed pixel height (480px) GUARANTEES the bloom
-   extends well past the image-top boundary (image starts at
-   padding-top ~216px from frame top, so 480px extends ~264px into the
-   image's vertical space). Vertical gradient holds opacity high through
-   the 60% mark so the cyan is still strong right where the panel top is.
-   mix-blend-mode:screen on the child itself = additive light on panel. */
+/* Wide bloom. Gradient PEAKS at 36% (which lands right at the image-top
+   boundary given a 600px height + image at ~216px from frame top), so
+   the brightest part of the bloom is where it meets the panel — that's
+   what makes the panel look 'lit.' Brightness stays high from 20-55%,
+   bridging the line area down to the panel without a dim middle.
+   mix-blend-mode:screen on the child = additive light on the panel. */
 .showcase__lights-bloom {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(82%, 980px);
-  height: 480px;
+  width: min(88%, 1040px);
+  height: 600px;
   background: linear-gradient(180deg,
-    hsl(180 74% 63% / .75) 0%,
-    hsl(180 74% 63% / .55) 18%,
-    hsl(180 74% 63% / .4) 35%,
-    hsl(180 74% 63% / .28) 50%,
-    hsl(180 74% 63% / .15) 70%,
-    hsl(180 74% 63% / .05) 90%,
+    hsl(180 74% 63% / .3) 0%,
+    hsl(180 74% 63% / .5) 18%,
+    hsl(180 74% 63% / .68) 36%,
+    hsl(180 74% 63% / .55) 52%,
+    hsl(180 74% 63% / .32) 68%,
+    hsl(180 74% 63% / .12) 84%,
     transparent 100%);
   border-radius: 50%;
-  filter: blur(50px);
+  filter: blur(48px);
   mix-blend-mode: screen;
 }
 
-/* Brighter concentrated focal directly under the line's hot center */
+/* Brighter concentrated focal directly under the line's hot center —
+   pulls the eye to the line as the apparent light source while the
+   bloom does the heavy lifting on the panel below. */
 .showcase__lights-focal {
   position: absolute;
-  top: -10px;
+  top: -4px;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(340px, 42%, 580px);
-  height: 320px;
+  width: clamp(320px, 38%, 540px);
+  height: 220px;
   background: linear-gradient(180deg,
-    hsl(180 100% 92% / .95) 0%,
-    hsl(180 74% 73% / .5) 25%,
-    hsl(180 74% 63% / .25) 50%,
-    hsl(180 74% 63% / .08) 75%,
+    hsl(180 100% 92% / .9) 0%,
+    hsl(180 100% 90% / .6) 25%,
+    hsl(180 74% 73% / .3) 50%,
+    hsl(180 74% 63% / .1) 75%,
     transparent 95%);
   border-radius: 50%;
-  filter: blur(30px);
+  filter: blur(26px);
   mix-blend-mode: screen;
 }
 

@@ -735,9 +735,9 @@ button { font: inherit; cursor: pointer; }
   padding-top: clamp(140px, 20vh, 220px);
 }
 
-/* Stage extends ~80px PAST the padding into the image's vertical space.
-   Image (z-index:1) covers that overlap so the bloom blends directly into
-   the panel top with no visible gap or cutoff. */
+/* Stage extends past the padding into the image's vertical space so the
+   bloom's lower fade is hidden behind the panel (z-index:1) — visually
+   blends with no gap or cutoff. */
 .showcase__lights {
   position: absolute;
   top: 0;
@@ -746,39 +746,45 @@ button { font: inherit; cursor: pointer; }
   height: calc(clamp(140px, 20vh, 220px) + 80px);
   pointer-events: none;
   z-index: 0;
+  overflow: visible;
 }
 
-/* Wide soft bloom — pure radial gradient (naturally feathered all around),
-   wide enough to span panel width, tall enough to extend past the visible
-   area so the fade never hits transparent within view. */
+/* Wide soft bloom — rounded element with vertical color fade and a
+   heavy gaussian blur. The blur is what feathers every edge to true
+   transparency (no abrupt boundary anywhere), which radial-gradient
+   alone can't pull off cleanly. */
 .showcase__lights-bloom {
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(95%, 1100px);
-  height: 100%;
-  background: radial-gradient(ellipse 90% 180% at 50% 0%,
-    hsl(180 74% 63% / .32) 0%,
-    hsl(180 74% 63% / .2) 22%,
-    hsl(180 74% 63% / .1) 48%,
-    hsl(180 74% 63% / .04) 75%,
+  width: min(75%, 920px);
+  height: 110%;
+  background: linear-gradient(180deg,
+    hsl(180 74% 63% / .55) 0%,
+    hsl(180 74% 63% / .3) 30%,
+    hsl(180 74% 63% / .14) 60%,
+    hsl(180 74% 63% / .06) 85%,
     transparent 100%);
+  border-radius: 50%;
+  filter: blur(42px);
 }
 
-/* Concentrated bright focal directly under the line's hot center */
+/* Brighter concentrated focal directly under the line's hot center */
 .showcase__lights-focal {
   position: absolute;
-  top: 0;
+  top: -6px;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(320px, 40%, 580px);
-  height: 60%;
-  background: radial-gradient(ellipse 70% 110% at 50% 0%,
-    hsl(180 100% 92% / .55),
-    hsl(180 74% 73% / .25) 25%,
-    hsl(180 74% 63% / .08) 60%,
-    transparent 92%);
+  width: clamp(300px, 36%, 520px);
+  height: 70%;
+  background: linear-gradient(180deg,
+    hsl(180 100% 92% / .75) 0%,
+    hsl(180 74% 73% / .35) 30%,
+    hsl(180 74% 63% / .1) 60%,
+    transparent 85%);
+  border-radius: 50%;
+  filter: blur(26px);
 }
 
 /* The hero: crisp 2px streak with rounded ends and a layered glow */

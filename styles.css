@@ -194,10 +194,18 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Hero
+   Hero — locked to viewport, two-column above 900px
    ========================================================= */
-.hero { position: relative; padding: 6rem 0 5rem; overflow: hidden; }
-@media (min-width: 768px) { .hero { padding: 8rem 0 7rem; } }
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  /* Lock hero to viewport minus sticky nav (68px) so everything
+     is visible without scrolling on standard device sizes. */
+  min-height: calc(100svh - 68px);
+  padding: 1.5rem 0;
+}
 
 .hero__bg {
   position: absolute; inset: 0;
@@ -231,11 +239,32 @@ button { font: inherit; cursor: pointer; }
 
 .hero__inner {
   position: relative;
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+@media (min-width: 900px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 2.5rem;
+  }
+}
+@media (min-width: 1200px) {
+  .hero__inner { gap: 3.5rem; }
+}
+
+.hero__content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  text-align: center;
+  gap: 1rem;
+  min-width: 0;
+}
+@media (min-width: 900px) {
+  .hero__content { align-items: flex-start; text-align: left; }
 }
 
 .eyebrow {
@@ -247,7 +276,7 @@ button { font: inherit; cursor: pointer; }
   border: 1px solid var(--border);
   background: hsl(0 0% 100% / .03);
   color: var(--fg-muted);
-  font-size: .8rem;
+  font-size: .78rem;
   letter-spacing: .02em;
 }
 .eyebrow .dot {
@@ -259,7 +288,7 @@ button { font: inherit; cursor: pointer; }
 
 .hero__title {
   margin: 0;
-  font-size: clamp(2.5rem, 7vw, 5.25rem);
+  font-size: clamp(2rem, 4.6vw, 4.25rem);
   font-weight: 800;
   letter-spacing: -.02em;
   line-height: .98;
@@ -267,34 +296,85 @@ button { font: inherit; cursor: pointer; }
 }
 .hero__sub {
   margin: 0;
-  font-size: clamp(1rem, 2.4vw, 1.5rem);
+  font-size: clamp(.9rem, 1.4vw, 1.15rem);
   font-weight: 700;
   letter-spacing: .14em;
   color: var(--fg-muted);
 }
 .hero__lede {
   margin: 0;
-  max-width: 640px;
+  max-width: 540px;
   color: var(--fg-muted);
-  font-size: 1.05rem;
+  font-size: clamp(.95rem, 1.1vw, 1.05rem);
 }
 .hero__ctas {
   display: flex;
   flex-wrap: wrap;
   gap: .75rem;
-  justify-content: center;
-  margin-top: .5rem;
+  margin-top: .25rem;
 }
 .hero__proof {
   display: flex;
   align-items: center;
-  gap: .85rem;
-  margin-top: 1.5rem;
+  gap: .75rem;
+  margin-top: .5rem;
   color: var(--fg-dim);
-  font-size: .9rem;
+  font-size: .85rem;
 }
+.hero__proof p { margin: 0; }
 .hero__proof strong { color: var(--fg); font-weight: 600; }
 .avatars { display: inline-flex; }
+
+/* ---- VSL card (right column) ---- */
+.hero__media { min-width: 0; width: 100%; }
+
+.vsl {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(180 74% 63% / .25);
+  background: linear-gradient(180deg, hsl(180 74% 63% / .06), hsl(240 15% 8% / .6));
+  box-shadow:
+    0 0 0 1px hsl(180 74% 63% / .1) inset,
+    0 30px 80px -30px hsl(180 74% 63% / .35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow: hidden;
+}
+.vsl__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: .85rem 1rem;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: clamp(.8rem, 1vw, .95rem);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, hsl(180 74% 63% / .12), transparent);
+  border-bottom: 1px solid hsl(180 74% 63% / .15);
+}
+.vsl__header svg { width: 18px; height: 18px; }
+.vsl__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: hsl(240 20% 3%);
+}
+.vsl__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* On smaller screens, drop the strict viewport lock so content
+   doesn't get squeezed, but keep proportions clean. */
+@media (max-width: 899px) {
+  .hero { min-height: 0; padding: 2.5rem 0 3rem; }
+  .hero__proof { justify-content: center; }
+}
 .avatar {
   width: 30px; height: 30px;
   border-radius: 50%;

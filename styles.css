@@ -735,9 +735,9 @@ button { font: inherit; cursor: pointer; }
   padding-top: clamp(140px, 20vh, 220px);
 }
 
-/* Stage extends past the padding into the image's vertical space so the
-   bloom's lower fade is hidden behind the panel (z-index:1) — visually
-   blends with no gap or cutoff. */
+/* Stage sits ABOVE the image with mix-blend-mode:screen so the bloom
+   visibly extends onto the panel — light is added to the panel pixels,
+   not painted over them. This is what kills the gap. */
 .showcase__lights {
   position: absolute;
   top: 0;
@@ -745,46 +745,46 @@ button { font: inherit; cursor: pointer; }
   right: 0;
   height: calc(clamp(140px, 20vh, 220px) + 80px);
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
   overflow: visible;
+  mix-blend-mode: screen;
 }
 
 /* Wide soft bloom — rounded element with vertical color fade and a
-   heavy gaussian blur. The blur is what feathers every edge to true
-   transparency (no abrupt boundary anywhere), which radial-gradient
-   alone can't pull off cleanly. */
+   heavy gaussian blur. Height set to extend ~130px past the lights
+   container so it bleeds onto the image's top region. */
 .showcase__lights-bloom {
   position: absolute;
   top: 4px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(75%, 920px);
-  height: 110%;
+  width: min(78%, 950px);
+  height: 145%;
   background: linear-gradient(180deg,
-    hsl(180 74% 63% / .55) 0%,
-    hsl(180 74% 63% / .3) 30%,
-    hsl(180 74% 63% / .14) 60%,
-    hsl(180 74% 63% / .06) 85%,
+    hsl(180 74% 63% / .65) 0%,
+    hsl(180 74% 63% / .38) 25%,
+    hsl(180 74% 63% / .22) 50%,
+    hsl(180 74% 63% / .1) 75%,
     transparent 100%);
   border-radius: 50%;
-  filter: blur(42px);
+  filter: blur(46px);
 }
 
 /* Brighter concentrated focal directly under the line's hot center */
 .showcase__lights-focal {
   position: absolute;
-  top: -6px;
+  top: -8px;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(300px, 36%, 520px);
-  height: 70%;
+  width: clamp(320px, 38%, 540px);
+  height: 95%;
   background: linear-gradient(180deg,
-    hsl(180 100% 92% / .75) 0%,
-    hsl(180 74% 73% / .35) 30%,
-    hsl(180 74% 63% / .1) 60%,
-    transparent 85%);
+    hsl(180 100% 92% / .85) 0%,
+    hsl(180 74% 73% / .4) 30%,
+    hsl(180 74% 63% / .15) 60%,
+    transparent 88%);
   border-radius: 50%;
-  filter: blur(26px);
+  filter: blur(28px);
 }
 
 /* The hero: crisp 2px streak with rounded ends and a layered glow */
@@ -819,14 +819,12 @@ button { font: inherit; cursor: pointer; }
   width: 100%;
   height: auto;
   border-radius: clamp(.75rem, 1.2vw, 1.1rem);
-  border: 1px solid hsl(180 74% 63% / .3);
+  border: 1px solid hsl(180 74% 63% / .22);
+  /* The cyan glow on top of the image is now provided by .showcase__lights
+     (z-index:2, mix-blend-mode:screen). We just need a subtle top edge
+     highlight and a deep lift shadow. */
   box-shadow:
-    /* Top inner glow — bloom 'landing' on the panel */
-    inset 0 40px 100px -60px hsl(180 100% 96% / .9),
-    inset 0 60px 140px -80px hsl(180 74% 63% / .8),
-    /* Crisp top-edge highlight */
-    inset 0 1px 0 hsl(180 100% 92% / .65),
-    /* Deep lift shadow */
+    inset 0 1px 0 hsl(180 100% 92% / .35),
     0 50px 100px -20px hsl(0 0% 0% / .9);
 }
 

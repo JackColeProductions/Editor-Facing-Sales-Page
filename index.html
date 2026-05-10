@@ -118,24 +118,42 @@
       </div>
     </section>
 
-    <!-- ============ LOGO STRIP / STATS ============ -->
+    <!-- ============ STATS ============ -->
     <section class="stats">
       <div class="container stats__grid">
         <div class="stat">
-          <div class="stat__num">600<span class="plus">+</span></div>
-          <div class="stat__label">Elite Editors</div>
+          <div class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="stat__num"><span class="grad">600<span class="plus">+</span></span></div>
+          <div class="stat__label">Active Members</div>
+        </div>
+        <div class="stat stat--featured">
+          <div class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6"/>
+              <path d="M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5a6 6 0 0 0 12 0v-5"/>
+            </svg>
+          </div>
+          <div class="stat__num"><span class="grad">$2,000,000<span class="plus">+</span></span></div>
+          <div class="stat__label">Total Student Earnings</div>
         </div>
         <div class="stat">
-          <div class="stat__num">$10K<span class="plus">+</span></div>
-          <div class="stat__label">Mentors Making/mo</div>
-        </div>
-        <div class="stat">
-          <div class="stat__num">0</div>
-          <div class="stat__label">Outreach Required</div>
-        </div>
-        <div class="stat">
-          <div class="stat__num">24/7</div>
-          <div class="stat__label">Vetted Job Board</div>
+          <div class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="8.5" cy="7" r="4"/>
+              <path d="m17 11 2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="stat__num"><span class="grad">4,000<span class="plus">+</span></span></div>
+          <div class="stat__label">Clients Landed</div>
         </div>
       </div>
     </section>
@@ -304,20 +322,50 @@
     <section class="section wins">
       <div class="container">
         <header class="section__head">
-          <span class="kicker">VP+ WINS</span>
-          <h2 class="section__title">VP+ has helped hundreds of <span class="grad">video editors</span> land clients.</h2>
-          <p class="section__lede">A wall of student wins, screenshots, and "made-the-membership-back" moments.</p>
+          <span class="kicker">REAL MEMBER WINS</span>
+          <h2 class="section__title">Real editors. <span class="grad">Real wins.</span></h2>
+          <p class="section__lede">Pulled straight from our community. No filters, no fluff.</p>
         </header>
+
         <div class="wins__grid">
-          <!-- Placeholders — drop in real screenshots later -->
-          <figure class="win"><div class="win__ph">Win #1</div></figure>
-          <figure class="win"><div class="win__ph">Win #2</div></figure>
-          <figure class="win"><div class="win__ph">Win #3</div></figure>
-          <figure class="win"><div class="win__ph">Win #4</div></figure>
-          <figure class="win"><div class="win__ph">Win #5</div></figure>
-          <figure class="win"><div class="win__ph">Win #6</div></figure>
-          <figure class="win"><div class="win__ph">Win #7</div></figure>
-          <figure class="win"><div class="win__ph">Win #8</div></figure>
+          <article class="win-card">
+            <div class="win-card__head">
+              <span class="win-card__num">01</span>
+              <span class="win-card__tag">Career</span>
+            </div>
+            <h3 class="win-card__title">They <span class="grad">quit their 9–5.</span></h3>
+            <p class="win-card__copy">Editors going full-time on their craft — straight out of the community wins channel.</p>
+            <div class="win-card__media">
+              <div class="win-card__halo" aria-hidden="true"></div>
+              <img src="media/quit%209-5.png" alt="Discord screenshot: 'I QUIT MY 9-5 JOB' posted in #wins-channel" loading="lazy" />
+            </div>
+          </article>
+
+          <article class="win-card win-card--featured">
+            <div class="win-card__head">
+              <span class="win-card__num">02</span>
+              <span class="win-card__tag">Clients</span>
+            </div>
+            <h3 class="win-card__title">They <span class="grad">land dream clients.</span></h3>
+            <p class="win-card__copy">From FaZe to founder-led brands — members signing the names they used to dream about.</p>
+            <div class="win-card__media">
+              <div class="win-card__halo" aria-hidden="true"></div>
+              <img src="media/land%20dream%20clients.png" alt="Member message: 'Working with FaZe — LESSS GOOOOO'" loading="lazy" />
+            </div>
+          </article>
+
+          <article class="win-card">
+            <div class="win-card__head">
+              <span class="win-card__num">03</span>
+              <span class="win-card__tag">Income</span>
+            </div>
+            <h3 class="win-card__title">They <span class="grad">get paid more.</span></h3>
+            <p class="win-card__copy">Real PayPal receipts. Real budgets. The kind of pay public job boards never deliver.</p>
+            <div class="win-card__media">
+              <div class="win-card__halo" aria-hidden="true"></div>
+              <img src="media/get%20paid%20more.png" alt="PayPal notifications: $3,000 USD and €1,899 EUR received" loading="lazy" />
+            </div>
+          </article>
         </div>
       </div>
     </section>

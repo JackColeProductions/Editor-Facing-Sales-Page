@@ -38,82 +38,221 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero">
+      <div class="hero__beam" aria-hidden="true"></div>
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__glow hero__glow--1"></div>
         <div class="hero__glow hero__glow--2"></div>
         <div class="hero__grid"></div>
       </div>
+
       <div class="container hero__inner">
         <div class="hero__content">
           <div class="eyebrow">
             <svg class="eyebrow__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>
+              <path d="m12 2-1.5 6L4 9.5l6.5 1.5L12 17l1.5-6L20 9.5l-6.5-1.5L12 2z"/>
+              <path d="M19 14.5 19.6 17 22 17.6 19.6 18.2 19 21l-.6-2.8L16 17.6l2.4-.6.6-2.5z" opacity=".7"/>
             </svg>
-            <span>Top 1% editors. Bottom 99% economy.</span>
+            <span>NEW · 4,000+ clients landed inside</span>
           </div>
+
           <h1 class="hero__title">
-            Never Outreach Again.<br />
-            <span class="grad grad--glow">We Do the Hunting For You.</span><span class="caret-blink" aria-hidden="true"></span>
+            The Future of Editing<br />
+            is <span class="grad grad--glow">Gated.</span>
           </h1>
-          <p class="hero__sub">For Editors. By Editors.</p>
+
           <p class="hero__lede">
-            The only gated marketplace where high-ticket clients hunt for <em>you</em>.
-            Zero outreach. Premium projects. <strong>600+ elite editors</strong> already inside.
+            The exclusive marketplace where high-ticket clients post jobs directly to <strong>600+ vetted editors</strong>. Zero outreach. Premium budgets.
           </p>
-          <div class="hero__ctas">
-            <a class="btn btn--primary btn--lg btn--glow" href="#apply">
-              Give Me Access!
+
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--xl btn--glow" href="#apply">
+              Give Me Access
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
             </a>
-            <a class="btn btn--ghost btn--lg" href="#vp-way">See How It Works</a>
-          </div>
-          <div class="hero__proof">
-            <div class="avatars" aria-hidden="true">
-              <span class="avatar"><img src="media/avatar-1.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/avatar-2.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/avatar-3.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/avatar-4.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/avatar-5.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/avatar-6.jpg" alt="" loading="lazy" /></span>
-            </div>
-            <div class="hero__proof-text">
-              <span class="hero__proof-live"><span class="pulse"></span> Active right now</span>
-              <p><strong>600+ editors</strong> landing high-ticket clients every week.</p>
-            </div>
           </div>
         </div>
 
-        <div class="hero__media">
-          <div class="vsl">
-            <div class="vsl__header">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-              </svg>
-              <span>PLAY THIS WITH SOUND ON</span>
+        <!-- Job card fan -->
+        <div class="hero__cards" aria-hidden="false">
+          <article class="job-card job-card--pos1">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Vanlife Content Editor</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#3ad29f">S</span>
+                  <span>Sami S</span>
+                  <span class="job-card__dot">·</span>
+                  <span>2d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>One-Off</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$700</span>
+              <span class="chip chip--well-paid">WELL PAID</span>
             </div>
-            <div class="vsl__frame">
-              <video
-                class="vsl__video"
-                controls
-                preload="metadata"
-                playsinline
-                src="media/Marketplace%20VSL%20v1222.mp4"
-              ></video>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--neutral">2 videos</span>
+              <span class="tag tag--violet">Travel</span>
+              <span class="tag tag--violet">Documentary</span>
             </div>
-          </div>
+            <p class="job-card__desc">YouTube long form + short form (Reels, Shorts, TikToks) editing for a Travel brand…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
 
-          <!-- Single floating notification (decorative) -->
-          <div class="hero__notif hero__notif--bottom" aria-hidden="true">
-            <div class="hero__notif-icon hero__notif-icon--mint">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <article class="job-card job-card--pos2">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Full Time Editor</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#5cb1ff">G</span>
+                  <span>Gage Andrews</span>
+                  <span class="job-card__dot">·</span>
+                  <span>3d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>One-Off</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$1,000</span>
+              <span class="chip chip--well-paid">WELL PAID</span>
             </div>
-            <div class="hero__notif-body">
-              <span class="hero__notif-eyebrow hero__notif-eyebrow--mint">APPLICATION ACCEPTED</span>
-              <strong>Gaming Channel · Recurring</strong>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--violet">Real Estate</span>
+              <span class="tag tag--violet">Ecom</span>
+              <span class="tag tag--cyan">Video Editing</span>
             </div>
-          </div>
+            <p class="job-card__desc">Editor who understands Real Estate, Ecom, and Education. YouTube long form + short form…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos3 job-card--featured">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Poker / Sports</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#e4669b">M</span>
+                  <span>Marin Ivanov</span>
+                  <span class="job-card__dot">·</span>
+                  <span>5d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$1,500<span class="job-card__price-unit">/month</span></span>
+              <span class="chip chip--well-paid">WELL PAID</span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--violet">Entertainment</span>
+              <span class="tag tag--violet">Other</span>
+              <span class="tag tag--cyan">B-Roll &amp; Visuals</span>
+              <span class="tag tag--cyan">Sound Design</span>
+              <span class="tag tag--cyan">Repurposing</span>
+              <span class="tag tag--neutral">+1</span>
+            </div>
+            <p class="job-card__desc">Skilled editor for long-form Poker and Sports content. B-roll, sound design, repurposing…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos4">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Short Form Editor — Organic + Meta Ads</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#5b8bff">J</span>
+                  <span>Jabez Collective</span>
+                  <span class="job-card__dot">·</span>
+                  <span>12d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$750<span class="job-card__price-unit">/month</span></span>
+              <span class="chip chip--competitive">COMPETITIVE</span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--neutral">5 videos</span>
+              <span class="tag tag--violet">Health &amp; Wellness</span>
+              <span class="tag tag--cyan">Hooks/Intros</span>
+              <span class="tag tag--cyan">Sound Design</span>
+              <span class="tag tag--neutral">+1</span>
+            </div>
+            <p class="job-card__desc">Editor who understands Health &amp; Wellness and Home Service brands. Short form + Meta ads…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos5">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Private School Videos</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#7c5cff">H</span>
+                  <span>Hassen Rasool</span>
+                  <span class="job-card__dot">·</span>
+                  <span>12d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$1,000<span class="job-card__price-unit">/month</span></span>
+              <span class="chip chip--competitive">COMPETITIVE</span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--neutral">3 videos</span>
+              <span class="tag tag--violet">Marketing</span>
+              <span class="tag tag--violet">Business</span>
+              <span class="tag tag--cyan">Basic Editing</span>
+              <span class="tag tag--cyan">Sound Design</span>
+            </div>
+            <p class="job-card__desc">YouTube long form, talking head, documentary, ad content for Marketing &amp; Education niches…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -154,6 +293,30 @@
           </div>
           <div class="stat__num"><span class="grad">4,000<span class="plus">+</span></span></div>
           <div class="stat__label">Clients Landed</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VSL ============ -->
+    <section class="section vsl-section">
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">SEE INSIDE</span>
+          <h2 class="section__title">Watch the <span class="grad">marketplace</span> in action.</h2>
+          <p class="section__lede">A 2-minute walkthrough of the dashboard, the job board, and the wins.</p>
+        </header>
+        <div class="vsl">
+          <div class="vsl__header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            </svg>
+            <span>PLAY THIS WITH SOUND ON</span>
+          </div>
+          <div class="vsl__frame">
+            <video class="vsl__video" controls preload="metadata" playsinline src="media/Marketplace%20VSL%20v1222.mp4"></video>
+          </div>
         </div>
       </div>
     </section>

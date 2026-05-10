@@ -257,42 +257,49 @@
       </div>
     </section>
 
-    <!-- ============ STATS ============ -->
-    <section class="stats">
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats" aria-label="Marketplace stats">
+      <div class="stats__beam" aria-hidden="true"></div>
       <div class="container stats__grid">
         <div class="stat">
-          <div class="stat__icon" aria-hidden="true">
+          <span class="stat__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
               <circle cx="9" cy="7" r="4"/>
               <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">600<span class="plus">+</span></div>
+            <div class="stat__label">Active Members</div>
           </div>
-          <div class="stat__num"><span class="grad">600<span class="plus">+</span></span></div>
-          <div class="stat__label">Active Members</div>
         </div>
-        <div class="stat stat--featured">
-          <div class="stat__icon" aria-hidden="true">
+        <div class="stat">
+          <span class="stat__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 10v6"/>
               <path d="M2 10l10-5 10 5-10 5z"/>
               <path d="M6 12v5a6 6 0 0 0 12 0v-5"/>
             </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">$2,000,000<span class="plus">+</span></div>
+            <div class="stat__label">Total Student Earnings</div>
           </div>
-          <div class="stat__num"><span class="grad">$2,000,000<span class="plus">+</span></span></div>
-          <div class="stat__label">Total Student Earnings</div>
         </div>
         <div class="stat">
-          <div class="stat__icon" aria-hidden="true">
+          <span class="stat__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
               <circle cx="8.5" cy="7" r="4"/>
               <path d="m17 11 2 2 4-4"/>
             </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">4,000<span class="plus">+</span></div>
+            <div class="stat__label">Clients Landed</div>
           </div>
-          <div class="stat__num"><span class="grad">4,000<span class="plus">+</span></span></div>
-          <div class="stat__label">Clients Landed</div>
         </div>
       </div>
     </section>

@@ -370,15 +370,14 @@ button { font: inherit; cursor: pointer; }
   position: relative;
 }
 
-/* Hero CTA — glossy gradient pill with neon halo + sheen */
+/* Glossy gradient pill with neon halo + sheen — works at any size.
+   Sizing comes from .btn / .btn--xl / .nav__cta separately. */
 .btn--glow {
   position: relative;
   isolation: isolate;
-  padding: 1.15rem 2rem;
-  font-size: 1.05rem;
+  border-radius: 999px;
   font-weight: 700;
   letter-spacing: -.005em;
-  border-radius: 999px;
   color: hsl(240 25% 6%);
   background:
     linear-gradient(180deg, hsl(180 80% 80%) 0%, hsl(180 74% 63%) 45%, hsl(160 76% 56%) 100%);
@@ -387,9 +386,9 @@ button { font: inherit; cursor: pointer; }
     /* top inner glossy highlight */
     inset 0 1px 0 hsl(0 0% 100% / .55),
     /* outer halo */
-    0 0 0 6px hsl(180 74% 63% / .12),
-    0 0 60px -10px hsl(180 74% 63% / .9),
-    0 22px 60px -10px hsl(180 74% 63% / .65);
+    0 0 0 4px hsl(180 74% 63% / .14),
+    0 0 38px -8px hsl(180 74% 63% / .85),
+    0 14px 40px -10px hsl(180 74% 63% / .55);
   transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
 }
 .btn--glow svg { width: 18px; height: 18px; }
@@ -409,18 +408,31 @@ button { font: inherit; cursor: pointer; }
 .btn--glow::after {
   content: "";
   position: absolute;
-  inset: -60%;
+  inset: -55%;
   border-radius: inherit;
   background:
-    radial-gradient(ellipse at center, hsl(180 74% 63% / .55), transparent 55%);
-  filter: blur(36px);
+    radial-gradient(ellipse at center, hsl(180 74% 63% / .5), transparent 55%);
+  filter: blur(30px);
   z-index: -2;
   pointer-events: none;
-  opacity: .95;
+  opacity: .9;
 }
 .btn--glow:hover {
   transform: translateY(-1px);
   filter: brightness(1.06) saturate(1.05);
+}
+
+/* Larger halo & padding for the hero-scale CTA */
+.btn--glow.btn--xl {
+  padding: 1.15rem 2rem;
+  font-size: 1.05rem;
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / .55),
+    0 0 0 6px hsl(180 74% 63% / .12),
+    0 0 60px -10px hsl(180 74% 63% / .9),
+    0 22px 60px -10px hsl(180 74% 63% / .65);
+}
+.btn--glow.btn--xl:hover {
   box-shadow:
     inset 0 1px 0 hsl(0 0% 100% / .65),
     0 0 0 8px hsl(180 74% 63% / .18),
@@ -440,8 +452,10 @@ button { font: inherit; cursor: pointer; }
   --rot-far: 12deg;
   position: relative;
   width: 100%;
-  height: clamp(220px, 30vh, 280px);
-  margin-top: clamp(2rem, 5vh, 3.5rem);
+  height: clamp(180px, 26vh, 240px);
+  /* Pinned to the bottom of the hero so cards extend below the viewport
+     edge and the hero's overflow:hidden clips them uniformly. */
+  margin-top: auto;
   pointer-events: none;
 }
 
@@ -488,8 +502,8 @@ button { font: inherit; cursor: pointer; }
   50%     { transform: translate(-50%, 20px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
 }
 @keyframes floatPos3 {
-  0%,100% { transform: translate(-50%, -4px); }
-  50%     { transform: translate(-50%, -12px); }
+  0%,100% { transform: translate(-50%, 16px); }
+  50%     { transform: translate(-50%, 8px); }
 }
 @keyframes floatPos4 {
   0%,100% { transform: translate(-50%, 28px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
@@ -515,7 +529,7 @@ button { font: inherit; cursor: pointer; }
   .job-card { animation: none !important; }
   .job-card--pos1 { transform: translate(-50%, 56px) translateX(calc(-1 * var(--offset-far))) rotate(calc(-1 * var(--rot-far))); }
   .job-card--pos2 { transform: translate(-50%, 28px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
-  .job-card--pos3 { transform: translate(-50%, -4px); }
+  .job-card--pos3 { transform: translate(-50%, 12px); }
   .job-card--pos4 { transform: translate(-50%, 28px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
   .job-card--pos5 { transform: translate(-50%, 56px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
 }
@@ -572,12 +586,6 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   align-items: center;
   gap: .55rem;
-}
-/* Right-aligned price for the right-side fan cards so it stays visible
-   when the left half of the card sits behind the center card. */
-.job-card--pos4 .job-card__price-row,
-.job-card--pos5 .job-card__price-row {
-  justify-content: flex-end;
 }
 .job-card__price {
   color: var(--mint);

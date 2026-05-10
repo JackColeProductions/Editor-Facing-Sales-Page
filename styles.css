@@ -735,73 +735,63 @@ button { font: inherit; cursor: pointer; }
   padding-top: clamp(140px, 20vh, 220px);
 }
 
-/* Stage that holds the light. Three layered radial blooms stacked as
-   background images give a smooth, volumetric spotlight feel. */
+/* Stage that holds the light. Two children stacked deliberately:
+   bloom (radial, soft) underneath, line (linear + box-shadow, crisp) on top.
+   Keeping it to two layers prevents the wash-out from earlier attempts. */
 .showcase__lights {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
+  left: 0;
+  right: 0;
   height: clamp(140px, 20vh, 220px);
   pointer-events: none;
   z-index: 0;
-  background:
-    /* Tight bright spotlight cone at center */
-    radial-gradient(ellipse 24% 90% at 50% 0%,
-      hsl(180 90% 88% / .35),
-      hsl(180 74% 63% / .18) 30%,
-      transparent 65%),
-    /* Wider mid-density bloom */
-    radial-gradient(ellipse 50% 100% at 50% 0%,
-      hsl(180 74% 63% / .28),
-      hsl(180 74% 63% / .08) 40%,
-      transparent 72%),
-    /* Soft outer haze that ties into the image edge */
-    radial-gradient(ellipse 85% 100% at 50% 0%,
-      hsl(180 74% 63% / .1),
-      transparent 75%);
 }
 
-/* Crisp horizontal hairline with a hot white-cyan focal center */
-.showcase__lights::before {
-  content: "";
+/* Soft bloom shaft directly under the line */
+.showcase__lights-bloom {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(92%, 1100px);
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    hsl(180 74% 63% / .12) 8%,
-    hsl(180 74% 63% / .55) 32%,
-    hsl(180 100% 96%) 50%,
-    hsl(180 74% 63% / .55) 68%,
-    hsl(180 74% 63% / .12) 92%,
-    transparent 100%);
-  box-shadow:
-    0 0 4px hsl(180 100% 96% / .95),
-    0 0 16px hsl(180 74% 63% / .85),
-    0 0 42px hsl(180 74% 63% / .5),
-    0 0 90px hsl(180 74% 63% / .25);
+  width: clamp(440px, 60%, 880px);
+  height: 100%;
+  background:
+    /* Bright narrow shaft at the focal point */
+    radial-gradient(ellipse 9% 100% at 50% 0%,
+      hsl(180 100% 92% / .42),
+      hsl(180 74% 63% / .18) 35%,
+      transparent 72%),
+    /* Wide soft haze that fills the rest of the gap */
+    radial-gradient(ellipse 55% 100% at 50% 0%,
+      hsl(180 74% 63% / .18),
+      hsl(180 74% 63% / .05) 45%,
+      transparent 78%);
 }
 
-/* Concentrated brighter glow right at the focal point of the hairline */
-.showcase__lights::after {
-  content: "";
+/* The hero: crisp 2px streak with rounded ends and a layered glow */
+.showcase__lights-line {
   position: absolute;
-  top: -8px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: clamp(260px, 30vw, 420px);
-  height: clamp(80px, 12vh, 140px);
-  background:
-    radial-gradient(ellipse 50% 70% at 50% 30%,
-      hsl(180 100% 92% / .55),
-      hsl(180 74% 73% / .22) 35%,
-      transparent 65%);
-  filter: blur(6px);
+  width: min(92%, 1050px);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    hsl(180 74% 63% / .25) 12%,
+    hsl(180 90% 90% / .95) 45%,
+    hsl(180 100% 96%) 50%,
+    hsl(180 90% 90% / .95) 55%,
+    hsl(180 74% 63% / .25) 88%,
+    transparent 100%);
+  box-shadow:
+    0 0 3px hsl(180 100% 96%),
+    0 0 10px hsl(180 100% 92% / .9),
+    0 0 26px hsl(180 74% 63% / .7),
+    0 0 60px hsl(180 74% 63% / .38),
+    0 0 120px hsl(180 74% 63% / .18);
 }
 
 .showcase__img {
@@ -813,12 +803,10 @@ button { font: inherit; cursor: pointer; }
   border-radius: clamp(.75rem, 1.2vw, 1.1rem);
   border: 1px solid hsl(180 74% 63% / .25);
   box-shadow:
-    /* Inner top glow — beams 'hitting' the panel */
-    inset 0 30px 70px -50px hsl(180 100% 96% / .75),
+    /* Top inner glow — beams 'landing' on the panel */
+    inset 0 26px 70px -50px hsl(180 100% 96% / .65),
     /* 1px highlight along the very top edge */
-    inset 0 1px 0 hsl(180 100% 92% / .55),
-    /* Cyan halo bleeding up to meet the bloom above */
-    0 -16px 70px -20px hsl(180 74% 63% / .55),
+    inset 0 1px 0 hsl(180 100% 92% / .45),
     /* Deep lift shadow */
     0 50px 100px -20px hsl(0 0% 0% / .9);
 }

@@ -720,6 +720,81 @@ button { font: inherit; cursor: pointer; }
   .job-card--pos3 { animation: none; transform: translate(-50%, 0); }
 }
 
+/* =========================================================
+   Marketplace showcase (screenshot with glow streak above)
+   ========================================================= */
+.showcase { padding-top: clamp(4rem, 8vh, 6rem); }
+.showcase__head { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+
+.showcase__frame {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: clamp(60px, 8vh, 90px);
+}
+
+/* Codexa-style glow streak above the image */
+.showcase__streak {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 880px;
+  height: 1px;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      hsl(180 74% 63% / .15) 18%,
+      hsl(180 74% 73% / .95) 50%,
+      hsl(180 74% 63% / .15) 82%,
+      transparent 100%);
+  pointer-events: none;
+}
+/* Bright source point above the line, with the radial glow that
+   lights up the area between the streak and the image */
+.showcase__streak::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0;
+  width: 200px; height: 1px;
+  transform: translate(-50%, 0);
+  background: linear-gradient(90deg, transparent, hsl(180 90% 92%), transparent);
+  filter: blur(.4px);
+  box-shadow:
+    0 0 8px 0 hsl(180 90% 92% / .9),
+    0 0 24px 0 hsl(180 74% 63% / .6);
+}
+/* Soft downward bloom below the streak */
+.showcase__streak::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 0;
+  width: 600px; height: 200px;
+  transform: translate(-50%, 0);
+  background:
+    radial-gradient(ellipse 50% 100% at 50% 0%,
+      hsl(180 74% 63% / .25),
+      hsl(180 74% 63% / .08) 35%,
+      transparent 65%);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.showcase__img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: clamp(.75rem, 1.2vw, 1.1rem);
+  border: 1px solid hsl(180 74% 63% / .2);
+  box-shadow:
+    0 0 0 1px hsl(180 74% 63% / .08) inset,
+    0 -20px 60px -30px hsl(180 74% 63% / .5),
+    0 40px 80px -20px hsl(0 0% 0% / .8);
+}
+
 /* Standalone VSL section (was inline in hero) */
 .vsl-section .vsl { max-width: 880px; margin: 0 auto; }
 .vsl {

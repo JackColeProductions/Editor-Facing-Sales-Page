@@ -452,10 +452,8 @@ button { font: inherit; cursor: pointer; }
   --rot-far: 12deg;
   position: relative;
   width: 100%;
-  height: clamp(180px, 26vh, 240px);
-  /* Pinned to the bottom of the hero so cards extend below the viewport
-     edge and the hero's overflow:hidden clips them uniformly. */
-  margin-top: auto;
+  height: clamp(220px, 30vh, 280px);
+  margin-top: clamp(2rem, 5vh, 3.5rem);
   pointer-events: none;
 }
 
@@ -502,8 +500,8 @@ button { font: inherit; cursor: pointer; }
   50%     { transform: translate(-50%, 20px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
 }
 @keyframes floatPos3 {
-  0%,100% { transform: translate(-50%, 16px); }
-  50%     { transform: translate(-50%, 8px); }
+  0%,100% { transform: translate(-50%, -4px); }
+  50%     { transform: translate(-50%, -12px); }
 }
 @keyframes floatPos4 {
   0%,100% { transform: translate(-50%, 28px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
@@ -529,7 +527,7 @@ button { font: inherit; cursor: pointer; }
   .job-card { animation: none !important; }
   .job-card--pos1 { transform: translate(-50%, 56px) translateX(calc(-1 * var(--offset-far))) rotate(calc(-1 * var(--rot-far))); }
   .job-card--pos2 { transform: translate(-50%, 28px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
-  .job-card--pos3 { transform: translate(-50%, 12px); }
+  .job-card--pos3 { transform: translate(-50%, -4px); }
   .job-card--pos4 { transform: translate(-50%, 28px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
   .job-card--pos5 { transform: translate(-50%, 56px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
 }

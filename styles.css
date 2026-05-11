@@ -732,7 +732,7 @@ button { font: inherit; cursor: pointer; }
   /* --light-pad is the vertical breathing room above the panel reserved
      for the glow. Shared with the lights container and its children so the
      line/bloom positions stay in sync with the panel-top boundary. */
-  --light-pad: clamp(90px, 13vh, 140px);
+  --light-pad: clamp(50px, 7vh, 72px);
   position: relative;
   max-width: 1100px;
   margin: 0 auto;
@@ -787,22 +787,24 @@ button { font: inherit; cursor: pointer; }
   left: 50%;
   transform: translateX(-50%);
   width: min(92%, 1050px);
-  height: 2px;
-  border-radius: 2px;
+  height: 1px;
+  border-radius: 1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    hsl(180 74% 63% / .22) 14%,
-    hsl(180 88% 86% / .88) 45%,
-    hsl(180 100% 95%) 50%,
-    hsl(180 88% 86% / .88) 55%,
-    hsl(180 74% 63% / .22) 86%,
+    hsl(180 74% 63% / .14) 14%,
+    hsl(180 88% 86% / .50) 45%,
+    hsl(180 100% 95% / .60) 50%,
+    hsl(180 88% 86% / .50) 55%,
+    hsl(180 74% 63% / .14) 86%,
     transparent 100%);
+  /* Asymmetric halo: positive y-offset on each shadow extends more below
+     than above. A shadow `0 Y B` reaches (B-Y) above and (B+Y) below. */
   box-shadow:
-    0 0 4px hsl(180 100% 96%),
-    0 0 12px hsl(180 95% 88% / .70),
-    0 0 28px hsl(180 80% 72% / .34),
-    0 0 60px hsl(180 74% 63% / .18),
-    0 0 110px hsl(180 74% 63% / .08);
+    0 1px 4px hsl(180 100% 96% / .55),
+    0 6px 16px hsl(180 95% 88% / .40),
+    0 14px 36px hsl(180 80% 72% / .24),
+    0 28px 70px hsl(180 74% 63% / .14),
+    0 42px 110px hsl(180 74% 63% / .06);
   mix-blend-mode: screen;
 }
 

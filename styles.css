@@ -729,10 +729,9 @@ button { font: inherit; cursor: pointer; }
 .showcase__head { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
 
 .showcase__frame {
-  /* --light-pad is the vertical breathing room above the panel reserved
-     for the glow. Shared with the lights container and its children so the
-     line/bloom positions stay in sync with the panel-top boundary. */
-  --light-pad: clamp(50px, 7vh, 72px);
+  /* --light-pad reserves a small breathing room above the panel.
+     Gap subtitle→line ≈ section__head margin-bottom (~48px) + --light-pad. */
+  --light-pad: clamp(0px, 1vh, 8px);
   position: relative;
   max-width: 1100px;
   margin: 0 auto;
@@ -753,34 +752,26 @@ button { font: inherit; cursor: pointer; }
   overflow: visible;
 }
 
-/* The pool — a single radial ellipse, taller than wide, centered exactly
-   on the panel-top boundary. Opacity reaches 0 at the outer edge, so every
-   side feathers into pure black on its own (no mask). mix-blend-mode:screen
-   turns the lower half into light landing on the panel; the upper half
-   carries a soft teal wash up toward the title. */
-.showcase__lights-bloom {
+/* The wash — a single wide, low-opacity radial ellipse anchored at the
+   line (50% 0% of the element's gradient box). Reads as ambient teal
+   light coming from inside the panel rather than a focused spotlight. */
+.showcase__lights-wash {
   position: absolute;
   top: var(--light-pad);
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(560px, 75%);
-  height: 420px;
-  background: radial-gradient(
-    ellipse 38% 60% at 50% 50%,
-    hsl(180 92% 86% / .60) 0%,
-    hsl(180 82% 75% / .34) 18%,
-    hsl(180 74% 63% / .17) 40%,
-    hsl(180 74% 63% / .05) 68%,
+  transform: translateX(-50%);
+  width: min(1000px, 92%);
+  height: 320px;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%,
+    hsl(180 80% 72% / .28) 0%,
+    hsl(180 74% 63% / .14) 35%,
+    hsl(180 74% 63% / .05) 70%,
     transparent 100%);
-  filter: blur(22px);
+  filter: blur(16px);
   mix-blend-mode: screen;
 }
 
-.showcase__lights-focal { display: none; }
-
-/* The line — sits AT the panel top, co-located with the pool's center.
-   Wide, soft box-shadow halo (~100px) so the line dissolves into the
-   surrounding pool instead of reading as a separate bar. */
+/* The line — minimal halo. The wash above provides the surrounding glow. */
 .showcase__lights-line {
   position: absolute;
   top: var(--light-pad);
@@ -797,14 +788,9 @@ button { font: inherit; cursor: pointer; }
     hsl(180 88% 86% / .50) 55%,
     hsl(180 74% 63% / .14) 86%,
     transparent 100%);
-  /* Asymmetric halo: positive y-offset on each shadow extends more below
-     than above. A shadow `0 Y B` reaches (B-Y) above and (B+Y) below. */
   box-shadow:
-    0 1px 4px hsl(180 100% 96% / .55),
-    0 6px 16px hsl(180 95% 88% / .40),
-    0 14px 36px hsl(180 80% 72% / .24),
-    0 28px 70px hsl(180 74% 63% / .14),
-    0 42px 110px hsl(180 74% 63% / .06);
+    0 0 3px hsl(180 100% 96% / .45),
+    0 0 8px hsl(180 95% 88% / .15);
   mix-blend-mode: screen;
 }
 

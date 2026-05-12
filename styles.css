@@ -725,8 +725,45 @@ button { font: inherit; cursor: pointer; }
    Pure radial gradients (no linear strips) so edges feather
    naturally; one crisp hairline on top.
    ========================================================= */
-.showcase { padding-top: clamp(4rem, 8vh, 6rem); overflow: hidden; }
+.showcase {
+  padding-top: clamp(4rem, 8vh, 6rem);
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
 .showcase__head { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+
+/* Atmosphere: one diagonal teal light leak + sparse dust particles, both
+   behind everything in the section. isolation:isolate on .showcase keeps
+   the negative z-index from escaping the stacking context. */
+.showcase__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.showcase__beam {
+  position: absolute;
+  top: 38%;
+  left: 58%;
+  width: 280px;
+  height: 1500px;
+  transform: translate(-50%, -50%) rotate(-17deg);
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    hsl(180 74% 63% / .18) 50%,
+    transparent 100%);
+  filter: blur(80px);
+  z-index: -2;
+}
+.showcase__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 
 .showcase__frame {
   /* --light-pad reserves a small breathing room above the panel.
@@ -763,9 +800,9 @@ button { font: inherit; cursor: pointer; }
   width: min(1000px, 92%);
   height: 320px;
   background: radial-gradient(ellipse 70% 50% at 50% 0%,
-    hsl(180 80% 72% / .28) 0%,
-    hsl(180 74% 63% / .14) 35%,
-    hsl(180 74% 63% / .05) 70%,
+    hsl(180 80% 72% / .18) 0%,
+    hsl(180 74% 63% / .09) 35%,
+    hsl(180 74% 63% / .03) 70%,
     transparent 100%);
   filter: blur(16px);
   mix-blend-mode: screen;
@@ -782,15 +819,15 @@ button { font: inherit; cursor: pointer; }
   border-radius: 1px;
   background: linear-gradient(90deg,
     transparent 0%,
-    hsl(180 74% 63% / .14) 14%,
-    hsl(180 88% 86% / .50) 45%,
-    hsl(180 100% 95% / .60) 50%,
-    hsl(180 88% 86% / .50) 55%,
-    hsl(180 74% 63% / .14) 86%,
+    hsl(180 74% 63% / .10) 14%,
+    hsl(180 88% 86% / .32) 45%,
+    hsl(180 100% 95% / .40) 50%,
+    hsl(180 88% 86% / .32) 55%,
+    hsl(180 74% 63% / .10) 86%,
     transparent 100%);
   box-shadow:
-    0 0 3px hsl(180 100% 96% / .45),
-    0 0 8px hsl(180 95% 88% / .15);
+    0 0 2px hsl(180 100% 96% / .30),
+    0 0 6px hsl(180 95% 88% / .10);
   mix-blend-mode: screen;
 }
 

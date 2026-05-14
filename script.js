@@ -97,10 +97,35 @@ if (proof) {
   const nextBtn = proof.querySelector('[data-action="next"]');
   const dots = Array.from(proof.querySelectorAll('.proof__dot'));
 
+  const fmtTime = (s) => {
+    if (!s || !isFinite(s)) return '';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${String(sec).padStart(2, '0')}`;
+  };
+
   // Click a card → toggle that video; pause and re-mute the others.
   cards.forEach((card) => {
     const video = card.querySelector('.proof__video');
     if (!video) return;
+
+    // Inject duration pill + LIVE badge into the video wrap so the markup
+    // stays simple but every card gets the upgraded chrome.
+    const wrap = card.querySelector('.proof__video-wrap');
+    if (wrap && !wrap.querySelector('.proof__duration')) {
+      const live = document.createElement('span');
+      live.className = 'proof__live';
+      live.setAttribute('aria-hidden', 'true');
+      live.textContent = 'LIVE';
+      wrap.appendChild(live);
+
+      const dur = document.createElement('span');
+      dur.className = 'proof__duration';
+      dur.setAttribute('aria-hidden', 'true');
+      dur.textContent = '';
+      wrap.appendChild(dur);
+    }
+    const durEl = card.querySelector('.proof__duration');
 
     const playOthers = () => videos.forEach(v => {
       if (v !== video) { v.pause(); v.muted = true; }
@@ -120,10 +145,10 @@ if (proof) {
     video.addEventListener('pause', () => card.classList.remove('is-playing'));
     video.addEventListener('ended', () => card.classList.remove('is-playing'));
 
-    // Force the first painted frame so the card isn't a black square before
-    // the user clicks. preload="metadata" alone leaves the canvas blank.
+    // Force the first painted frame + populate duration pill on metadata load.
     video.addEventListener('loadedmetadata', () => {
       try { video.currentTime = 0.1; } catch (_) {}
+      if (durEl) durEl.textContent = fmtTime(video.duration);
     }, { once: true });
   });
 

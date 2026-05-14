@@ -2123,7 +2123,7 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 4rem 0 3rem;
+  padding: 2rem 0 1.5rem;
   min-height: 100vh;
   max-height: 1100px;
   display: flex;
@@ -2192,7 +2192,7 @@ button { font: inherit; cursor: pointer; }
    inside a 1440x900 laptop viewport without scrolling. */
 .platform .section__head {
   max-width: 1000px;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 .platform .section__title {
   font-size: clamp(2rem, 3.6vw, 3rem);
@@ -2214,63 +2214,67 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   max-width: 1300px;
   width: 100%;
-  margin: 1.5rem auto 0;
-  height: 400px;
+  margin: .5rem auto 0;
+  height: 520px;
   perspective: 1800px;
   overflow: visible;
 }
 
+/* Cards are rendered as raw <img> elements. No border, no border-radius,
+   no inset ring — the PNGs supply their own visible edges. Only the
+   soft outer halo shadows live in CSS. */
 .platform__card {
   position: absolute;
   bottom: 0;
-  max-height: 400px;
+  display: block;
+  max-height: 100%;
+  height: auto;
   object-fit: contain;
-  border-radius: 1.25rem;
-  /* Pivot rotations from the bottom-center by default (overridden on
-     side cards for fan-out-from-the-inside-corner behavior). */
+  object-position: bottom center;
   transform-origin: 50% 100%;
   transition: transform .5s cubic-bezier(.22, 1, .36, 1),
               filter .5s cubic-bezier(.22, 1, .36, 1);
   box-shadow:
     0 30px 80px -20px hsl(0 0% 0% / .7),
-    0 0 60px -10px hsl(180 70% 50% / .3),
-    0 0 0 1px hsl(180 50% 60% / .15);
+    0 0 60px -10px hsl(180 70% 50% / .3);
 }
 
-/* Center card — frontmost, dead vertical, no tilt. */
+/* Center card — frontmost, dead vertical, no tilt. Dominates by
+   position (z-index, upright) — not by size. */
 .platform__card--center {
   left: 50%;
   bottom: 0;
-  width: 48%;
+  width: 46%;
   z-index: 3;
   transform: translateX(-50%);
   box-shadow:
     0 40px 100px -20px hsl(0 0% 0% / .8),
     0 0 80px -10px hsl(180 80% 55% / .45),
-    0 0 120px -20px hsl(180 70% 50% / .3),
-    0 0 0 1px hsl(180 60% 65% / .25);
+    0 0 120px -20px hsl(180 70% 50% / .3);
 }
 
-/* Side cards — fan outward, pivoting from the corner where they meet
-   the center card. Slightly raised + dimmed so they visually recede. */
+/* Side cards — nearly the same scale as the center card (44% vs 46%).
+   Hierarchy comes from the rotation + slight dim, not from being half
+   the size. Pivot from the inside-bottom corner so each card fans
+   outward from where it meets the center. */
 .platform__card--left {
-  left: 8%;
-  bottom: 20px;
-  width: 38%;
+  left: 4%;
+  bottom: 40px;
+  width: 44%;
   z-index: 2;
   transform: rotate(-6deg);
   transform-origin: 100% 100%;
-  filter: brightness(.78) saturate(.85);
+  filter: brightness(.9) saturate(.95);
 }
 
 .platform__card--right {
-  right: 8%;
-  bottom: 20px;
-  width: 38%;
+  right: 4%;
+  bottom: 40px;
+  width: 44%;
   z-index: 2;
   transform: rotate(6deg);
   transform-origin: 0% 100%;
-  filter: brightness(.78) saturate(.85);
+  filter: brightness(.9) saturate(.95);
 }
 
 /* Hover — splay the fan a touch wider and lift the center. */
@@ -2286,10 +2290,10 @@ button { font: inherit; cursor: pointer; }
 
 @media (max-width: 1023px) {
   .platform { min-height: auto; max-height: none; }
-  .platform__stage { height: 400px; }
-  .platform__card--center { width: 55%; }
-  .platform__card--left  { width: 42%; transform: rotate(-4deg); }
-  .platform__card--right { width: 42%; transform: rotate(4deg); }
+  .platform__stage { height: 420px; }
+  .platform__card--center { width: 50%; }
+  .platform__card--left  { width: 46%; transform: rotate(-4deg); }
+  .platform__card--right { width: 46%; transform: rotate(4deg); }
   .platform__stage:hover .platform__card--left  { transform: rotate(-5deg); }
   .platform__stage:hover .platform__card--right { transform: rotate(5deg); }
 }

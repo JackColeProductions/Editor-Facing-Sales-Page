@@ -715,7 +715,7 @@
         </header>
 
         <div class="proof__carousel">
-          <div class="proof__track" tabindex="0" aria-label="Video testimonials">
+          <div class="proof__track" tabindex="0" aria-label="Video testimonials" data-lenis-prevent>
             <article class="proof__card" data-index="0">
               <div class="proof__video-wrap">
                 <video class="proof__video" src="media/new-testimonial.mp4" preload="metadata" playsinline muted></video>
@@ -1277,6 +1277,10 @@
       </div>
     </footer>
 
+    <!-- Lenis smooth scroll (premium inertial scrolling). Loaded synchronously
+         so the init script can reference the global Lenis constructor. -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="./smooth-scroll.js" defer></script>
     <script src="./script.js" defer></script>
   </body>
 </html>

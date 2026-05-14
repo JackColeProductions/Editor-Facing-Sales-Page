@@ -2116,6 +2116,173 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
+   Platform — fanned-card showcase lit from behind by a teal column
+   ========================================================= */
+.platform {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 7rem 0 8rem;
+}
+
+.platform__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Wider, softer base glow that wraps around the entire stage area. */
+.platform__halo {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1400px, 130vw);
+  height: 700px;
+  background: radial-gradient(ellipse at center,
+    hsl(180 80% 55% / .18) 0%,
+    hsl(180 70% 45% / .08) 40%,
+    transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+}
+
+/* The big vertical shaft of light directly behind the cards. */
+.platform__light-column {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 900px;
+  background: radial-gradient(ellipse 50% 60% at 50% 40%,
+    hsl(180 90% 70% / .55) 0%,
+    hsl(180 85% 60% / .3) 30%,
+    hsl(180 75% 45% / .12) 60%,
+    transparent 80%);
+  filter: blur(60px);
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+.platform__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* CTA row under the header. */
+.platform__cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Stage holds the three cards in absolute position. */
+.platform__stage {
+  position: relative;
+  max-width: 1200px;
+  margin: 4rem auto 0;
+  height: 600px;
+  perspective: 1800px;
+}
+
+.platform__card {
+  position: absolute;
+  bottom: 0;
+  height: auto;
+  border-radius: 1.25rem;
+  box-shadow:
+    0 30px 80px -20px hsl(0 0% 0% / .7),
+    0 0 60px -10px hsl(180 70% 50% / .3),
+    0 0 0 1px hsl(180 50% 60% / .15);
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1),
+              filter .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.platform__card--center {
+  left: 50%;
+  width: 55%;
+  z-index: 3;
+  transform: translateX(-50%) translateY(20px) rotate(-1deg);
+  box-shadow:
+    0 40px 100px -20px hsl(0 0% 0% / .8),
+    0 0 80px -10px hsl(180 80% 55% / .45),
+    0 0 120px -20px hsl(180 70% 50% / .3),
+    0 0 0 1px hsl(180 60% 65% / .25);
+}
+
+.platform__card--left {
+  left: 2%;
+  width: 42%;
+  z-index: 2;
+  transform: translateY(60px) rotate(-8deg);
+  filter: brightness(.85) saturate(.9);
+}
+
+.platform__card--right {
+  right: 2%;
+  width: 42%;
+  z-index: 2;
+  transform: translateY(60px) rotate(8deg);
+  filter: brightness(.85) saturate(.9);
+}
+
+/* Hover — splay the fan out a touch and lift the center card. */
+.platform__stage:hover .platform__card--center {
+  transform: translateX(-50%) translateY(10px) rotate(-1deg);
+}
+.platform__stage:hover .platform__card--left {
+  transform: translateY(50px) rotate(-10deg);
+}
+.platform__stage:hover .platform__card--right {
+  transform: translateY(50px) rotate(10deg);
+}
+
+@media (max-width: 1023px) {
+  .platform__stage { height: 500px; }
+  .platform__card--center { width: 60%; transform: translateX(-50%) translateY(20px) rotate(-.5deg); }
+  .platform__card--left  { width: 45%; transform: translateY(60px) rotate(-5deg); }
+  .platform__card--right { width: 45%; transform: translateY(60px) rotate(5deg); }
+  .platform__stage:hover .platform__card--center { transform: translateX(-50%) translateY(10px) rotate(-.5deg); }
+  .platform__stage:hover .platform__card--left   { transform: translateY(50px) rotate(-7deg); }
+  .platform__stage:hover .platform__card--right  { transform: translateY(50px) rotate(7deg); }
+}
+
+@media (max-width: 767px) {
+  .platform { padding: 5rem 0 6rem; }
+  .platform__stage {
+    height: auto;
+    margin: 3rem auto 0;
+    padding-bottom: 2rem;
+  }
+  .platform__card--left,
+  .platform__card--right { display: none; }
+  .platform__card--center {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 90%;
+    margin: 0 auto;
+    transform: none;
+    display: block;
+  }
+  .platform__stage:hover .platform__card--center { transform: none; }
+  .platform__light-column { width: 90vw; height: 700px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform__card { transition: none; }
+  .platform__stage:hover .platform__card--center,
+  .platform__stage:hover .platform__card--left,
+  .platform__stage:hover .platform__card--right { transform: inherit; }
+}
+
+/* =========================================================
    VS — VP+ Marketplace as the lifted card, Old Way as faded ghost
    ========================================================= */
 .vs-section {

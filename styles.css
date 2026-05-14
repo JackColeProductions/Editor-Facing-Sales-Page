@@ -2145,17 +2145,18 @@ button { font: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
-/* Soft wrap-around glow positioned where the cards live. */
+/* Soft wrap-around glow positioned where the cards live. Strong enough
+   to feel like atmospheric light around the cards, not a black void. */
 .platform__halo {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1400px, 130vw);
-  height: 700px;
+  width: min(1500px, 130vw);
+  height: 750px;
   background: radial-gradient(ellipse at center,
-    hsl(180 80% 55% / .18) 0%,
-    hsl(180 70% 45% / .08) 40%,
+    hsl(180 80% 55% / .22) 0%,
+    hsl(180 70% 45% / .10) 40%,
     transparent 70%);
   filter: blur(80px);
   z-index: 0;
@@ -2220,23 +2221,37 @@ button { font: inherit; cursor: pointer; }
   overflow: visible;
 }
 
-/* Cards are rendered as raw <img> elements. No border, no border-radius,
-   no inset ring — the PNGs supply their own visible edges. Only the
-   soft outer halo shadows live in CSS. */
+/* Cards are rendered as raw <img> elements with rounded corners
+   clipped via overflow:hidden, a thin teal-tinted border for the glass
+   edge, and stacked box-shadows: an outer drop shadow + teal halo for
+   atmospheric depth, and inset shadows that simulate light catching
+   the top edge / a soft tint at the bottom (replaced <img> elements
+   can't host ::before/::after so the tint comes through inset shadows
+   instead of an overlay pseudo). */
 .platform__card {
   position: absolute;
   bottom: 0;
   display: block;
   max-height: 100%;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
   object-position: bottom center;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid hsl(180 60% 70% / .18);
   transform-origin: 50% 100%;
   transition: transform .5s cubic-bezier(.22, 1, .36, 1),
               filter .5s cubic-bezier(.22, 1, .36, 1);
   box-shadow:
+    /* outer drop shadow - depth */
     0 30px 80px -20px hsl(0 0% 0% / .7),
-    0 0 60px -10px hsl(180 70% 50% / .3);
+    /* teal halo - atmospheric light */
+    0 0 60px -10px hsl(180 70% 50% / .3),
+    /* inner top highlight - light catching glass top edge */
+    inset 0 1px 0 hsl(180 80% 90% / .15),
+    /* faint top/bottom teal tint - unifies card with section glow */
+    inset 0 24px 28px -20px hsl(180 70% 60% / .12),
+    inset 0 -24px 28px -20px hsl(180 70% 60% / .08);
 }
 
 /* Center card — frontmost, dead vertical, no tilt. Dominates by
@@ -2250,29 +2265,33 @@ button { font: inherit; cursor: pointer; }
   box-shadow:
     0 40px 100px -20px hsl(0 0% 0% / .8),
     0 0 80px -10px hsl(180 80% 55% / .45),
-    0 0 120px -20px hsl(180 70% 50% / .3);
+    0 0 120px -20px hsl(180 70% 50% / .3),
+    inset 0 1px 0 hsl(180 90% 95% / .22),
+    inset 0 30px 32px -22px hsl(180 75% 65% / .16),
+    inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* Side cards — nearly the same scale as the center card (44% vs 46%).
+/* Side cards — nearly the same scale as the center (46% vs 46%).
    Hierarchy comes from the rotation + slight dim, not from being half
    the size. Pivot from the inside-bottom corner so each card fans
-   outward from where it meets the center. */
+   outward from where it meets the center. Pulled out to left/right:1%
+   so more of their visible UI is on display. */
 .platform__card--left {
-  left: 4%;
+  left: 1%;
   bottom: 40px;
-  width: 44%;
+  width: 46%;
   z-index: 2;
-  transform: rotate(-6deg);
+  transform: rotate(-7deg);
   transform-origin: 100% 100%;
   filter: brightness(.9) saturate(.95);
 }
 
 .platform__card--right {
-  right: 4%;
+  right: 1%;
   bottom: 40px;
-  width: 44%;
+  width: 46%;
   z-index: 2;
-  transform: rotate(6deg);
+  transform: rotate(7deg);
   transform-origin: 0% 100%;
   filter: brightness(.9) saturate(.95);
 }
@@ -2282,10 +2301,10 @@ button { font: inherit; cursor: pointer; }
   transform: translateX(-50%) translateY(-10px);
 }
 .platform__stage:hover .platform__card--left {
-  transform: rotate(-8deg);
+  transform: rotate(-9deg);
 }
 .platform__stage:hover .platform__card--right {
-  transform: rotate(8deg);
+  transform: rotate(9deg);
 }
 
 @media (max-width: 1023px) {

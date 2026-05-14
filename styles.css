@@ -2138,69 +2138,116 @@ button { font: inherit; cursor: pointer; }
   width: 100%;
 }
 
+/* The atmosphere wrapper itself has a horizontal vignette mask so
+   none of its children can light up the outer 15% of the section on
+   either side — section edges stay deliberately dark. */
 .platform__atmosphere {
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg,
+    transparent 0%,
+    #000 15%,
+    #000 85%,
+    transparent 100%);
+          mask-image: linear-gradient(90deg,
+    transparent 0%,
+    #000 15%,
+    #000 85%,
+    transparent 100%);
 }
 
-/* Diffuse top glow filling the upper portion of the section — the
-   "stage spotlight from above" effect that softens the section into a
-   continuous atmospheric scene rather than discrete light pools. */
+/* Soft top-section glow — diffuses light into the upper area behind
+   the title without being a defined light source itself. */
 .platform__top-glow {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1400px, 130vw);
-  height: 600px;
+  width: min(1000px, 90vw);
+  height: 500px;
   background: radial-gradient(ellipse at center top,
-    hsl(180 70% 50% / .18) 0%,
-    hsl(180 65% 45% / .08) 40%,
+    hsl(180 70% 50% / .15) 0%,
+    hsl(180 65% 45% / .05) 40%,
     transparent 70%);
-  filter: blur(70px);
+  filter: blur(60px);
   z-index: 0;
   pointer-events: none;
 }
 
-/* Soft wrap-around glow positioned where the cards live. Larger and
-   brighter so the cards sit in real atmospheric light. */
+/* Tighter central halo behind the cards — softer and narrower than
+   before so it doesn't read as a uniform bloom. */
 .platform__halo {
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1800px, 140vw);
-  height: 900px;
-  background: radial-gradient(ellipse at center,
-    hsl(180 80% 55% / .28) 0%,
-    hsl(180 75% 50% / .15) 30%,
-    hsl(180 70% 45% / .06) 55%,
-    transparent 75%);
-  filter: blur(100px);
+  width: min(1100px, 100vw);
+  height: 800px;
+  background: radial-gradient(ellipse 50% 70% at center,
+    hsl(180 75% 50% / .15) 0%,
+    hsl(180 70% 45% / .06) 40%,
+    transparent 70%);
+  filter: blur(110px);
   z-index: 0;
 }
 
-/* Vertical shaft of light extending from above the title down past
-   the cards. Wider and brighter than before so it reads as a
-   diffuse beam rather than a narrow spotlight. */
+/* Narrow vertical column — anchors the brightest point of the scene
+   along the vertical center axis. */
 .platform__light-column {
   position: absolute;
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
+  width: 500px;
   height: 1200px;
-  background: radial-gradient(ellipse 50% 60% at 50% 35%,
-    hsl(180 90% 70% / .65) 0%,
-    hsl(180 85% 60% / .4) 25%,
-    hsl(180 75% 45% / .18) 55%,
-    hsl(180 70% 40% / .08) 75%,
-    transparent 90%);
-  filter: blur(80px);
+  background: radial-gradient(ellipse 40% 60% at 50% 30%,
+    hsl(180 90% 75% / .55) 0%,
+    hsl(180 85% 60% / .3) 30%,
+    hsl(180 75% 45% / .1) 60%,
+    transparent 85%);
+  filter: blur(90px);
   mix-blend-mode: screen;
   z-index: 1;
+}
+
+/* Directional vertical streaks — 7 soft beams of irregular width
+   stacked across the central column. This is the textural detail
+   that turns the atmosphere from a uniform bloom into "light
+   streaming down through fog." Vertical mask makes streaks fade in
+   at the top and out at the bottom. */
+.platform__streaks {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(800px, 70vw);
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .7;
+  background:
+    radial-gradient(ellipse 30px 90% at 15% 50%, hsl(180 85% 70% / .12) 0%, transparent 70%),
+    radial-gradient(ellipse 50px 95% at 28% 50%, hsl(180 90% 75% / .18) 0%, transparent 65%),
+    radial-gradient(ellipse 40px 90% at 42% 50%, hsl(180 85% 70% / .15) 0%, transparent 70%),
+    radial-gradient(ellipse 70px 100% at 50% 50%, hsl(180 95% 80% / .28) 0%, transparent 60%),
+    radial-gradient(ellipse 40px 90% at 58% 50%, hsl(180 85% 70% / .15) 0%, transparent 70%),
+    radial-gradient(ellipse 50px 95% at 72% 50%, hsl(180 90% 75% / .18) 0%, transparent 65%),
+    radial-gradient(ellipse 30px 90% at 85% 50%, hsl(180 85% 70% / .12) 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(180deg,
+    transparent 0%,
+    #000 15%,
+    #000 75%,
+    transparent 100%);
+          mask-image: linear-gradient(180deg,
+    transparent 0%,
+    #000 15%,
+    #000 75%,
+    transparent 100%);
+  filter: blur(12px);
+  mix-blend-mode: screen;
 }
 
 .platform__particles {

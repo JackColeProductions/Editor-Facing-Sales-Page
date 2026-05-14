@@ -1200,7 +1200,7 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Pricing — eclipse-arc atmosphere + two glassy plan cards
+   Pricing — dramatic diagonal beam + eclipse arc + compact cards
    ========================================================= */
 .pricing {
   position: relative;
@@ -1215,56 +1215,83 @@ button { font: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
-/* The atmospheric halo that sits behind the arc and fades upward. */
-.pricing__halo {
+/* Dramatic diagonal teal beam slicing down from upper-right. */
+.pricing__beam {
   position: absolute;
-  top: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1400px, 130vw);
-  height: 540px;
-  background: radial-gradient(ellipse at 50% 100%,
-    hsl(180 74% 63% / .45) 0%,
-    hsl(180 74% 63% / .22) 22%,
-    hsl(180 74% 63% / .08) 42%,
-    transparent 65%);
-  filter: blur(40px);
+  top: -260px;
+  right: -80px;
+  width: 520px;
+  height: 1600px;
+  transform: rotate(22deg);
+  transform-origin: top right;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    hsl(180 88% 80% / .35) 18%,
+    hsl(180 95% 88% / .68) 38%,
+    hsl(180 100% 92% / .8) 50%,
+    hsl(180 95% 88% / .68) 62%,
+    hsl(180 88% 80% / .35) 82%,
+    transparent 100%);
+  filter: blur(70px);
 }
 
-/* The horizon arc — a huge circle whose top edge peeks into the
-   section, drawn by a thin bright ring radial-gradient at 50% radius. */
-.pricing__arc {
+/* Atmospheric halo behind the arc — fills the air with teal. */
+.pricing__halo {
   position: absolute;
-  top: 80px;
+  top: -160px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(2000px, 180vw);
+  width: min(1700px, 150vw);
+  height: 700px;
+  background: radial-gradient(ellipse at 50% 100%,
+    hsl(180 74% 63% / .55) 0%,
+    hsl(180 74% 63% / .28) 22%,
+    hsl(180 74% 63% / .10) 45%,
+    transparent 72%);
+  filter: blur(60px);
+}
+
+/* Eclipse arc — huge circle whose top edge reads as a bright horizon ring. */
+.pricing__arc {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(2400px, 200vw);
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: radial-gradient(circle,
-    transparent 49.4%,
-    hsl(180 70% 65% / .25) 49.7%,
-    hsl(180 88% 82% / .75) 49.9%,
+    transparent 49.2%,
+    hsl(180 75% 70% / .45) 49.5%,
+    hsl(180 92% 84% / .88) 49.85%,
     hsl(180 100% 96%) 50%,
-    hsl(180 88% 82% / .75) 50.1%,
-    hsl(180 70% 65% / .25) 50.3%,
-    transparent 50.6%);
+    hsl(180 92% 84% / .88) 50.15%,
+    hsl(180 75% 70% / .45) 50.5%,
+    transparent 50.8%);
   filter: blur(1.5px);
+}
+
+/* Dust particles — sparse, tiny, scattered through the dark areas. */
+.pricing__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .pricing__plans {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
-  max-width: 1020px;
+  gap: 1.25rem;
+  max-width: 920px;
   margin: 0 auto;
-  padding-top: 1rem;
+  padding-top: 1.25rem;
+  align-items: start;
 }
 @media (min-width: 820px) {
   .pricing__plans {
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: stretch;
+    gap: 1.5rem;
   }
 }
 
@@ -1272,23 +1299,39 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
-  padding: clamp(1.75rem, 3vw, 2.5rem);
-  border-radius: clamp(1rem, 1.4vw, 1.4rem);
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 1.6rem;
+  border-radius: 1.15rem;
   border: 1px solid hsl(0 0% 100% / .08);
-  background: linear-gradient(180deg, hsl(240 18% 11% / .92), hsl(240 20% 6% / .94));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 30px 70px -30px hsl(0 0% 0% / .8);
+  background: linear-gradient(180deg, hsl(240 18% 11% / .92), hsl(240 22% 5% / .96));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  box-shadow: 0 30px 70px -30px hsl(0 0% 0% / .85);
 }
+.pricing__plan > * { position: relative; z-index: 1; }
 
 .pricing__plan--featured {
   border-color: hsl(180 74% 63% / .55);
-  background: linear-gradient(180deg, hsl(180 28% 12% / .85), hsl(240 20% 6% / .94));
+  background: linear-gradient(180deg, hsl(180 30% 12% / .9), hsl(240 22% 5% / .96));
   box-shadow:
-    0 0 0 1px hsl(180 74% 63% / .25) inset,
-    0 30px 70px -25px hsl(180 74% 63% / .45),
-    0 0 90px -30px hsl(180 74% 63% / .45);
+    0 0 0 1px hsl(180 74% 63% / .28) inset,
+    0 30px 70px -25px hsl(180 74% 63% / .55),
+    0 0 90px -30px hsl(180 74% 63% / .55);
+}
+/* Internal radial glow on featured card — soft teal light from upper-left. */
+.pricing__plan--featured::before {
+  content: '';
+  position: absolute;
+  top: -120px; left: -80px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle,
+    hsl(180 92% 80% / .35) 0%,
+    hsl(180 74% 63% / .14) 30%,
+    transparent 70%);
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .pricing__badge {
@@ -1296,62 +1339,63 @@ button { font: inherit; cursor: pointer; }
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  padding: .45rem 1.1rem;
+  padding: .42rem 1.05rem;
   border-radius: 999px;
-  background: linear-gradient(180deg, hsl(180 90% 75%), hsl(180 78% 52%));
-  color: hsl(240 25% 8%);
+  background: linear-gradient(180deg, hsl(180 92% 78%), hsl(180 78% 50%));
+  color: hsl(240 28% 8%);
   font-weight: 900;
-  font-size: .72rem;
-  letter-spacing: .16em;
+  font-size: .68rem;
+  letter-spacing: .18em;
   white-space: nowrap;
+  z-index: 2;
   box-shadow:
-    0 6px 22px hsl(180 74% 63% / .5),
-    0 0 0 4px hsl(240 20% 7%);
+    0 6px 22px hsl(180 74% 63% / .55),
+    0 0 0 4px hsl(240 22% 6%);
 }
 
-.pricing__head { display: flex; flex-direction: column; gap: .5rem; }
+.pricing__head { display: flex; flex-direction: column; gap: .35rem; }
 
 .pricing__name {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: .92rem;
   font-weight: 800;
-  letter-spacing: .12em;
+  letter-spacing: .18em;
   color: var(--fg);
 }
 
 .pricing__price {
   display: flex;
   align-items: baseline;
-  gap: .55rem;
+  gap: .5rem;
   flex-wrap: wrap;
 }
 .pricing__price-old {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: 1.25rem;
   font-weight: 800;
-  color: hsl(0 0% 50%);
+  color: hsl(0 0% 48%);
   text-decoration: line-through;
-  text-decoration-thickness: 3px;
+  text-decoration-thickness: 2.5px;
   letter-spacing: -.01em;
 }
 .pricing__price-new {
-  font-size: clamp(2.5rem, 5vw, 3.4rem);
+  font-size: clamp(2.1rem, 4vw, 2.6rem);
   font-weight: 900;
   letter-spacing: -.025em;
   line-height: 1;
-  background: linear-gradient(180deg, hsl(180 95% 88%), hsl(180 74% 55%));
+  background: linear-gradient(180deg, hsl(180 95% 90%), hsl(180 74% 55%));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 30px hsl(180 74% 63% / .35);
+  text-shadow: 0 0 28px hsl(180 74% 63% / .4);
 }
 .pricing__price-period {
-  font-size: 1rem;
+  font-size: .92rem;
   color: var(--fg-muted);
 }
 
 .pricing__billing {
   margin: 0;
-  font-size: .92rem;
+  font-size: .85rem;
   color: var(--fg-muted);
 }
 
@@ -1359,27 +1403,27 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .55rem;
-  padding: .9rem 1rem;
+  gap: .5rem;
+  padding: .72rem .9rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, hsl(180 88% 65%), hsl(180 78% 48%));
-  color: hsl(240 25% 8%);
+  background: linear-gradient(90deg, hsl(180 92% 70%), hsl(180 80% 48%));
+  color: hsl(240 28% 8%);
   font-weight: 900;
-  font-size: .9rem;
-  letter-spacing: .06em;
+  font-size: .82rem;
+  letter-spacing: .05em;
   box-shadow: 0 10px 28px -10px hsl(180 74% 63% / .65);
 }
-.pricing__deal-icon { font-size: 1.05rem; line-height: 1; }
+.pricing__deal-icon { font-size: 1rem; line-height: 1; }
 
 .pricing__includes {
-  padding: 1rem;
-  border-radius: .85rem;
-  border: 1px solid hsl(180 74% 63% / .35);
+  padding: .72rem .9rem;
+  border-radius: .8rem;
+  border: 1px solid hsl(180 74% 63% / .4);
   background: hsl(180 30% 12% / .45);
   color: var(--primary);
   font-weight: 700;
   text-align: center;
-  font-size: .98rem;
+  font-size: .9rem;
 }
 
 .pricing__features {
@@ -1388,32 +1432,32 @@ button { font: inherit; cursor: pointer; }
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
+  gap: .85rem;
 }
 .pricing__features li {
   display: flex;
-  gap: .85rem;
+  gap: .75rem;
   align-items: flex-start;
 }
 
 .pricing__check,
 .pricing__plus {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: inline-grid;
   place-items: center;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .pricing__check svg,
-.pricing__plus svg { width: 13px; height: 13px; }
+.pricing__plus svg { width: 11px; height: 11px; }
 
 .pricing__check {
   background: hsl(180 74% 63% / .15);
   border: 1px solid hsl(180 74% 63% / .4);
   color: var(--primary);
-  box-shadow: 0 0 14px hsl(180 74% 63% / .25);
+  box-shadow: 0 0 12px hsl(180 74% 63% / .25);
 }
 .pricing__plus {
   background: hsl(180 74% 63% / .12);
@@ -1424,26 +1468,26 @@ button { font: inherit; cursor: pointer; }
 .pricing__feature-title {
   margin: 0;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: .92rem;
   color: var(--fg);
   letter-spacing: -.005em;
 }
 .pricing__feature-desc {
-  margin: .25rem 0 0;
+  margin: .15rem 0 0;
   color: var(--fg-muted);
-  font-size: .9rem;
-  line-height: 1.55;
+  font-size: .82rem;
+  line-height: 1.5;
 }
 
 .pricing__cta {
   display: block;
   margin-top: auto;
-  padding: 1.05rem 1.5rem;
+  padding: .92rem 1.25rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, hsl(180 88% 65%), hsl(180 78% 48%));
-  color: hsl(240 25% 8%);
+  background: linear-gradient(90deg, hsl(180 92% 68%), hsl(180 80% 48%));
+  color: hsl(240 28% 8%);
   font-weight: 900;
-  font-size: 1rem;
+  font-size: .92rem;
   letter-spacing: .08em;
   text-align: center;
   text-decoration: none;

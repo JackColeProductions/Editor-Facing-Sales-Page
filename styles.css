@@ -2379,12 +2379,15 @@ button { font: inherit; cursor: pointer; }
     inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* Side cards — identical stroke + inset stack as the center card now
-   (same .22/.16/.10 alpha highlights). The OUTER halo still uses
-   filter: drop-shadow so the atmospheric glow follows the PNG's alpha
-   channel — that's what avoids ghost-rectangle glows around any
-   transparent margins. Hierarchy comes from the rotation + the slight
-   brightness/saturate dim, not from a different stroke recipe. */
+/* Side cards — identical stroke + inset stack as the center card.
+   Previously a filter: brightness(.9) saturate(.95) was applied here
+   to "dim" the side cards, but CSS filters dim EVERY painted layer of
+   the element including the border and inset-shadow highlights — so
+   the stroke appeared weaker even though the box-shadow values were
+   numerically identical to the center. Removed the brightness/saturate
+   so the border + inset highlights render at full strength; the OUTER
+   atmospheric halo still goes through filter: drop-shadow which
+   follows the PNG's alpha channel and avoids ghost-rectangle glows. */
 .platform__card--left,
 .platform__card--right {
   z-index: 2;
@@ -2395,8 +2398,6 @@ button { font: inherit; cursor: pointer; }
     inset 0 30px 32px -22px hsl(180 75% 65% / .16),
     inset 0 -30px 32px -22px hsl(180 70% 60% / .10);
   filter:
-    brightness(.9)
-    saturate(.95)
     drop-shadow(0 30px 60px hsl(0 0% 0% / .6))
     drop-shadow(0 0 40px hsl(180 70% 50% / .38))
     drop-shadow(0 0 80px hsl(180 60% 45% / .22));

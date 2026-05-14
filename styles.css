@@ -1240,33 +1240,28 @@ button { font: inherit; cursor: pointer; }
     inset 0 8px 40px hsl(180 100% 95% / .6);
 }
 
-/* The Light Rays — vertical god-rays beaming up from the sphere's top. */
+/* The Light Rays — 6 soft, irregularly-spaced beams as stacked radials. */
 .pricing__rays {
   position: absolute;
   bottom: 380px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1200px;
-  height: 700px;
+  width: 1400px;
+  height: 800px;
   z-index: 1;
+  pointer-events: none;
   background:
-    linear-gradient(180deg, transparent 0%, hsl(180 90% 75% / .18) 70%, hsl(180 95% 85% / .35) 100%),
-    repeating-linear-gradient(92deg,
-      transparent 0px, transparent 80px,
-      hsl(180 90% 80% / .12) 82px, hsl(180 90% 80% / .12) 88px,
-      transparent 90px, transparent 180px,
-      hsl(180 85% 75% / .08) 182px, hsl(180 85% 75% / .08) 186px,
-      transparent 188px);
-  -webkit-mask-image:
-    linear-gradient(180deg, transparent 0%, black 40%, black 90%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, black 25%, black 75%, transparent 100%);
-          mask-image:
-    linear-gradient(180deg, transparent 0%, black 40%, black 90%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, black 25%, black 75%, transparent 100%);
-  -webkit-mask-composite: source-in;
-          mask-composite: intersect;
-  filter: blur(3px);
+    radial-gradient(ellipse 60px 600px at 20% 100%, hsl(180 90% 80% / .18) 0%, transparent 70%),
+    radial-gradient(ellipse 40px 500px at 32% 100%, hsl(180 85% 75% / .12) 0%, transparent 70%),
+    radial-gradient(ellipse 80px 700px at 45% 100%, hsl(180 90% 80% / .22) 0%, transparent 70%),
+    radial-gradient(ellipse 50px 550px at 58% 100%, hsl(180 85% 75% / .14) 0%, transparent 70%),
+    radial-gradient(ellipse 70px 650px at 72% 100%, hsl(180 90% 80% / .2) 0%, transparent 70%),
+    radial-gradient(ellipse 45px 500px at 84% 100%, hsl(180 85% 75% / .12) 0%, transparent 70%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 80%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, black 30%, black 80%, transparent 100%);
+  filter: blur(8px);
   mix-blend-mode: screen;
+  opacity: .85;
 }
 
 .pricing__particles {
@@ -1348,10 +1343,11 @@ button { font: inherit; cursor: pointer; }
   inset: 0;
   border-radius: inherit;
   padding: 1.5px;
-  background: linear-gradient(135deg,
-    hsl(180 95% 85%) 0%,
-    hsl(180 80% 55% / .6) 40%,
-    hsl(180 60% 40% / .2) 100%);
+  background: linear-gradient(180deg,
+    hsl(180 100% 88%) 0%,
+    hsl(180 90% 70% / .8) 20%,
+    hsl(180 70% 50% / .4) 60%,
+    hsl(180 50% 35% / .2) 100%);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -1443,7 +1439,8 @@ button { font: inherit; cursor: pointer; }
 
 .pricing__billing { margin: 0; font-size: .85rem; color: var(--fg-muted); }
 
-/* Deal pill — outlined teal on monthly, filled teal on yearly. Subtler than before. */
+/* Deal pill — monthly outlined to match its outlined CTA; yearly filled
+   with the hero-grade gradient + glow to match its filled CTA. */
 .pricing__deal {
   display: flex;
   align-items: center;
@@ -1454,14 +1451,27 @@ button { font: inherit; cursor: pointer; }
   font-weight: 800;
   font-size: .78rem;
   letter-spacing: .04em;
-  color: var(--primary);
-  background: hsl(180 35% 12% / .6);
-  border: 1px solid hsl(180 74% 63% / .35);
+  /* Monthly = outlined teal, matches monthly CTA */
+  color: hsl(180 90% 75%);
+  background: hsl(180 60% 20% / .15);
+  border: 1.5px solid hsl(180 74% 63% / .6);
+  box-shadow: 0 0 30px -10px hsl(180 80% 55% / .3);
 }
 .pricing__plan--featured .pricing__deal {
-  color: hsl(240 28% 8%);
-  background: linear-gradient(90deg, hsl(180 92% 72%), hsl(180 78% 52%));
-  border-color: transparent;
+  /* Yearly = filled gradient + outer halo, mirrors the featured CTA */
+  color: hsl(240 30% 8%);
+  font-weight: 900;
+  background: linear-gradient(135deg,
+    hsl(180 95% 75%) 0%,
+    hsl(180 85% 58%) 50%,
+    hsl(180 80% 48%) 100%);
+  border: none;
+  text-shadow: 0 1px 0 hsl(180 100% 95% / .3);
+  box-shadow:
+    0 0 0 1px hsl(180 100% 92% / .5) inset,
+    0 0 30px -4px hsl(180 85% 60% / .55),
+    0 0 60px -8px hsl(180 80% 55% / .35),
+    0 8px 24px -8px hsl(180 80% 45% / .5);
 }
 .pricing__deal-icon { font-size: .95rem; line-height: 1; }
 
@@ -1547,33 +1557,41 @@ button { font: inherit; cursor: pointer; }
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
-  /* Monthly = outlined teal */
-  color: var(--primary);
-  background: transparent;
-  border: 1px solid hsl(180 74% 63% / .55);
+  transition: transform .25s ease, box-shadow .25s ease,
+              background .25s ease, border-color .25s ease;
+  /* Monthly = outlined teal with subtle tint + halo */
+  color: hsl(180 90% 75%);
+  background: hsl(180 60% 20% / .15);
+  border: 1.5px solid hsl(180 74% 63% / .6);
+  box-shadow: 0 0 30px -10px hsl(180 80% 55% / .3);
 }
 .pricing__cta:hover {
-  background: hsl(180 74% 63% / .08);
-  border-color: hsl(180 74% 63% / .8);
+  background: hsl(180 70% 30% / .25);
+  border-color: hsl(180 80% 70% / .85);
+  box-shadow: 0 0 40px -8px hsl(180 80% 55% / .5);
 }
 .pricing__cta--featured {
-  /* Yearly = filled gradient teal with stronger inner highlight + glow */
-  color: hsl(240 28% 8%);
-  background: linear-gradient(135deg, hsl(180 90% 78%) 0%, hsl(180 80% 55%) 100%);
-  border-color: transparent;
+  /* Yearly = same hero-grade gradient + glow as the yearly deal pill */
+  color: hsl(240 30% 8%);
+  background: linear-gradient(135deg,
+    hsl(180 95% 75%) 0%,
+    hsl(180 85% 58%) 50%,
+    hsl(180 80% 48%) 100%);
+  border: none;
+  text-shadow: 0 1px 0 hsl(180 100% 95% / .3);
   box-shadow:
-    0 0 0 1px hsl(180 95% 90% / .4) inset,
-    0 10px 30px -8px hsl(180 80% 50% / .5),
-    0 0 40px -8px hsl(180 70% 60% / .4);
+    0 0 0 1px hsl(180 100% 92% / .5) inset,
+    0 0 30px -4px hsl(180 85% 60% / .55),
+    0 0 60px -8px hsl(180 80% 55% / .35),
+    0 8px 24px -8px hsl(180 80% 45% / .5);
 }
 .pricing__cta--featured:hover {
   transform: translateY(-3px);
-  background: linear-gradient(135deg, hsl(180 92% 80%) 0%, hsl(180 82% 58%) 100%);
   box-shadow:
-    0 0 0 1px hsl(180 95% 90% / .55) inset,
-    0 16px 38px -8px hsl(180 80% 50% / .65),
-    0 0 50px -8px hsl(180 70% 60% / .55);
+    0 0 0 1px hsl(180 100% 92% / .65) inset,
+    0 0 50px -4px hsl(180 85% 60% / .7),
+    0 0 60px -8px hsl(180 80% 55% / .45),
+    0 12px 30px -8px hsl(180 80% 45% / .6);
 }
 .pricing__cta:active { transform: translateY(0); }
 

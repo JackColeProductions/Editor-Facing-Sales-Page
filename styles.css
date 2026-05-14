@@ -722,6 +722,280 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
+   Setup Profile section — hero-echo composition with a row of
+   5 editor profile cards, each floating with stagger. Adds a
+   glowing earnings pill above the title and floating earnings
+   badges on three of the cards as the section's unique flare.
+   ========================================================= */
+.profile-setup {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4.5rem, 9vh, 7rem) 0 clamp(5rem, 10vh, 7.5rem);
+  background: linear-gradient(
+    180deg,
+    hsl(240 20% 4%) 0%,
+    hsl(240 18% 5%) 50%,
+    hsl(240 20% 4%) 100%
+  );
+}
+
+.profile-setup__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.profile-setup__beam {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%) rotate(-5deg);
+  width: 48vw;
+  max-width: 640px;
+  height: 90%;
+  background:
+    radial-gradient(ellipse at top, hsl(160 76% 56% / .55), transparent 60%),
+    radial-gradient(ellipse at center, hsl(180 74% 63% / .35), transparent 65%);
+  filter: blur(90px);
+  opacity: .5;
+}
+.profile-setup__glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: .22;
+}
+.profile-setup__glow--1 {
+  background: radial-gradient(circle, hsl(180 74% 63% / .55), transparent 60%);
+  top: 8%;
+  left: -200px;
+}
+.profile-setup__glow--2 {
+  background: radial-gradient(circle, hsl(160 76% 56% / .5), transparent 60%);
+  bottom: -180px;
+  right: -180px;
+}
+.profile-setup__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(hsl(240 10% 22% / .7) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(240 10% 22% / .7) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 0%, transparent 70%);
+  opacity: .4;
+}
+.profile-setup__spark {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .65;
+}
+
+.profile-setup__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-setup__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  max-width: 880px;
+  margin: 0 auto 3.5rem;
+}
+
+/* Earnings pill — green-leaning to read as "money" without
+   stealing the title's cyan glow */
+.profile-setup__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .42rem .9rem;
+  border-radius: 999px;
+  border: 1px solid hsl(160 70% 60% / .3);
+  background: hsl(160 60% 30% / .12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: .8rem;
+  color: var(--fg-muted);
+  letter-spacing: .01em;
+}
+.profile-setup__pill strong { color: var(--fg); font-weight: 700; }
+.profile-setup__pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: hsl(160 76% 56%);
+  box-shadow:
+    0 0 12px hsl(160 76% 56% / .9),
+    0 0 0 4px hsl(160 76% 56% / .15);
+  animation: profilePillPulse 2.4s ease-in-out infinite;
+}
+@keyframes profilePillPulse {
+  0%, 100% { box-shadow: 0 0 12px hsl(160 76% 56% / .9), 0 0 0 4px hsl(160 76% 56% / .15); }
+  50%      { box-shadow: 0 0 18px hsl(160 76% 56% / 1),  0 0 0 6px hsl(160 76% 56% / .25); }
+}
+
+.profile-setup__title {
+  margin: 0;
+  font-size: clamp(2rem, 4.6vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -.025em;
+  line-height: 1.04;
+  text-wrap: balance;
+  color: hsl(0 0% 96%);
+}
+
+.profile-setup__lede {
+  margin: 0;
+  max-width: 600px;
+  color: var(--fg-muted);
+  font-size: clamp(.95rem, 1.1vw, 1.05rem);
+  line-height: 1.55;
+}
+.profile-setup__lede em { color: var(--fg); font-style: normal; font-weight: 600; }
+
+.profile-setup__cta {
+  margin-top: .6rem;
+}
+
+/* Row of 5 cards. Center is tallest/most forward; sides recede
+   with tilt + downward offset, echoing the hero job-card fan
+   without copying it (this is a wider, flatter arrangement). */
+.profile-setup__cards {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(.6rem, 1.6vw, 1.4rem);
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-block: 2rem 2.5rem;
+}
+
+.profile-pic {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(150px, 16vw, 215px);
+  border-radius: 1.1rem;
+  border: 1px solid hsl(180 60% 70% / .18);
+  box-shadow:
+    0 30px 80px -20px hsl(0 0% 0% / .7),
+    0 0 60px -10px hsl(180 70% 50% / .28),
+    inset 0 1px 0 hsl(180 80% 90% / .18);
+  transition: transform .4s cubic-bezier(.22, 1, .36, 1),
+              box-shadow .4s cubic-bezier(.22, 1, .36, 1);
+}
+.profile-pic img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
+/* Base tilt + vertical offset per card. The float animation uses
+   the `translate` longhand so it composes with `transform` rotate. */
+.profile-pic--1 { transform: rotate(-7deg); translate: 0 28px;  z-index: 1; animation: profileFloat 7s ease-in-out infinite -1.5s; }
+.profile-pic--2 { transform: rotate(-3deg); translate: 0 8px;   z-index: 2; animation: profileFloat 6s ease-in-out infinite -3s; }
+.profile-pic--3 { transform: rotate(0deg);  translate: 0 -18px; z-index: 3; animation: profileFloat 5.5s ease-in-out infinite; }
+.profile-pic--4 { transform: rotate(3deg);  translate: 0 8px;   z-index: 2; animation: profileFloat 6s ease-in-out infinite -2.2s; }
+.profile-pic--5 { transform: rotate(7deg);  translate: 0 28px;  z-index: 1; animation: profileFloat 7s ease-in-out infinite -.8s; }
+
+@keyframes profileFloat {
+  0%, 100% { translate: 0 var(--base-y, 0); }
+  50%      { translate: 0 calc(var(--base-y, 0) - 8px); }
+}
+/* Per-card --base-y so the float oscillates around each card's
+   resting offset instead of springing back to 0. */
+.profile-pic--1 { --base-y: 28px; }
+.profile-pic--2 { --base-y: 8px; }
+.profile-pic--3 { --base-y: -18px; }
+.profile-pic--4 { --base-y: 8px; }
+.profile-pic--5 { --base-y: 28px; }
+
+/* Floating earnings badge — the section's unique flare. Picks up
+   the same glossy gradient as .btn--glow but at pill scale. */
+.profile-pic__badge {
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  transform: translateX(-50%);
+  padding: .35rem .72rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, hsl(160 76% 65%), hsl(180 74% 55%));
+  color: hsl(240 25% 6%);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .005em;
+  white-space: nowrap;
+  border: 1px solid hsl(180 74% 80% / .8);
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / .55),
+    0 0 0 4px hsl(180 74% 63% / .12),
+    0 8px 24px -4px hsl(180 74% 63% / .55),
+    0 0 28px -4px hsl(180 74% 63% / .8);
+  z-index: 4;
+  animation: badgeBob 4s ease-in-out infinite;
+}
+.profile-pic__badge--alt {
+  background: linear-gradient(180deg, hsl(180 80% 78%), hsl(180 74% 58%));
+}
+@keyframes badgeBob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-pic,
+  .profile-pic__badge,
+  .profile-setup__pill-dot { animation: none !important; }
+}
+
+/* Responsive: tablet — slightly smaller cards, less aggressive tilt */
+@media (max-width: 960px) {
+  .profile-setup__cards { max-width: 100%; gap: .5rem; }
+  .profile-pic--1 { transform: rotate(-5deg); --base-y: 20px; translate: 0 20px; }
+  .profile-pic--2 { transform: rotate(-2deg); --base-y: 6px;  translate: 0 6px; }
+  .profile-pic--3 { transform: rotate(0deg);  --base-y: -14px; translate: 0 -14px; }
+  .profile-pic--4 { transform: rotate(2deg);  --base-y: 6px;  translate: 0 6px; }
+  .profile-pic--5 { transform: rotate(5deg);  --base-y: 20px; translate: 0 20px; }
+}
+
+/* Responsive: mobile — collapse to horizontal scroll with snap;
+   strip tilt/stagger because they read as broken at this width. */
+@media (max-width: 640px) {
+  .profile-setup__content { margin-bottom: 2rem; }
+  .profile-setup__cards {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-inline: 1.25rem;
+    gap: .9rem;
+    align-items: center;
+  }
+  .profile-pic {
+    width: 175px;
+    scroll-snap-align: center;
+    transform: none !important;
+    translate: 0 !important;
+    animation: none !important;
+    --base-y: 0;
+  }
+  .profile-pic__badge { animation: none; }
+}
+
+/* =========================================================
    Marketplace showcase — screenshot under a soft cyan spotlight
    Pure radial gradients (no linear strips) so edges feather
    naturally; one crisp hairline on top.

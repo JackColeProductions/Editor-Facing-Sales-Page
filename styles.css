@@ -2379,25 +2379,31 @@ button { font: inherit; cursor: pointer; }
     inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* CARD_left.png and CARD_right.png ship with a bright teal hairline
-   rendered into the bitmap along the entire top edge of the card
-   content — CARD_MAIN_CENTRE.png does not. No box-shadow / border /
-   filter change can remove pixels that are part of the source image,
-   which is why prior attempts to match the side strokes to the center
-   had no visible effect. Cropping a thin band off the top via
-   clip-path masks the baked-in stroke. Permanent fix is to re-export
-   the side PNGs without the top-edge stroke. */
+/* CARD_left.png and CARD_right.png have a stylized teal-glow gradient
+   baked into the top ~25-30 source rows of the card design — it's a
+   gradient zone in the bitmap, not a 1px stroke (verified by pixel
+   inspection). CARD_MAIN_CENTRE.png has no equivalent gradient. That
+   is the entire reason the side cards look like they have a chunky
+   teal top edge while the center doesn't. No box-shadow / border /
+   filter change touches pixels that are part of the source image.
+
+   Workaround: clip ~7% off the top via clip-path — covers the full
+   baked-in gradient zone at the responsive sizes the side cards render
+   at. Teal halos also use tighter negative-spread box-shadows (matching
+   the center) so the outer glow doesn't bleed teal around the new top
+   edge. Permanent fix: re-export the side PNGs without the top-edge
+   gradient. */
 .platform__card--left,
 .platform__card--right {
   z-index: 2;
   bottom: 40px;
   width: 46%;
-  clip-path: inset(1% 0 0 0 round 1.25rem);
-  box-shadow: none;
-  filter:
-    drop-shadow(0 30px 60px hsl(0 0% 0% / .6))
-    drop-shadow(0 0 40px hsl(180 70% 50% / .38))
-    drop-shadow(0 0 80px hsl(180 60% 45% / .22));
+  clip-path: inset(7% 0 0 0 round 1.25rem);
+  box-shadow:
+    0 40px 100px -20px hsl(0 0% 0% / .8),
+    0 0 80px -10px hsl(180 80% 55% / .35),
+    0 0 120px -20px hsl(180 70% 50% / .22);
+  filter: none;
 }
 .platform__card--left {
   left: 1%;

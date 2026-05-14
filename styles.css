@@ -1728,13 +1728,15 @@ button { font: inherit; cursor: pointer; }
 /* Edge blur teases — mirrored backdrop-filter overlays on both sides
    of the carousel. Anything passing through these zones gets the same
    premium blur + darken treatment, so cards fade out as they scroll
-   off in either direction. */
+   off in either direction. Vertical extent covers the full carousel
+   so a lifted (hover/playing) card can't escape the blur zone above
+   or below. */
 .proof__carousel::before,
 .proof__carousel::after {
   content: '';
   position: absolute;
-  top: 4.5rem;
-  bottom: 5rem;
+  top: 0;
+  bottom: 0;
   width: clamp(160px, 18vw, 280px);
   z-index: 4;
   pointer-events: none;
@@ -1816,9 +1818,11 @@ button { font: inherit; cursor: pointer; }
     inset 0 1px 0 hsl(180 80% 90% / .15),
     0 24px 50px -22px hsl(0 0% 0% / .8),
     0 0 40px -12px hsl(180 74% 63% / .4);
-  /* Above the carousel edge blur overlays (z:4) so the hovered card
-     pops fully clear, even if it was sitting in a blur zone. */
-  z-index: 10;
+  /* Stays UNDER the carousel edge blur overlays (z:4) so cards near
+     the edges remain within the blur zone even when lifted. The
+     overlays themselves now span the carousel's full height so a
+     translateY(-6px) lift can't escape vertically either. */
+  z-index: 2;
 }
 .proof__card.is-playing {
   transform: translateY(-4px) scale(1.02);
@@ -1829,7 +1833,7 @@ button { font: inherit; cursor: pointer; }
     inset 0 0 0 1px hsl(180 74% 63% / .35),
     0 25px 55px -20px hsl(0 0% 0% / .85),
     0 0 50px -12px hsl(180 74% 63% / .55);
-  z-index: 11;
+  z-index: 3;
 }
 
 .proof__video-wrap {
@@ -1845,9 +1849,8 @@ button { font: inherit; cursor: pointer; }
   display: block;
 }
 
-/* Centered play button overlay — 3-stop teal gradient + glossy top
-   highlight + multi-layer halo. Reads as a sculpted glass disc with
-   light catching the top edge. */
+/* Centered play button overlay — glassy SaaS treatment: translucent
+   teal tint, frosted backdrop blur, soft inset highlight + outer halo. */
 .proof__play {
   position: absolute;
   top: 50%;
@@ -1856,24 +1859,26 @@ button { font: inherit; cursor: pointer; }
   width: 68px;
   height: 68px;
   border-radius: 50%;
-  border: 1px solid hsl(180 100% 95% / .6);
+  border: 1px solid hsl(180 100% 92% / .35);
   background: linear-gradient(160deg,
-    hsl(180 100% 92%) 0%,
-    hsl(180 92% 72%) 35%,
-    hsl(180 80% 52%) 75%,
-    hsl(180 72% 40%) 100%);
-  color: hsl(240 35% 8%);
+    hsl(180 95% 85% / .55) 0%,
+    hsl(180 88% 65% / .45) 45%,
+    hsl(180 78% 48% / .4) 100%);
+  color: hsl(240 35% 12%);
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform .3s ease, opacity .3s ease, box-shadow .3s ease;
+  transition: transform .3s ease, opacity .3s ease, box-shadow .3s ease,
+              background .3s ease;
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+          backdrop-filter: blur(14px) saturate(1.3);
   box-shadow:
-    inset 0 1px 0 hsl(0 0% 100% / .6),
-    inset 0 -1px 0 hsl(180 80% 30% / .35),
-    0 0 0 1px hsl(180 100% 95% / .35) inset,
-    0 0 30px -4px hsl(180 90% 65% / .6),
-    0 0 60px -10px hsl(180 80% 55% / .35),
-    0 10px 22px -8px hsl(180 80% 40% / .65);
+    inset 0 1px 0 hsl(0 0% 100% / .5),
+    inset 0 -1px 0 hsl(180 80% 25% / .25),
+    0 0 0 1px hsl(180 100% 95% / .15) inset,
+    0 0 28px -4px hsl(180 85% 60% / .45),
+    0 0 60px -12px hsl(180 75% 55% / .28),
+    0 10px 22px -10px hsl(180 80% 40% / .45);
 }
 .proof__play svg { width: 24px; height: 24px; margin-left: 3px; position: relative; z-index: 1; }
 /* Pulse ring around the play button — only animates on hover so 10
@@ -1924,8 +1929,8 @@ button { font: inherit; cursor: pointer; }
 }
 .proof__duration:empty { display: none; }
 
-/* "● PLAYING" indicator — gradient pill with glossy highlight, only
-   visible on the playing card. Blinking red dot for liveness. */
+/* "● PLAYING" indicator — glassy SaaS pill matching the play button.
+   Frosted backdrop blur, translucent teal tint, soft highlight. */
 .proof__live {
   position: absolute;
   top: .6rem;
@@ -1936,10 +1941,9 @@ button { font: inherit; cursor: pointer; }
   padding: .3rem .65rem .3rem .55rem;
   border-radius: 999px;
   background: linear-gradient(160deg,
-    hsl(180 100% 90%) 0%,
-    hsl(180 88% 65%) 45%,
-    hsl(180 78% 48%) 100%);
-  color: hsl(240 35% 8%);
+    hsl(180 95% 82% / .55) 0%,
+    hsl(180 85% 60% / .45) 100%);
+  color: hsl(240 35% 12%);
   font-size: .65rem;
   font-weight: 900;
   letter-spacing: .16em;
@@ -1948,13 +1952,14 @@ button { font: inherit; cursor: pointer; }
   transform: translateY(-4px);
   transition: opacity .3s ease, transform .3s ease;
   pointer-events: none;
-  border: 1px solid hsl(180 100% 95% / .6);
+  border: 1px solid hsl(180 100% 92% / .35);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+          backdrop-filter: blur(12px) saturate(1.3);
   box-shadow:
-    inset 0 1px 0 hsl(0 0% 100% / .55),
-    inset 0 -1px 0 hsl(180 80% 30% / .35),
-    0 0 0 1px hsl(180 100% 95% / .35) inset,
-    0 6px 18px -4px hsl(180 80% 45% / .65),
-    0 0 26px -4px hsl(180 80% 55% / .45);
+    inset 0 1px 0 hsl(0 0% 100% / .45),
+    inset 0 -1px 0 hsl(180 80% 25% / .25),
+    0 6px 18px -6px hsl(180 80% 45% / .45),
+    0 0 24px -6px hsl(180 75% 55% / .35);
 }
 .proof__live::before {
   content: '';

@@ -1222,6 +1222,42 @@ button { font: inherit; cursor: pointer; }
   padding-bottom: 8rem;
 }
 
+/* Bottom seam — paired with the .showcase hairline so every section
+   ends on a horizon line. The sphere's halo would swallow a plain
+   1px line, so this is two parts:
+     ::before — a tall fade band that drops the sphere's bottom glow
+                into near-pure-black, giving the sphere a horizon to
+                set into instead of clipping mid-glow.
+     ::after  — a brighter, thicker gradient hairline with a soft
+                glow so it reads against the now-darkened backdrop. */
+.pricing::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 220px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    hsl(240 30% 5% / .35) 35%,
+    hsl(240 30% 5% / .85) 75%,
+    hsl(240 30% 5%) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.pricing::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    hsl(180 80% 70% / .7) 50%,
+    transparent);
+  box-shadow: 0 0 16px hsl(180 80% 70% / .4);
+  z-index: 3;
+}
+
 .pricing__atmosphere {
   position: absolute;
   inset: 0;

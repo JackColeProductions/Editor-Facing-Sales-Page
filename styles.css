@@ -731,6 +731,19 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   isolation: isolate;
 }
+/* Bottom divider — matches the .stats section's gradient hairline so the
+   atmospheric beam ends on a clean section seam instead of a hard cut. */
+.showcase::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(180 74% 63% / .35) 50%, transparent);
+  opacity: .6;
+  z-index: 1;
+}
 .showcase__head { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
 
 /* Atmosphere: one diagonal teal light leak + sparse dust particles, both

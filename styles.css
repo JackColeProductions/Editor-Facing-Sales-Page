@@ -2379,17 +2379,8 @@ button { font: inherit; cursor: pointer; }
     inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* CARD_left.png has a stylized teal-glow stroke baked into ALL FOUR
-   edges of the bitmap (verified by pixel-inspecting each edge of
-   every PNG). CARD_right.png and CARD_MAIN_CENTRE.png are clean.
-   That's why the left card looks like it has a thick teal outline
-   while the others don't — and no CSS edit can remove pixels that
-   are part of the source image. The permanent fix is to re-export
-   CARD_left.png without the baked-in outline.
-
-   Tighter negative-spread halos (matching the center card) keep the
-   side cards' outer glow contained so it doesn't add additional teal
-   on top of the baked-in stroke. */
+/* Side cards use the same box-shadow as the center card so they get
+   the same small glossy edge treatment. */
 .platform__card--left,
 .platform__card--right {
   z-index: 2;
@@ -2397,8 +2388,11 @@ button { font: inherit; cursor: pointer; }
   width: 46%;
   box-shadow:
     0 40px 100px -20px hsl(0 0% 0% / .8),
-    0 0 80px -10px hsl(180 80% 55% / .35),
-    0 0 120px -20px hsl(180 70% 50% / .22);
+    0 0 80px -10px hsl(180 80% 55% / .45),
+    0 0 120px -20px hsl(180 70% 50% / .3),
+    inset 0 1px 0 hsl(180 90% 95% / .22),
+    inset 0 30px 32px -22px hsl(180 75% 65% / .16),
+    inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 .platform__card--left {
   left: 1%;

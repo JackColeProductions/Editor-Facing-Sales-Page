@@ -86,3 +86,75 @@ if (stories) {
 
   render();
 }
+
+// Video testimonial carousel — horizontal scroll with snap, click to play.
+const proof = document.querySelector('.proof');
+if (proof) {
+  const track = proof.querySelector('.proof__track');
+  const cards = Array.from(proof.querySelectorAll('.proof__card'));
+  const videos = Array.from(proof.querySelectorAll('.proof__video'));
+  const prevBtn = proof.querySelector('[data-action="prev"]');
+  const nextBtn = proof.querySelector('[data-action="next"]');
+  const dots = Array.from(proof.querySelectorAll('.proof__dot'));
+
+  // Click a card → toggle that video; pause and re-mute the others.
+  cards.forEach((card) => {
+    const video = card.querySelector('.proof__video');
+    if (!video) return;
+
+    const playOthers = () => videos.forEach(v => {
+      if (v !== video) { v.pause(); v.muted = true; }
+    });
+
+    card.addEventListener('click', () => {
+      if (video.paused) {
+        playOthers();
+        video.muted = false;
+        video.play().catch(() => { video.muted = true; video.play(); });
+      } else {
+        video.pause();
+      }
+    });
+
+    video.addEventListener('play',  () => card.classList.add('is-playing'));
+    video.addEventListener('pause', () => card.classList.remove('is-playing'));
+    video.addEventListener('ended', () => card.classList.remove('is-playing'));
+
+    // Force the first painted frame so the card isn't a black square before
+    // the user clicks. preload="metadata" alone leaves the canvas blank.
+    video.addEventListener('loadedmetadata', () => {
+      try { video.currentTime = 0.1; } catch (_) {}
+    }, { once: true });
+  });
+
+  // Carousel arrows — scroll by one card width + gap.
+  const cardStep = () => {
+    if (!cards[0]) return 0;
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 16;
+    return cardWidth + gap;
+  };
+  prevBtn?.addEventListener('click', () => track.scrollBy({ left: -cardStep(), behavior: 'smooth' }));
+  nextBtn?.addEventListener('click', () => track.scrollBy({ left:  cardStep(), behavior: 'smooth' }));
+
+  // Dot click → snap to that card.
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const card = cards[i];
+      if (!card) return;
+      const offset = card.offsetLeft - track.offsetLeft;
+      track.scrollTo({ left: offset, behavior: 'smooth' });
+    });
+  });
+
+  // Keep the active dot in sync with scroll position.
+  const updateDots = () => {
+    if (!cards.length || !dots.length) return;
+    const step = cardStep() || 1;
+    const idx = Math.min(dots.length - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+  };
+  track.addEventListener('scroll', updateDots, { passive: true });
+  window.addEventListener('resize', updateDots);
+  updateDots();
+}

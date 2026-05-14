@@ -1660,6 +1660,225 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
+   Proof — video testimonial carousel
+   ========================================================= */
+.proof {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.proof__carousel {
+  position: relative;
+  margin: clamp(1.5rem, 3vh, 2.5rem) 0 1.5rem;
+  /* Bleed off the right edge so peek effect reads even on narrow viewports. */
+  padding-right: max(0px, calc((100vw - 1180px) / 2));
+  margin-right: calc(-1 * max(0px, calc((100vw - 1180px) / 2)));
+}
+
+/* Horizontal scroll track with snap. */
+.proof__track {
+  display: flex;
+  gap: 1.1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 1rem 0 1.5rem;
+}
+.proof__track::-webkit-scrollbar { display: none; }
+
+/* Each card — vertical 9:16 video with bottom info bar. */
+.proof__card {
+  position: relative;
+  flex: 0 0 clamp(220px, 22vw, 280px);
+  scroll-snap-align: start;
+  border-radius: 1.1rem;
+  overflow: hidden;
+  background: linear-gradient(180deg, hsl(240 20% 9%), hsl(240 22% 5%));
+  border: 1px solid hsl(0 0% 100% / .07);
+  box-shadow: 0 18px 40px -20px hsl(0 0% 0% / .7);
+  cursor: pointer;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.proof__card:hover {
+  transform: translateY(-4px);
+  border-color: hsl(180 74% 63% / .35);
+  box-shadow:
+    0 24px 50px -22px hsl(0 0% 0% / .8),
+    0 0 30px -10px hsl(180 74% 63% / .35);
+}
+.proof__card.is-playing {
+  border-color: hsl(180 74% 63% / .65);
+  box-shadow:
+    0 24px 60px -20px hsl(0 0% 0% / .85),
+    0 0 50px -10px hsl(180 74% 63% / .45),
+    0 0 0 1px hsl(180 74% 63% / .25) inset;
+}
+
+.proof__video-wrap {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  background: #000;
+  overflow: hidden;
+}
+.proof__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Centered play button overlay. */
+.proof__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid hsl(180 100% 92% / .55);
+  background: linear-gradient(135deg, hsl(180 95% 75%) 0%, hsl(180 80% 50%) 100%);
+  color: hsl(240 30% 8%);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .25s ease, opacity .25s ease, box-shadow .25s ease;
+  box-shadow:
+    0 0 0 1px hsl(180 100% 92% / .35) inset,
+    0 0 28px -4px hsl(180 85% 60% / .55),
+    0 8px 20px -8px hsl(180 80% 45% / .6);
+}
+.proof__play svg { width: 24px; height: 24px; margin-left: 3px; }
+.proof__card:hover .proof__play {
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow:
+    0 0 0 1px hsl(180 100% 92% / .55) inset,
+    0 0 40px -4px hsl(180 85% 60% / .75),
+    0 12px 26px -8px hsl(180 80% 45% / .7);
+}
+.proof__card.is-playing .proof__play { opacity: 0; pointer-events: none; }
+
+/* Bottom info bar — name, stars, quote. */
+.proof__info {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: .9rem 1rem 1rem;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    hsl(240 28% 4% / .55) 30%,
+    hsl(240 28% 4% / .92) 100%);
+  color: var(--fg);
+  pointer-events: none;
+  transition: opacity .35s ease;
+}
+.proof__card.is-playing .proof__info { opacity: .55; }
+.proof__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-bottom: .25rem;
+}
+.proof__name {
+  margin: 0;
+  font-weight: 800;
+  font-size: .95rem;
+  letter-spacing: -.005em;
+}
+.proof__stars {
+  font-size: .85rem;
+  letter-spacing: .12em;
+  background: linear-gradient(180deg, hsl(180 90% 80%), hsl(180 74% 55%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.proof__quote {
+  margin: 0;
+  font-size: .82rem;
+  color: var(--fg-muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Controls row — nav arrows on the left, dots on the right. */
+.proof__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: .25rem;
+}
+.proof__nav-group {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.proof__nav {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid hsl(0 0% 100% / .14);
+  background: hsl(240 20% 9% / .85);
+  color: var(--fg);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform .25s ease, border-color .25s ease,
+              background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.proof__nav:hover {
+  border-color: hsl(180 74% 63% / .55);
+  background: hsl(180 74% 63% / .1);
+  color: hsl(180 90% 80%);
+  box-shadow: 0 0 22px -6px hsl(180 80% 55% / .5);
+}
+.proof__nav:active { transform: scale(.96); }
+.proof__nav svg { width: 18px; height: 18px; }
+
+.proof__dots {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .5rem .75rem;
+  border-radius: 999px;
+  background: hsl(240 20% 9% / .5);
+  border: 1px solid hsl(0 0% 100% / .07);
+}
+.proof__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  background: hsl(0 0% 100% / .2);
+  cursor: pointer;
+  transition: width .3s ease, background .3s ease;
+}
+.proof__dot:hover { background: hsl(180 74% 63% / .55); }
+.proof__dot.is-active {
+  width: 22px;
+  background: linear-gradient(90deg, hsl(180 90% 75%), hsl(180 78% 52%));
+  box-shadow: 0 0 12px -2px hsl(180 80% 60% / .6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proof__card,
+  .proof__play,
+  .proof__nav,
+  .proof__dot,
+  .proof__info { transition: none; }
+  .proof__card:hover { transform: none; }
+}
+
+/* =========================================================
    VS — VP+ Marketplace as the lifted card, Old Way as faded ghost
    ========================================================= */
 .vs-section {

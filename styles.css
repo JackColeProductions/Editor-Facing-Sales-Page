@@ -2379,31 +2379,26 @@ button { font: inherit; cursor: pointer; }
     inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* CARD_left.png and CARD_right.png have a stylized teal-glow gradient
-   baked into the top ~25-30 source rows of the card design — it's a
-   gradient zone in the bitmap, not a 1px stroke (verified by pixel
-   inspection). CARD_MAIN_CENTRE.png has no equivalent gradient. That
-   is the entire reason the side cards look like they have a chunky
-   teal top edge while the center doesn't. No box-shadow / border /
-   filter change touches pixels that are part of the source image.
+/* CARD_left.png has a stylized teal-glow stroke baked into ALL FOUR
+   edges of the bitmap (verified by pixel-inspecting each edge of
+   every PNG). CARD_right.png and CARD_MAIN_CENTRE.png are clean.
+   That's why the left card looks like it has a thick teal outline
+   while the others don't — and no CSS edit can remove pixels that
+   are part of the source image. The permanent fix is to re-export
+   CARD_left.png without the baked-in outline.
 
-   Workaround: clip ~7% off the top via clip-path — covers the full
-   baked-in gradient zone at the responsive sizes the side cards render
-   at. Teal halos also use tighter negative-spread box-shadows (matching
-   the center) so the outer glow doesn't bleed teal around the new top
-   edge. Permanent fix: re-export the side PNGs without the top-edge
-   gradient. */
+   Tighter negative-spread halos (matching the center card) keep the
+   side cards' outer glow contained so it doesn't add additional teal
+   on top of the baked-in stroke. */
 .platform__card--left,
 .platform__card--right {
   z-index: 2;
   bottom: 40px;
   width: 46%;
-  clip-path: inset(7% 0 0 0 round 1.25rem);
   box-shadow:
     0 40px 100px -20px hsl(0 0% 0% / .8),
     0 0 80px -10px hsl(180 80% 55% / .35),
     0 0 120px -20px hsl(180 70% 50% / .22);
-  filter: none;
 }
 .platform__card--left {
   left: 1%;

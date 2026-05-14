@@ -2145,38 +2145,60 @@ button { font: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
-/* Soft wrap-around glow positioned where the cards live. Strong enough
-   to feel like atmospheric light around the cards, not a black void. */
-.platform__halo {
+/* Diffuse top glow filling the upper portion of the section — the
+   "stage spotlight from above" effect that softens the section into a
+   continuous atmospheric scene rather than discrete light pools. */
+.platform__top-glow {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1500px, 130vw);
-  height: 750px;
-  background: radial-gradient(ellipse at center,
-    hsl(180 80% 55% / .22) 0%,
-    hsl(180 70% 45% / .10) 40%,
+  width: min(1400px, 130vw);
+  height: 600px;
+  background: radial-gradient(ellipse at center top,
+    hsl(180 70% 50% / .18) 0%,
+    hsl(180 65% 45% / .08) 40%,
     transparent 70%);
-  filter: blur(80px);
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Soft wrap-around glow positioned where the cards live. Larger and
+   brighter so the cards sit in real atmospheric light. */
+.platform__halo {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1800px, 140vw);
+  height: 900px;
+  background: radial-gradient(ellipse at center,
+    hsl(180 80% 55% / .28) 0%,
+    hsl(180 75% 50% / .15) 30%,
+    hsl(180 70% 45% / .06) 55%,
+    transparent 75%);
+  filter: blur(100px);
   z-index: 0;
 }
 
-/* Vertical shaft of light extending from behind the title through the
-   CTA glow and DOWN behind the cards — one continuous light source. */
+/* Vertical shaft of light extending from above the title down past
+   the cards. Wider and brighter than before so it reads as a
+   diffuse beam rather than a narrow spotlight. */
 .platform__light-column {
   position: absolute;
-  top: 20%;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
-  height: 1100px;
-  background: radial-gradient(ellipse 50% 60% at 50% 40%,
-    hsl(180 90% 70% / .55) 0%,
-    hsl(180 85% 60% / .3) 30%,
-    hsl(180 75% 45% / .12) 60%,
-    transparent 80%);
-  filter: blur(60px);
+  width: 900px;
+  height: 1200px;
+  background: radial-gradient(ellipse 50% 60% at 50% 35%,
+    hsl(180 90% 70% / .65) 0%,
+    hsl(180 85% 60% / .4) 25%,
+    hsl(180 75% 45% / .18) 55%,
+    hsl(180 70% 40% / .08) 75%,
+    transparent 90%);
+  filter: blur(80px);
   mix-blend-mode: screen;
   z-index: 1;
 }
@@ -2271,29 +2293,37 @@ button { font: inherit; cursor: pointer; }
     inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* Side cards — nearly the same scale as the center (46% vs 46%).
-   Hierarchy comes from the rotation + slight dim, not from being half
-   the size. Pivot from the inside-bottom corner so each card fans
-   outward from where it meets the center. Pulled out to left/right:1%
-   so more of their visible UI is on display. */
+/* Side cards — no border, no inset highlights (which were tracing
+   ghost rectangles around the PNGs' bounding boxes). Pure outer glow
+   only so they blend into the atmosphere rather than reading as
+   bordered panels. */
+.platform__card--left,
+.platform__card--right {
+  border: none;
+  z-index: 2;
+  bottom: 40px;
+  width: 46%;
+  /* drop-shadow follows the PNG's alpha channel — no ghost-rectangle
+     glow around transparent edges, only glow around visible content. */
+  filter:
+    brightness(.9)
+    saturate(.95)
+    drop-shadow(0 30px 60px hsl(0 0% 0% / .6))
+    drop-shadow(0 0 40px hsl(180 70% 50% / .38))
+    drop-shadow(0 0 80px hsl(180 60% 45% / .22));
+  /* Override the shared inset-shadow stack so no rectangle outline
+     traces the bounding box. drop-shadow above carries the glow. */
+  box-shadow: none;
+}
 .platform__card--left {
   left: 1%;
-  bottom: 40px;
-  width: 46%;
-  z-index: 2;
   transform: rotate(-7deg);
   transform-origin: 100% 100%;
-  filter: brightness(.9) saturate(.95);
 }
-
 .platform__card--right {
   right: 1%;
-  bottom: 40px;
-  width: 46%;
-  z-index: 2;
   transform: rotate(7deg);
   transform-origin: 0% 100%;
-  filter: brightness(.9) saturate(.95);
 }
 
 /* Hover — splay the fan a touch wider and lift the center. */

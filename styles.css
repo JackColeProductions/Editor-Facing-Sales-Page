@@ -2116,13 +2116,26 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Platform — fanned-card showcase lit from behind by a teal column
+   Platform — fanned-card showcase lit from behind by a teal column.
+   Whole section (header + cards) sized to fit a 1440x900 laptop fold.
    ========================================================= */
 .platform {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 7rem 0 8rem;
+  padding: 4rem 0 3rem;
+  min-height: 100vh;
+  max-height: 1100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.platform > .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .platform__atmosphere {
@@ -2132,10 +2145,10 @@ button { font: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
-/* Wider, softer base glow that wraps around the entire stage area. */
+/* Soft wrap-around glow positioned where the cards live. */
 .platform__halo {
   position: absolute;
-  top: 40%;
+  top: 55%;
   left: 50%;
   transform: translateX(-50%);
   width: min(1400px, 130vw);
@@ -2148,14 +2161,15 @@ button { font: inherit; cursor: pointer; }
   z-index: 0;
 }
 
-/* The big vertical shaft of light directly behind the cards. */
+/* Vertical shaft of light extending from behind the title through the
+   CTA glow and DOWN behind the cards — one continuous light source. */
 .platform__light-column {
   position: absolute;
-  top: 30%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
   width: 600px;
-  height: 900px;
+  height: 1100px;
   background: radial-gradient(ellipse 50% 60% at 50% 40%,
     hsl(180 90% 70% / .55) 0%,
     hsl(180 85% 60% / .3) 30%,
@@ -2173,42 +2187,63 @@ button { font: inherit; cursor: pointer; }
   height: 100%;
 }
 
-/* CTA row under the header. */
+/* Header sizing tuned specifically for this section so the full
+   composition (kicker → title → lede → CTAs → 3-card stage) fits
+   inside a 1440x900 laptop viewport without scrolling. */
+.platform .section__head {
+  max-width: 1000px;
+  margin-bottom: 1rem;
+}
+.platform .section__title {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.05;
+}
+.platform .section__lede { margin-top: .75rem; }
+
 .platform__cta-row {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   flex-wrap: wrap;
 }
 
-/* Stage holds the three cards in absolute position. */
+/* Stage — fixed height, overflow visible so tilted card corners can
+   extend past its bounds without being clipped. */
 .platform__stage {
   position: relative;
-  max-width: 1200px;
-  margin: 4rem auto 0;
-  height: 600px;
+  max-width: 1300px;
+  width: 100%;
+  margin: 1.5rem auto 0;
+  height: 400px;
   perspective: 1800px;
+  overflow: visible;
 }
 
 .platform__card {
   position: absolute;
   bottom: 0;
-  height: auto;
+  max-height: 400px;
+  object-fit: contain;
   border-radius: 1.25rem;
+  /* Pivot rotations from the bottom-center by default (overridden on
+     side cards for fan-out-from-the-inside-corner behavior). */
+  transform-origin: 50% 100%;
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1),
+              filter .5s cubic-bezier(.22, 1, .36, 1);
   box-shadow:
     0 30px 80px -20px hsl(0 0% 0% / .7),
     0 0 60px -10px hsl(180 70% 50% / .3),
     0 0 0 1px hsl(180 50% 60% / .15);
-  transition: transform .5s cubic-bezier(.22, 1, .36, 1),
-              filter .5s cubic-bezier(.22, 1, .36, 1);
 }
 
+/* Center card — frontmost, dead vertical, no tilt. */
 .platform__card--center {
   left: 50%;
-  width: 55%;
+  bottom: 0;
+  width: 48%;
   z-index: 3;
-  transform: translateX(-50%) translateY(20px) rotate(-1deg);
+  transform: translateX(-50%);
   box-shadow:
     0 40px 100px -20px hsl(0 0% 0% / .8),
     0 0 80px -10px hsl(180 80% 55% / .45),
@@ -2216,49 +2251,55 @@ button { font: inherit; cursor: pointer; }
     0 0 0 1px hsl(180 60% 65% / .25);
 }
 
+/* Side cards — fan outward, pivoting from the corner where they meet
+   the center card. Slightly raised + dimmed so they visually recede. */
 .platform__card--left {
-  left: 2%;
-  width: 42%;
+  left: 8%;
+  bottom: 20px;
+  width: 38%;
   z-index: 2;
-  transform: translateY(60px) rotate(-8deg);
-  filter: brightness(.85) saturate(.9);
+  transform: rotate(-6deg);
+  transform-origin: 100% 100%;
+  filter: brightness(.78) saturate(.85);
 }
 
 .platform__card--right {
-  right: 2%;
-  width: 42%;
+  right: 8%;
+  bottom: 20px;
+  width: 38%;
   z-index: 2;
-  transform: translateY(60px) rotate(8deg);
-  filter: brightness(.85) saturate(.9);
+  transform: rotate(6deg);
+  transform-origin: 0% 100%;
+  filter: brightness(.78) saturate(.85);
 }
 
-/* Hover — splay the fan out a touch and lift the center card. */
+/* Hover — splay the fan a touch wider and lift the center. */
 .platform__stage:hover .platform__card--center {
-  transform: translateX(-50%) translateY(10px) rotate(-1deg);
+  transform: translateX(-50%) translateY(-10px);
 }
 .platform__stage:hover .platform__card--left {
-  transform: translateY(50px) rotate(-10deg);
+  transform: rotate(-8deg);
 }
 .platform__stage:hover .platform__card--right {
-  transform: translateY(50px) rotate(10deg);
+  transform: rotate(8deg);
 }
 
 @media (max-width: 1023px) {
-  .platform__stage { height: 500px; }
-  .platform__card--center { width: 60%; transform: translateX(-50%) translateY(20px) rotate(-.5deg); }
-  .platform__card--left  { width: 45%; transform: translateY(60px) rotate(-5deg); }
-  .platform__card--right { width: 45%; transform: translateY(60px) rotate(5deg); }
-  .platform__stage:hover .platform__card--center { transform: translateX(-50%) translateY(10px) rotate(-.5deg); }
-  .platform__stage:hover .platform__card--left   { transform: translateY(50px) rotate(-7deg); }
-  .platform__stage:hover .platform__card--right  { transform: translateY(50px) rotate(7deg); }
+  .platform { min-height: auto; max-height: none; }
+  .platform__stage { height: 400px; }
+  .platform__card--center { width: 55%; }
+  .platform__card--left  { width: 42%; transform: rotate(-4deg); }
+  .platform__card--right { width: 42%; transform: rotate(4deg); }
+  .platform__stage:hover .platform__card--left  { transform: rotate(-5deg); }
+  .platform__stage:hover .platform__card--right { transform: rotate(5deg); }
 }
 
 @media (max-width: 767px) {
-  .platform { padding: 5rem 0 6rem; }
+  .platform { padding: 3rem 0 4rem; }
   .platform__stage {
     height: auto;
-    margin: 3rem auto 0;
-    padding-bottom: 2rem;
+    margin: 2rem auto 0;
+    padding-bottom: 1rem;
   }
   .platform__card--left,
   .platform__card--right { display: none; }
@@ -2266,8 +2307,8 @@ button { font: inherit; cursor: pointer; }
     position: relative;
     left: auto;
     bottom: auto;
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
+    max-height: none;
     transform: none;
     display: block;
   }

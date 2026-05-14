@@ -1200,6 +1200,269 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
+   Pricing — eclipse-arc atmosphere + two glassy plan cards
+   ========================================================= */
+.pricing {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.pricing__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* The atmospheric halo that sits behind the arc and fades upward. */
+.pricing__halo {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1400px, 130vw);
+  height: 540px;
+  background: radial-gradient(ellipse at 50% 100%,
+    hsl(180 74% 63% / .45) 0%,
+    hsl(180 74% 63% / .22) 22%,
+    hsl(180 74% 63% / .08) 42%,
+    transparent 65%);
+  filter: blur(40px);
+}
+
+/* The horizon arc — a huge circle whose top edge peeks into the
+   section, drawn by a thin bright ring radial-gradient at 50% radius. */
+.pricing__arc {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(2000px, 180vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    transparent 49.4%,
+    hsl(180 70% 65% / .25) 49.7%,
+    hsl(180 88% 82% / .75) 49.9%,
+    hsl(180 100% 96%) 50%,
+    hsl(180 88% 82% / .75) 50.1%,
+    hsl(180 70% 65% / .25) 50.3%,
+    transparent 50.6%);
+  filter: blur(1.5px);
+}
+
+.pricing__plans {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+@media (min-width: 820px) {
+  .pricing__plans {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
+  }
+}
+
+.pricing__plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: clamp(1rem, 1.4vw, 1.4rem);
+  border: 1px solid hsl(0 0% 100% / .08);
+  background: linear-gradient(180deg, hsl(240 18% 11% / .92), hsl(240 20% 6% / .94));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 30px 70px -30px hsl(0 0% 0% / .8);
+}
+
+.pricing__plan--featured {
+  border-color: hsl(180 74% 63% / .55);
+  background: linear-gradient(180deg, hsl(180 28% 12% / .85), hsl(240 20% 6% / .94));
+  box-shadow:
+    0 0 0 1px hsl(180 74% 63% / .25) inset,
+    0 30px 70px -25px hsl(180 74% 63% / .45),
+    0 0 90px -30px hsl(180 74% 63% / .45);
+}
+
+.pricing__badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: .45rem 1.1rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, hsl(180 90% 75%), hsl(180 78% 52%));
+  color: hsl(240 25% 8%);
+  font-weight: 900;
+  font-size: .72rem;
+  letter-spacing: .16em;
+  white-space: nowrap;
+  box-shadow:
+    0 6px 22px hsl(180 74% 63% / .5),
+    0 0 0 4px hsl(240 20% 7%);
+}
+
+.pricing__head { display: flex; flex-direction: column; gap: .5rem; }
+
+.pricing__name {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: var(--fg);
+}
+
+.pricing__price {
+  display: flex;
+  align-items: baseline;
+  gap: .55rem;
+  flex-wrap: wrap;
+}
+.pricing__price-old {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: hsl(0 0% 50%);
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  letter-spacing: -.01em;
+}
+.pricing__price-new {
+  font-size: clamp(2.5rem, 5vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: -.025em;
+  line-height: 1;
+  background: linear-gradient(180deg, hsl(180 95% 88%), hsl(180 74% 55%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 30px hsl(180 74% 63% / .35);
+}
+.pricing__price-period {
+  font-size: 1rem;
+  color: var(--fg-muted);
+}
+
+.pricing__billing {
+  margin: 0;
+  font-size: .92rem;
+  color: var(--fg-muted);
+}
+
+.pricing__deal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: .9rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(180 88% 65%), hsl(180 78% 48%));
+  color: hsl(240 25% 8%);
+  font-weight: 900;
+  font-size: .9rem;
+  letter-spacing: .06em;
+  box-shadow: 0 10px 28px -10px hsl(180 74% 63% / .65);
+}
+.pricing__deal-icon { font-size: 1.05rem; line-height: 1; }
+
+.pricing__includes {
+  padding: 1rem;
+  border-radius: .85rem;
+  border: 1px solid hsl(180 74% 63% / .35);
+  background: hsl(180 30% 12% / .45);
+  color: var(--primary);
+  font-weight: 700;
+  text-align: center;
+  font-size: .98rem;
+}
+
+.pricing__features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+.pricing__features li {
+  display: flex;
+  gap: .85rem;
+  align-items: flex-start;
+}
+
+.pricing__check,
+.pricing__plus {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  margin-top: 2px;
+}
+.pricing__check svg,
+.pricing__plus svg { width: 13px; height: 13px; }
+
+.pricing__check {
+  background: hsl(180 74% 63% / .15);
+  border: 1px solid hsl(180 74% 63% / .4);
+  color: var(--primary);
+  box-shadow: 0 0 14px hsl(180 74% 63% / .25);
+}
+.pricing__plus {
+  background: hsl(180 74% 63% / .12);
+  border: 1px solid hsl(180 74% 63% / .3);
+  color: var(--primary);
+}
+
+.pricing__feature-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--fg);
+  letter-spacing: -.005em;
+}
+.pricing__feature-desc {
+  margin: .25rem 0 0;
+  color: var(--fg-muted);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.pricing__cta {
+  display: block;
+  margin-top: auto;
+  padding: 1.05rem 1.5rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(180 88% 65%), hsl(180 78% 48%));
+  color: hsl(240 25% 8%);
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: .08em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 14px 36px -12px hsl(180 74% 63% / .55);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.pricing__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px -10px hsl(180 74% 63% / .7);
+}
+.pricing__cta:active { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing__cta { transition: none; }
+  .pricing__cta:hover { transform: none; }
+}
+
+/* =========================================================
    VS — VP+ Marketplace as the lifted card, Old Way as faded ghost
    ========================================================= */
 .vs-section {

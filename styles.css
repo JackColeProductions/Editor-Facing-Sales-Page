@@ -1709,9 +1709,10 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* Horizontal scroll track with snap.
-   The mask-image is what makes cards fade in/out at the horizontal
-   edges — far cleaner than colored overlay gradients (no hard cuts,
-   no color-mismatch with the section background). */
+   Vertical padding is generous so the playing card's halo box-shadow
+   can extend freely without being clipped. Horizontal mask creates a
+   soft fade-in on the left only — the right edge is handled by a
+   backdrop-blur overlay further down for the "more coming" tease. */
 .proof__track {
   display: flex;
   gap: 1.1rem;
@@ -1720,48 +1721,80 @@ button { font: inherit; cursor: pointer; }
   scroll-padding-left: clamp(1rem, calc((100vw - 1180px) / 2 + 1rem), 50vw);
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 1rem clamp(1rem, calc((100vw - 1180px) / 2 + 1rem), 50vw) 1.5rem;
+  padding: 4.5rem clamp(1rem, calc((100vw - 1180px) / 2 + 1rem), 50vw) 5rem;
   -webkit-mask-image: linear-gradient(90deg,
     transparent 0px,
-    #000 110px,
-    #000 calc(100% - 110px),
-    transparent 100%);
+    #000 90px,
+    #000 100%);
           mask-image: linear-gradient(90deg,
     transparent 0px,
-    #000 110px,
-    #000 calc(100% - 110px),
-    transparent 100%);
+    #000 90px,
+    #000 100%);
 }
 .proof__track::-webkit-scrollbar { display: none; }
 
-/* Each card — vertical 9:16 video with bottom info bar. */
+/* Right-edge tease — backdrop-blur overlay that progressively softens
+   anything passing through the carousel's right zone. Reads as "more
+   stories coming, scroll for them" instead of cards just flying off. */
+.proof__carousel::after {
+  content: '';
+  position: absolute;
+  top: 4.5rem;
+  bottom: 5rem;
+  right: 0;
+  width: clamp(160px, 18vw, 280px);
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    hsl(240 25% 4% / .25) 35%,
+    hsl(240 28% 3% / .8) 80%,
+    hsl(240 30% 2% / .97) 100%);
+  -webkit-backdrop-filter: blur(6px) saturate(.92);
+          backdrop-filter: blur(6px) saturate(.92);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%, #000 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 55%, #000 100%);
+}
+
+/* Each card — vertical 9:16 video with bottom info bar.
+   Asymmetric border + inset top highlight reads as light from above,
+   gives the cards a glassy/sculpted feel rather than a flat rectangle. */
 .proof__card {
   position: relative;
-  flex: 0 0 clamp(220px, 22vw, 280px);
+  flex: 0 0 clamp(230px, 22vw, 290px);
   scroll-snap-align: start;
-  border-radius: 1.1rem;
+  border-radius: 1.15rem;
   overflow: hidden;
   background: linear-gradient(180deg, hsl(240 20% 9%), hsl(240 22% 5%));
-  border: 1px solid hsl(0 0% 100% / .07);
-  box-shadow: 0 18px 40px -20px hsl(0 0% 0% / .7);
+  border: 1px solid hsl(0 0% 100% / .06);
+  border-top-color: hsl(180 40% 80% / .14);
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / .08),
+    0 18px 40px -20px hsl(0 0% 0% / .7);
   cursor: pointer;
-  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+  transition: transform .4s cubic-bezier(.2,.7,.2,1),
+              border-color .4s ease,
+              box-shadow .4s ease;
 }
 .proof__card:hover {
-  transform: translateY(-8px) scale(1.015);
-  border-color: hsl(180 74% 63% / .55);
+  transform: translateY(-6px) scale(1.012);
+  border-color: hsl(180 74% 63% / .45);
+  border-top-color: hsl(180 80% 80% / .35);
   box-shadow:
-    0 30px 60px -22px hsl(0 0% 0% / .85),
-    0 0 50px -10px hsl(180 74% 63% / .5);
+    inset 0 1px 0 hsl(180 80% 90% / .15),
+    0 24px 50px -22px hsl(0 0% 0% / .8),
+    0 0 40px -12px hsl(180 74% 63% / .4);
   z-index: 2;
 }
 .proof__card.is-playing {
-  transform: translateY(-4px) scale(1.025);
-  border-color: hsl(180 74% 63% / .8);
+  transform: translateY(-4px) scale(1.02);
+  border-color: hsl(180 74% 63% / .65);
+  border-top-color: hsl(180 90% 85% / .55);
   box-shadow:
-    0 35px 80px -20px hsl(0 0% 0% / .9),
-    0 0 70px -10px hsl(180 74% 63% / .6),
-    0 0 0 1px hsl(180 74% 63% / .45) inset;
+    inset 0 1px 0 hsl(180 90% 90% / .22),
+    inset 0 0 0 1px hsl(180 74% 63% / .35),
+    0 25px 55px -20px hsl(0 0% 0% / .85),
+    0 0 50px -12px hsl(180 74% 63% / .55);
   z-index: 3;
 }
 
@@ -1778,26 +1811,35 @@ button { font: inherit; cursor: pointer; }
   display: block;
 }
 
-/* Centered play button overlay. */
+/* Centered play button overlay — 3-stop teal gradient + glossy top
+   highlight + multi-layer halo. Reads as a sculpted glass disc with
+   light catching the top edge. */
 .proof__play {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
-  border: 1px solid hsl(180 100% 92% / .55);
-  background: linear-gradient(135deg, hsl(180 95% 75%) 0%, hsl(180 80% 50%) 100%);
-  color: hsl(240 30% 8%);
+  border: 1px solid hsl(180 100% 95% / .6);
+  background: linear-gradient(160deg,
+    hsl(180 100% 92%) 0%,
+    hsl(180 92% 72%) 35%,
+    hsl(180 80% 52%) 75%,
+    hsl(180 72% 40%) 100%);
+  color: hsl(240 35% 8%);
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform .25s ease, opacity .25s ease, box-shadow .25s ease;
+  transition: transform .3s ease, opacity .3s ease, box-shadow .3s ease;
   box-shadow:
-    0 0 0 1px hsl(180 100% 92% / .35) inset,
-    0 0 28px -4px hsl(180 85% 60% / .55),
-    0 8px 20px -8px hsl(180 80% 45% / .6);
+    inset 0 1px 0 hsl(0 0% 100% / .6),
+    inset 0 -1px 0 hsl(180 80% 30% / .35),
+    0 0 0 1px hsl(180 100% 95% / .35) inset,
+    0 0 30px -4px hsl(180 90% 65% / .6),
+    0 0 60px -10px hsl(180 80% 55% / .35),
+    0 10px 22px -8px hsl(180 80% 40% / .65);
 }
 .proof__play svg { width: 24px; height: 24px; margin-left: 3px; position: relative; z-index: 1; }
 /* Pulse ring around the play button — only animates on hover so 10
@@ -1848,38 +1890,45 @@ button { font: inherit; cursor: pointer; }
 }
 .proof__duration:empty { display: none; }
 
-/* "● LIVE" indicator — only visible on the playing card, with a slow
-   blink on the dot. */
+/* "● PLAYING" indicator — gradient pill with glossy highlight, only
+   visible on the playing card. Blinking red dot for liveness. */
 .proof__live {
   position: absolute;
-  top: .55rem;
-  left: .55rem;
+  top: .6rem;
+  left: .6rem;
   display: inline-flex;
   align-items: center;
-  gap: .35rem;
-  padding: .22rem .55rem .22rem .5rem;
+  gap: .4rem;
+  padding: .3rem .65rem .3rem .55rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, hsl(180 92% 70%), hsl(180 80% 50%));
-  color: hsl(240 30% 8%);
+  background: linear-gradient(160deg,
+    hsl(180 100% 90%) 0%,
+    hsl(180 88% 65%) 45%,
+    hsl(180 78% 48%) 100%);
+  color: hsl(240 35% 8%);
   font-size: .65rem;
   font-weight: 900;
-  letter-spacing: .14em;
+  letter-spacing: .16em;
   z-index: 3;
   opacity: 0;
   transform: translateY(-4px);
-  transition: opacity .25s ease, transform .25s ease;
+  transition: opacity .3s ease, transform .3s ease;
   pointer-events: none;
+  border: 1px solid hsl(180 100% 95% / .6);
   box-shadow:
-    0 0 0 1px hsl(180 100% 92% / .35) inset,
-    0 6px 18px -4px hsl(180 80% 45% / .6);
+    inset 0 1px 0 hsl(0 0% 100% / .55),
+    inset 0 -1px 0 hsl(180 80% 30% / .35),
+    0 0 0 1px hsl(180 100% 95% / .35) inset,
+    0 6px 18px -4px hsl(180 80% 45% / .65),
+    0 0 26px -4px hsl(180 80% 55% / .45);
 }
 .proof__live::before {
   content: '';
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: hsl(0 80% 55%);
-  box-shadow: 0 0 8px hsl(0 80% 55% / .8);
+  background: hsl(0 80% 52%);
+  box-shadow: 0 0 8px hsl(0 80% 55% / .9), inset 0 0 2px hsl(0 100% 80% / .6);
   animation: proof-blink 1.1s ease-in-out infinite;
 }
 .proof__card.is-playing .proof__live {
@@ -1891,46 +1940,53 @@ button { font: inherit; cursor: pointer; }
   50%      { opacity: .25; }
 }
 
-/* Bottom info bar — name, stars, quote. */
+/* Bottom info bar — luxe gradient + subtle backdrop blur so text rests
+   on a softly defocused video instead of a hard scrim. */
 .proof__info {
   position: absolute;
   inset: auto 0 0 0;
-  padding: .9rem 1rem 1rem;
+  padding: 1rem 1.05rem 1.05rem;
   background: linear-gradient(180deg,
     transparent 0%,
-    hsl(240 28% 4% / .55) 30%,
-    hsl(240 28% 4% / .92) 100%);
+    hsl(240 30% 3% / .15) 18%,
+    hsl(240 30% 3% / .65) 55%,
+    hsl(240 32% 2% / .94) 100%);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
   color: var(--fg);
   pointer-events: none;
   transition: opacity .35s ease;
 }
-.proof__card.is-playing .proof__info { opacity: .55; }
+.proof__card.is-playing .proof__info { opacity: .5; }
 .proof__meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: .5rem;
-  margin-bottom: .25rem;
+  gap: .55rem;
+  margin-bottom: .3rem;
 }
 .proof__name {
   margin: 0;
   font-weight: 800;
-  font-size: .95rem;
-  letter-spacing: -.005em;
+  font-size: 1rem;
+  letter-spacing: -.012em;
+  color: hsl(0 0% 98%);
 }
 .proof__stars {
   font-size: .85rem;
-  letter-spacing: .12em;
-  background: linear-gradient(180deg, hsl(180 90% 80%), hsl(180 74% 55%));
+  letter-spacing: .14em;
+  background: linear-gradient(180deg, hsl(180 95% 85%), hsl(180 74% 52%));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  text-shadow: 0 0 12px hsl(180 74% 63% / .35);
 }
 .proof__quote {
   margin: 0;
   font-size: .82rem;
-  color: var(--fg-muted);
-  line-height: 1.4;
+  color: hsl(0 0% 72%);
+  line-height: 1.45;
+  letter-spacing: -.002em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

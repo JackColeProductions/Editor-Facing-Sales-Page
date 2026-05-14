@@ -109,14 +109,14 @@ if (proof) {
     const video = card.querySelector('.proof__video');
     if (!video) return;
 
-    // Inject duration pill + LIVE badge into the video wrap so the markup
+    // Inject duration pill + PLAYING badge into the video wrap so the markup
     // stays simple but every card gets the upgraded chrome.
     const wrap = card.querySelector('.proof__video-wrap');
     if (wrap && !wrap.querySelector('.proof__duration')) {
       const live = document.createElement('span');
       live.className = 'proof__live';
       live.setAttribute('aria-hidden', 'true');
-      live.textContent = 'LIVE';
+      live.textContent = 'PLAYING';
       wrap.appendChild(live);
 
       const dur = document.createElement('span');

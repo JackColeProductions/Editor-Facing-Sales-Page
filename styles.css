@@ -1200,12 +1200,13 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Pricing — single eclipse arc at top + refined dark cards
+   Pricing — rising celestial sphere + god-rays + glass cards
    ========================================================= */
 .pricing {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  padding-bottom: 8rem;
 }
 
 .pricing__atmosphere {
@@ -1215,60 +1216,73 @@ button { font: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
-/* Eclipse arc — huge circle masked so ONLY the top half-arc is visible.
-   No "ring" wrapping around the section, just a clean horizon. */
-.pricing__arc {
+/* The Sphere — large glowing teal planet rising from behind/below the
+   cards, only the top ~500px peeks up between/behind them. */
+.pricing__sphere {
   position: absolute;
-  top: 60px;
+  bottom: -900px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(2200px, 200vw);
-  aspect-ratio: 1 / 1;
+  width: 1400px;
+  height: 1400px;
   border-radius: 50%;
-  background: radial-gradient(circle,
-    transparent 49.55%,
-    hsl(180 80% 75% / .5) 49.78%,
-    hsl(180 95% 88% / .92) 49.95%,
-    hsl(180 100% 96%) 50%,
-    hsl(180 95% 88% / .92) 50.05%,
-    hsl(180 80% 75% / .5) 50.22%,
-    transparent 50.45%);
-  -webkit-mask-image: linear-gradient(to bottom,
-    black 0%, black 28%, transparent 48%);
-          mask-image: linear-gradient(to bottom,
-    black 0%, black 28%, transparent 48%);
-  filter: blur(1px);
+  background: radial-gradient(circle at 50% 50%,
+    hsl(180 95% 88%) 0%,
+    hsl(180 90% 75%) 8%,
+    hsl(180 85% 55% / .85) 18%,
+    hsl(180 80% 40% / .5) 35%,
+    hsl(180 70% 25% / .15) 60%,
+    transparent 75%);
+  filter: blur(2px);
+  box-shadow:
+    0 0 80px 10px hsl(180 95% 80% / .4),
+    0 0 160px 30px hsl(180 85% 60% / .25),
+    inset 0 8px 40px hsl(180 100% 95% / .6);
 }
 
-/* Soft halo above the arc — the atmospheric light, not a wash. */
-.pricing__halo {
+/* The Light Rays — vertical god-rays beaming up from the sphere's top. */
+.pricing__rays {
   position: absolute;
-  top: -180px;
+  bottom: 380px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1100px, 100vw);
-  height: 480px;
-  background: radial-gradient(ellipse at 50% 100%,
-    hsl(180 74% 63% / .32) 0%,
-    hsl(180 74% 63% / .14) 28%,
-    hsl(180 74% 63% / .04) 55%,
-    transparent 80%);
-  filter: blur(40px);
+  width: 1200px;
+  height: 700px;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, transparent 0%, hsl(180 90% 75% / .18) 70%, hsl(180 95% 85% / .35) 100%),
+    repeating-linear-gradient(92deg,
+      transparent 0px, transparent 80px,
+      hsl(180 90% 80% / .12) 82px, hsl(180 90% 80% / .12) 88px,
+      transparent 90px, transparent 180px,
+      hsl(180 85% 75% / .08) 182px, hsl(180 85% 75% / .08) 186px,
+      transparent 188px);
+  -webkit-mask-image:
+    linear-gradient(180deg, transparent 0%, black 40%, black 90%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, black 25%, black 75%, transparent 100%);
+          mask-image:
+    linear-gradient(180deg, transparent 0%, black 40%, black 90%, transparent 100%),
+    linear-gradient(90deg, transparent 0%, black 25%, black 75%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+  filter: blur(3px);
+  mix-blend-mode: screen;
 }
 
 .pricing__particles {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: 380px;
+  height: 100%;
 }
 
 .pricing__plans {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
-  max-width: 920px;
+  gap: 1.5rem;
+  max-width: 1000px;
   margin: 0 auto;
   padding-top: 2rem;
   align-items: start;
@@ -1276,7 +1290,7 @@ button { font: inherit; cursor: pointer; }
 @media (min-width: 820px) {
   .pricing__plans {
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 }
 
@@ -1285,21 +1299,71 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1.65rem 1.6rem 1.6rem;
-  border-radius: 1.15rem;
-  border: 1px solid hsl(0 0% 100% / .07);
-  background:
-    linear-gradient(180deg, hsl(240 18% 11%), hsl(240 22% 6%));
-  box-shadow: 0 24px 50px -24px hsl(0 0% 0% / .7);
+  padding: 2rem 1.85rem 1.85rem;
+  border-radius: 1.5rem;
+  border: 1px solid hsl(180 30% 70% / .12);
+  background: linear-gradient(180deg,
+    hsl(240 25% 10% / .55) 0%,
+    hsl(240 30% 5% / .75) 100%);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow:
+    0 1px 0 hsl(180 60% 90% / .08) inset,
+    0 20px 60px -20px hsl(0 0% 0% / .6),
+    0 0 0 1px hsl(0 0% 0% / .3);
 }
 
+/* Inner top glow on every card. Clipped to the card's rounded corners. */
+.pricing__plan::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 220px;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background: radial-gradient(ellipse at 50% 0%,
+    hsl(180 85% 70% / .12) 0%,
+    transparent 70%);
+  pointer-events: none;
+}
+.pricing__plan > * { position: relative; z-index: 1; }
+
+/* Featured card — lifted, stronger glow, gradient border. */
 .pricing__plan--featured {
-  border-color: hsl(180 74% 63% / .35);
-  background:
-    linear-gradient(180deg, hsl(180 22% 13%) 0%, hsl(240 22% 6%) 60%);
+  transform: translateY(-12px);
   box-shadow:
-    0 0 0 1px hsl(180 74% 63% / .18) inset,
-    0 24px 60px -24px hsl(180 74% 63% / .4);
+    0 1px 0 hsl(180 80% 90% / .15) inset,
+    0 30px 80px -20px hsl(180 80% 50% / .35),
+    0 0 60px -10px hsl(180 70% 50% / .25),
+    0 0 0 1px hsl(0 0% 0% / .3);
+}
+.pricing__plan--featured::before {
+  background: radial-gradient(ellipse at 70% 0%,
+    hsl(180 90% 75% / .28) 0%,
+    hsl(180 80% 60% / .1) 40%,
+    transparent 70%);
+}
+.pricing__plan--featured::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg,
+    hsl(180 95% 85%) 0%,
+    hsl(180 80% 55% / .6) 40%,
+    hsl(180 60% 40% / .2) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+@media (max-width: 819px) {
+  .pricing__plan--featured { transform: none; }
 }
 
 .pricing__badge {
@@ -1315,10 +1379,10 @@ button { font: inherit; cursor: pointer; }
   font-size: .68rem;
   letter-spacing: .2em;
   white-space: nowrap;
-  z-index: 2;
+  z-index: 3;
   box-shadow:
     0 6px 18px hsl(180 74% 63% / .45),
-    0 0 0 4px hsl(240 22% 6%);
+    0 0 0 4px hsl(240 30% 5%);
 }
 
 .pricing__head { display: flex; flex-direction: column; gap: .35rem; }
@@ -1345,15 +1409,32 @@ button { font: inherit; cursor: pointer; }
   text-decoration: line-through;
   text-decoration-thickness: 2.5px;
 }
+.pricing__save {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: .5rem;
+  padding: .25rem .55rem;
+  border-radius: 999px;
+  background: hsl(180 74% 63% / .18);
+  color: var(--primary);
+  border: 1px solid hsl(180 74% 63% / .4);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
 .pricing__price-new {
-  font-size: clamp(2.2rem, 4vw, 2.7rem);
+  font-size: clamp(2.8rem, 5vw, 3.4rem);
   font-weight: 900;
   letter-spacing: -.025em;
   line-height: 1;
   color: hsl(0 0% 98%);
 }
 .pricing__plan--featured .pricing__price-new {
-  background: linear-gradient(180deg, hsl(180 95% 90%), hsl(180 74% 58%));
+  background: linear-gradient(135deg,
+    hsl(180 100% 95%) 0%,
+    hsl(180 90% 75%) 50%,
+    hsl(180 78% 50%) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1477,22 +1558,38 @@ button { font: inherit; cursor: pointer; }
   border-color: hsl(180 74% 63% / .8);
 }
 .pricing__cta--featured {
-  /* Yearly = filled gradient teal */
+  /* Yearly = filled gradient teal with stronger inner highlight + glow */
   color: hsl(240 28% 8%);
-  background: linear-gradient(90deg, hsl(180 92% 70%), hsl(180 78% 50%));
+  background: linear-gradient(135deg, hsl(180 90% 78%) 0%, hsl(180 80% 55%) 100%);
   border-color: transparent;
-  box-shadow: 0 14px 30px -12px hsl(180 74% 63% / .55);
+  box-shadow:
+    0 0 0 1px hsl(180 95% 90% / .4) inset,
+    0 10px 30px -8px hsl(180 80% 50% / .5),
+    0 0 40px -8px hsl(180 70% 60% / .4);
 }
 .pricing__cta--featured:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(90deg, hsl(180 95% 75%), hsl(180 82% 55%));
-  box-shadow: 0 20px 40px -10px hsl(180 74% 63% / .7);
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, hsl(180 92% 80%) 0%, hsl(180 82% 58%) 100%);
+  box-shadow:
+    0 0 0 1px hsl(180 95% 90% / .55) inset,
+    0 16px 38px -8px hsl(180 80% 50% / .65),
+    0 0 50px -8px hsl(180 70% 60% / .55);
 }
 .pricing__cta:active { transform: translateY(0); }
 
+@media (max-width: 819px) {
+  .pricing__sphere {
+    width: 900px;
+    height: 900px;
+    bottom: -650px;
+  }
+  .pricing__rays { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pricing__cta { transition: none; }
-  .pricing__cta:hover { transform: none; }
+  .pricing__cta:hover,
+  .pricing__cta--featured:hover { transform: none; }
 }
 
 /* =========================================================

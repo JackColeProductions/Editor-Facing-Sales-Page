@@ -2379,24 +2379,23 @@ button { font: inherit; cursor: pointer; }
     inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* Side cards — identical stroke + inset stack as the center card.
-   Previously a filter: brightness(.9) saturate(.95) was applied here
-   to "dim" the side cards, but CSS filters dim EVERY painted layer of
-   the element including the border and inset-shadow highlights — so
-   the stroke appeared weaker even though the box-shadow values were
-   numerically identical to the center. Removed the brightness/saturate
-   so the border + inset highlights render at full strength; the OUTER
-   atmospheric halo still goes through filter: drop-shadow which
-   follows the PNG's alpha channel and avoids ghost-rectangle glows. */
+/* Side cards — JUST the 1px hairline highlight on the top edge.
+   The wider 30px inset tint shadows that the center card uses were
+   visually creating a chunky bright band here because the side PNGs
+   have brighter top-edge content than the center PNG (the .16 alpha
+   teal tint is barely visible against the center's dark top but
+   visibly stains the lighter side PNGs). Same CSS, different visual
+   outcome — so on side cards we keep only the thin hairline, which
+   renders identically across all three PNGs. The OUTER atmospheric
+   halo still goes through filter: drop-shadow so it follows the PNG's
+   alpha channel and avoids ghost-rectangle glows. */
 .platform__card--left,
 .platform__card--right {
   z-index: 2;
   bottom: 40px;
   width: 46%;
   box-shadow:
-    inset 0 1px 0 hsl(180 90% 95% / .22),
-    inset 0 30px 32px -22px hsl(180 75% 65% / .16),
-    inset 0 -30px 32px -22px hsl(180 70% 60% / .10);
+    inset 0 1px 0 hsl(180 90% 95% / .22);
   filter:
     drop-shadow(0 30px 60px hsl(0 0% 0% / .6))
     drop-shadow(0 0 40px hsl(180 70% 50% / .38))

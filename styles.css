@@ -1748,8 +1748,22 @@ button { font: inherit; cursor: pointer; }
     hsl(240 28% 3% / .8) 20%,
     hsl(240 25% 4% / .25) 65%,
     transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%);
-          mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 100%);
+  /* Smoother bell-curve falloff: more stops in the transition zone so
+     the boundary between blurred and clear reads as a ramp, not a seam. */
+  -webkit-mask-image: linear-gradient(90deg,
+    #000 0%,
+    hsl(0 0% 0% / .98) 28%,
+    hsl(0 0% 0% / .8) 50%,
+    hsl(0 0% 0% / .42) 72%,
+    hsl(0 0% 0% / .12) 88%,
+    transparent 100%);
+          mask-image: linear-gradient(90deg,
+    #000 0%,
+    hsl(0 0% 0% / .98) 28%,
+    hsl(0 0% 0% / .8) 50%,
+    hsl(0 0% 0% / .42) 72%,
+    hsl(0 0% 0% / .12) 88%,
+    transparent 100%);
 }
 .proof__carousel::after {
   right: 0;
@@ -1758,8 +1772,20 @@ button { font: inherit; cursor: pointer; }
     hsl(240 25% 4% / .25) 35%,
     hsl(240 28% 3% / .8) 80%,
     hsl(240 30% 2% / .97) 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%, #000 100%);
-          mask-image: linear-gradient(90deg, transparent 0%, #000 55%, #000 100%);
+  -webkit-mask-image: linear-gradient(90deg,
+    transparent 0%,
+    hsl(0 0% 0% / .12) 12%,
+    hsl(0 0% 0% / .42) 28%,
+    hsl(0 0% 0% / .8) 50%,
+    hsl(0 0% 0% / .98) 72%,
+    #000 100%);
+          mask-image: linear-gradient(90deg,
+    transparent 0%,
+    hsl(0 0% 0% / .12) 12%,
+    hsl(0 0% 0% / .42) 28%,
+    hsl(0 0% 0% / .8) 50%,
+    hsl(0 0% 0% / .98) 72%,
+    #000 100%);
 }
 
 /* Each card — vertical 9:16 video with bottom info bar.
@@ -1790,7 +1816,9 @@ button { font: inherit; cursor: pointer; }
     inset 0 1px 0 hsl(180 80% 90% / .15),
     0 24px 50px -22px hsl(0 0% 0% / .8),
     0 0 40px -12px hsl(180 74% 63% / .4);
-  z-index: 2;
+  /* Above the carousel edge blur overlays (z:4) so the hovered card
+     pops fully clear, even if it was sitting in a blur zone. */
+  z-index: 10;
 }
 .proof__card.is-playing {
   transform: translateY(-4px) scale(1.02);
@@ -1801,7 +1829,7 @@ button { font: inherit; cursor: pointer; }
     inset 0 0 0 1px hsl(180 74% 63% / .35),
     0 25px 55px -20px hsl(0 0% 0% / .85),
     0 0 50px -12px hsl(180 74% 63% / .55);
-  z-index: 3;
+  z-index: 11;
 }
 
 .proof__video-wrap {

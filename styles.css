@@ -3766,10 +3766,10 @@ button { font: inherit; cursor: pointer; }
    much cleaner without all-caps shouting. */
 .cta__title {
   margin: 0;
-  font-size: clamp(1.9rem, 4.4vw, 3.25rem);
+  font-size: clamp(1.65rem, 3.4vw, 2.6rem);
   font-weight: 700;
-  letter-spacing: -.025em;
-  line-height: 1.1;
+  letter-spacing: -.022em;
+  line-height: 1.15;
   max-width: 880px;
   text-wrap: balance;
 }

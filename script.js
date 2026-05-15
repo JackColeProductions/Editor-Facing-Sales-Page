@@ -87,38 +87,74 @@ if (stories) {
     if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
   });
 
-  // Drag-to-scroll on the carousel area — works on both touch
-  // (phones) and mouse drag (desktop). Threshold of ~50px so
-  // small jitters don't trigger a swap.
+  // Drag-to-scroll. Cards track the pointer in real time via a
+  // --drag CSS var (active/prev/next translates pick it up), and
+  // .is-dragging kills the card transition during the drag so the
+  // rail follows the finger 1:1. On release, the class comes off
+  // and either snaps forward/back (>40px) or springs home.
   const carousel = stories.querySelector('.stories__carousel') || stories;
-  const DRAG_THRESHOLD = 50;
+  const DRAG_THRESHOLD = 40;
   let pointerStartX = null;
+  let pointerLastDx = 0;
   let pointerActiveId = null;
+  let dragRaf = null;
+  let pendingDrag = null;
+
+  const flushDrag = () => {
+    dragRaf = null;
+    if (pendingDrag == null) return;
+    carousel.style.setProperty('--drag', pendingDrag + 'px');
+    pendingDrag = null;
+  };
+  const scheduleDrag = (val) => {
+    pendingDrag = val;
+    if (!dragRaf) dragRaf = requestAnimationFrame(flushDrag);
+  };
 
   const onPointerDown = (e) => {
-    // Don't capture clicks targeting the nav buttons or avatars.
     if (e.target.closest('.stories__nav-btn, .stories__avatar')) return;
     pointerStartX = e.clientX ?? e.touches?.[0]?.clientX ?? null;
+    if (pointerStartX == null) return;
+    pointerLastDx = 0;
     pointerActiveId = e.pointerId;
+    try { carousel.setPointerCapture?.(e.pointerId); } catch (_) {}
+    carousel.classList.add('is-dragging');
     carousel.style.cursor = 'grabbing';
   };
   const onPointerMove = (e) => {
     if (pointerStartX == null) return;
-    // Prevent text-selection drag artefacts during a swipe.
+    const x = e.clientX ?? e.touches?.[0]?.clientX;
+    if (x == null) return;
+    let dx = x - pointerStartX;
+    // Soft resistance past ~180px so a long drag doesn't fling cards
+    // off into space before the snap kicks in.
+    const cap = 180;
+    if (Math.abs(dx) > cap) {
+      const over = Math.abs(dx) - cap;
+      dx = Math.sign(dx) * (cap + over * 0.35);
+    }
+    pointerLastDx = dx;
+    scheduleDrag(dx);
     if (e.cancelable) e.preventDefault?.();
   };
-  const onPointerUp = (e) => {
+  const onPointerUp = () => {
     if (pointerStartX == null) return;
-    const endX = e.clientX ?? e.changedTouches?.[0]?.clientX ?? pointerStartX;
-    const dx = endX - pointerStartX;
+    try { carousel.releasePointerCapture?.(pointerActiveId); } catch (_) {}
+    const dx = pointerLastDx;
     pointerStartX = null;
     pointerActiveId = null;
+    pointerLastDx = 0;
     carousel.style.cursor = '';
+    carousel.classList.remove('is-dragging');
+    // Re-render first so the new active card snaps in, then clear
+    // the offset on the next frame so the transition glides home.
     if (Math.abs(dx) >= DRAG_THRESHOLD) {
-      // Swipe LEFT (negative dx) -> show next card; swipe RIGHT -> prev.
       if (dx < 0) go(active + 1);
       else        go(active - 1);
     }
+    requestAnimationFrame(() => {
+      carousel.style.setProperty('--drag', '0px');
+    });
   };
 
   if (window.PointerEvent) {
@@ -127,9 +163,8 @@ if (stories) {
     carousel.addEventListener('pointerup', onPointerUp);
     carousel.addEventListener('pointercancel', onPointerUp);
   } else {
-    // Fallback for older Safari iOS / desktop without PointerEvent.
     carousel.addEventListener('touchstart', onPointerDown, { passive: true });
-    carousel.addEventListener('touchmove',  onPointerMove, { passive: true });
+    carousel.addEventListener('touchmove',  onPointerMove, { passive: false });
     carousel.addEventListener('touchend',   onPointerUp);
     carousel.addEventListener('mousedown',  onPointerDown);
     carousel.addEventListener('mousemove',  onPointerMove);
@@ -138,8 +173,6 @@ if (stories) {
   }
   carousel.style.cursor = 'grab';
   carousel.style.touchAction = 'pan-y';
-  /* Disable native text selection during drag so the cursor stays
-     a grab indicator. */
   carousel.style.userSelect = 'none';
 
   render();

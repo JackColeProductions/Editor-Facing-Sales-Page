@@ -1772,7 +1772,7 @@ button { font: inherit; cursor: pointer; }
   gap: 1.1rem;
 }
 .stories__card[data-pos="active"] {
-  transform: translateX(-50%) scale(1);
+  transform: translateX(calc(-50% + var(--drag, 0px))) scale(1);
   opacity: 1;
   pointer-events: auto;
   z-index: 3;
@@ -1783,15 +1783,20 @@ button { font: inherit; cursor: pointer; }
     0 0 80px -20px hsl(180 74% 63% / .35);
 }
 .stories__card[data-pos="prev"] {
-  transform: translateX(calc(-50% - clamp(290px, 30vw, 360px))) scale(.86);
+  transform: translateX(calc(-50% - clamp(290px, 30vw, 360px) + var(--drag, 0px))) scale(.86);
   opacity: .35;
   z-index: 2;
 }
 .stories__card[data-pos="next"] {
-  transform: translateX(calc(-50% + clamp(290px, 30vw, 360px))) scale(.86);
+  transform: translateX(calc(-50% + clamp(290px, 30vw, 360px) + var(--drag, 0px))) scale(.86);
   opacity: .35;
   z-index: 2;
 }
+
+/* While the user is actively dragging, kill the card transition so
+   the rail tracks the finger 1:1. The transition pops back on release
+   so the snap glide looks intentional. */
+.stories__carousel.is-dragging .stories__card { transition: none; }
 
 .stories__card-head {
   display: flex;
@@ -4175,8 +4180,8 @@ button { font: inherit; cursor: pointer; }
     padding: 1rem 1rem 1.15rem;
     gap: .8rem;
   }
-  .stories__card[data-pos="prev"] { transform: translateX(calc(-50% - 58%)) scale(.82); }
-  .stories__card[data-pos="next"] { transform: translateX(calc(-50% + 58%)) scale(.82); }
+  .stories__card[data-pos="prev"] { transform: translateX(calc(-50% - 58% + var(--drag, 0px))) scale(.82); }
+  .stories__card[data-pos="next"] { transform: translateX(calc(-50% + 58% + var(--drag, 0px))) scale(.82); }
   .stories__card[data-pos="far"]  { display: none; }
   .stories__person-avatar { width: 34px; height: 34px; }
   .stories__person-name   { font-size: .9rem; }

@@ -2712,25 +2712,46 @@ button { font: inherit; cursor: pointer; }
   background: transparent;
 }
 
-/* Subtle grid pattern weighted to the top-left */
+/* Ambient teal wash bleeding in from the top-left — the missing
+   "color" that makes the corner feel lit instead of just sparkles
+   floating in void. Sits behind everything else in the frame. */
+.testimonials__corner-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(ellipse 70% 70% at 15% 15%,
+    hsl(180 80% 50% / .22) 0%,
+    hsl(180 70% 45% / .12) 25%,
+    hsl(180 60% 40% / .05) 50%,
+    transparent 75%);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Grid pattern weighted to the top-left; brighter teal lines now
+   that the corner-glow lights the area, with a tighter inner mask
+   so the grid reads strongest right where the glow peaks. */
 .testimonials__grid-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   background-image:
-    linear-gradient(hsl(180 50% 60% / .045) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(180 50% 60% / .045) 1px, transparent 1px);
+    linear-gradient(hsl(180 60% 65% / .08) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(180 60% 65% / .08) 1px, transparent 1px);
   background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse at 20% 20%,
+  mask-image: radial-gradient(ellipse at 18% 18%,
     hsl(0 0% 0% / 1) 0%,
-    hsl(0 0% 0% / .7) 25%,
-    hsl(0 0% 0% / .3) 55%,
-    transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse at 20% 20%,
+    hsl(0 0% 0% / .8) 20%,
+    hsl(0 0% 0% / .4) 45%,
+    transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 18% 18%,
     hsl(0 0% 0% / 1) 0%,
-    hsl(0 0% 0% / .7) 25%,
-    hsl(0 0% 0% / .3) 55%,
-    transparent 85%);
+    hsl(0 0% 0% / .8) 20%,
+    hsl(0 0% 0% / .4) 45%,
+    transparent 75%);
   pointer-events: none;
 }
 
@@ -2829,48 +2850,50 @@ button { font: inherit; cursor: pointer; }
   to   { transform: translate3d(0, 0, 0); }
 }
 
-/* Individual card — glass UI panel with top "lip" highlight,
-   subtle teal halo, soft outer shadow. Hover lifts and brightens. */
+/* Vertical-proportion glass card with a clearly lit top 25%
+   fading into the dark body. The first gradient stop is bright
+   enough to read as "ambient light catching the top of the
+   glass" — pairs with the inset top-glow shadow inside for the
+   same effect at the corner-radius transition. */
 .testimonials__card {
   flex-shrink: 0;
-  width: 380px;
-  min-height: 220px;
-  padding: 1.75rem;
+  width: 340px;
+  min-height: 260px;
+  padding: 1.75rem 1.75rem 2rem;
   border-radius: 1.5rem;
-  border: 1px solid hsl(180 40% 60% / .15);
-  background:
-    /* glassy top lip */
-    linear-gradient(180deg,
-      hsl(180 30% 15% / .4) 0%,
-      hsl(240 25% 9% / .85) 15%,
-      hsl(240 25% 6% / .9) 100%);
+  border: 1px solid hsl(180 50% 60% / .22);
+  background: linear-gradient(180deg,
+    hsl(180 40% 18% / .5) 0%,
+    hsl(240 30% 10% / .85) 25%,
+    hsl(240 28% 7% / .92) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow:
     /* outer drop */
-    0 15px 40px -15px hsl(0 0% 0% / .6),
-    /* low-key teal halo */
-    0 0 30px -5px hsl(180 60% 45% / .1),
-    /* glass top edge */
-    inset 0 1px 0 hsl(180 70% 80% / .12),
-    /* faint inner border highlight */
-    inset 0 0 0 1px hsl(180 30% 50% / .05);
+    0 20px 40px -15px hsl(0 0% 0% / .6),
+    /* teal halo */
+    0 0 40px -5px hsl(180 70% 50% / .15),
+    /* glass top edge — more pronounced than before */
+    inset 0 1px 0 hsl(180 80% 85% / .18),
+    /* inner top-glow simulating ambient light catching the top */
+    inset 0 20px 40px -20px hsl(180 60% 50% / .12);
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  transition:
-    border-color .3s ease,
-    transform .3s ease,
-    box-shadow .3s ease;
+  gap: 1.5rem;
+  transition: all .3s cubic-bezier(.22, 1, .36, 1);
 }
 .testimonials__card:hover {
-  border-color: hsl(180 70% 65% / .4);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  border-color: hsl(180 75% 65% / .45);
+  background: linear-gradient(180deg,
+    hsl(180 50% 22% / .6) 0%,
+    hsl(240 30% 10% / .85) 25%,
+    hsl(240 28% 7% / .92) 100%);
   box-shadow:
-    0 20px 50px -15px hsl(0 0% 0% / .7),
-    0 0 50px -5px hsl(180 70% 50% / .25),
-    inset 0 1px 0 hsl(180 80% 85% / .2),
-    inset 0 0 0 1px hsl(180 50% 60% / .15);
+    0 25px 50px -15px hsl(0 0% 0% / .7),
+    0 0 60px -5px hsl(180 75% 55% / .3),
+    inset 0 1px 0 hsl(180 90% 90% / .25),
+    inset 0 20px 40px -20px hsl(180 70% 60% / .2);
 }
 
 .testimonials__card-head {
@@ -2887,7 +2910,7 @@ button { font: inherit; cursor: pointer; }
 }
 .testimonials__name {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: hsl(0 0% 98%);
   line-height: 1.2;
@@ -2895,36 +2918,38 @@ button { font: inherit; cursor: pointer; }
 }
 .testimonials__role {
   margin: 0;
-  font-size: .82rem;
-  color: hsl(0 0% 70%);
+  font-size: .85rem;
+  color: hsl(180 30% 70%);
   font-weight: 500;
 }
 .testimonials__avatar {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid hsl(180 70% 65% / .5);
+  border: 2px solid hsl(180 75% 65% / .6);
   flex-shrink: 0;
   box-shadow:
-    0 0 0 1px hsl(180 80% 70% / .2),
-    0 0 16px -2px hsl(180 70% 55% / .35),
+    0 0 0 1px hsl(180 80% 70% / .25),
+    0 0 20px -2px hsl(180 75% 55% / .45),
     inset 0 0 8px hsl(0 0% 0% / .3);
 }
 .testimonials__quote {
-  margin: 0;
-  font-size: .92rem;
-  line-height: 1.5;
-  color: hsl(0 0% 82%);
+  margin: .25rem 0 0;
+  font-size: .95rem;
+  line-height: 1.55;
+  color: hsl(0 0% 85%);
 }
 
 /* Responsive */
 @media (max-width: 1023px) {
-  .testimonials__card { width: 340px; min-height: 210px; padding: 1.5rem; }
+  .testimonials__card { width: 320px; min-height: 250px; padding: 1.5rem; }
+  .testimonials__avatar { width: 52px; height: 52px; }
 }
 @media (max-width: 767px) {
   .testimonials__frame { padding: 3rem 0; }
-  .testimonials__card { width: 300px; min-height: 200px; padding: 1.4rem; }
+  .testimonials__card { width: 290px; min-height: 240px; padding: 1.4rem; }
+  .testimonials__avatar { width: 48px; height: 48px; }
   .testimonials__row--ltr .testimonials__track,
   .testimonials__row--rtl .testimonials__track { animation-duration: 80s; }
 }

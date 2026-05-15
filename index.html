@@ -1460,42 +1460,132 @@
 
     <!-- ============ FAQ ============ -->
     <section id="faq" class="section faq">
-      <div class="container faq__inner">
-        <header class="section__head">
-          <span class="kicker">FAQ</span>
-          <h2 class="section__title">Common <span class="grad">questions.</span></h2>
+      <div class="faq__atmosphere" aria-hidden="true">
+        <div class="faq__grid-bg"></div>
+        <div class="faq__corner-glow"></div>
+        <svg class="faq__sparkles" viewBox="0 0 500 400" preserveAspectRatio="xMaxYMin meet" aria-hidden="true">
+          <circle cx="460" cy="30"  r="1.4" fill="#b8f5f0" opacity="0.75"/>
+          <circle cx="415" cy="55"  r="0.8" fill="#b8f5f0" opacity="0.5"/>
+          <circle cx="380" cy="40"  r="1.5" fill="#ffffff" opacity="0.85"/>
+          <circle cx="440" cy="90"  r="0.6" fill="#b8f5f0" opacity="0.4"/>
+          <circle cx="350" cy="80"  r="1.0" fill="#b8f5f0" opacity="0.6"/>
+          <circle cx="300" cy="60"  r="0.9" fill="#b8f5f0" opacity="0.5"/>
+          <circle cx="405" cy="130" r="1.3" fill="#b8f5f0" opacity="0.65"/>
+          <circle cx="320" cy="120" r="0.7" fill="#b8f5f0" opacity="0.4"/>
+          <circle cx="270" cy="95"  r="1.1" fill="#b8f5f0" opacity="0.55"/>
+          <circle cx="455" cy="160" r="0.8" fill="#b8f5f0" opacity="0.45"/>
+          <circle cx="360" cy="170" r="1.0" fill="#b8f5f0" opacity="0.5"/>
+          <circle cx="280" cy="150" r="0.6" fill="#b8f5f0" opacity="0.35"/>
+          <circle cx="220" cy="110" r="0.9" fill="#b8f5f0" opacity="0.4"/>
+          <circle cx="425" cy="220" r="0.7" fill="#b8f5f0" opacity="0.3"/>
+          <circle cx="325" cy="210" r="0.8" fill="#b8f5f0" opacity="0.35"/>
+          <circle cx="240" cy="180" r="0.6" fill="#b8f5f0" opacity="0.3"/>
+          <circle cx="180" cy="140" r="0.7" fill="#b8f5f0" opacity="0.3"/>
+          <circle cx="390" cy="260" r="0.5" fill="#b8f5f0" opacity="0.25"/>
+          <circle cx="300" cy="250" r="0.6" fill="#b8f5f0" opacity="0.25"/>
+          <circle cx="210" cy="220" r="0.5" fill="#b8f5f0" opacity="0.2"/>
+        </svg>
+      </div>
+
+      <div class="container">
+        <header class="section__head faq__head">
+          <span class="kicker">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            FAQ
+          </span>
+          <h2 class="section__title">
+            Common<br />
+            <span class="grad">Questions.</span>
+          </h2>
+          <p class="section__lede">
+            Everything you need to know before joining the VP+ marketplace.
+          </p>
         </header>
-        <div class="faq__list">
-          <details class="faq__item">
-            <summary>What's the catch — are there any hidden costs when I sign up?<span class="caret" aria-hidden="true">+</span></summary>
-            <div class="faq__a">
-              <p>No catch. One flat membership unlocks the marketplace, the community, and the training. Cheapest rate for VP+ anywhere online — and you keep 100% of every project you sign.</p>
+
+        <div class="faq__layout">
+          <div class="faq__left">
+            <div class="faq__social-proof">
+              <div class="faq__avatars" aria-hidden="true">
+                <img class="faq__avatar" src="media/avatar-1.jpg" alt="" loading="lazy" />
+                <img class="faq__avatar" src="media/avatar-2.jpg" alt="" loading="lazy" />
+                <img class="faq__avatar" src="media/avatar-3.jpg" alt="" loading="lazy" />
+                <div class="faq__avatar-count">+600</div>
+              </div>
+              <div class="faq__rating">
+                <div class="faq__stars" aria-label="Rated 4.9 out of 5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                </div>
+                <span class="faq__rating-text"><strong>4.9/5</strong> from 600+ editors</span>
+              </div>
             </div>
-          </details>
-          <details class="faq__item">
-            <summary>Is there a 100% chance of signing a client?<span class="caret" aria-hidden="true">+</span></summary>
-            <div class="faq__a">
-              <p>No marketplace can promise a guaranteed signing — but every job inside is pre-vetted, and members who actually apply consistently land work. Show up, send quality applications, and the math works.</p>
+
+            <div class="faq__accordion">
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What's the catch — are there any hidden costs when I sign up?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>No catch. One flat membership unlocks the marketplace, the community, and the training. Cheapest rate for VP+ anywhere online — and you keep 100% of every project you sign.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Is there a 100% chance of signing a client?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>No marketplace can promise a guaranteed signing — but every job inside is pre-vetted, and members who actually apply consistently land work. Show up, send quality applications, and the math works.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Do I need to be an experienced editor to join?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>VP+ is gated for a reason — we accept editors who can deliver. If you're newer, the training programs and mentor calls are designed to get you to a hireable bar fast.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How are the clients vetted?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>We filter for serious budgets and brand owners who understand quality. No $50 jobs. No race-to-the-bottom listings.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Can I cancel anytime?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Yes. Cancel from your dashboard whenever you want — no calls, no friction.</p>
+                </div>
+              </details>
             </div>
-          </details>
-          <details class="faq__item">
-            <summary>Do I need to be an experienced editor to join?<span class="caret" aria-hidden="true">+</span></summary>
-            <div class="faq__a">
-              <p>VP+ is gated for a reason — we accept editors who can deliver. If you're newer, the training programs and mentor calls are designed to get you to a hireable bar fast.</p>
+          </div>
+
+          <div class="faq__right">
+            <div class="faq__visual">
+              <img src="media/CARD_MAIN_CENTRE.png" alt="VP+ marketplace dashboard" loading="lazy" />
             </div>
-          </details>
-          <details class="faq__item">
-            <summary>How are the clients vetted?<span class="caret" aria-hidden="true">+</span></summary>
-            <div class="faq__a">
-              <p>We filter for serious budgets and brand owners who understand quality. No $50 jobs. No race-to-the-bottom listings.</p>
-            </div>
-          </details>
-          <details class="faq__item">
-            <summary>Can I cancel anytime?<span class="caret" aria-hidden="true">+</span></summary>
-            <div class="faq__a">
-              <p>Yes. Cancel from your dashboard whenever you want — no calls, no friction.</p>
-            </div>
-          </details>
+          </div>
         </div>
       </div>
     </section>

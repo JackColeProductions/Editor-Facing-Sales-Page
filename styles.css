@@ -3592,39 +3592,169 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Final CTA
+   Final CTA — single luminous card. Layered atmosphere inside
+   the card itself (hex texture + top/bottom radial glows +
+   sparkle dots), plus a stronger border, glassy top hairline,
+   and a wide cyan halo around the outside so the whole thing
+   reads as the climactic "press this" moment of the page.
    ========================================================= */
 .cta__inner {
   position: relative;
-  padding: 3rem 1.5rem;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: clamp(1.25rem, 2vw, 2rem);
+  padding: clamp(3.5rem, 7vw, 5.5rem) clamp(1.5rem, 3vw, 3rem);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.25rem;
   align-items: center;
-  border: 1px solid hsl(180 74% 63% / .25);
+  border: 1px solid hsl(180 60% 60% / .3);
   background:
-    radial-gradient(ellipse at top, hsl(180 74% 63% / .12), transparent 60%),
-    linear-gradient(180deg, var(--card-2), var(--card));
-  overflow: hidden;
+    /* top luminance */
+    radial-gradient(ellipse 80% 50% at 50% 0%,
+      hsl(180 80% 50% / .14) 0%,
+      transparent 70%),
+    /* bottom luminance */
+    radial-gradient(ellipse 60% 40% at 50% 100%,
+      hsl(180 80% 50% / .1) 0%,
+      transparent 70%),
+    /* base depth */
+    linear-gradient(180deg,
+      hsl(240 25% 8%) 0%,
+      hsl(240 22% 5%) 50%,
+      hsl(240 25% 8%) 100%);
+  box-shadow:
+    inset 0 1px 0 hsl(180 90% 90% / .18),
+    inset 0 0 0 1px hsl(180 60% 60% / .08),
+    0 30px 80px -20px hsl(0 0% 0% / .7),
+    0 0 80px -10px hsl(180 70% 50% / .25),
+    0 0 180px -30px hsl(180 70% 50% / .2);
 }
-@media (min-width: 768px) { .cta__inner { padding: 5rem 2rem; } }
 
+/* Thin glowing hairline at the very top of the card — pulls
+   light to the top edge like a glass lip catching ambient light. */
+.cta__inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    hsl(180 90% 75% / .8) 30%,
+    hsl(180 95% 85% / 1) 50%,
+    hsl(180 90% 75% / .8) 70%,
+    transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Atmosphere container — every decorative layer lives here, all
+   on z-index 0 so the content stack sits on top via .cta__inner
+   > :not(.cta__atmosphere) { z-index: 1 }. */
+.cta__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cta__inner > :not(.cta__atmosphere)::before,
+.cta__inner > :not(.cta__atmosphere) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Whisper-faint hex texture (same pattern as the VSL section
+   for visual continuity); masked centre-out so it never
+   competes with the headline. */
+.cta__hex {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'><g fill='none' stroke='%23b8f5f0' stroke-width='0.6' stroke-linejoin='round'><polygon points='28,1 55,16.5 55,48.5 28,64 1,48.5 1,16.5'/><polygon points='28,49 55,64.5 55,96.5 28,112 1,96.5 1,64.5'/></g></svg>");
+  background-size: 56px 97px;
+  background-repeat: repeat;
+  opacity: .05;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%,
+    black 0%, rgba(0,0,0,.5) 50%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%,
+    black 0%, rgba(0,0,0,.5) 50%, transparent 85%);
+}
+
+/* Soft inner glows — top fades the title into light, bottom
+   pools warmth under the CTA button. */
+.cta__glow {
+  position: absolute;
+  pointer-events: none;
+}
+.cta__glow--top {
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse 70% 70% at 50% 0%,
+    hsl(180 90% 65% / .22) 0%,
+    hsl(180 80% 55% / .1) 35%,
+    transparent 70%);
+  filter: blur(40px);
+}
+.cta__glow--bottom {
+  bottom: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse 70% 70% at 50% 100%,
+    hsl(180 85% 60% / .18) 0%,
+    hsl(180 75% 50% / .08) 40%,
+    transparent 75%);
+  filter: blur(45px);
+}
+
+.cta__sparkles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Kicker pill — luminous treatment matching VSL/FAQ/Testimonials. */
+.cta .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background:
+    linear-gradient(180deg, hsl(180 70% 50% / .18), hsl(180 70% 50% / .06));
+  border: 1px solid hsl(180 70% 60% / .4);
+  color: hsl(180 90% 80%);
+  box-shadow:
+    inset 0 1px 0 hsl(180 80% 85% / .15),
+    0 0 20px -2px hsl(180 70% 50% / .3);
+}
+.cta .kicker svg { width: 14px; height: 14px; }
+
+/* Title in title case — the new headline is long and reads
+   much cleaner without all-caps shouting. */
 .cta__title {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  letter-spacing: -.02em;
-  line-height: 1.05;
-  text-transform: uppercase;
+  font-size: clamp(1.9rem, 4.4vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -.025em;
+  line-height: 1.1;
+  max-width: 880px;
+  text-wrap: balance;
 }
 .cta__lede {
   margin: 0;
-  max-width: 540px;
+  max-width: 560px;
   color: var(--fg-muted);
   font-size: 1.05rem;
 }
-.cta__fineprint { margin: 0; color: var(--fg-dim); font-size: .8rem; }
+.cta__inner .btn--glow { margin-top: .35rem; }
+.cta__fineprint { margin: 0; color: var(--fg-dim); font-size: .82rem; letter-spacing: .005em; }
 
 /* =========================================================
    Footer

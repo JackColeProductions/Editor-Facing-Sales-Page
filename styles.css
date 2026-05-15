@@ -1555,6 +1555,11 @@ button { font: inherit; cursor: pointer; }
    ========================================================= */
 .section { padding: 5rem 0; }
 @media (min-width: 768px) { .section { padding: 7rem 0; } }
+@media (max-width: 640px) {
+  /* Tighter vertical rhythm on phones so the page doesn't feel
+     like a stack of disconnected blocks. */
+  .section { padding: 3.5rem 0; }
+}
 
 .section__head {
   max-width: 760px;
@@ -3866,6 +3871,63 @@ button { font: inherit; cursor: pointer; }
   font-size: .8rem;
 }
 .footer__legal a:hover { color: var(--fg); }
+
+/* =========================================================
+   Mobile polish — pass 2. Covers the sections below the hero:
+   Platform, Video testimonials, Profile setup, Testimonials
+   marquee, and the global section title scale + section heads.
+   Lives at the end of the stylesheet so it overrides every
+   section-specific font-size set above.
+   ========================================================= */
+@media (max-width: 640px) {
+  /* Section titles (uppercase ones especially) were rendering at
+     32px / 800 weight on phones — that's chunky enough to break
+     short sentences into 4-line stacks. Drop the floor + scale
+     with viewport so they read as headlines, not banners. */
+  .section__title {
+    font-size: clamp(1.65rem, 7.5vw, 2.05rem);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+  }
+  /* Sections with their own font-size overrides still need pulling
+     in; target the named ones explicitly so the cascade wins. */
+  .platform .section__title,
+  .vsl-section .section__title,
+  .testimonials .section__title,
+  .faq .section__title,
+  .showcase .section__title {
+    font-size: clamp(1.55rem, 7vw, 1.95rem);
+  }
+
+  /* Section heads breathe less — was 3rem bottom which adds up to
+     real scroll across the page. */
+  .section__head { margin: 0 auto 2rem; }
+
+  /* Testimonials marquee — card width was 320px which left almost
+     no headroom after the 15% edge fade; the result was content
+     getting clipped mid-sentence. Shrink the cards a touch and
+     narrow the fade zone so the visible card dominates. */
+  .testimonials__card {
+    width: 280px;
+    min-height: 165px;
+    max-height: 215px;
+    padding: 1rem 1.2rem;
+  }
+  .testimonials__avatar { width: 44px; height: 44px; }
+  .testimonials__name { font-size: 1rem; }
+  .testimonials__role { font-size: .78rem; }
+  .testimonials__quote { font-size: .88rem; }
+  .testimonials__marquee {
+    -webkit-mask-image: linear-gradient(90deg,
+      transparent 0%, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(90deg,
+      transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  /* Pricing CTAs — tighter padding so the button doesn't dominate
+     the bottom of each card. */
+  .pricing__cta { padding: .75rem 1.1rem; font-size: .84rem; }
+}
 
 /* =========================================================
    Reduced motion

@@ -918,24 +918,24 @@ button { font: inherit; cursor: pointer; }
 .profile-pic--pos5 { animation: profileFloatPos5 7s ease-in-out infinite -1.5s; z-index: 1; opacity: .82; }
 
 @keyframes profileFloatPos1 {
-  0%,100% { transform: translate(-50%, 60px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
-  50%     { transform: translate(-50%, 50px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+  0%,100% { transform: translate(-50%, -6px)  translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+  50%     { transform: translate(-50%, -14px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
 }
 @keyframes profileFloatPos2 {
   0%,100% { transform: translate(-50%, 30px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
   50%     { transform: translate(-50%, 22px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
 }
 @keyframes profileFloatPos3 {
-  0%,100% { transform: translate(-50%, -6px); }
-  50%     { transform: translate(-50%, -14px); }
+  0%,100% { transform: translate(-50%, 60px); }
+  50%     { transform: translate(-50%, 50px); }
 }
 @keyframes profileFloatPos4 {
   0%,100% { transform: translate(-50%, 30px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
   50%     { transform: translate(-50%, 22px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
 }
 @keyframes profileFloatPos5 {
-  0%,100% { transform: translate(-50%, 60px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
-  50%     { transform: translate(-50%, 50px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
+  0%,100% { transform: translate(-50%, -6px)  translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
+  50%     { transform: translate(-50%, -14px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
 }
 
 /* Featured center card — extra glow to draw the eye, matching the
@@ -986,11 +986,11 @@ button { font: inherit; cursor: pointer; }
   .profile-pic__badge,
   .profile-setup__pill-dot { animation: none !important; }
   /* Lock cards to their resting frame so they don't snap to top:0/left:50% */
-  .profile-pic--pos1 { transform: translate(-50%, 60px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+  .profile-pic--pos1 { transform: translate(-50%, -6px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
   .profile-pic--pos2 { transform: translate(-50%, 30px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
-  .profile-pic--pos3 { transform: translate(-50%, -6px); }
+  .profile-pic--pos3 { transform: translate(-50%, 60px); }
   .profile-pic--pos4 { transform: translate(-50%, 30px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
-  .profile-pic--pos5 { transform: translate(-50%, 60px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
+  .profile-pic--pos5 { transform: translate(-50%, -6px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
 }
 
 /* Tablet — shrink the fan's spread + tilt so 5 cards still fit. */

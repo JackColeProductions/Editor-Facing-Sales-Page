@@ -764,11 +764,12 @@ button { font: inherit; cursor: pointer; }
   /* All 6 avatars stay visible on mobile — tightened sizing
      above means they fit on one line at 320px+. */
 
-  /* Title — tighter min and gentler line-height so the 2nd sentence
-     doesn't break into 3 short lines. */
+  /* Title — was wrapping the second sentence ("We Bring Clients
+     To You.") onto a third line at ~33px. Pull the floor down so
+     the whole second sentence stays on one line. */
   .hero__title {
-    font-size: clamp(1.85rem, 8.5vw, 2.5rem);
-    line-height: 1.05;
+    font-size: clamp(1.5rem, 7.2vw, 2.05rem);
+    line-height: 1.06;
     letter-spacing: -.025em;
   }
 
@@ -3965,20 +3966,38 @@ button { font: inherit; cursor: pointer; }
      getting clipped mid-sentence. Shrink the cards a touch and
      narrow the fade zone so the visible card dominates. */
   .testimonials__card {
-    width: 280px;
-    min-height: 165px;
-    max-height: 215px;
-    padding: 1rem 1.2rem;
+    width: 250px;
+    min-height: 155px;
+    max-height: 200px;
+    padding: .9rem 1.1rem;
+    scroll-snap-align: center;
   }
-  .testimonials__avatar { width: 44px; height: 44px; }
-  .testimonials__name { font-size: 1rem; }
-  .testimonials__role { font-size: .78rem; }
-  .testimonials__quote { font-size: .88rem; }
+  .testimonials__avatar { width: 40px; height: 40px; }
+  .testimonials__name { font-size: .95rem; }
+  .testimonials__role { font-size: .74rem; }
+  .testimonials__quote { font-size: .84rem; line-height: 1.5; }
+  /* Auto-scroll marquee replaced with native swipe scroll on
+     phones so users can browse the cards directly. */
+  .testimonials__row {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .testimonials__row::-webkit-scrollbar { display: none; }
+  .testimonials__row--ltr .testimonials__track,
+  .testimonials__row--rtl .testimonials__track {
+    animation: none !important;
+    transform: none !important;
+    width: max-content;
+    gap: .85rem;
+    padding-inline: 1rem;
+  }
   .testimonials__marquee {
     -webkit-mask-image: linear-gradient(90deg,
-      transparent 0%, black 8%, black 92%, transparent 100%);
+      transparent 0%, black 4%, black 96%, transparent 100%);
             mask-image: linear-gradient(90deg,
-      transparent 0%, black 8%, black 92%, transparent 100%);
+      transparent 0%, black 4%, black 96%, transparent 100%);
   }
 
   /* Pricing — tighter cards + CTAs so the section reads as a
@@ -4016,9 +4035,29 @@ button { font: inherit; cursor: pointer; }
   .faq__stars svg { width: 12px; height: 12px; }
   .faq__rating-text { font-size: .74rem; }
 
-  /* Stories carousel — tighter avatar tabs row and active card
-     internals so 1 card fits cleanly with side cards peeking. */
+  /* Stories carousel — make the active card narrower so the
+     prev/next cards peek in clearly (was 92% width with prev/next
+     pushed 290px off-centre — basically both side cards lived
+     off-screen). */
   .stories__avatars { gap: .35rem; padding-bottom: .75rem; }
+  .stories__card { width: 78%; padding: 1.15rem 1.15rem 1.3rem; gap: .9rem; }
+  .stories__card[data-pos="prev"] { transform: translateX(calc(-50% - 64%)) scale(.84); }
+  .stories__card[data-pos="next"] { transform: translateX(calc(-50% + 64%)) scale(.84); }
+  .stories__card[data-pos="far"]  { display: none; }
+  .stories__person-avatar { width: 38px; height: 38px; }
+  .stories__person-name   { font-size: .95rem; }
+  .stories__person-title  { font-size: .72rem; }
+  .stories__quote         { font-size: .92rem; line-height: 1.55; }
+
+  /* Video testimonials carousel — proof cards smaller + thinner
+     side fade overlays so the focused card stands out without
+     the previous/next neighbours getting dissolved completely. */
+  .proof__card { flex: 0 0 188px; }
+  .proof__carousel::before,
+  .proof__carousel::after { width: 70px; }
+  .proof__track { gap: .85rem; padding: 3.5rem 1rem 4rem; }
+  .proof__name  { font-size: .92rem; }
+  .proof__quote { font-size: .82rem; }
 }
 
 /* =========================================================

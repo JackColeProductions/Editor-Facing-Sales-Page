@@ -2700,33 +2700,16 @@ button { font: inherit; cursor: pointer; }
    no atmosphere. All visual treatment lives on .testimonials__frame. */
 .section.testimonials { padding: clamp(4rem, 8vh, 6rem) 0; }
 
-/* The luminous frame — one rounded container holds everything */
+/* No literal bordered box — the "framed" feel comes from the grid
+   mask + sparkles cluster + marquee edge fade. .testimonials__frame
+   just provides a positioning context for the atmospheric layers
+   and lets the marquee bleed edge-to-edge. */
 .testimonials__frame {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border-radius: 2rem;
   padding: clamp(3rem, 7vh, 4rem) 0;
-  background:
-    /* Top-left luminance — brighter "lit corner" */
-    radial-gradient(ellipse 80% 60% at 0% 0%,
-      hsl(180 70% 50% / .08) 0%,
-      transparent 50%),
-    /* Vertical depth — darker at top + bottom, lifted in middle */
-    linear-gradient(180deg,
-      hsl(240 30% 5% / .7) 0%,
-      hsl(240 25% 8% / .5) 30%,
-      hsl(240 25% 8% / .5) 70%,
-      hsl(240 30% 5% / .7) 100%);
-  box-shadow:
-    /* outer ambient depth */
-    0 30px 80px -20px hsl(0 0% 0% / .5),
-    /* top-left highlight, brighter */
-    inset 2px 2px 0 -1px hsl(180 70% 70% / .15),
-    /* full inner border ring */
-    inset 0 0 0 1px hsl(180 40% 60% / .18),
-    /* top edge highlight */
-    inset 0 1px 0 hsl(180 80% 85% / .1);
+  background: transparent;
 }
 
 /* Subtle grid pattern weighted to the top-left */
@@ -2751,15 +2734,16 @@ button { font: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
-/* Sparkle cluster — anchored to the top-left of the frame.
-   The dots in the SVG itself thin out toward the bottom-right
-   so the cluster reads as a constellation fading inward. */
+/* Sparkle cluster — now in section coordinates, anchored to the
+   top-left of the full-bleed frame. Tighter (35% x 50%) since the
+   frame spans the viewport now and we want the cluster to feel
+   focused, not spread thin. */
 .testimonials__sparkles {
   position: absolute;
   top: 0;
   left: 0;
-  width: 40%;
-  height: 60%;
+  width: 35%;
+  height: 50%;
   z-index: 1;
   pointer-events: none;
 }
@@ -2939,10 +2923,7 @@ button { font: inherit; cursor: pointer; }
   .testimonials__card { width: 340px; min-height: 210px; padding: 1.5rem; }
 }
 @media (max-width: 767px) {
-  .testimonials__frame {
-    border-radius: 1.25rem;
-    padding: 3rem 0;
-  }
+  .testimonials__frame { padding: 3rem 0; }
   .testimonials__card { width: 300px; min-height: 200px; padding: 1.4rem; }
   .testimonials__row--ltr .testimonials__track,
   .testimonials__row--rtl .testimonials__track { animation-duration: 80s; }

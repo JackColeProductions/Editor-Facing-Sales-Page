@@ -3920,51 +3920,16 @@ button { font: inherit; cursor: pointer; }
    ========================================================= */
 .footer {
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  border-top: 1px solid var(--border);
-  background:
-    radial-gradient(70% 60% at 50% 0%, hsl(166 60% 12% / .35) 0%, transparent 65%),
-    hsl(240 15% 4%);
-  padding: 5rem 0 0;
-}
-.footer__glow {
-  position: absolute;
-  left: 50%;
-  top: -160px;
-  width: 70%;
-  height: 320px;
-  transform: translateX(-50%);
-  background: radial-gradient(closest-side, hsl(166 90% 50% / .22), transparent 70%);
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 0;
-}
-.footer__watermark {
-  position: absolute;
-  left: 50%;
-  bottom: -3.5rem;
-  transform: translateX(-50%);
-  font-family: inherit;
-  font-weight: 800;
-  font-size: clamp(8rem, 22vw, 22rem);
-  line-height: .85;
-  letter-spacing: -0.05em;
-  color: transparent;
-  -webkit-text-stroke: 1px hsl(0 0% 100% / .055);
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  z-index: 0;
+  border-top: 1px solid var(--border-soft);
+  background: var(--bg);
+  padding: 4.5rem 0 0;
 }
 
 .footer__inner {
-  position: relative;
-  z-index: 1;
   display: grid;
   gap: 2.75rem;
   grid-template-columns: 1fr;
-  padding-bottom: 4rem;
+  padding-bottom: 3.5rem;
 }
 @media (min-width: 640px) {
   .footer__inner { grid-template-columns: 1fr 1fr; }
@@ -3997,30 +3962,23 @@ button { font: inherit; cursor: pointer; }
 .footer__social {
   display: inline-grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   border-radius: 999px;
-  border: 1px solid hsl(0 0% 100% / .08);
-  background: hsl(240 15% 8% / .6);
-  color: var(--fg-muted);
-  transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease;
+  color: var(--fg-dim);
+  transition: color .2s ease;
 }
 .footer__social svg { width: 16px; height: 16px; }
-.footer__social:hover {
-  color: var(--fg);
-  border-color: hsl(166 80% 55% / .5);
-  background: hsl(166 80% 55% / .08);
-  transform: translateY(-1px);
-}
+.footer__social:hover { color: var(--fg); }
 
 .footer__col { min-width: 0; }
 .footer__heading {
   margin: 0 0 1.1rem;
   font-size: .72rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--fg);
+  color: var(--fg-dim);
 }
 .footer__nav {
   list-style: none;
@@ -4049,27 +4007,23 @@ button { font: inherit; cursor: pointer; }
   display: inline-flex;
   align-items: center;
   gap: .55rem;
-  padding: .42rem .8rem;
-  border-radius: 999px;
-  border: 1px solid hsl(166 80% 55% / .28);
-  background: hsl(166 80% 55% / .06);
-  color: var(--fg-muted);
+  color: var(--fg-dim);
   font-size: .78rem;
   letter-spacing: .01em;
 }
 .footer__cta-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 999px;
-  background: hsl(166 90% 55%);
-  box-shadow: 0 0 0 4px hsl(166 90% 55% / .18);
+  background: var(--primary);
 }
 .footer__cta-title {
   margin: 0;
-  font-size: clamp(1.35rem, 1.6vw, 1.65rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
+  font-size: clamp(1.15rem, 1.3vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+  color: var(--fg);
 }
 .footer__cta-btn {
   padding: .85rem 1.35rem;
@@ -4077,13 +4031,8 @@ button { font: inherit; cursor: pointer; }
 }
 
 .footer__bottom {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid hsl(0 0% 100% / .06);
+  border-top: 1px solid var(--border-soft);
   padding: 1.25rem 0;
-  background: hsl(240 15% 3% / .5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 .footer__bottom-inner {
   display: flex;
@@ -4109,9 +4058,8 @@ button { font: inherit; cursor: pointer; }
 .footer__legal-links a:hover { color: var(--fg); }
 
 @media (max-width: 640px) {
-  .footer { padding-top: 3.5rem; }
-  .footer__inner { padding-bottom: 2.75rem; gap: 2.25rem; }
-  .footer__watermark { font-size: 10rem; bottom: -2rem; }
+  .footer { padding-top: 3.25rem; }
+  .footer__inner { padding-bottom: 2.5rem; gap: 2.25rem; }
 }
 
 /* =========================================================

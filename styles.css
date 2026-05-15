@@ -1686,7 +1686,18 @@ button { font: inherit; cursor: pointer; }
 /* =========================================================
    Success Stories — testimonial carousel
    ========================================================= */
-.stories { position: relative; isolation: isolate; overflow: hidden; }
+.stories {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Trim bottom padding — the carousel ends ~halfway through the
+     section's default .section padding, so the prev/next nav was
+     sitting in a sea of black before the next section started. */
+  padding-bottom: 3.5rem;
+}
+@media (min-width: 768px) {
+  .stories { padding-bottom: 4rem; }
+}
 
 /* Avatar strip */
 .stories__avatars {
@@ -1734,8 +1745,8 @@ button { font: inherit; cursor: pointer; }
 /* Carousel */
 .stories__carousel {
   position: relative;
-  height: clamp(380px, 50vh, 440px);
-  margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+  height: clamp(340px, 42vh, 400px);
+  margin-bottom: clamp(.75rem, 1.5vh, 1.25rem);
   perspective: 1400px;
 }
 .stories__card {
@@ -1884,6 +1895,7 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  padding-top: 4rem;
   padding-bottom: 8rem;
 }
 

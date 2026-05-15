@@ -1181,6 +1181,26 @@ button { font: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
+/* Whisper-faint hex pattern behind everything else — adds the
+   blueprint / tech texture detail without competing with the
+   lights. Masked centre-out so it fades to nothing at the edges. */
+.vsl-section__hex {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'><g fill='none' stroke='%23b8f5f0' stroke-width='0.6' stroke-linejoin='round'><polygon points='28,1 55,16.5 55,48.5 28,64 1,48.5 1,16.5'/><polygon points='28,49 55,64.5 55,96.5 28,112 1,96.5 1,64.5'/></g></svg>");
+  background-size: 56px 97px;
+  background-repeat: repeat;
+  opacity: .06;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 55%,
+    black 0%,
+    rgba(0,0,0,.5) 45%,
+    transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 55%,
+    black 0%,
+    rgba(0,0,0,.5) 45%,
+    transparent 80%);
+}
+
 /* Two near-vertical columns of light rising from below the section.
    The previous 20° splay read as showroom theatrics; pulling the
    angle to 8° and the origin off-screen below the frame is closer

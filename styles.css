@@ -869,33 +869,39 @@ button { font: inherit; cursor: pointer; }
   margin-top: .6rem;
 }
 
-/* Row of 5 cards. Center is tallest/most forward; sides recede
-   with tilt + downward offset, echoing the hero job-card fan
-   without copying it (this is a wider, flatter arrangement). */
+/* Five-card fan, same pattern as the hero job-card fan: each card
+   absolutely positioned at top:0 left:50%, with a per-position
+   keyframe that bakes in translateX (left/right offset from center),
+   vertical Y offset, and rotation — so a single transform composes
+   cleanly without wrappers. Center is frontmost (Profile_1), the
+   pair next to it ride near, and the outer pair sit far + faded. */
 .profile-setup__cards {
+  --pcard-w: clamp(150px, 17vw, 220px);
+  --pnear-x: clamp(110px, 13vw, 175px);
+  --pfar-x:  clamp(215px, 26vw, 345px);
+  --pnear-rot: 6deg;
+  --pfar-rot: 12deg;
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(.6rem, 1.6vw, 1.4rem);
   width: 100%;
+  height: clamp(320px, 38vh, 400px);
   max-width: 1180px;
   margin: 0 auto;
-  padding-block: 2rem 2.5rem;
+  pointer-events: none;
 }
 
 .profile-pic {
-  position: relative;
-  flex: 0 0 auto;
-  width: clamp(150px, 16vw, 215px);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--pcard-w);
+  margin: 0;
   border-radius: 1.1rem;
   border: 1px solid hsl(180 60% 70% / .18);
   box-shadow:
     0 30px 80px -20px hsl(0 0% 0% / .7),
-    0 0 60px -10px hsl(180 70% 50% / .28),
+    0 0 60px -10px hsl(180 70% 50% / .25),
     inset 0 1px 0 hsl(180 80% 90% / .18);
-  transition: transform .4s cubic-bezier(.22, 1, .36, 1),
-              box-shadow .4s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
 }
 .profile-pic img {
   display: block;
@@ -904,25 +910,44 @@ button { font: inherit; cursor: pointer; }
   border-radius: inherit;
 }
 
-/* Base tilt + vertical offset per card. The float animation uses
-   the `translate` longhand so it composes with `transform` rotate. */
-.profile-pic--1 { transform: rotate(-7deg); translate: 0 28px;  z-index: 1; animation: profileFloat 7s ease-in-out infinite -1.5s; }
-.profile-pic--2 { transform: rotate(-3deg); translate: 0 8px;   z-index: 2; animation: profileFloat 6s ease-in-out infinite -3s; }
-.profile-pic--3 { transform: rotate(0deg);  translate: 0 -18px; z-index: 3; animation: profileFloat 5.5s ease-in-out infinite; }
-.profile-pic--4 { transform: rotate(3deg);  translate: 0 8px;   z-index: 2; animation: profileFloat 6s ease-in-out infinite -2.2s; }
-.profile-pic--5 { transform: rotate(7deg);  translate: 0 28px;  z-index: 1; animation: profileFloat 7s ease-in-out infinite -.8s; }
+/* Per-card animation + z-index + opacity. Outer cards step back. */
+.profile-pic--pos1 { animation: profileFloatPos1 7s ease-in-out infinite;       z-index: 1; opacity: .82; }
+.profile-pic--pos2 { animation: profileFloatPos2 6s ease-in-out infinite -1s;   z-index: 2; opacity: .94; }
+.profile-pic--pos3 { animation: profileFloatPos3 5.5s ease-in-out infinite -2s; z-index: 5; }
+.profile-pic--pos4 { animation: profileFloatPos4 6s ease-in-out infinite -.5s;  z-index: 2; opacity: .94; }
+.profile-pic--pos5 { animation: profileFloatPos5 7s ease-in-out infinite -1.5s; z-index: 1; opacity: .82; }
 
-@keyframes profileFloat {
-  0%, 100% { translate: 0 var(--base-y, 0); }
-  50%      { translate: 0 calc(var(--base-y, 0) - 8px); }
+@keyframes profileFloatPos1 {
+  0%,100% { transform: translate(-50%, 60px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+  50%     { transform: translate(-50%, 50px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
 }
-/* Per-card --base-y so the float oscillates around each card's
-   resting offset instead of springing back to 0. */
-.profile-pic--1 { --base-y: 28px; }
-.profile-pic--2 { --base-y: 8px; }
-.profile-pic--3 { --base-y: -18px; }
-.profile-pic--4 { --base-y: 8px; }
-.profile-pic--5 { --base-y: 28px; }
+@keyframes profileFloatPos2 {
+  0%,100% { transform: translate(-50%, 30px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
+  50%     { transform: translate(-50%, 22px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
+}
+@keyframes profileFloatPos3 {
+  0%,100% { transform: translate(-50%, -6px); }
+  50%     { transform: translate(-50%, -14px); }
+}
+@keyframes profileFloatPos4 {
+  0%,100% { transform: translate(-50%, 30px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
+  50%     { transform: translate(-50%, 22px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
+}
+@keyframes profileFloatPos5 {
+  0%,100% { transform: translate(-50%, 60px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
+  50%     { transform: translate(-50%, 50px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
+}
+
+/* Featured center card — extra glow to draw the eye, matching the
+   hero's job-card--featured treatment. */
+.profile-pic--featured {
+  border-color: hsl(180 74% 63% / .4);
+  box-shadow:
+    0 40px 100px -20px hsl(0 0% 0% / .8),
+    0 0 80px -10px hsl(180 80% 55% / .5),
+    0 0 120px -20px hsl(180 70% 50% / .3),
+    inset 0 1px 0 hsl(180 90% 95% / .22);
+}
 
 /* Floating earnings badge — the section's unique flare. Picks up
    the same glossy gradient as .btn--glow but at pill scale. */
@@ -960,37 +985,51 @@ button { font: inherit; cursor: pointer; }
   .profile-pic,
   .profile-pic__badge,
   .profile-setup__pill-dot { animation: none !important; }
+  /* Lock cards to their resting frame so they don't snap to top:0/left:50% */
+  .profile-pic--pos1 { transform: translate(-50%, 60px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+  .profile-pic--pos2 { transform: translate(-50%, 30px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
+  .profile-pic--pos3 { transform: translate(-50%, -6px); }
+  .profile-pic--pos4 { transform: translate(-50%, 30px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
+  .profile-pic--pos5 { transform: translate(-50%, 60px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
 }
 
-/* Responsive: tablet — slightly smaller cards, less aggressive tilt */
+/* Tablet — shrink the fan's spread + tilt so 5 cards still fit. */
 @media (max-width: 960px) {
-  .profile-setup__cards { max-width: 100%; gap: .5rem; }
-  .profile-pic--1 { transform: rotate(-5deg); --base-y: 20px; translate: 0 20px; }
-  .profile-pic--2 { transform: rotate(-2deg); --base-y: 6px;  translate: 0 6px; }
-  .profile-pic--3 { transform: rotate(0deg);  --base-y: -14px; translate: 0 -14px; }
-  .profile-pic--4 { transform: rotate(2deg);  --base-y: 6px;  translate: 0 6px; }
-  .profile-pic--5 { transform: rotate(5deg);  --base-y: 20px; translate: 0 20px; }
+  .profile-setup__cards {
+    --pnear-x: 110px;
+    --pfar-x:  215px;
+    --pnear-rot: 4deg;
+    --pfar-rot: 8deg;
+    height: clamp(280px, 34vh, 340px);
+  }
 }
 
-/* Responsive: mobile — collapse to horizontal scroll with snap;
-   strip tilt/stagger because they read as broken at this width. */
+/* Mobile — fan reads as broken below ~640px; collapse to a
+   horizontal scroll-snap row with no tilt/animation. */
 @media (max-width: 640px) {
   .profile-setup__content { margin-bottom: 2rem; }
   .profile-setup__cards {
+    display: flex;
+    align-items: center;
+    height: auto;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding-inline: 1.25rem;
+    padding-block: 1rem 2.5rem;
     gap: .9rem;
-    align-items: center;
+    pointer-events: auto;
   }
   .profile-pic {
+    position: relative;
+    top: auto;
+    left: auto;
     width: 175px;
+    flex: 0 0 auto;
     scroll-snap-align: center;
     transform: none !important;
-    translate: 0 !important;
     animation: none !important;
-    --base-y: 0;
+    opacity: 1 !important;
   }
   .profile-pic__badge { animation: none; }
 }

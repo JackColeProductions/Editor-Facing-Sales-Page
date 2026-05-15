@@ -1020,6 +1020,7 @@ button { font: inherit; cursor: pointer; }
   z-index: 1;
 }
 .showcase__head { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+.showcase .section__title { text-transform: none; letter-spacing: -.025em; }
 
 /* Atmosphere: one diagonal teal light leak + sparse dust particles, both
    behind everything in the section. isolation:isolate on .showcase keeps
@@ -1098,7 +1099,7 @@ button { font: inherit; cursor: pointer; }
 }
 .showcase__card--left {
   top: -6%;
-  left: -3%;
+  left: -10%;
   transform: rotate(-5deg);
   transform-origin: bottom right;
   animation: showcaseCardLeftFloat 7s ease-in-out infinite;
@@ -1121,7 +1122,7 @@ button { font: inherit; cursor: pointer; }
 
 @media (max-width: 880px) {
   .showcase__card { width: 30%; }
-  .showcase__card--left  { top: -5%; left: -2%; }
+  .showcase__card--left  { top: -5%; left: -6%; }
   .showcase__card--right { bottom: -6%; right: -2%; }
 }
 @media (max-width: 560px) {

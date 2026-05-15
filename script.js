@@ -304,22 +304,27 @@ if (proof) {
     dragStartScroll = track.scrollLeft;
     dragMoved = false;
     dragPointerId = e.pointerId;
-    try { track.setPointerCapture?.(e.pointerId); } catch (_) {}
-    track.style.cursor = 'grabbing';
-    track.style.scrollSnapType = 'none';
-    track.style.scrollBehavior = 'auto';
-    track.style.willChange = 'scroll-position';
+    // NOTE: do NOT setPointerCapture here. Capturing on pointerdown
+    // reroutes pointerup to the track, which breaks the synthesised
+    // click on the card and stops play-on-click. We capture lazily
+    // inside onTrackMove once a real drag is detected.
   };
   const onTrackMove = (e) => {
     if (dragStartX == null) return;
     const dx = e.clientX - dragStartX;
-    if (Math.abs(dx) > 4) dragMoved = true;
+    if (!dragMoved && Math.abs(dx) > 6) {
+      dragMoved = true;
+      try { track.setPointerCapture?.(dragPointerId); } catch (_) {}
+      track.style.cursor = 'grabbing';
+      track.style.scrollSnapType = 'none';
+      track.style.scrollBehavior = 'auto';
+      track.style.willChange = 'scroll-position';
+    }
+    if (!dragMoved) return;
     scheduleScroll(dragStartScroll - dx);
     const now = performance.now();
     const dt = now - lastTime;
     if (dt > 0) {
-      // Low-pass filter the velocity so a single noisy sample
-      // doesn't fling the rail.
       velocity = velocity * 0.6 + ((e.clientX - lastX) / dt) * 0.4;
     }
     lastX = e.clientX;

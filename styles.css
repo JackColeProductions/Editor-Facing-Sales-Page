@@ -1584,6 +1584,48 @@ button { font: inherit; cursor: pointer; }
      like a stack of disconnected blocks. */
   .section { padding: 3.5rem 0; }
 }
+/* Stats — tight stacked layout with hairline dividers between
+   each stat, so 3 numbers don't sprawl across a full screen
+   height on phones. */
+@media (max-width: 640px) {
+  .stats { padding: 2.25rem 0 2.75rem; }
+  .stats__grid {
+    gap: 0;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .stat {
+    padding: 1rem .75rem;
+    gap: .9rem;
+    position: relative;
+  }
+  /* Horizontal cyan hairline between stats — fades at the ends so
+     it sits in the section atmosphere, not as a hard rule. */
+  .stat + .stat::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 18%;
+    right: 18%;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent,
+      hsl(180 74% 63% / .35) 50%,
+      transparent);
+  }
+  .stat__icon {
+    width: 32px;
+    height: 32px;
+  }
+  .stat__num {
+    font-size: 1.6rem;
+    letter-spacing: -.035em;
+  }
+  .stat__label {
+    font-size: .78rem;
+    margin-top: .08rem;
+  }
+}
 
 .section__head {
   max-width: 760px;

@@ -1074,6 +1074,65 @@ button { font: inherit; cursor: pointer; }
     0 50px 100px -20px hsl(0 0% 0% / .9);
 }
 
+/* Floating decorative cards over the marketplace screenshot — small
+   status card at the top-left, version history at the bottom-right,
+   each extending slightly past the screenshot for an off-the-page
+   feel. Subtle independent float keeps the composition alive without
+   pulling focus from the main screenshot. */
+.showcase__card {
+  position: absolute;
+  display: block;
+  width: 26%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid hsl(180 60% 70% / .18);
+  box-shadow:
+    0 30px 70px -18px hsl(0 0% 0% / .75),
+    0 0 60px -12px hsl(180 80% 55% / .35),
+    inset 0 1px 0 hsl(180 90% 95% / .2),
+    inset 0 22px 26px -20px hsl(180 75% 65% / .14),
+    inset 0 -22px 26px -20px hsl(180 70% 60% / .08);
+  z-index: 2;
+  pointer-events: none;
+}
+.showcase__card--left {
+  top: -6%;
+  left: -3%;
+  transform: rotate(-5deg);
+  transform-origin: bottom right;
+  animation: showcaseCardLeftFloat 7s ease-in-out infinite;
+}
+.showcase__card--right {
+  bottom: -8%;
+  right: -3%;
+  transform: rotate(5deg);
+  transform-origin: top left;
+  animation: showcaseCardRightFloat 7s ease-in-out infinite -2.5s;
+}
+@keyframes showcaseCardLeftFloat {
+  0%, 100% { transform: translateY(0)    rotate(-5deg); }
+  50%      { transform: translateY(-8px) rotate(-5deg); }
+}
+@keyframes showcaseCardRightFloat {
+  0%, 100% { transform: translateY(0)   rotate(5deg); }
+  50%      { transform: translateY(8px) rotate(5deg); }
+}
+
+@media (max-width: 880px) {
+  .showcase__card { width: 30%; }
+  .showcase__card--left  { top: -5%; left: -2%; }
+  .showcase__card--right { bottom: -6%; right: -2%; }
+}
+@media (max-width: 560px) {
+  /* On phones the screenshot is already small; the decorative cards
+     just crowd it. Hide them rather than scale down to illegible. */
+  .showcase__card { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase__card { animation: none !important; }
+}
+
 /* Standalone VSL section (was inline in hero) */
 .vsl-section .vsl { max-width: 880px; margin: 0 auto; }
 .vsl {
@@ -2645,69 +2704,18 @@ button { font: inherit; cursor: pointer; }
     inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
 }
 
-/* Side cards use the same box-shadow as the center card so they get
-   the same small glossy edge treatment. */
-.platform__card--left,
-.platform__card--right {
-  z-index: 2;
-  bottom: 40px;
-  width: 46%;
-  box-shadow:
-    0 40px 100px -20px hsl(0 0% 0% / .8),
-    0 0 80px -10px hsl(180 80% 55% / .45),
-    0 0 120px -20px hsl(180 70% 50% / .3),
-    inset 0 1px 0 hsl(180 90% 95% / .22),
-    inset 0 30px 32px -22px hsl(180 75% 65% / .16),
-    inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
-}
-.platform__card--left {
-  left: 1%;
-  transform: rotate(-7deg);
-  transform-origin: 100% 100%;
-}
-.platform__card--right {
-  right: 1%;
-  transform: rotate(7deg);
-  transform-origin: 0% 100%;
-}
-
-/* Hero-style float — each card has its own keyframe that bakes in
-   the base transform plus a subtle vertical bob, staggered so the
-   three cards drift independently. Same approach as .job-card. */
+/* Subtle float on the center card so it doesn't feel static. */
 .platform__card--center { animation: platformFloatCenter 6s ease-in-out infinite; }
-.platform__card--left   { animation: platformFloatLeft   7s ease-in-out infinite -1s; }
-.platform__card--right  { animation: platformFloatRight  7s ease-in-out infinite -2s; }
 
 @keyframes platformFloatCenter {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50%      { transform: translateX(-50%) translateY(-10px); }
-}
-@keyframes platformFloatLeft {
-  0%, 100% { transform: translateY(0)    rotate(-7deg); }
-  50%      { transform: translateY(-12px) rotate(-7deg); }
-}
-@keyframes platformFloatRight {
-  0%, 100% { transform: translateY(0)    rotate(7deg); }
-  50%      { transform: translateY(-12px) rotate(7deg); }
 }
 
 @media (max-width: 1023px) {
   .platform { min-height: auto; max-height: none; }
   .platform__stage { height: 420px; }
   .platform__card--center { width: 50%; }
-  .platform__card--left  { width: 46%; }
-  .platform__card--right { width: 46%; }
-  /* Tablet float keyframes — gentler rotation (±4deg) baked in. */
-  @keyframes platformFloatLeftTablet  {
-    0%, 100% { transform: translateY(0)    rotate(-4deg); }
-    50%      { transform: translateY(-10px) rotate(-4deg); }
-  }
-  @keyframes platformFloatRightTablet {
-    0%, 100% { transform: translateY(0)    rotate(4deg); }
-    50%      { transform: translateY(-10px) rotate(4deg); }
-  }
-  .platform__card--left   { animation-name: platformFloatLeftTablet; }
-  .platform__card--right  { animation-name: platformFloatRightTablet; }
 }
 
 @media (max-width: 767px) {
@@ -2717,8 +2725,6 @@ button { font: inherit; cursor: pointer; }
     margin: 2rem auto 0;
     padding-bottom: 1rem;
   }
-  .platform__card--left,
-  .platform__card--right { display: none; }
   .platform__card--center {
     position: relative;
     left: auto;
@@ -2735,8 +2741,6 @@ button { font: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .platform__card { transition: none; animation: none !important; }
   .platform__card--center { transform: translateX(-50%); }
-  .platform__card--left   { transform: rotate(-7deg); }
-  .platform__card--right  { transform: rotate(7deg); }
 }
 
 /* =========================================================

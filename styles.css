@@ -2821,16 +2821,17 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  /* Edge fade so cards fade in/out instead of popping */
+  /* Wider edge fade so cards drift in/out gradually instead of
+     hard-cutting near the viewport edge. 15% mask zone each side. */
   mask-image: linear-gradient(90deg,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 15%,
+    black 85%,
     transparent 100%);
   -webkit-mask-image: linear-gradient(90deg,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 15%,
+    black 85%,
     transparent 100%);
 }
 .testimonials__row { overflow: hidden; }

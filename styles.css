@@ -1100,6 +1100,8 @@ button { font: inherit; cursor: pointer; }
 .showcase__card--left {
   top: -14%;
   left: -3%;
+  width: 31.2%;
+  max-width: 384px;
   transform: rotate(-5deg);
   transform-origin: bottom right;
   animation: showcaseCardLeftFloat 7s ease-in-out infinite;
@@ -1122,7 +1124,7 @@ button { font: inherit; cursor: pointer; }
 
 @media (max-width: 880px) {
   .showcase__card { width: 30%; }
-  .showcase__card--left  { top: -11%; left: -2%; }
+  .showcase__card--left  { top: -11%; left: -2%; width: 36%; }
   .showcase__card--right { bottom: -6%; right: -2%; }
 }
 @media (max-width: 560px) {

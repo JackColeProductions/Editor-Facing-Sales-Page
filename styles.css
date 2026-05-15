@@ -2709,12 +2709,26 @@ button { font: inherit; cursor: pointer; }
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(hsl(240 10% 22% / .55) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(240 10% 22% / .55) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse at 50% 40%, black 0%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, black 0%, transparent 75%);
-  opacity: .55;
+    linear-gradient(hsl(240 10% 25% / .7) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(240 10% 25% / .7) 1px, transparent 1px);
+  background-size: 64px 64px;
+  /* Concentrate the grid in the top-left so it reads as a corner
+     "constellation" rather than a full-bleed checker. */
+  mask-image: radial-gradient(ellipse 60% 65% at 18% 18%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 65% at 18% 18%, black 0%, transparent 75%);
+  opacity: .6;
+}
+/* Scattered starfield over the grid, same top-left bias as the grid
+   mask so dots only show inside the constellation area. */
+.tm__stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .85;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 65% 70% at 18% 18%, black 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 70% at 18% 18%, black 0%, transparent 80%);
 }
 .tm__glow {
   position: absolute;
@@ -2741,24 +2755,37 @@ button { font: inherit; cursor: pointer; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1rem;
+  gap: 1.1rem;
   max-width: 900px;
-  margin: 0 auto clamp(2.5rem, 5vh, 4rem);
+  margin: 0 auto clamp(2.75rem, 5vh, 4.25rem);
 }
+/* Title overrides the global section__title uppercase so the
+   marquee reads in clean title case like the reference. */
+.tm .section__title {
+  text-transform: none;
+  letter-spacing: -.025em;
+  font-weight: 700;
+}
+.tm .section__lede { max-width: 640px; margin-top: .25rem; }
+
 .tm__pill {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .4rem .9rem;
+  padding: .42rem .95rem;
   border-radius: 999px;
-  border: 1px solid hsl(180 74% 63% / .35);
-  background: hsl(180 70% 50% / .1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid hsl(180 74% 63% / .4);
+  background:
+    linear-gradient(180deg, hsl(180 70% 50% / .18), hsl(180 70% 50% / .06));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--primary);
   font-size: .8rem;
   font-weight: 600;
-  letter-spacing: .02em;
+  letter-spacing: .03em;
+  box-shadow:
+    inset 0 1px 0 hsl(180 90% 95% / .14),
+    0 0 24px -6px hsl(180 74% 63% / .35);
 }
 .tm__pill svg { width: 16px; height: 16px; }
 
@@ -2798,20 +2825,28 @@ button { font: inherit; cursor: pointer; }
   to   { transform: translate3d(-50%, 0, 0); }
 }
 
-/* Individual testimonial card */
+/* Individual testimonial card — soft inner teal glow at the top
+   fading into the dark body, glossy 1px top hairline, a low-key
+   outer halo, and a slightly thicker teal-tinted border. Layered
+   to feel like the cards are catching the same atmospheric light
+   the rest of the section sits in. */
 .tm-card {
   flex: 0 0 auto;
-  width: clamp(280px, 28vw, 360px);
-  padding: 1.4rem 1.5rem 1.3rem;
-  border-radius: 1.1rem;
-  background: linear-gradient(180deg, hsl(240 16% 9%), hsl(240 18% 6%));
-  border: 1px solid hsl(180 30% 40% / .18);
+  width: clamp(290px, 28vw, 360px);
+  padding: 1.5rem 1.65rem 1.4rem;
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(ellipse 90% 100% at 50% 0%, hsl(180 74% 63% / .08), transparent 60%),
+    linear-gradient(180deg, hsl(240 17% 10%), hsl(240 20% 7%));
+  border: 1px solid hsl(180 60% 60% / .22);
   box-shadow:
-    inset 0 1px 0 hsl(0 0% 100% / .04),
-    0 20px 50px -25px hsl(0 0% 0% / .8);
+    inset 0 1px 0 hsl(180 90% 95% / .1),
+    inset 0 0 0 1px hsl(180 74% 63% / .05),
+    0 20px 50px -22px hsl(0 0% 0% / .7),
+    0 0 36px -10px hsl(180 74% 63% / .18);
   display: flex;
   flex-direction: column;
-  gap: .9rem;
+  gap: 1rem;
 }
 .tm-card__head {
   display: flex;
@@ -2822,31 +2857,34 @@ button { font: inherit; cursor: pointer; }
 .tm-card__person { min-width: 0; }
 .tm-card__name {
   margin: 0;
-  font-size: .98rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--fg);
   letter-spacing: -.01em;
 }
 .tm-card__role {
-  margin: .1rem 0 0;
+  margin: .15rem 0 0;
   font-size: .76rem;
   color: var(--fg-dim);
   letter-spacing: .005em;
 }
 .tm-card__avatar {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid hsl(180 60% 70% / .25);
+  border: 1.5px solid hsl(180 74% 63% / .45);
+  box-shadow:
+    0 0 0 1px hsl(0 0% 0% / .5),
+    0 0 16px -2px hsl(180 74% 63% / .4);
   flex-shrink: 0;
   background: var(--card);
 }
 .tm-card__quote {
   margin: 0;
   font-size: .92rem;
-  line-height: 1.55;
-  color: var(--fg-muted);
+  line-height: 1.6;
+  color: hsl(0 0% 90%);
 }
 
 @media (prefers-reduced-motion: reduce) {

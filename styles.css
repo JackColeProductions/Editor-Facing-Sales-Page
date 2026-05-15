@@ -2663,118 +2663,21 @@ button { font: inherit; cursor: pointer; }
   gap: 1rem;
   justify-content: center;
   margin-top: 1.5rem;
+  margin-bottom: clamp(2rem, 4vh, 3rem);
   flex-wrap: wrap;
-}
-
-/* Stage — fixed height, overflow visible so tilted card corners can
-   extend past its bounds without being clipped. */
-.platform__stage {
-  position: relative;
-  max-width: 1300px;
-  width: 100%;
-  margin: .5rem auto 0;
-  height: 520px;
-  perspective: 1800px;
-  overflow: visible;
-}
-
-/* Cards are rendered as raw <img> elements with rounded corners
-   clipped via overflow:hidden, a thin teal-tinted border for the glass
-   edge, and stacked box-shadows: an outer drop shadow + teal halo for
-   atmospheric depth, and inset shadows that simulate light catching
-   the top edge / a soft tint at the bottom (replaced <img> elements
-   can't host ::before/::after so the tint comes through inset shadows
-   instead of an overlay pseudo). */
-.platform__card {
-  position: absolute;
-  bottom: 0;
-  display: block;
-  max-height: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: bottom center;
-  border-radius: 1.25rem;
-  overflow: hidden;
-  border: 1px solid hsl(180 60% 70% / .18);
-  transform-origin: 50% 100%;
-  transition: transform .5s cubic-bezier(.22, 1, .36, 1),
-              filter .5s cubic-bezier(.22, 1, .36, 1);
-  box-shadow:
-    /* outer drop shadow - depth */
-    0 30px 80px -20px hsl(0 0% 0% / .7),
-    /* teal halo - atmospheric light */
-    0 0 60px -10px hsl(180 70% 50% / .3),
-    /* inner top highlight - light catching glass top edge */
-    inset 0 1px 0 hsl(180 80% 90% / .15),
-    /* faint top/bottom teal tint - unifies card with section glow */
-    inset 0 24px 28px -20px hsl(180 70% 60% / .12),
-    inset 0 -24px 28px -20px hsl(180 70% 60% / .08);
-}
-
-/* Center card — frontmost, dead vertical, no tilt. Dominates by
-   position (z-index, upright) — not by size. */
-.platform__card--center {
-  left: 50%;
-  bottom: 0;
-  width: 46%;
-  z-index: 3;
-  transform: translateX(-50%);
-  box-shadow:
-    0 40px 100px -20px hsl(0 0% 0% / .8),
-    0 0 80px -10px hsl(180 80% 55% / .45),
-    0 0 120px -20px hsl(180 70% 50% / .3),
-    inset 0 1px 0 hsl(180 90% 95% / .22),
-    inset 0 30px 32px -22px hsl(180 75% 65% / .16),
-    inset 0 -30px 32px -22px hsl(180 70% 60% / .1);
-}
-
-/* Subtle float on the center card so it doesn't feel static. */
-.platform__card--center { animation: platformFloatCenter 6s ease-in-out infinite; }
-
-@keyframes platformFloatCenter {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%      { transform: translateX(-50%) translateY(-10px); }
 }
 
 @media (max-width: 1023px) {
   .platform { min-height: auto; max-height: none; }
-  .platform__stage { height: 420px; }
-  .platform__card--center { width: 50%; }
 }
-
 @media (max-width: 767px) {
   .platform { padding: 3rem 0 4rem; }
-  .platform__stage {
-    height: auto;
-    margin: 2rem auto 0;
-    padding-bottom: 1rem;
-  }
-  .platform__card--center {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    width: 100%;
-    max-height: none;
-    transform: none;
-    animation: none;
-    display: block;
-  }
   .platform__light-column { width: 90vw; height: 700px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .platform__card { transition: none; animation: none !important; }
-  .platform__card--center { transform: translateX(-50%); }
 }
 
 /* =========================================================
    VS — VP+ Marketplace as the lifted card, Old Way as faded ghost
    ========================================================= */
-.vs-section {
-  position: relative;
-  isolation: isolate;
-}
-
 .vs {
   display: grid;
   grid-template-columns: 1fr;
@@ -2790,17 +2693,24 @@ button { font: inherit; cursor: pointer; }
   }
 }
 
-/* The hero card — VP+ side */
+/* The hero card — VP+ side. Lives inside the platform section now,
+   so it gets the same "sick glow" treatment as the dashboard card
+   used to: thicker teal halo, brighter inset top hairline, soft
+   bottom tint. The faded Old Way column stays plain so the contrast
+   reads instantly. */
 .vs__card {
   position: relative;
   padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.5rem, 2.5vw, 2.25rem);
   border-radius: clamp(1rem, 1.4vw, 1.4rem);
-  border: 1px solid hsl(180 74% 63% / .25);
-  background: linear-gradient(180deg, hsl(240 18% 11%), hsl(240 20% 7%));
+  border: 1px solid hsl(180 74% 63% / .45);
+  background: linear-gradient(180deg, hsl(240 18% 12%), hsl(240 20% 7%));
   box-shadow:
-    0 0 0 1px hsl(180 74% 63% / .12) inset,
-    0 30px 70px -30px hsl(0 0% 0% / .9),
-    0 0 70px -30px hsl(180 74% 63% / .35);
+    inset 0 1px 0 hsl(180 90% 95% / .22),
+    inset 0 0 0 1px hsl(180 74% 63% / .15),
+    inset 0 30px 60px -30px hsl(180 75% 65% / .14),
+    0 40px 100px -20px hsl(0 0% 0% / .85),
+    0 0 80px -10px hsl(180 80% 55% / .5),
+    0 0 140px -20px hsl(180 70% 50% / .35);
   transition: transform .4s ease, box-shadow .4s ease;
 }
 @media (min-width: 800px) {
@@ -2808,9 +2718,12 @@ button { font: inherit; cursor: pointer; }
   .vs__card:hover {
     transform: translateY(-10px);
     box-shadow:
-      0 0 0 1px hsl(180 74% 63% / .22) inset,
-      0 40px 90px -30px hsl(0 0% 0% / .95),
-      0 0 90px -30px hsl(180 74% 63% / .45);
+      inset 0 1px 0 hsl(180 90% 95% / .28),
+      inset 0 0 0 1px hsl(180 74% 63% / .22),
+      inset 0 30px 60px -30px hsl(180 75% 65% / .18),
+      0 50px 120px -20px hsl(0 0% 0% / .9),
+      0 0 100px -10px hsl(180 80% 55% / .6),
+      0 0 180px -20px hsl(180 70% 50% / .45);
   }
 }
 @media (prefers-reduced-motion: reduce) {

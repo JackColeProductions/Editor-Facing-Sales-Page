@@ -230,6 +230,63 @@ if (proof) {
     });
   });
 
+  // Click-and-drag scroll on the track. Works on desktop mouse drag;
+  // touch already scrolls natively via overflow-x: auto. If the user
+  // dragged more than a few px we swallow the subsequent click so the
+  // video doesn't toggle play on a swipe.
+  let dragStartX = null;
+  let dragStartScroll = 0;
+  let dragMoved = false;
+  let dragPointerId = null;
+
+  const onTrackDown = (e) => {
+    if (e.target.closest('.proof__nav-btn, .proof__dot')) return;
+    dragStartX = e.clientX;
+    dragStartScroll = track.scrollLeft;
+    dragMoved = false;
+    dragPointerId = e.pointerId;
+    try { track.setPointerCapture?.(e.pointerId); } catch (_) {}
+    track.style.cursor = 'grabbing';
+    track.style.scrollSnapType = 'none';
+  };
+  const onTrackMove = (e) => {
+    if (dragStartX == null) return;
+    const dx = e.clientX - dragStartX;
+    if (Math.abs(dx) > 4) dragMoved = true;
+    track.scrollLeft = dragStartScroll - dx;
+    if (e.cancelable) e.preventDefault?.();
+  };
+  const onTrackUp = (e) => {
+    if (dragStartX == null) return;
+    try { track.releasePointerCapture?.(dragPointerId); } catch (_) {}
+    dragStartX = null;
+    dragPointerId = null;
+    track.style.cursor = '';
+    track.style.scrollSnapType = '';
+    if (dragMoved) {
+      // Swallow the click that fires after a drag so a swipe doesn't
+      // toggle a video play/pause.
+      const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault(); };
+      track.addEventListener('click', swallow, { capture: true, once: true });
+      setTimeout(() => track.removeEventListener('click', swallow, { capture: true }), 0);
+    }
+  };
+
+  if (window.PointerEvent) {
+    track.addEventListener('pointerdown', onTrackDown);
+    track.addEventListener('pointermove', onTrackMove);
+    track.addEventListener('pointerup', onTrackUp);
+    track.addEventListener('pointercancel', onTrackUp);
+    track.addEventListener('pointerleave', onTrackUp);
+  } else {
+    track.addEventListener('mousedown',  onTrackDown);
+    track.addEventListener('mousemove',  onTrackMove);
+    track.addEventListener('mouseup',    onTrackUp);
+    track.addEventListener('mouseleave', onTrackUp);
+  }
+  track.style.cursor = 'grab';
+  track.style.userSelect = 'none';
+
   // Keep the active dot in sync with scroll position.
   const updateDots = () => {
     if (!cards.length || !dots.length) return;

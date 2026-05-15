@@ -230,54 +230,118 @@ if (proof) {
     });
   });
 
-  // Click-and-drag scroll on the track. Works on desktop mouse drag;
-  // touch already scrolls natively via overflow-x: auto. If the user
-  // dragged more than a few px we swallow the subsequent click so the
-  // video doesn't toggle play on a swipe.
+  // Click-and-drag scroll on the track. Pointermove updates are
+  // batched into a single requestAnimationFrame write so the rail
+  // doesn't tear when the mouse fires faster than the display. On
+  // release we kick off a velocity-based inertia glide and only let
+  // scroll-snap re-engage once the glide settles — that's what
+  // makes the swipe feel smooth instead of stuttery + snappy.
   let dragStartX = null;
   let dragStartScroll = 0;
   let dragMoved = false;
   let dragPointerId = null;
+  let lastX = 0;
+  let lastTime = 0;
+  let velocity = 0; // px / ms, positive = pointer moving right
+  let pendingScroll = null;
+  let scrollRaf = null;
+  let momentumRaf = null;
+
+  const flushScroll = () => {
+    scrollRaf = null;
+    if (pendingScroll == null) return;
+    track.scrollLeft = pendingScroll;
+    pendingScroll = null;
+  };
+  const scheduleScroll = (val) => {
+    pendingScroll = val;
+    if (!scrollRaf) scrollRaf = requestAnimationFrame(flushScroll);
+  };
+  const cancelMomentum = () => {
+    if (momentumRaf) { cancelAnimationFrame(momentumRaf); momentumRaf = null; }
+  };
 
   const onTrackDown = (e) => {
     if (e.target.closest('.proof__nav-btn, .proof__dot')) return;
+    cancelMomentum();
     dragStartX = e.clientX;
+    lastX = e.clientX;
+    lastTime = performance.now();
+    velocity = 0;
     dragStartScroll = track.scrollLeft;
     dragMoved = false;
     dragPointerId = e.pointerId;
     try { track.setPointerCapture?.(e.pointerId); } catch (_) {}
     track.style.cursor = 'grabbing';
     track.style.scrollSnapType = 'none';
+    track.style.scrollBehavior = 'auto';
+    track.style.willChange = 'scroll-position';
   };
   const onTrackMove = (e) => {
     if (dragStartX == null) return;
     const dx = e.clientX - dragStartX;
     if (Math.abs(dx) > 4) dragMoved = true;
-    track.scrollLeft = dragStartScroll - dx;
+    scheduleScroll(dragStartScroll - dx);
+    const now = performance.now();
+    const dt = now - lastTime;
+    if (dt > 0) {
+      // Low-pass filter the velocity so a single noisy sample
+      // doesn't fling the rail.
+      velocity = velocity * 0.6 + ((e.clientX - lastX) / dt) * 0.4;
+    }
+    lastX = e.clientX;
+    lastTime = now;
     if (e.cancelable) e.preventDefault?.();
   };
-  const onTrackUp = (e) => {
+  const endDrag = (id) => {
     if (dragStartX == null) return;
-    try { track.releasePointerCapture?.(dragPointerId); } catch (_) {}
+    try { track.releasePointerCapture?.(id ?? dragPointerId); } catch (_) {}
+    const wasDragged = dragMoved;
+    const flingV = velocity;
     dragStartX = null;
     dragPointerId = null;
     track.style.cursor = '';
-    track.style.scrollSnapType = '';
-    if (dragMoved) {
-      // Swallow the click that fires after a drag so a swipe doesn't
-      // toggle a video play/pause.
+
+    const restoreSnap = () => {
+      track.style.scrollSnapType = '';
+      track.style.scrollBehavior = '';
+      track.style.willChange = '';
+    };
+
+    if (wasDragged) {
       const swallow = (ev) => { ev.stopPropagation(); ev.preventDefault(); };
       track.addEventListener('click', swallow, { capture: true, once: true });
       setTimeout(() => track.removeEventListener('click', swallow, { capture: true }), 0);
+
+      // Inertia: convert px/ms into px/frame at ~60fps, then decay.
+      let v = -flingV * 16;
+      const friction = 0.93;
+      if (Math.abs(v) < 0.4) { restoreSnap(); return; }
+      const step = () => {
+        track.scrollLeft += v;
+        v *= friction;
+        // Stop once we're below sub-pixel motion or hit an edge.
+        const atStart = track.scrollLeft <= 0 && v < 0;
+        const atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1 && v > 0;
+        if (Math.abs(v) < 0.4 || atStart || atEnd) {
+          momentumRaf = null;
+          restoreSnap();
+          return;
+        }
+        momentumRaf = requestAnimationFrame(step);
+      };
+      momentumRaf = requestAnimationFrame(step);
+    } else {
+      restoreSnap();
     }
   };
+  const onTrackUp = (e) => endDrag(e.pointerId);
 
   if (window.PointerEvent) {
     track.addEventListener('pointerdown', onTrackDown);
     track.addEventListener('pointermove', onTrackMove);
     track.addEventListener('pointerup', onTrackUp);
     track.addEventListener('pointercancel', onTrackUp);
-    track.addEventListener('pointerleave', onTrackUp);
   } else {
     track.addEventListener('mousedown',  onTrackDown);
     track.addEventListener('mousemove',  onTrackMove);

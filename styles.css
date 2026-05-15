@@ -2842,10 +2842,10 @@ button { font: inherit; cursor: pointer; }
   will-change: transform;
 }
 .testimonials__row--ltr .testimonials__track {
-  animation: testimonialsMarqueeLtr 60s linear infinite;
+  animation: testimonialsMarqueeLtr 75s linear infinite;
 }
 .testimonials__row--rtl .testimonials__track {
-  animation: testimonialsMarqueeRtl 60s linear infinite;
+  animation: testimonialsMarqueeRtl 75s linear infinite;
 }
 /* Cards are decorative — no hover behaviour (no row pause, no
    card lift). The marquee just runs.  */
@@ -2950,7 +2950,7 @@ button { font: inherit; cursor: pointer; }
   .testimonials__card { width: 320px; min-height: 190px; padding: 1.25rem 1.4rem; }
   .testimonials__avatar { width: 48px; height: 48px; }
   .testimonials__row--ltr .testimonials__track,
-  .testimonials__row--rtl .testimonials__track { animation-duration: 80s; }
+  .testimonials__row--rtl .testimonials__track { animation-duration: 100s; }
 }
 
 @media (prefers-reduced-motion: reduce) {

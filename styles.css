@@ -765,12 +765,13 @@ button { font: inherit; cursor: pointer; }
      above means they fit on one line at 320px+. */
 
   /* Title — was wrapping the second sentence ("We Bring Clients
-     To You.") onto a third line at ~33px. Pull the floor down so
-     the whole second sentence stays on one line. */
+     To You.") onto a third line. Aggressive size cap so the full
+     sentence stays on one line at every common phone width
+     (320px / 375px / 390px / 414px). */
   .hero__title {
-    font-size: clamp(1.5rem, 7.2vw, 2.05rem);
-    line-height: 1.06;
-    letter-spacing: -.025em;
+    font-size: clamp(1.3rem, 5.8vw, 1.75rem);
+    line-height: 1.08;
+    letter-spacing: -.03em;
   }
 
   /* Lede sits cleaner at a slightly smaller body size on phones. */
@@ -3991,7 +3992,9 @@ button { font: inherit; cursor: pointer; }
     transform: none !important;
     width: max-content;
     gap: .85rem;
-    padding-inline: 1rem;
+    /* Padding so the first/last card can snap to centre when the
+       user swipes to either end of the track. */
+    padding-inline: clamp(1rem, calc(50vw - 125px), 5rem);
   }
   .testimonials__marquee {
     -webkit-mask-image: linear-gradient(90deg,
@@ -4035,29 +4038,41 @@ button { font: inherit; cursor: pointer; }
   .faq__stars svg { width: 12px; height: 12px; }
   .faq__rating-text { font-size: .74rem; }
 
-  /* Stories carousel — make the active card narrower so the
-     prev/next cards peek in clearly (was 92% width with prev/next
-     pushed 290px off-centre — basically both side cards lived
-     off-screen). */
+  /* Stories carousel — much narrower active card so prev/next
+     cards have real visible width on either side (was 92% with
+     prev/next pushed 290px off-centre, putting both side cards
+     fully off-screen). */
   .stories__avatars { gap: .35rem; padding-bottom: .75rem; }
-  .stories__card { width: 78%; padding: 1.15rem 1.15rem 1.3rem; gap: .9rem; }
-  .stories__card[data-pos="prev"] { transform: translateX(calc(-50% - 64%)) scale(.84); }
-  .stories__card[data-pos="next"] { transform: translateX(calc(-50% + 64%)) scale(.84); }
+  .stories__card {
+    width: 68%;
+    padding: 1rem 1rem 1.15rem;
+    gap: .8rem;
+  }
+  .stories__card[data-pos="prev"] { transform: translateX(calc(-50% - 58%)) scale(.82); }
+  .stories__card[data-pos="next"] { transform: translateX(calc(-50% + 58%)) scale(.82); }
   .stories__card[data-pos="far"]  { display: none; }
-  .stories__person-avatar { width: 38px; height: 38px; }
-  .stories__person-name   { font-size: .95rem; }
-  .stories__person-title  { font-size: .72rem; }
-  .stories__quote         { font-size: .92rem; line-height: 1.55; }
+  .stories__person-avatar { width: 34px; height: 34px; }
+  .stories__person-name   { font-size: .9rem; }
+  .stories__person-title  { font-size: .7rem; }
+  .stories__quote         { font-size: .88rem; line-height: 1.55; }
+  .stories__tags          { gap: .4rem; }
+  .stories__tag           { font-size: .65rem; padding: .25rem .55rem; }
+  .stories__chip          { font-size: .62rem; padding: .25rem .5rem; }
 
-  /* Video testimonials carousel — proof cards smaller + thinner
-     side fade overlays so the focused card stands out without
-     the previous/next neighbours getting dissolved completely. */
-  .proof__card { flex: 0 0 188px; }
+  /* Video testimonials carousel — proof cards smaller + much
+     thinner side fade overlays so the focused card stands out
+     without the neighbours getting dissolved completely. */
+  .proof__card { flex: 0 0 175px; }
   .proof__carousel::before,
-  .proof__carousel::after { width: 70px; }
-  .proof__track { gap: .85rem; padding: 3.5rem 1rem 4rem; }
-  .proof__name  { font-size: .92rem; }
-  .proof__quote { font-size: .82rem; }
+  .proof__carousel::after { width: 50px; }
+  .proof__track {
+    gap: .85rem;
+    padding: 3rem clamp(1rem, calc(50vw - 87px), 3.5rem) 3.5rem;
+    scroll-padding-left: clamp(1rem, calc(50vw - 87px), 3.5rem);
+  }
+  .proof__name  { font-size: .9rem; }
+  .proof__quote { font-size: .8rem; }
+  .proof__play  { width: 56px; height: 56px; }
 }
 
 /* =========================================================

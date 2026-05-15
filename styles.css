@@ -1407,6 +1407,51 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   z-index: 1;
 }
+
+/* Three bullets summarising what the video covers, plus a final
+   CTA — both centred under the video frame. */
+.vsl__bullets {
+  position: relative;
+  z-index: 2;
+  margin: clamp(2rem, 4vh, 2.75rem) auto 0;
+  padding: 0;
+  list-style: none;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .9rem;
+  text-align: center;
+}
+.vsl__bullets li {
+  position: relative;
+  padding-left: 1.6rem;
+  color: hsl(0 0% 86%);
+  font-size: clamp(.95rem, 1.1vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: -.005em;
+}
+.vsl__bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: hsl(180 90% 70%);
+  box-shadow:
+    0 0 10px hsl(180 80% 60% / .8),
+    0 0 0 1px hsl(180 80% 75% / .35);
+}
+
+.vsl__cta {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(2rem, 4vh, 2.75rem);
+  display: flex;
+  justify-content: center;
+}
 .vsl {
   position: relative;
   border-radius: var(--radius-lg);

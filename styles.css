@@ -2402,9 +2402,9 @@ button { font: inherit; cursor: pointer; }
 .proof__carousel::before {
   left: 0;
   background: linear-gradient(90deg,
-    hsl(240 30% 2% / .97) 0%,
-    hsl(240 28% 3% / .8) 20%,
-    hsl(240 25% 4% / .25) 65%,
+    hsl(240 30% 2% / .9) 0%,
+    hsl(240 28% 3% / .65) 25%,
+    hsl(240 25% 4% / .22) 65%,
     transparent 100%);
   /* Smoother bell-curve falloff: more stops in the transition zone so
      the boundary between blurred and clear reads as a ramp, not a seam. */
@@ -2427,9 +2427,9 @@ button { font: inherit; cursor: pointer; }
   right: 0;
   background: linear-gradient(90deg,
     transparent 0%,
-    hsl(240 25% 4% / .25) 35%,
-    hsl(240 28% 3% / .8) 80%,
-    hsl(240 30% 2% / .97) 100%);
+    hsl(240 25% 4% / .22) 35%,
+    hsl(240 28% 3% / .65) 75%,
+    hsl(240 30% 2% / .9) 100%);
   -webkit-mask-image: linear-gradient(90deg,
     transparent 0%,
     hsl(0 0% 0% / .12) 12%,
@@ -3971,37 +3971,24 @@ button { font: inherit; cursor: pointer; }
     min-height: 155px;
     max-height: 200px;
     padding: .9rem 1.1rem;
-    scroll-snap-align: center;
   }
   .testimonials__avatar { width: 40px; height: 40px; }
   .testimonials__name { font-size: .95rem; }
   .testimonials__role { font-size: .74rem; }
   .testimonials__quote { font-size: .84rem; line-height: 1.5; }
-  /* Auto-scroll marquee replaced with native swipe scroll on
-     phones so users can browse the cards directly. */
-  .testimonials__row {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-  .testimonials__row::-webkit-scrollbar { display: none; }
-  .testimonials__row--ltr .testimonials__track,
-  .testimonials__row--rtl .testimonials__track {
-    animation: none !important;
-    transform: none !important;
-    width: max-content;
-    gap: .85rem;
-    /* Padding so the first/last card can snap to centre when the
-       user swipes to either end of the track. */
-    padding-inline: clamp(1rem, calc(50vw - 125px), 5rem);
-  }
+  /* Auto-scroll marquee preserved on mobile — auto-scroll is the
+     intended behavior for this section. Just narrow the edge mask
+     so the cards stay readable through more of the scroll path. */
   .testimonials__marquee {
     -webkit-mask-image: linear-gradient(90deg,
-      transparent 0%, black 4%, black 96%, transparent 100%);
+      transparent 0%, black 6%, black 94%, transparent 100%);
             mask-image: linear-gradient(90deg,
-      transparent 0%, black 4%, black 96%, transparent 100%);
+      transparent 0%, black 6%, black 94%, transparent 100%);
   }
+  /* Slow the loop on phones so a single screen of cards lingers
+     enough to be read. */
+  .testimonials__row--ltr .testimonials__track,
+  .testimonials__row--rtl .testimonials__track { animation-duration: 90s; }
 
   /* Pricing — tighter cards + CTAs so the section reads as a
      pair of decision blocks, not full-screen blocks. */
@@ -4043,6 +4030,15 @@ button { font: inherit; cursor: pointer; }
      prev/next pushed 290px off-centre, putting both side cards
      fully off-screen). */
   .stories__avatars { gap: .35rem; padding-bottom: .75rem; }
+  /* Carousel was holding a fixed clamp(380, 50vh, 440px) height
+     — which on a 390px viewport leaves ~150px of dead space
+     below the card. Shrink to fit the active card content. */
+  .stories__carousel {
+    height: auto;
+    min-height: 340px;
+    margin-bottom: 1rem;
+  }
+  .stories__nav { margin-top: 0; }
   .stories__card {
     width: 68%;
     padding: 1rem 1rem 1.15rem;

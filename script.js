@@ -87,6 +87,61 @@ if (stories) {
     if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
   });
 
+  // Drag-to-scroll on the carousel area — works on both touch
+  // (phones) and mouse drag (desktop). Threshold of ~50px so
+  // small jitters don't trigger a swap.
+  const carousel = stories.querySelector('.stories__carousel') || stories;
+  const DRAG_THRESHOLD = 50;
+  let pointerStartX = null;
+  let pointerActiveId = null;
+
+  const onPointerDown = (e) => {
+    // Don't capture clicks targeting the nav buttons or avatars.
+    if (e.target.closest('.stories__nav-btn, .stories__avatar')) return;
+    pointerStartX = e.clientX ?? e.touches?.[0]?.clientX ?? null;
+    pointerActiveId = e.pointerId;
+    carousel.style.cursor = 'grabbing';
+  };
+  const onPointerMove = (e) => {
+    if (pointerStartX == null) return;
+    // Prevent text-selection drag artefacts during a swipe.
+    if (e.cancelable) e.preventDefault?.();
+  };
+  const onPointerUp = (e) => {
+    if (pointerStartX == null) return;
+    const endX = e.clientX ?? e.changedTouches?.[0]?.clientX ?? pointerStartX;
+    const dx = endX - pointerStartX;
+    pointerStartX = null;
+    pointerActiveId = null;
+    carousel.style.cursor = '';
+    if (Math.abs(dx) >= DRAG_THRESHOLD) {
+      // Swipe LEFT (negative dx) -> show next card; swipe RIGHT -> prev.
+      if (dx < 0) go(active + 1);
+      else        go(active - 1);
+    }
+  };
+
+  if (window.PointerEvent) {
+    carousel.addEventListener('pointerdown', onPointerDown);
+    carousel.addEventListener('pointermove', onPointerMove);
+    carousel.addEventListener('pointerup', onPointerUp);
+    carousel.addEventListener('pointercancel', onPointerUp);
+  } else {
+    // Fallback for older Safari iOS / desktop without PointerEvent.
+    carousel.addEventListener('touchstart', onPointerDown, { passive: true });
+    carousel.addEventListener('touchmove',  onPointerMove, { passive: true });
+    carousel.addEventListener('touchend',   onPointerUp);
+    carousel.addEventListener('mousedown',  onPointerDown);
+    carousel.addEventListener('mousemove',  onPointerMove);
+    carousel.addEventListener('mouseup',    onPointerUp);
+    carousel.addEventListener('mouseleave', onPointerUp);
+  }
+  carousel.style.cursor = 'grab';
+  carousel.style.touchAction = 'pan-y';
+  /* Disable native text selection during drag so the cursor stays
+     a grab indicator. */
+  carousel.style.userSelect = 'none';
+
   render();
 }
 

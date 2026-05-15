@@ -3541,6 +3541,32 @@ button { font: inherit; cursor: pointer; }
   animation: faqFadeIn .35s ease-out;
 }
 .faq__answer p { margin: 0; }
+.faq__answer p + p { margin-top: .65rem; }
+.faq__answer ul.faq__list {
+  margin: .75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+.faq__answer ul.faq__list li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: hsl(0 0% 80%);
+}
+.faq__answer ul.faq__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: hsl(180 85% 65%);
+  box-shadow: 0 0 6px hsl(180 80% 60% / .8);
+}
+.faq__answer ul.faq__list + p { margin-top: .9rem; }
 @keyframes faqFadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }

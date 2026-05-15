@@ -701,24 +701,48 @@ button { font: inherit; cursor: pointer; }
   }
 }
 @media (max-width: 900px) {
+  /* Tablet — keep all 5 cards in the fan, just tighter spread
+     and slightly gentler tilt so they don't punch outside the
+     container. */
   .hero__cards {
-    --card-w: 280px;
-    --offset-near: 130px;
-    --offset-far: 0;
+    --card-w: 230px;
+    --card-h: 270px;
+    --offset-near: 95px;
+    --offset-far: 175px;
+    --rot-near: 5deg;
+    --rot-far: 10deg;
   }
-  .job-card--pos1, .job-card--pos5 { display: none; }
 }
 @media (max-width: 640px) {
-  .hero { min-height: 0; padding: 2rem 0 1rem; }
+  /* Hero padding-top: 2rem cleared no space for the 68px sticky
+     nav, so the translucent nav was overlapping the trusted-pill.
+     Bump the top padding to a full nav-height + breathing room. */
+  .hero { min-height: 0; padding: 5.5rem 0 1.5rem; }
+
+  /* Phones — keep all 5 cards, tight overlapping fan that wraps
+     around the centre card. Far cards intentionally extend past
+     the viewport edge so the silhouette reads as "more cards in
+     the deck", not "missing assets". */
   .hero__cards {
-    --card-w: 280px;
-    --offset-near: 0;
-    height: 290px;
-    margin-top: 2rem;
+    --card-w: 200px;
+    --card-h: 248px;
+    --offset-near: 56px;
+    --offset-far: 116px;
+    --rot-near: 6deg;
+    --rot-far: 12deg;
+    height: 320px;
+    margin-top: 1.5rem;
   }
-  .job-card--pos2, .job-card--pos4 { display: none; }
-  /* On mobile, only show centered card without floating */
-  .job-card--pos3 { animation: none; transform: translate(-50%, 0); }
+  /* Make the in-card text scale down so the smaller card still
+     looks like a real job card, not a squished thumbnail. */
+  .job-card { padding: .9rem .95rem .85rem; gap: .5rem; font-size: .7rem; }
+  .job-card__title { font-size: .82rem; }
+  .job-card__meta { font-size: .62rem; }
+  .job-card__price { font-size: .8rem; }
+  .job-card__price-unit { font-size: .68rem; }
+  .job-card__desc { font-size: .68rem; -webkit-line-clamp: 2; }
+  .tag, .chip { font-size: .54rem; padding: .15rem .4rem; letter-spacing: .03em; }
+  .btn--apply, .job-card__actions .btn { font-size: .65rem; padding: .35rem .6rem; }
 
   /* Trusted-by pill — was wrapping to 2 lines because 6 avatars +
      the text didn't fit. Tighten the chrome, shrink the avatars,

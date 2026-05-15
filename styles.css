@@ -738,6 +738,20 @@ button { font: inherit; cursor: pointer; }
     hsl(240 20% 4%) 100%
   );
 }
+/* Bottom seam — soft teal hairline so the section ends on a clean
+   gradient line into whatever comes next (same treatment as the
+   marketplace showcase). */
+.profile-setup::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(180 74% 63% / .35) 50%, transparent);
+  opacity: .6;
+  z-index: 3;
+}
 
 .profile-setup__bg {
   position: absolute;
@@ -951,39 +965,8 @@ button { font: inherit; cursor: pointer; }
 
 /* Floating earnings badge — the section's unique flare. Picks up
    the same glossy gradient as .btn--glow but at pill scale. */
-.profile-pic__badge {
-  position: absolute;
-  left: 50%;
-  bottom: -14px;
-  transform: translateX(-50%);
-  padding: .35rem .72rem;
-  border-radius: 999px;
-  background: linear-gradient(180deg, hsl(160 76% 65%), hsl(180 74% 55%));
-  color: hsl(240 25% 6%);
-  font-size: .78rem;
-  font-weight: 800;
-  letter-spacing: .005em;
-  white-space: nowrap;
-  border: 1px solid hsl(180 74% 80% / .8);
-  box-shadow:
-    inset 0 1px 0 hsl(0 0% 100% / .55),
-    0 0 0 4px hsl(180 74% 63% / .12),
-    0 8px 24px -4px hsl(180 74% 63% / .55),
-    0 0 28px -4px hsl(180 74% 63% / .8);
-  z-index: 4;
-  animation: badgeBob 4s ease-in-out infinite;
-}
-.profile-pic__badge--alt {
-  background: linear-gradient(180deg, hsl(180 80% 78%), hsl(180 74% 58%));
-}
-@keyframes badgeBob {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%      { transform: translateX(-50%) translateY(-3px); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .profile-pic,
-  .profile-pic__badge,
   .profile-setup__pill-dot { animation: none !important; }
   /* Lock cards to their resting frame so they don't snap to top:0/left:50% */
   .profile-pic--pos1 { transform: translate(-50%, -6px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
@@ -1031,7 +1014,6 @@ button { font: inherit; cursor: pointer; }
     animation: none !important;
     opacity: 1 !important;
   }
-  .profile-pic__badge { animation: none; }
 }
 
 /* =========================================================

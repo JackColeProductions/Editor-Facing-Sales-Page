@@ -2686,222 +2686,277 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Testimonials marquee — two rows of editor quote cards
-   scrolling in opposite directions. Tracks duplicate their
-   card list so the translateX(-50%) keyframe loops seamlessly.
+   Testimonials — premium marquee section. One luminous frame
+   container holds a centered header + two horizontally-
+   scrolling rows. Top-left of the frame has a faded grid +
+   scattered sparkle cluster (the "lit corner"); the rows are
+   masked at the horizontal edges so cards fade in/out, and
+   each row's track contains the card set duplicated once so
+   the translateX(0 -> -50%) keyframe loops seamlessly.
+   Hovering a row pauses its scroll for readability.
    ========================================================= */
-.tm {
+
+/* Outer section wrapper sits in normal flow — no isolation,
+   no atmosphere. All visual treatment lives on .testimonials__frame. */
+.section.testimonials { padding: clamp(4rem, 8vh, 6rem) 0; }
+
+/* The luminous frame — one rounded container holds everything */
+.testimonials__frame {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(4.5rem, 9vh, 6.5rem) 0 clamp(5rem, 10vh, 7rem);
-  background: hsl(240 20% 4%);
+  border-radius: 2rem;
+  padding: clamp(3rem, 7vh, 4rem) 0;
+  background:
+    /* Top-left luminance — brighter "lit corner" */
+    radial-gradient(ellipse 80% 60% at 0% 0%,
+      hsl(180 70% 50% / .08) 0%,
+      transparent 50%),
+    /* Vertical depth — darker at top + bottom, lifted in middle */
+    linear-gradient(180deg,
+      hsl(240 30% 5% / .7) 0%,
+      hsl(240 25% 8% / .5) 30%,
+      hsl(240 25% 8% / .5) 70%,
+      hsl(240 30% 5% / .7) 100%);
+  box-shadow:
+    /* outer ambient depth */
+    0 30px 80px -20px hsl(0 0% 0% / .5),
+    /* top-left highlight, brighter */
+    inset 2px 2px 0 -1px hsl(180 70% 70% / .15),
+    /* full inner border ring */
+    inset 0 0 0 1px hsl(180 40% 60% / .18),
+    /* top edge highlight */
+    inset 0 1px 0 hsl(180 80% 85% / .1);
 }
 
-.tm__bg {
+/* Subtle grid pattern weighted to the top-left */
+.testimonials__grid-bg {
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: 0;
-  overflow: hidden;
-}
-.tm__grid {
-  position: absolute;
-  inset: 0;
   background-image:
-    linear-gradient(hsl(240 10% 25% / .7) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(240 10% 25% / .7) 1px, transparent 1px);
-  background-size: 64px 64px;
-  /* Concentrate the grid in the top-left so it reads as a corner
-     "constellation" rather than a full-bleed checker. */
-  mask-image: radial-gradient(ellipse 60% 65% at 18% 18%, black 0%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 65% at 18% 18%, black 0%, transparent 75%);
-  opacity: .6;
-}
-/* Scattered starfield over the grid, same top-left bias as the grid
-   mask so dots only show inside the constellation area. */
-.tm__stars {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: .85;
+    linear-gradient(hsl(180 50% 60% / .045) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(180 50% 60% / .045) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 20% 20%,
+    hsl(0 0% 0% / 1) 0%,
+    hsl(0 0% 0% / .7) 25%,
+    hsl(0 0% 0% / .3) 55%,
+    transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 20% 20%,
+    hsl(0 0% 0% / 1) 0%,
+    hsl(0 0% 0% / .7) 25%,
+    hsl(0 0% 0% / .3) 55%,
+    transparent 85%);
   pointer-events: none;
-  mask-image: radial-gradient(ellipse 65% 70% at 18% 18%, black 0%, transparent 80%);
-  -webkit-mask-image: radial-gradient(ellipse 65% 70% at 18% 18%, black 0%, transparent 80%);
-}
-.tm__glow {
-  position: absolute;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  filter: blur(140px);
-  opacity: .22;
-}
-.tm__glow--1 {
-  background: radial-gradient(circle, hsl(180 74% 63% / .55), transparent 60%);
-  top: 5%;
-  left: -180px;
-}
-.tm__glow--2 {
-  background: radial-gradient(circle, hsl(160 76% 56% / .5), transparent 60%);
-  bottom: -150px;
-  right: -180px;
 }
 
-.tm__head-wrap { position: relative; z-index: 2; }
-.tm__head {
+/* Sparkle cluster — anchored to the top-left of the frame.
+   The dots in the SVG itself thin out toward the bottom-right
+   so the cluster reads as a constellation fading inward. */
+.testimonials__sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 60%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Header sits centered above the marquee */
+.testimonials__head {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 clamp(1.25rem, 3vw, 2rem);
+  margin: 0 auto clamp(2.5rem, 5vh, 3.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 1.1rem;
-  max-width: 900px;
-  margin: 0 auto clamp(2.75rem, 5vh, 4.25rem);
+  gap: 1rem;
+  max-width: 880px;
 }
 /* Title overrides the global section__title uppercase so the
-   marquee reads in clean title case like the reference. */
-.tm .section__title {
+   header reads in clean title case like the reference. */
+.testimonials .section__title {
   text-transform: none;
   letter-spacing: -.025em;
   font-weight: 700;
 }
-.tm .section__lede { max-width: 640px; margin-top: .25rem; }
+.testimonials .section__lede { max-width: 620px; margin-top: .25rem; }
 
-.tm__pill {
+/* Kicker pill picks up the luminous treatment to match the frame */
+.testimonials__head .kicker {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .42rem .95rem;
-  border-radius: 999px;
-  border: 1px solid hsl(180 74% 63% / .4);
   background:
     linear-gradient(180deg, hsl(180 70% 50% / .18), hsl(180 70% 50% / .06));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--primary);
-  font-size: .8rem;
-  font-weight: 600;
-  letter-spacing: .03em;
+  border: 1px solid hsl(180 70% 60% / .4);
+  color: hsl(180 90% 80%);
   box-shadow:
-    inset 0 1px 0 hsl(180 90% 95% / .14),
-    0 0 24px -6px hsl(180 74% 63% / .35);
+    inset 0 1px 0 hsl(180 80% 85% / .15),
+    0 0 20px -2px hsl(180 70% 50% / .3);
 }
-.tm__pill svg { width: 16px; height: 16px; }
+.testimonials__head .kicker svg { width: 14px; height: 14px; }
 
-.tm__rows {
+/* Marquee — two rows */
+.testimonials__marquee {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 1.6vh, 1.5rem);
-  /* Edge fade so cards enter and exit smoothly. */
+  gap: 1.5rem;
+  /* Edge fade so cards fade in/out instead of popping */
+  mask-image: linear-gradient(90deg,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%);
   -webkit-mask-image: linear-gradient(90deg,
-    transparent 0,
-    black 6%,
-    black 94%,
-    transparent 100%);
-          mask-image: linear-gradient(90deg,
-    transparent 0,
-    black 6%,
-    black 94%,
+    transparent 0%,
+    black 8%,
+    black 92%,
     transparent 100%);
 }
-.tm__row { overflow: hidden; }
-.tm__track {
+.testimonials__row { overflow: hidden; }
+.testimonials__track {
   display: flex;
-  gap: clamp(1rem, 1.4vw, 1.5rem);
+  gap: 1.5rem;
   width: max-content;
-  animation: tmScroll 48s linear infinite;
+  will-change: transform;
 }
-/* Reverse row scrolls the other way. */
-.tm__row--reverse .tm__track { animation-direction: reverse; }
+.testimonials__row--ltr .testimonials__track {
+  animation: testimonialsMarqueeLtr 60s linear infinite;
+}
+.testimonials__row--rtl .testimonials__track {
+  animation: testimonialsMarqueeRtl 60s linear infinite;
+}
+/* Hover a row -> pause just that row */
+.testimonials__row:hover .testimonials__track { animation-play-state: paused; }
 
-/* Pause on hover so a reader can actually read a card. */
-.tm__row:hover .tm__track { animation-play-state: paused; }
-
-@keyframes tmScroll {
+@keyframes testimonialsMarqueeLtr {
   from { transform: translate3d(0, 0, 0); }
   to   { transform: translate3d(-50%, 0, 0); }
 }
+@keyframes testimonialsMarqueeRtl {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
 
-/* Individual testimonial card — soft inner teal glow at the top
-   fading into the dark body, glossy 1px top hairline, a low-key
-   outer halo, and a slightly thicker teal-tinted border. Layered
-   to feel like the cards are catching the same atmospheric light
-   the rest of the section sits in. */
-.tm-card {
-  flex: 0 0 auto;
-  width: clamp(290px, 28vw, 360px);
-  padding: 1.5rem 1.65rem 1.4rem;
-  border-radius: 1.15rem;
+/* Individual card — glass UI panel with top "lip" highlight,
+   subtle teal halo, soft outer shadow. Hover lifts and brightens. */
+.testimonials__card {
+  flex-shrink: 0;
+  width: 380px;
+  min-height: 220px;
+  padding: 1.75rem;
+  border-radius: 1.5rem;
+  border: 1px solid hsl(180 40% 60% / .15);
   background:
-    radial-gradient(ellipse 90% 100% at 50% 0%, hsl(180 74% 63% / .08), transparent 60%),
-    linear-gradient(180deg, hsl(240 17% 10%), hsl(240 20% 7%));
-  border: 1px solid hsl(180 60% 60% / .22);
+    /* glassy top lip */
+    linear-gradient(180deg,
+      hsl(180 30% 15% / .4) 0%,
+      hsl(240 25% 9% / .85) 15%,
+      hsl(240 25% 6% / .9) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow:
-    inset 0 1px 0 hsl(180 90% 95% / .1),
-    inset 0 0 0 1px hsl(180 74% 63% / .05),
-    0 20px 50px -22px hsl(0 0% 0% / .7),
-    0 0 36px -10px hsl(180 74% 63% / .18);
+    /* outer drop */
+    0 15px 40px -15px hsl(0 0% 0% / .6),
+    /* low-key teal halo */
+    0 0 30px -5px hsl(180 60% 45% / .1),
+    /* glass top edge */
+    inset 0 1px 0 hsl(180 70% 80% / .12),
+    /* faint inner border highlight */
+    inset 0 0 0 1px hsl(180 30% 50% / .05);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
+  transition:
+    border-color .3s ease,
+    transform .3s ease,
+    box-shadow .3s ease;
 }
-.tm-card__head {
+.testimonials__card:hover {
+  border-color: hsl(180 70% 65% / .4);
+  transform: translateY(-3px);
+  box-shadow:
+    0 20px 50px -15px hsl(0 0% 0% / .7),
+    0 0 50px -5px hsl(180 70% 50% / .25),
+    inset 0 1px 0 hsl(180 80% 85% / .2),
+    inset 0 0 0 1px hsl(180 50% 60% / .15);
+}
+
+.testimonials__card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
 }
-.tm-card__person { min-width: 0; }
-.tm-card__name {
+.testimonials__card-info {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  min-width: 0;
+}
+.testimonials__name {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: var(--fg);
+  color: hsl(0 0% 98%);
+  line-height: 1.2;
   letter-spacing: -.01em;
 }
-.tm-card__role {
-  margin: .15rem 0 0;
-  font-size: .76rem;
-  color: var(--fg-dim);
-  letter-spacing: .005em;
+.testimonials__role {
+  margin: 0;
+  font-size: .82rem;
+  color: hsl(0 0% 70%);
+  font-weight: 500;
 }
-.tm-card__avatar {
-  width: 46px;
-  height: 46px;
+.testimonials__avatar {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid hsl(180 74% 63% / .45);
-  box-shadow:
-    0 0 0 1px hsl(0 0% 0% / .5),
-    0 0 16px -2px hsl(180 74% 63% / .4);
+  border: 2px solid hsl(180 70% 65% / .5);
   flex-shrink: 0;
-  background: var(--card);
+  box-shadow:
+    0 0 0 1px hsl(180 80% 70% / .2),
+    0 0 16px -2px hsl(180 70% 55% / .35),
+    inset 0 0 8px hsl(0 0% 0% / .3);
 }
-.tm-card__quote {
+.testimonials__quote {
   margin: 0;
   font-size: .92rem;
-  line-height: 1.6;
-  color: hsl(0 0% 90%);
+  line-height: 1.5;
+  color: hsl(0 0% 82%);
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .testimonials__card { width: 340px; min-height: 210px; padding: 1.5rem; }
+}
+@media (max-width: 767px) {
+  .testimonials__frame {
+    border-radius: 1.25rem;
+    padding: 3rem 0;
+  }
+  .testimonials__card { width: 300px; min-height: 200px; padding: 1.4rem; }
+  .testimonials__row--ltr .testimonials__track,
+  .testimonials__row--rtl .testimonials__track { animation-duration: 80s; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tm__track { animation: none; }
-  .tm__rows {
-    /* Without animation, allow horizontal scroll so all cards are
-       reachable; drop the edge fade so trailing cards aren't hidden. */
+  .testimonials__row--ltr .testimonials__track,
+  .testimonials__row--rtl .testimonials__track { animation: none; }
+  .testimonials__marquee {
     -webkit-mask-image: none;
             mask-image: none;
   }
-  .tm__row { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-}
-
-@media (max-width: 640px) {
-  .tm-card { width: 260px; padding: 1.15rem 1.25rem; }
-  .tm-card__avatar { width: 38px; height: 38px; }
-  .tm__track { animation-duration: 36s; }
+  .testimonials__row { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .testimonials__card:hover { transform: none; }
 }
 
 /* =========================================================
@@ -3284,43 +3339,6 @@ button { font: inherit; cursor: pointer; }
 }
 .win-card:hover .win-card__media img {
   transform: translateY(-4px) scale(1.02);
-}
-
-/* =========================================================
-   Testimonials
-   ========================================================= */
-.testimonials__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-@media (min-width: 800px) { .testimonials__grid { grid-template-columns: repeat(3, 1fr); } }
-
-.quote { padding: 1.5rem; }
-.quote blockquote {
-  margin: 0 0 1.25rem;
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: var(--fg);
-}
-.quote figcaption {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  color: var(--fg-dim);
-  font-size: .85rem;
-}
-.quote figcaption strong {
-  display: block;
-  color: var(--fg);
-  font-weight: 600;
-  font-size: .9rem;
-}
-.quote__avatar {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, hsl(180 74% 63%), hsl(160 76% 56%));
-  flex-shrink: 0;
 }
 
 /* =========================================================

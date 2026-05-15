@@ -37,7 +37,10 @@ if (stories) {
   const nextBtn = stories.querySelector('[data-action="next"]');
   const total = cards.length;
   const mod = (n, m) => ((n % m) + m) % m;
-  let active = Math.floor(total / 2);
+  // Use the card flagged with [data-default] as the starting active
+  // card; fall back to the middle if none is flagged.
+  let active = cards.findIndex((c) => c.hasAttribute('data-default'));
+  if (active < 0) active = Math.floor(total / 2);
 
   const setCardPos = (el, offset) => {
     let pos = 'far';

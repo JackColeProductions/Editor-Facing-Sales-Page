@@ -1158,15 +1158,145 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* Standalone VSL section (was inline in hero) */
-.vsl-section .vsl { max-width: 880px; margin: 0 auto; }
+/* VSL section — "stage spotlight" composition. Light descends from
+   the top of the section in a soft cone, pools beneath the video,
+   and the video sits in the brightest part of the lit area. Pure
+   atmospheric layers + tighter video frame glow. */
+.section.vsl-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(5rem, 9vh, 7rem) 0 clamp(6rem, 11vh, 8rem);
+  background: radial-gradient(ellipse 80% 100% at 50% 100%,
+    hsl(240 22% 5%) 0%,
+    hsl(240 22% 4%) 60%,
+    hsl(240 20% 3%) 100%);
+}
+
+.vsl-section__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Wide outer halo — the diffuse edge of the spotlight cone. */
+.vsl-section__beam {
+  position: absolute;
+  top: -8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(800px, 100vw, 1400px);
+  height: 105%;
+  background: radial-gradient(ellipse 45% 70% at 50% 0%,
+    hsl(180 80% 55% / .25) 0%,
+    hsl(180 75% 50% / .15) 20%,
+    hsl(180 70% 45% / .08) 40%,
+    hsl(180 65% 42% / .03) 60%,
+    transparent 80%);
+  filter: blur(60px);
+}
+
+/* Tighter inner cone — the brighter centre of the spotlight where
+   the light reads as a defined wedge instead of an ambient bloom. */
+.vsl-section__cone {
+  position: absolute;
+  top: -2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(500px, 60vw, 900px);
+  height: 85%;
+  background: radial-gradient(ellipse 50% 80% at 50% 0%,
+    hsl(180 95% 75% / .35) 0%,
+    hsl(180 90% 65% / .18) 25%,
+    hsl(180 80% 55% / .08) 50%,
+    transparent 80%);
+  filter: blur(50px);
+  mix-blend-mode: screen;
+}
+
+/* Floor pool — soft glow under/behind the video where the cone
+   meets the stage. */
+.vsl-section__pool {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: clamp(800px, 80vw, 1300px);
+  height: 35%;
+  background: radial-gradient(ellipse 60% 100% at 50% 100%,
+    hsl(180 85% 60% / .18) 0%,
+    hsl(180 75% 50% / .08) 40%,
+    transparent 80%);
+  filter: blur(50px);
+}
+
+/* Dust particles drifting in the beam. */
+.vsl-section__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Title in title case (override global section__title uppercase)
+   for a more "founder talking to you" tone than a shouted header. */
+.vsl-section__head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 880px;
+  margin: 0 auto clamp(2.75rem, 5vh, 4rem);
+}
+.vsl-section .section__title {
+  text-transform: none;
+  letter-spacing: -.025em;
+  font-weight: 700;
+}
+.vsl-section .section__lede { max-width: 600px; margin-top: .25rem; }
+
+/* Kicker — luminous pill matching Testimonials / FAQ. */
+.vsl-section .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  background:
+    linear-gradient(180deg, hsl(180 70% 50% / .18), hsl(180 70% 50% / .06));
+  border: 1px solid hsl(180 70% 60% / .4);
+  color: hsl(180 90% 80%);
+  text-transform: none;
+  letter-spacing: .04em;
+  box-shadow:
+    inset 0 1px 0 hsl(180 80% 85% / .15),
+    0 0 20px -2px hsl(180 70% 50% / .3);
+}
+.vsl-section .kicker svg { width: 14px; height: 14px; }
+
+/* Video frame — sits in the brightest part of the spotlight, gets
+   the wow-factor glow. Stronger teal border, glassy top hairline,
+   deep drop, layered cyan halos. */
+.vsl-section .vsl {
+  max-width: 880px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 .vsl {
   position: relative;
   border-radius: var(--radius-lg);
-  border: 1px solid hsl(180 74% 63% / .25);
-  background: linear-gradient(180deg, hsl(180 74% 63% / .06), hsl(240 15% 8% / .6));
+  border: 1px solid hsl(180 74% 63% / .4);
+  background: linear-gradient(180deg, hsl(180 74% 63% / .08), hsl(240 15% 8% / .7));
   box-shadow:
-    0 0 0 1px hsl(180 74% 63% / .1) inset,
-    0 30px 80px -30px hsl(180 74% 63% / .35);
+    inset 0 1px 0 hsl(180 90% 90% / .18),
+    inset 0 0 0 1px hsl(180 74% 63% / .14),
+    0 40px 100px -25px hsl(0 0% 0% / .85),
+    0 0 80px -10px hsl(180 75% 55% / .4),
+    0 0 180px -30px hsl(180 70% 50% / .3);
   overflow: hidden;
 }
 .vsl__header {

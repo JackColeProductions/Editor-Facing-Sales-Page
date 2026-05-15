@@ -761,7 +761,8 @@ button { font: inherit; cursor: pointer; }
     border-width: 1.5px;
     margin-left: -8px;
   }
-  .trusted-pill .avatar:nth-child(n+5) { display: none; }
+  /* All 6 avatars stay visible on mobile — tightened sizing
+     above means they fit on one line at 320px+. */
 
   /* Title — tighter min and gentler line-height so the 2nd sentence
      doesn't break into 3 short lines. */
@@ -1059,32 +1060,19 @@ button { font: inherit; cursor: pointer; }
   }
 }
 
-/* Mobile — fan reads as broken below ~640px; collapse to a
-   horizontal scroll-snap row with no tilt/animation. */
+/* Mobile — keep the fan, just compress the spread + rotation so
+   all 5 cards live inside the viewport. Far cards intentionally
+   extend a few px past the safe area for that "more cards behind"
+   silhouette (same trick as the hero job-card fan on phones). */
 @media (max-width: 640px) {
-  .profile-setup__content { margin-bottom: 2rem; }
+  .profile-setup__content { margin-bottom: 1.75rem; }
   .profile-setup__cards {
-    display: flex;
-    align-items: center;
-    height: auto;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-inline: 1.25rem;
-    padding-block: 1rem 2.5rem;
-    gap: .9rem;
-    pointer-events: auto;
-  }
-  .profile-pic {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 175px;
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-    transform: none !important;
-    animation: none !important;
-    opacity: 1 !important;
+    --pcard-w: clamp(120px, 36vw, 150px);
+    --pnear-x: 50px;
+    --pfar-x: 105px;
+    --pnear-rot: 6deg;
+    --pfar-rot: 11deg;
+    height: clamp(240px, 50vh, 290px);
   }
 }
 
@@ -1221,9 +1209,12 @@ button { font: inherit; cursor: pointer; }
   .showcase__card--right { bottom: -6%; right: -2%; }
 }
 @media (max-width: 560px) {
-  /* On phones the screenshot is already small; the decorative cards
-     just crowd it. Hide them rather than scale down to illegible. */
-  .showcase__card { display: none; }
+  /* Phones — keep the floating side cards (they're a big part of
+     the desktop wow factor), just at a tighter scale and tucked
+     so they don't hide critical screenshot content. */
+  .showcase__card { width: 26%; }
+  .showcase__card--left  { top: -8%;  left: -5%;  width: 30%; }
+  .showcase__card--right { bottom: -5%; right: -4%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .showcase__card { animation: none !important; }
@@ -3990,9 +3981,44 @@ button { font: inherit; cursor: pointer; }
       transparent 0%, black 8%, black 92%, transparent 100%);
   }
 
-  /* Pricing CTAs — tighter padding so the button doesn't dominate
-     the bottom of each card. */
+  /* Pricing — tighter cards + CTAs so the section reads as a
+     pair of decision blocks, not full-screen blocks. */
+  .pricing__plan { padding: 1.5rem 1.25rem 1.5rem; border-radius: 1.25rem; }
   .pricing__cta { padding: .75rem 1.1rem; font-size: .84rem; }
+  .pricing__features { gap: .85rem; }
+  .pricing__price-new { font-size: 2.4rem; }
+  .pricing__price-period { font-size: .85rem; }
+
+  /* VSL — source glows scale tighter on phones so the bright
+     dots don't dominate the bottom of the section. */
+  .vsl-section__source { width: 130px; height: 70px; }
+  .vsl-section__source--left  { left: 6%; }
+  .vsl-section__source--right { right: 6%; }
+  /* Tighter side rays so the cone reads at narrow widths. */
+  .vsl-section__ray--left,
+  .vsl-section__ray--left-core { transform: rotate(12deg); }
+  .vsl-section__ray--right,
+  .vsl-section__ray--right-core { transform: rotate(-12deg); }
+
+  /* Final CTA card — keep the wow but trim the horizontal
+     padding so the title doesn't get squeezed. */
+  .cta__inner { padding: 2.5rem 1rem; gap: 1rem; }
+  .cta__title { font-size: clamp(1.45rem, 6.5vw, 1.8rem); }
+  .cta__lede  { font-size: .92rem; }
+  .cta__fineprint { font-size: .76rem; }
+
+  /* FAQ — visual sits above the accordion on mobile; cap height
+     so it doesn't dominate, and tighten accordion padding. */
+  .faq__visual { max-height: 240px; border-radius: 1.1rem; }
+  .faq__social-proof { padding: .55rem .9rem .55rem .7rem; }
+  .faq__avatar, .faq__avatar-count { width: 30px; height: 30px; }
+  .faq__avatar-count { font-size: .68rem; }
+  .faq__stars svg { width: 12px; height: 12px; }
+  .faq__rating-text { font-size: .74rem; }
+
+  /* Stories carousel — tighter avatar tabs row and active card
+     internals so 1 card fits cleanly with side cards peeking. */
+  .stories__avatars { gap: .35rem; padding-bottom: .75rem; }
 }
 
 /* =========================================================

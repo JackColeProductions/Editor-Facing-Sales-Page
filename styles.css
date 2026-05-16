@@ -1424,6 +1424,238 @@ button { font: inherit; cursor: pointer; }
   justify-content: center;
 }
 
+/* =========================================================
+   MARKETPLACE V2 — Redesign showcase (sits below the original
+   showcase section, side-by-side for comparison). Uses the
+   existing CARD_MAIN_CENTRE.png as the hero screenshot and
+   the existing CARD_left.png as the bottom-right callout
+   "Job Started! ESCROW SECURED" card. Four perimeter pills
+   connect to features via thin curved teal lines.
+   ========================================================= */
+.section.marketplace-v2 {
+  padding: 6rem 0 8rem;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-top: 1px dashed hsl(180 50% 50% / .15);
+}
+.marketplace-v2 .section__head { margin-bottom: clamp(2rem, 4vh, 3rem); }
+.marketplace-v2 .section__title { text-transform: none; letter-spacing: -.025em; }
+
+.marketplace-v2__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.marketplace-v2__top-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 600px;
+  background:
+    radial-gradient(ellipse at center top,
+      hsl(180 80% 55% / .25) 0%,
+      hsl(180 70% 45% / .1) 35%,
+      transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+.marketplace-v2__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.marketplace-v2 .container {
+  position: relative;
+  z-index: 1;
+}
+
+.marketplace-v2__stage {
+  position: relative;
+  max-width: 1300px;
+  margin: 4rem auto 0;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marketplace-v2__screenshot {
+  position: relative;
+  width: 70%;
+  max-width: 900px;
+  border-radius: 1rem;
+  overflow: hidden;
+  transform: perspective(2000px) rotateX(2deg) rotateY(-1deg);
+  box-shadow:
+    0 40px 100px -20px hsl(0 0% 0% / .7),
+    0 0 80px -10px hsl(180 70% 50% / .3),
+    inset 0 1px 0 hsl(180 80% 85% / .15);
+  border: 1px solid hsl(180 50% 60% / .2);
+  z-index: 2;
+}
+.marketplace-v2__screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Callouts */
+.m2-callout {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  color: hsl(180 80% 70%);
+}
+.m2-callout__pill {
+  padding: .65rem 1.1rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg,
+    hsl(240 25% 9% / .85) 0%,
+    hsl(240 28% 6% / .95) 100%);
+  border: 1px solid hsl(180 75% 60% / .35);
+  color: hsl(0 0% 95%);
+  font-size: .85rem;
+  font-weight: 500;
+  letter-spacing: .01em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 8px 24px -8px hsl(0 0% 0% / .5),
+    0 0 20px -4px hsl(180 70% 55% / .25),
+    inset 0 1px 0 hsl(180 90% 85% / .15);
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+.m2-callout__line {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px hsl(180 80% 60% / .6));
+  opacity: .8;
+}
+.m2-callout__dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(180 95% 75%);
+  box-shadow:
+    0 0 0 2px hsl(180 80% 60% / .3),
+    0 0 12px hsl(180 80% 60% / .8);
+  z-index: 4;
+}
+
+/* Top-left — pill outside, line curves right + down to a feature
+   in the filter row of the screenshot. */
+.m2-callout--tl { top: 5%; left: 0; }
+.m2-callout--tl .m2-callout__line {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.m2-callout--tl .m2-callout__dot {
+  left: calc(100% + 195px);
+  top: calc(50% + 35px);
+}
+
+/* Top-right — mirror of TL. */
+.m2-callout--tr { top: 8%; right: 0; }
+.m2-callout--tr .m2-callout__line {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.m2-callout--tr .m2-callout__dot {
+  right: calc(100% + 195px);
+  top: calc(50% + 35px);
+}
+
+/* Bottom-left — pill outside, line curves right + up to a budget
+   line in the middle of the screenshot. */
+.m2-callout--bl { bottom: 18%; left: 0; }
+.m2-callout--bl .m2-callout__line {
+  left: 100%;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+.m2-callout--bl .m2-callout__dot {
+  left: calc(100% + 195px);
+  bottom: calc(50% + 25px);
+}
+
+/* Bottom-right — the ESCROW card replaces the pill. */
+.m2-callout--br {
+  bottom: 5%;
+  right: 0;
+  width: 280px;
+}
+.m2-callout__escrow {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  filter:
+    drop-shadow(0 20px 50px hsl(0 0% 0% / .55))
+    drop-shadow(0 0 40px hsl(180 70% 50% / .25));
+}
+.m2-callout--br .m2-callout__line {
+  right: 100%;
+  top: 30%;
+}
+.m2-callout--br .m2-callout__dot {
+  right: calc(100% + 195px);
+  top: calc(30% + 25px);
+}
+
+.marketplace-v2__tagline {
+  text-align: center;
+  margin: 4rem auto 0;
+  font-size: 1.1rem;
+  color: hsl(0 0% 70%);
+}
+.marketplace-v2__cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .marketplace-v2__stage { min-height: 600px; }
+  .marketplace-v2__screenshot { width: 85%; }
+  .m2-callout--tl, .m2-callout--bl { left: 2%; }
+  .m2-callout--tr { right: 2%; }
+  .m2-callout--br { right: 2%; width: 240px; }
+  .m2-callout__pill { font-size: .78rem; padding: .55rem .95rem; }
+}
+
+/* Mobile — drop the perimeter callouts entirely, keep a clean
+   marketplace screenshot showcase. */
+@media (max-width: 767px) {
+  .section.marketplace-v2 { padding: 4rem 0 5rem; }
+  .marketplace-v2__stage { min-height: 0; margin-top: 2rem; }
+  .marketplace-v2__screenshot {
+    width: 100%;
+    transform: none;
+  }
+  .m2-callout { display: none; }
+  .marketplace-v2__tagline { margin-top: 2.5rem; font-size: .95rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketplace-v2__screenshot { transform: none; }
+}
+
 /* Standalone VSL section (was inline in hero) */
 /* VSL section — "stage spotlight" composition. Light descends from
    the top of the section in a soft cone, pools beneath the video,

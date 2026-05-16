@@ -1289,26 +1289,26 @@ button { font: inherit; cursor: pointer; }
    All four tilt CCW ~-5° so the rail of stickers reads as one
    consistent organic hand-placed set. */
 .showcase__callout--tr {
-  top: -3%;
-  right: 5%;
+  top: -2%;
+  right: 3%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
 }
 .showcase__callout--l {
-  top: 36%;
+  top: 32%;
   left: -10%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
 }
 .showcase__callout--r {
-  top: 50%;
-  right: -5%;
+  top: 48%;
+  right: -4%;
   transform: rotate(5deg);
   animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
 }
 .showcase__callout--bl {
-  bottom: -6%;
-  left: 22%;
+  bottom: -8%;
+  left: 18%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
 }

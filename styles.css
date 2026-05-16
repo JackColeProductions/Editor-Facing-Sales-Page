@@ -1222,42 +1222,154 @@ button { font: inherit; cursor: pointer; }
   .showcase__card { animation: none !important; }
 }
 
-/* Callout row beneath the marketplace screenshot — 4 short value
-   props rendered as compact glassy chips with cyan check marks. */
-.showcase__callouts {
-  list-style: none;
-  margin: clamp(2.5rem, 5vh, 3.75rem) auto 0;
-  padding: 0;
-  max-width: 1080px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: .85rem;
+/* Floating callouts pinned around the marketplace screenshot.
+   Each label gets the yearly-pricing-card chrome: dark gradient
+   body, teal gradient stroke via a masked ::before pseudo, soft
+   cyan outer glow + a tiny rotation so they read as stickers. */
+.showcase__callout {
+  position: absolute;
+  z-index: 4;
+  max-width: 18ch;
+  padding: .7rem 1rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, hsl(240 22% 10%) 0%, hsl(240 26% 6%) 100%);
+  color: var(--fg);
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.005em;
+  text-align: left;
+  box-shadow:
+    0 1px 0 hsl(180 80% 90% / .12) inset,
+    0 24px 50px -22px hsl(0 0% 0% / .8),
+    0 0 36px -8px hsl(180 80% 55% / .3),
+    0 0 0 1px hsl(0 0% 0% / .3);
+  pointer-events: none;
 }
-.showcase__callouts li {
+.showcase__callout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(180deg,
+    hsl(180 100% 88%) 0%,
+    hsl(180 90% 70% / .85) 25%,
+    hsl(180 70% 50% / .45) 65%,
+    hsl(180 50% 35% / .25) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+          mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* The four positions echo image 2: top-right, right-mid, bottom-left,
+   left-mid. The two CARD images already own the TL + BR quadrants,
+   so the callouts hug the opposite corners. Light rotations make
+   them feel hand-placed instead of stenciled. */
+.showcase__callout--tr {
+  top: -4%;
+  right: -2%;
+  transform: rotate(4deg);
+  animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
+}
+.showcase__callout--r {
+  top: 48%;
+  right: -5%;
+  transform: rotate(-3deg);
+  animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
+}
+.showcase__callout--bl {
+  bottom: -6%;
+  left: 26%;
+  transform: rotate(-4deg);
+  animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
+}
+.showcase__callout--l {
+  top: 42%;
+  left: -3%;
+  max-width: 16ch;
+  transform: rotate(3deg);
+  animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
+}
+@keyframes showcaseCalloutFloatTR {
+  0%, 100% { transform: translateY(0)   rotate(4deg); }
+  50%      { transform: translateY(-6px) rotate(4deg); }
+}
+@keyframes showcaseCalloutFloatR {
+  0%, 100% { transform: translateY(0)   rotate(-3deg); }
+  50%      { transform: translateY(6px) rotate(-3deg); }
+}
+@keyframes showcaseCalloutFloatBL {
+  0%, 100% { transform: translateY(0)   rotate(-4deg); }
+  50%      { transform: translateY(-6px) rotate(-4deg); }
+}
+@keyframes showcaseCalloutFloatL {
+  0%, 100% { transform: translateY(0)   rotate(3deg); }
+  50%      { transform: translateY(6px) rotate(3deg); }
+}
+
+@media (max-width: 880px) {
+  /* Pull the side callouts in so they don't sit fully off-canvas. */
+  .showcase__callout { font-size: .78rem; padding: .55rem .8rem; max-width: 14ch; border-radius: .85rem; }
+  .showcase__callout--tr { top: -3%; right: 2%; }
+  .showcase__callout--r  { top: 52%;  right: 1%; }
+  .showcase__callout--bl { bottom: -4%; left: 30%; }
+  .showcase__callout--l  { top: 44%; left: 1%; }
+}
+@media (max-width: 560px) {
+  /* Phones — abandon the floating layout (overlap with the side
+     cards gets too tight) and stack the callouts cleanly below
+     the screenshot instead. */
+  .showcase__frame .showcase__callout { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase__callout { animation: none !important; }
+}
+
+/* Mobile-only stacked fallback so the four claims still ship below
+   the screenshot on phones. */
+.showcase__callouts-mobile {
+  display: none;
+  list-style: none;
+  margin: clamp(2rem, 4vh, 2.5rem) auto 0;
+  padding: 0;
+  max-width: 420px;
+  gap: .55rem;
+}
+.showcase__callouts-mobile li {
   display: flex;
   align-items: flex-start;
-  gap: .65rem;
-  padding: .85rem 1rem;
-  border: 1px solid hsl(0 0% 100% / .07);
-  border-radius: .9rem;
-  background: linear-gradient(180deg, hsl(240 18% 9% / .8), hsl(240 22% 6% / .85));
+  gap: .55rem;
+  padding: .7rem .9rem;
+  border-radius: .8rem;
+  background: linear-gradient(180deg, hsl(240 22% 10%) 0%, hsl(240 26% 6%) 100%);
   color: var(--fg-muted);
-  font-size: .88rem;
+  font-size: .82rem;
   line-height: 1.35;
-  letter-spacing: .005em;
+  position: relative;
 }
-.showcase__callouts svg {
-  flex: 0 0 18px;
-  width: 18px;
-  height: 18px;
-  color: var(--primary);
-  margin-top: 1px;
+.showcase__callouts-mobile li::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, hsl(180 90% 70% / .6), hsl(180 50% 35% / .15));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
 }
-@media (max-width: 880px) {
-  .showcase__callouts { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 480px) {
-  .showcase__callouts { grid-template-columns: 1fr; gap: .6rem; max-width: 420px; }
+@media (max-width: 560px) {
+  .showcase__callouts-mobile { display: grid; }
 }
 
 .showcase__claim {

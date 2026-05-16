@@ -1426,35 +1426,27 @@ button { font: inherit; cursor: pointer; }
 
 /* =========================================================
    MARKETPLACE V2 — Three-card 3D stage with atmospheric
-   lighting (sits directly below the V1 showcase). Center
-   card tilts back, two side cards lean inward and tuck
-   behind the center, with a vertical light column + soft
-   god-ray streaks + radial halo + particle dust filling
-   the central column. Horizontal vignette masks the side
-   edges so the eye lands on the centre.
+   lighting (sits directly below V1). Tight document-flow
+   layout: header -> CTA row -> stage. Cards are wrapped in
+   divs so each one carries a glass-panel treatment: rounded
+   corners, perimeter glow stroke, top-edge highlight, inner
+   "lit from above" gradient overlay. Atmosphere layers use
+   mix-blend-mode: screen so the light reads luminous.
    ========================================================= */
 .section.marketplace-v2 {
   position: relative;
-  min-height: 100vh;
-  max-height: 1100px;
-  padding: 4rem 0 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 5rem 0 4rem;
   isolation: isolate;
   overflow: hidden;
   border-top: 1px dashed hsl(180 50% 50% / .15);
 }
 .marketplace-v2 > .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  flex: 1;
+  display: block;
+  text-align: center;
 }
 
-/* Atmosphere wrapper — sits behind everything, vignetted on
-   left + right so the lighting effect feels centered. */
+/* Atmosphere wrapper — vignetted on left + right so the
+   lighting effect feels centered. */
 .mp2__atmosphere {
   position: absolute;
   inset: 0;
@@ -1471,68 +1463,71 @@ button { font: inherit; cursor: pointer; }
     black 88%,
     transparent 100%);
 }
-.mp2__halo {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1300px;
-  height: 700px;
-  background:
-    radial-gradient(ellipse at center,
-      hsl(180 80% 55% / .22) 0%,
-      hsl(180 70% 45% / .1) 35%,
-      transparent 70%);
-  filter: blur(100px);
-  z-index: 0;
-  pointer-events: none;
-}
 .mp2__light-column {
   position: absolute;
-  top: 10%;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 700px;
-  height: 1000px;
+  width: 1100px;
+  height: 1400px;
   background:
-    radial-gradient(ellipse 45% 60% at 50% 30%,
-      hsl(180 90% 75% / .5) 0%,
-      hsl(180 85% 60% / .28) 25%,
-      hsl(180 75% 45% / .12) 55%,
-      transparent 85%);
-  filter: blur(80px);
+    radial-gradient(ellipse 40% 50% at 50% 25%,
+      hsl(180 95% 80% / .75) 0%,
+      hsl(180 90% 65% / .45) 20%,
+      hsl(180 80% 50% / .2) 50%,
+      hsl(180 70% 45% / .08) 75%,
+      transparent 95%);
+  filter: blur(70px);
   z-index: 0;
   pointer-events: none;
+  mix-blend-mode: screen;
 }
 .mp2__streaks {
   position: absolute;
-  top: 5%;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 90%;
+  width: 900px;
+  height: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: .75;
+  opacity: .9;
   background:
-    radial-gradient(ellipse 40px 90% at 18% 50%, hsl(180 85% 75% / .14) 0%, transparent 70%),
-    radial-gradient(ellipse 60px 95% at 32% 50%, hsl(180 90% 80% / .2)  0%, transparent 65%),
-    radial-gradient(ellipse 50px 90% at 45% 50%, hsl(180 85% 75% / .16) 0%, transparent 70%),
-    radial-gradient(ellipse 80px 100% at 50% 50%, hsl(180 95% 85% / .3) 0%, transparent 60%),
-    radial-gradient(ellipse 50px 90% at 55% 50%, hsl(180 85% 75% / .16) 0%, transparent 70%),
-    radial-gradient(ellipse 60px 95% at 68% 50%, hsl(180 90% 80% / .2)  0%, transparent 65%),
-    radial-gradient(ellipse 40px 90% at 82% 50%, hsl(180 85% 75% / .14) 0%, transparent 70%);
+    radial-gradient(ellipse 40px 90% at 18% 50%, hsl(180 90% 80% / .22) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 95% at 32% 50%, hsl(180 95% 85% / .3)  0%, transparent 65%),
+    radial-gradient(ellipse 50px 90% at 45% 50%, hsl(180 90% 80% / .25) 0%, transparent 70%),
+    radial-gradient(ellipse 90px 100% at 50% 50%, hsl(180 100% 90% / .45) 0%, transparent 60%),
+    radial-gradient(ellipse 50px 90% at 55% 50%, hsl(180 90% 80% / .25) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 95% at 68% 50%, hsl(180 95% 85% / .3)  0%, transparent 65%),
+    radial-gradient(ellipse 40px 90% at 82% 50%, hsl(180 90% 80% / .22) 0%, transparent 70%);
   mask-image: linear-gradient(180deg,
     transparent 0%,
-    black 12%,
-    black 80%,
+    black 10%,
+    black 85%,
     transparent 100%);
   -webkit-mask-image: linear-gradient(180deg,
     transparent 0%,
-    black 12%,
-    black 80%,
+    black 10%,
+    black 85%,
     transparent 100%);
-  filter: blur(14px);
+  filter: blur(16px);
+  mix-blend-mode: screen;
+}
+.mp2__halo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1600px;
+  height: 800px;
+  background:
+    radial-gradient(ellipse at 50% 60%,
+      hsl(180 80% 55% / .3) 0%,
+      hsl(180 70% 45% / .12) 35%,
+      transparent 70%);
+  filter: blur(120px);
+  z-index: 0;
+  pointer-events: none;
   mix-blend-mode: screen;
 }
 .mp2__particles {
@@ -1552,6 +1547,8 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   z-index: 3;
   max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .mp2__head .section__title {
   font-size: clamp(2.4rem, 4.5vw, 3.6rem);
@@ -1569,88 +1566,123 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-top: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 0;
   flex-wrap: wrap;
 }
 
-/* Stage — three-card 3D composition */
+/* Stage — three-card 3D composition. overflow: visible so the
+   rotated cards don't get clipped. */
 .mp2__stage {
   position: relative;
   width: 100%;
-  max-width: 1500px;
-  margin: 2rem auto 0;
-  height: 520px;
-  perspective: 2000px;
+  max-width: 1400px;
+  margin: 3rem auto 0;
+  height: 640px;
+  perspective: 2400px;
+  overflow: visible;
   z-index: 2;
 }
+
+/* Each card is a div wrapping an img so we can layer the
+   material overlays on top of the screenshot. */
 .mp2__card {
   position: absolute;
   bottom: 0;
   display: block;
-  height: auto;
-  object-fit: contain;
-  object-position: bottom center;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid hsl(180 60% 70% / .25);
   transition: transform .4s cubic-bezier(.22, 1, .36, 1);
 }
+.mp2__card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* "Lit from above" glass tint — bright cyan top, gentle
+   darker bottom. mix-blend-mode: overlay keeps the underlying
+   PNG colors readable. */
+.mp2__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg,
+    hsl(180 80% 75% / .1) 0%,
+    transparent 30%,
+    transparent 70%,
+    hsl(180 60% 50% / .05) 100%);
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: overlay;
+}
+
 .mp2__card--center {
   left: 50%;
   bottom: 0;
-  width: 52%;
-  max-width: 780px;
-  transform: translateX(-50%) perspective(2000px) rotateX(8deg);
+  width: 60%;
+  max-width: 880px;
+  transform: translateX(-50%) perspective(2400px) rotateX(8deg);
   transform-origin: bottom center;
   z-index: 3;
-  filter:
-    drop-shadow(0 40px 80px hsl(0 0% 0% / .7))
-    drop-shadow(0 0 60px hsl(180 80% 55% / .25));
+  box-shadow:
+    0 40px 90px -15px hsl(0 0% 0% / .8),
+    0 0 90px -10px hsl(180 80% 55% / .4),
+    0 0 140px -20px hsl(180 70% 50% / .25),
+    inset 0 1px 0 hsl(180 95% 92% / .3),
+    inset 0 30px 60px -30px hsl(180 80% 65% / .25);
 }
 .mp2__card--left {
-  left: 2%;
-  bottom: 20px;
-  width: 30%;
-  max-width: 440px;
-  transform: perspective(2000px) rotateX(6deg) rotateY(15deg) rotateZ(-4deg);
-  transform-origin: bottom right;
+  left: 0;
+  bottom: 30px;
+  width: 38%;
+  max-width: 540px;
+  transform: perspective(2400px) rotateX(6deg) rotateY(15deg) rotateZ(-4deg);
+  transform-origin: 80% 100%;
   z-index: 2;
-  filter:
-    brightness(.92)
-    drop-shadow(0 25px 50px hsl(0 0% 0% / .55))
-    drop-shadow(0 0 40px hsl(180 70% 50% / .18));
+  box-shadow:
+    0 25px 60px -15px hsl(0 0% 0% / .6),
+    0 0 50px -10px hsl(180 70% 50% / .25),
+    inset 0 1px 0 hsl(180 85% 90% / .22),
+    inset 0 20px 40px -20px hsl(180 60% 55% / .18);
 }
 .mp2__card--right {
-  right: 2%;
-  bottom: 20px;
-  width: 30%;
-  max-width: 440px;
-  transform: perspective(2000px) rotateX(6deg) rotateY(-15deg) rotateZ(4deg);
-  transform-origin: bottom left;
+  right: 0;
+  bottom: 30px;
+  width: 38%;
+  max-width: 540px;
+  transform: perspective(2400px) rotateX(6deg) rotateY(-15deg) rotateZ(4deg);
+  transform-origin: 20% 100%;
   z-index: 2;
-  filter:
-    brightness(.92)
-    drop-shadow(0 25px 50px hsl(0 0% 0% / .55))
-    drop-shadow(0 0 40px hsl(180 70% 50% / .18));
+  box-shadow:
+    0 25px 60px -15px hsl(0 0% 0% / .6),
+    0 0 50px -10px hsl(180 70% 50% / .25),
+    inset 0 1px 0 hsl(180 85% 90% / .22),
+    inset 0 20px 40px -20px hsl(180 60% 55% / .18);
 }
 
 /* Tablet */
 @media (max-width: 1023px) {
-  .mp2__stage { height: 440px; }
-  .mp2__card--center { width: 60%; max-width: 700px; }
+  .mp2__stage { height: 500px; }
+  .mp2__card--center { width: 65%; max-width: 760px; }
   .mp2__card--left {
-    width: 34%; max-width: 380px;
-    transform: perspective(2000px) rotateX(4deg) rotateY(8deg) rotateZ(-3deg);
+    width: 42%; max-width: 460px;
+    transform: perspective(2400px) rotateX(5deg) rotateY(10deg) rotateZ(-3deg);
   }
   .mp2__card--right {
-    width: 34%; max-width: 380px;
-    transform: perspective(2000px) rotateX(4deg) rotateY(-8deg) rotateZ(3deg);
+    width: 42%; max-width: 460px;
+    transform: perspective(2400px) rotateX(5deg) rotateY(-10deg) rotateZ(3deg);
   }
 }
 
-/* Mobile — drop the 3D side cards, render the centre flat. */
+/* Mobile — drop the 3D side cards, render centre flat. */
 @media (max-width: 767px) {
-  .section.marketplace-v2 { min-height: auto; padding: 3.5rem 0 4rem; }
+  .section.marketplace-v2 { padding: 3.5rem 0 3rem; }
   .mp2__stage {
     height: auto;
     perspective: none;
+    padding: 0 1rem;
   }
   .mp2__card--left,
   .mp2__card--right { display: none; }

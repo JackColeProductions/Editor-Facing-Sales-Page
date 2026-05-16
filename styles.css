@@ -1185,24 +1185,26 @@ button { font: inherit; cursor: pointer; }
   left: -3%;
   width: 31.2%;
   max-width: 384px;
-  transform: rotate(-5deg);
-  transform-origin: bottom right;
+  transform: perspective(2400px) rotate(-5deg) rotateY(14deg);
+  transform-origin: 100% 50%;
   animation: showcaseCardLeftFloat 7s ease-in-out infinite;
 }
 .showcase__card--right {
   bottom: -8%;
   right: -3%;
-  transform: rotate(5deg);
-  transform-origin: top left;
+  transform: perspective(2400px) rotate(5deg) rotateY(-14deg);
+  transform-origin: 0% 50%;
   animation: showcaseCardRightFloat 7s ease-in-out infinite -2.5s;
 }
+/* Float + tilt: keep the rotateY across all keyframes so the
+   card stays angled while it bobs. */
 @keyframes showcaseCardLeftFloat {
-  0%, 100% { transform: translateY(0)    rotate(-5deg); }
-  50%      { transform: translateY(-8px) rotate(-5deg); }
+  0%, 100% { transform: perspective(2400px) translateY(0)    rotate(-5deg) rotateY(14deg); }
+  50%      { transform: perspective(2400px) translateY(-8px) rotate(-5deg) rotateY(14deg); }
 }
 @keyframes showcaseCardRightFloat {
-  0%, 100% { transform: translateY(0)   rotate(5deg); }
-  50%      { transform: translateY(8px) rotate(5deg); }
+  0%, 100% { transform: perspective(2400px) translateY(0)   rotate(5deg) rotateY(-14deg); }
+  50%      { transform: perspective(2400px) translateY(8px) rotate(5deg) rotateY(-14deg); }
 }
 
 @media (max-width: 880px) {
@@ -1422,301 +1424,6 @@ button { font: inherit; cursor: pointer; }
   margin-top: clamp(1.5rem, 3vh, 2.25rem);
   display: flex;
   justify-content: center;
-}
-
-/* =========================================================
-   MARKETPLACE V2 — Three-card 3D stage with atmospheric
-   lighting (sits directly below V1). Tight document-flow
-   layout: header -> CTA row -> stage. Cards are wrapped in
-   divs so each one carries a glass-panel treatment: rounded
-   corners, perimeter glow stroke, top-edge highlight, inner
-   "lit from above" gradient overlay. Atmosphere layers use
-   mix-blend-mode: screen so the light reads luminous.
-   ========================================================= */
-.section.marketplace-v2 {
-  position: relative;
-  padding: 5rem 0 5.5rem;
-  isolation: isolate;
-  overflow: hidden;
-  border-top: 1px dashed hsl(180 50% 50% / .15);
-}
-.marketplace-v2 > .container {
-  display: block;
-  text-align: center;
-}
-
-/* Atmosphere wrapper — vignetted on left + right so the
-   lighting effect feels centered. */
-.mp2__atmosphere {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg,
-    transparent 0%,
-    black 12%,
-    black 88%,
-    transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg,
-    transparent 0%,
-    black 12%,
-    black 88%,
-    transparent 100%);
-}
-/* Tight white-cored bloom centred just above the card cluster.
-   White at the core fades to cyan and out to transparent — the
-   "spotlight from above" the FlowAI hero leans on. */
-.mp2__light-column {
-  position: absolute;
-  top: 18%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1000px;
-  height: 700px;
-  background:
-    radial-gradient(ellipse 42% 48% at 50% 42%,
-      hsl(180 100% 96% / .95) 0%,
-      hsl(180 100% 90% / .7) 10%,
-      hsl(180 95% 75% / .42) 26%,
-      hsl(180 85% 55% / .2) 55%,
-      hsl(180 75% 45% / .07) 80%,
-      transparent 95%);
-  filter: blur(50px);
-  z-index: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-/* Subtle vertical streaks within the bloom — kept narrow and
-   short so they don't compete with the spotlight. */
-.mp2__streaks {
-  position: absolute;
-  top: 26%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 700px;
-  height: 50%;
-  pointer-events: none;
-  z-index: 1;
-  opacity: .4;
-  background:
-    radial-gradient(ellipse 60px 90% at 30% 50%, hsl(180 95% 88% / .22) 0%, transparent 65%),
-    radial-gradient(ellipse 80px 95% at 42% 50%, hsl(180 100% 92% / .28) 0%, transparent 60%),
-    radial-gradient(ellipse 100px 100% at 50% 50%, hsl(180 100% 95% / .36) 0%, transparent 55%),
-    radial-gradient(ellipse 80px 95% at 58% 50%, hsl(180 100% 92% / .28) 0%, transparent 60%),
-    radial-gradient(ellipse 60px 90% at 70% 50%, hsl(180 95% 88% / .22) 0%, transparent 65%);
-  mask-image: linear-gradient(180deg, transparent 0%, black 15%, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 15%, black 70%, transparent 100%);
-  filter: blur(22px);
-  mix-blend-mode: screen;
-}
-/* Soft floor bloom behind the cards. */
-.mp2__halo {
-  position: absolute;
-  bottom: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1900px;
-  height: 900px;
-  background:
-    radial-gradient(ellipse at 50% 55%,
-      hsl(180 85% 60% / .45) 0%,
-      hsl(180 80% 55% / .22) 28%,
-      hsl(180 70% 45% / .08) 55%,
-      transparent 80%);
-  filter: blur(130px);
-  z-index: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-.mp2__particles {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Header */
-.mp2__head {
-  text-align: center;
-  margin-bottom: 0;
-  padding: 0 1rem;
-  position: relative;
-  z-index: 3;
-  max-width: 880px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.mp2__head .section__title {
-  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
-  line-height: 1.05;
-  margin: 1rem 0;
-  text-transform: none;
-  letter-spacing: -.02em;
-}
-.mp2__head .section__lede {
-  max-width: 580px;
-  margin: 0 auto;
-  font-size: 1.05rem;
-}
-.mp2__cta-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
-  margin-bottom: 0;
-  flex-wrap: wrap;
-}
-
-/* Stage — three-card 3D cluster. Widened to 1800px so the
-   side cards can punch through the stage edges (extending
-   off-screen on narrower viewports like the reference). Tight
-   margin-top so the cluster sits right under the CTAs. */
-.mp2__stage {
-  position: relative;
-  width: 100%;
-  max-width: 1800px;
-  margin: .5rem auto 0;
-  height: 560px;
-  perspective: 2400px;
-  overflow: visible;
-  z-index: 2;
-}
-
-/* Each card is a div wrapping an img so we can layer the
-   material overlays on top of the screenshot. */
-.mp2__card {
-  position: absolute;
-  bottom: 0;
-  display: block;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  border: 1px solid hsl(180 60% 70% / .25);
-  transition: transform .4s cubic-bezier(.22, 1, .36, 1);
-}
-.mp2__card img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-/* "Lit from above" glass tint — bright cyan top, gentle
-   darker bottom. mix-blend-mode: overlay keeps the underlying
-   PNG colors readable. */
-.mp2__card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(180deg,
-    hsl(180 80% 75% / .1) 0%,
-    transparent 30%,
-    transparent 70%,
-    hsl(180 60% 50% / .05) 100%);
-  pointer-events: none;
-  z-index: 2;
-  mix-blend-mode: overlay;
-}
-
-.mp2__card--center {
-  left: 50%;
-  top: 50px;
-  bottom: auto;
-  width: 64%;
-  max-width: 1300px;
-  min-width: 720px;
-  transform: translateX(-50%) perspective(2400px) rotateX(3deg);
-  transform-origin: top center;
-  z-index: 3;
-  box-shadow:
-    0 55px 110px -18px hsl(0 0% 0% / .85),
-    0 0 120px -10px hsl(180 80% 55% / .5),
-    0 0 180px -20px hsl(180 70% 50% / .35),
-    inset 0 1px 0 hsl(180 95% 92% / .4),
-    inset 0 40px 70px -40px hsl(180 80% 65% / .3);
-}
-.mp2__card--left {
-  left: -4%;
-  top: 0;
-  bottom: auto;
-  width: 38%;
-  max-width: 700px;
-  min-width: 420px;
-  transform: perspective(2400px) rotateX(2deg) rotateY(22deg) rotateZ(-3deg);
-  transform-origin: 100% 50%;
-  z-index: 2;
-  box-shadow:
-    0 35px 80px -15px hsl(0 0% 0% / .7),
-    0 0 70px -10px hsl(180 70% 50% / .35),
-    inset 0 1px 0 hsl(180 85% 90% / .28),
-    inset 0 25px 50px -25px hsl(180 60% 55% / .22);
-}
-.mp2__card--right {
-  right: -4%;
-  top: 0;
-  bottom: auto;
-  width: 38%;
-  max-width: 700px;
-  min-width: 420px;
-  transform: perspective(2400px) rotateX(2deg) rotateY(-22deg) rotateZ(3deg);
-  transform-origin: 0% 50%;
-  z-index: 2;
-  box-shadow:
-    0 35px 80px -15px hsl(0 0% 0% / .7),
-    0 0 70px -10px hsl(180 70% 50% / .35),
-    inset 0 1px 0 hsl(180 85% 90% / .28),
-    inset 0 25px 50px -25px hsl(180 60% 55% / .22);
-}
-
-/* Tablet */
-@media (max-width: 1023px) {
-  .mp2__stage { height: 440px; margin-top: .5rem; }
-  .mp2__card--center {
-    width: 64%;
-    max-width: 820px;
-    min-width: 0;
-    top: 40px;
-  }
-  .mp2__card--left {
-    width: 38%;
-    max-width: 460px;
-    min-width: 0;
-    left: -3%;
-    transform: perspective(2400px) rotateX(2deg) rotateY(18deg) rotateZ(-3deg);
-  }
-  .mp2__card--right {
-    width: 38%;
-    max-width: 460px;
-    min-width: 0;
-    right: -3%;
-    transform: perspective(2400px) rotateX(2deg) rotateY(-18deg) rotateZ(3deg);
-  }
-}
-
-/* Mobile — drop the 3D side cards, render centre flat. */
-@media (max-width: 767px) {
-  .section.marketplace-v2 { padding: 3.5rem 0 3rem; }
-  .mp2__stage {
-    height: auto;
-    perspective: none;
-    padding: 0 1rem;
-  }
-  .mp2__card--left,
-  .mp2__card--right { display: none; }
-  .mp2__card--center {
-    position: relative;
-    left: auto;
-    top: auto;
-    bottom: auto;
-    width: 100%;
-    transform: none;
-  }
-  .mp2__light-column { width: 100%; }
-  .mp2__streaks { width: 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mp2__card { transition: none; }
 }
 
 /* Standalone VSL section (was inline in hero) */

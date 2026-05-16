@@ -1289,25 +1289,34 @@ button { font: inherit; cursor: pointer; }
    All four tilt CCW ~-5° so the rail of stickers reads as one
    consistent organic hand-placed set. */
 .showcase__callout--tr {
-  top: -2%;
-  right: 3%;
+  /* Chip overlaps the top filter-bar area of the screenshot;
+     top edge sits ~6% inside the screenshot, right edge ~5%
+     inset from the screenshot's right edge. */
+  top: 6%;
+  right: 5%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
 }
 .showcase__callout--l {
-  top: 32%;
-  left: -10%;
+  /* Centered around 32% down, ~70% of the chip overhangs the
+     screenshot's left edge. */
+  top: 28%;
+  left: -11%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
 }
 .showcase__callout--r {
-  top: 48%;
-  right: -4%;
+  /* Centered around 50% down, ~25% of the chip overhangs the
+     screenshot's right edge. */
+  top: 44%;
+  right: -3%;
   transform: rotate(5deg);
   animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
 }
 .showcase__callout--bl {
-  bottom: -8%;
+  /* Sits fully below the screenshot bottom edge, anchored
+     toward the left third. */
+  bottom: -12%;
   left: 18%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
@@ -1339,10 +1348,10 @@ button { font: inherit; cursor: pointer; }
     min-height: 3.6rem;
     border-radius: .85rem;
   }
-  .showcase__callout--tr { top: -2%; right: 6%; }
-  .showcase__callout--l  { top: 38%; left: -4%; }
-  .showcase__callout--r  { top: 52%; right: -3%; }
-  .showcase__callout--bl { bottom: -4%; left: 20%; }
+  .showcase__callout--tr { top: 5%; right: 4%; }
+  .showcase__callout--l  { top: 30%; left: -6%; }
+  .showcase__callout--r  { top: 46%; right: -2%; }
+  .showcase__callout--bl { bottom: -8%; left: 18%; }
 }
 @media (max-width: 560px) {
   /* Phones — abandon the floating layout (overlap with the side

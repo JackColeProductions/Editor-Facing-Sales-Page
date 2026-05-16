@@ -3042,7 +3042,7 @@ button { font: inherit; cursor: pointer; }
   font-size: clamp(2rem, 3.6vw, 3rem);
   line-height: 1.05;
 }
-.platform .section__lede { margin-top: .75rem; }
+.platform .section__lede { margin-top: .25rem; }
 
 .platform__cta-row {
   display: flex;

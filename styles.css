@@ -1463,67 +1463,67 @@ button { font: inherit; cursor: pointer; }
     black 88%,
     transparent 100%);
 }
-/* Bright spotlight bloom directly above the card cluster — this
-   replaces the old floor-to-ceiling shaft. The bloom is centred
-   between the CTA row and the top of the cards so it reads as
-   a stage spotlight pointing down at the dashboard. */
+/* Tight white-cored bloom centred just above the card cluster.
+   White at the core fades to cyan and out to transparent — the
+   "spotlight from above" the FlowAI hero leans on. */
 .mp2__light-column {
   position: absolute;
-  top: 20%;
+  top: 18%;
   left: 50%;
   transform: translateX(-50%);
-  width: 1200px;
+  width: 1000px;
   height: 700px;
   background:
-    radial-gradient(ellipse 50% 40% at 50% 40%,
-      hsl(180 100% 90% / .85) 0%,
-      hsl(180 95% 75% / .5) 18%,
-      hsl(180 85% 55% / .22) 45%,
-      hsl(180 75% 45% / .08) 75%,
+    radial-gradient(ellipse 42% 48% at 50% 42%,
+      hsl(180 100% 96% / .95) 0%,
+      hsl(180 100% 90% / .7) 10%,
+      hsl(180 95% 75% / .42) 26%,
+      hsl(180 85% 55% / .2) 55%,
+      hsl(180 75% 45% / .07) 80%,
       transparent 95%);
-  filter: blur(70px);
+  filter: blur(50px);
   z-index: 0;
   pointer-events: none;
   mix-blend-mode: screen;
 }
-/* Subtle vertical streaks limited to the area directly behind
-   the card cluster — much narrower window than before. */
+/* Subtle vertical streaks within the bloom — kept narrow and
+   short so they don't compete with the spotlight. */
 .mp2__streaks {
   position: absolute;
-  top: 30%;
+  top: 26%;
   left: 50%;
   transform: translateX(-50%);
-  width: 760px;
-  height: 55%;
+  width: 700px;
+  height: 50%;
   pointer-events: none;
   z-index: 1;
-  opacity: .45;
+  opacity: .4;
   background:
-    radial-gradient(ellipse 50px 90% at 25% 50%, hsl(180 95% 85% / .2)  0%, transparent 65%),
-    radial-gradient(ellipse 70px 95% at 40% 50%, hsl(180 95% 85% / .26) 0%, transparent 65%),
-    radial-gradient(ellipse 90px 100% at 50% 50%, hsl(180 100% 90% / .35) 0%, transparent 60%),
-    radial-gradient(ellipse 70px 95% at 60% 50%, hsl(180 95% 85% / .26) 0%, transparent 65%),
-    radial-gradient(ellipse 50px 90% at 75% 50%, hsl(180 95% 85% / .2)  0%, transparent 65%);
-  mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 75%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 20%, black 75%, transparent 100%);
-  filter: blur(20px);
+    radial-gradient(ellipse 60px 90% at 30% 50%, hsl(180 95% 88% / .22) 0%, transparent 65%),
+    radial-gradient(ellipse 80px 95% at 42% 50%, hsl(180 100% 92% / .28) 0%, transparent 60%),
+    radial-gradient(ellipse 100px 100% at 50% 50%, hsl(180 100% 95% / .36) 0%, transparent 55%),
+    radial-gradient(ellipse 80px 95% at 58% 50%, hsl(180 100% 92% / .28) 0%, transparent 60%),
+    radial-gradient(ellipse 60px 90% at 70% 50%, hsl(180 95% 88% / .22) 0%, transparent 65%);
+  mask-image: linear-gradient(180deg, transparent 0%, black 15%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 15%, black 70%, transparent 100%);
+  filter: blur(22px);
   mix-blend-mode: screen;
 }
 /* Soft floor bloom behind the cards. */
 .mp2__halo {
   position: absolute;
-  bottom: -160px;
+  bottom: -200px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1700px;
+  width: 1900px;
   height: 900px;
   background:
     radial-gradient(ellipse at 50% 55%,
-      hsl(180 85% 60% / .42) 0%,
-      hsl(180 80% 55% / .22) 25%,
+      hsl(180 85% 60% / .45) 0%,
+      hsl(180 80% 55% / .22) 28%,
       hsl(180 70% 45% / .08) 55%,
       transparent 80%);
-  filter: blur(120px);
+  filter: blur(130px);
   z-index: 0;
   pointer-events: none;
   mix-blend-mode: screen;
@@ -1569,17 +1569,15 @@ button { font: inherit; cursor: pointer; }
   flex-wrap: wrap;
 }
 
-/* Stage — three-card 3D cluster. Centre card is anchored
-   slightly below stage top so the two side cards can poke a
-   touch ABOVE its top edge (which is the FlowAI cluster's
-   signature look). Bottom of the centre card is allowed to
-   extend past the stage; the section's overflow:hidden crops
-   it cleanly. */
+/* Stage — three-card 3D cluster. Widened to 1800px so the
+   side cards can punch through the stage edges (extending
+   off-screen on narrower viewports like the reference). Tight
+   margin-top so the cluster sits right under the CTAs. */
 .mp2__stage {
   position: relative;
   width: 100%;
-  max-width: 1500px;
-  margin: 1rem auto 0;
+  max-width: 1800px;
+  margin: .5rem auto 0;
   height: 560px;
   perspective: 2400px;
   overflow: visible;
@@ -1622,65 +1620,76 @@ button { font: inherit; cursor: pointer; }
 
 .mp2__card--center {
   left: 50%;
-  top: 70px;
+  top: 50px;
   bottom: auto;
-  width: 58%;
-  max-width: 1120px;
-  transform: translateX(-50%) perspective(2400px) rotateX(5deg);
+  width: 64%;
+  max-width: 1300px;
+  min-width: 720px;
+  transform: translateX(-50%) perspective(2400px) rotateX(3deg);
   transform-origin: top center;
   z-index: 3;
   box-shadow:
-    0 50px 100px -18px hsl(0 0% 0% / .85),
-    0 0 110px -10px hsl(180 80% 55% / .45),
-    0 0 160px -20px hsl(180 70% 50% / .3),
-    inset 0 1px 0 hsl(180 95% 92% / .35),
+    0 55px 110px -18px hsl(0 0% 0% / .85),
+    0 0 120px -10px hsl(180 80% 55% / .5),
+    0 0 180px -20px hsl(180 70% 50% / .35),
+    inset 0 1px 0 hsl(180 95% 92% / .4),
     inset 0 40px 70px -40px hsl(180 80% 65% / .3);
 }
 .mp2__card--left {
-  left: 4%;
+  left: -4%;
   top: 0;
   bottom: auto;
-  width: 30%;
-  max-width: 500px;
-  transform: perspective(2400px) rotateX(3deg) rotateY(22deg) rotateZ(-3deg);
-  transform-origin: 90% 50%;
+  width: 38%;
+  max-width: 700px;
+  min-width: 420px;
+  transform: perspective(2400px) rotateX(2deg) rotateY(22deg) rotateZ(-3deg);
+  transform-origin: 100% 50%;
   z-index: 2;
   box-shadow:
-    0 30px 70px -15px hsl(0 0% 0% / .65),
-    0 0 60px -10px hsl(180 70% 50% / .3),
-    inset 0 1px 0 hsl(180 85% 90% / .25),
+    0 35px 80px -15px hsl(0 0% 0% / .7),
+    0 0 70px -10px hsl(180 70% 50% / .35),
+    inset 0 1px 0 hsl(180 85% 90% / .28),
     inset 0 25px 50px -25px hsl(180 60% 55% / .22);
 }
 .mp2__card--right {
-  right: 4%;
+  right: -4%;
   top: 0;
   bottom: auto;
-  width: 30%;
-  max-width: 500px;
-  transform: perspective(2400px) rotateX(3deg) rotateY(-22deg) rotateZ(3deg);
-  transform-origin: 10% 50%;
+  width: 38%;
+  max-width: 700px;
+  min-width: 420px;
+  transform: perspective(2400px) rotateX(2deg) rotateY(-22deg) rotateZ(3deg);
+  transform-origin: 0% 50%;
   z-index: 2;
   box-shadow:
-    0 30px 70px -15px hsl(0 0% 0% / .65),
-    0 0 60px -10px hsl(180 70% 50% / .3),
-    inset 0 1px 0 hsl(180 85% 90% / .25),
+    0 35px 80px -15px hsl(0 0% 0% / .7),
+    0 0 70px -10px hsl(180 70% 50% / .35),
+    inset 0 1px 0 hsl(180 85% 90% / .28),
     inset 0 25px 50px -25px hsl(180 60% 55% / .22);
 }
 
 /* Tablet */
 @media (max-width: 1023px) {
-  .mp2__stage { height: 440px; margin-top: 1rem; }
+  .mp2__stage { height: 440px; margin-top: .5rem; }
   .mp2__card--center {
-    width: 62%; max-width: 820px;
-    top: 50px;
+    width: 64%;
+    max-width: 820px;
+    min-width: 0;
+    top: 40px;
   }
   .mp2__card--left {
-    width: 34%; max-width: 420px;
-    transform: perspective(2400px) rotateX(3deg) rotateY(16deg) rotateZ(-3deg);
+    width: 38%;
+    max-width: 460px;
+    min-width: 0;
+    left: -3%;
+    transform: perspective(2400px) rotateX(2deg) rotateY(18deg) rotateZ(-3deg);
   }
   .mp2__card--right {
-    width: 34%; max-width: 420px;
-    transform: perspective(2400px) rotateX(3deg) rotateY(-16deg) rotateZ(3deg);
+    width: 38%;
+    max-width: 460px;
+    min-width: 0;
+    right: -3%;
+    transform: perspective(2400px) rotateX(2deg) rotateY(-18deg) rotateZ(3deg);
   }
 }
 

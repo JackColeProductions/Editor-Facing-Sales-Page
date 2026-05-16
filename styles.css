@@ -1289,26 +1289,26 @@ button { font: inherit; cursor: pointer; }
    All four tilt CCW ~-5° so the rail of stickers reads as one
    consistent organic hand-placed set. */
 .showcase__callout--tr {
-  top: 3%;
-  right: -2%;
+  top: -3%;
+  right: 5%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
 }
 .showcase__callout--l {
-  top: 30%;
-  left: -12%;
+  top: 36%;
+  left: -10%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
 }
 .showcase__callout--r {
-  top: 46%;
-  right: -1%;
-  transform: rotate(-5deg);
+  top: 50%;
+  right: -5%;
+  transform: rotate(5deg);
   animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
 }
 .showcase__callout--bl {
-  bottom: -12%;
-  left: 7%;
+  bottom: -6%;
+  left: 22%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
 }
@@ -1321,8 +1321,8 @@ button { font: inherit; cursor: pointer; }
   50%      { transform: translateY(-6px) rotate(-5deg); }
 }
 @keyframes showcaseCalloutFloatR {
-  0%, 100% { transform: translateY(0)   rotate(-5deg); }
-  50%      { transform: translateY(6px) rotate(-5deg); }
+  0%, 100% { transform: translateY(0)   rotate(5deg); }
+  50%      { transform: translateY(6px) rotate(5deg); }
 }
 @keyframes showcaseCalloutFloatBL {
   0%, 100% { transform: translateY(0)   rotate(-5deg); }
@@ -1339,10 +1339,10 @@ button { font: inherit; cursor: pointer; }
     min-height: 3.6rem;
     border-radius: .85rem;
   }
-  .showcase__callout--tr { top: 3%; right: 1%; }
-  .showcase__callout--l  { top: 32%; left: -4%; }
-  .showcase__callout--r  { top: 48%; right: -2%; }
-  .showcase__callout--bl { bottom: -6%; left: 6%; }
+  .showcase__callout--tr { top: -2%; right: 6%; }
+  .showcase__callout--l  { top: 38%; left: -4%; }
+  .showcase__callout--r  { top: 52%; right: -3%; }
+  .showcase__callout--bl { bottom: -4%; left: 20%; }
 }
 @media (max-width: 560px) {
   /* Phones — abandon the floating layout (overlap with the side

@@ -1288,54 +1288,59 @@ button { font: inherit; cursor: pointer; }
      bottom edge, anchored toward the LEFT third (not centred).
    All four tilt CCW ~-5° so the rail of stickers reads as one
    consistent organic hand-placed set. */
+/* Positions follow the explicit spec: each callout must
+   intersect an edge of the screenshot (never fully inside,
+   never fully detached). Rotations mirror the screenshot's
+   perspective — LEFT pills tilt CCW (-8deg), RIGHT pills tilt
+   CW (+8deg). */
 .showcase__callout--tr {
-  /* Chip overlaps the top filter-bar area of the screenshot;
-     top edge sits ~6% inside the screenshot, right edge ~5%
-     inset from the screenshot's right edge. */
-  top: 6%;
-  right: 5%;
-  transform: rotate(-5deg);
+  /* Sits ON the top edge: ~50% above, ~50% overlapping into
+     the screenshot's top filter-bar row. */
+  top: -3%;
+  right: 8%;
+  transform: rotate(8deg);
   animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
 }
 .showcase__callout--l {
-  /* Centered around 32% down, ~70% of the chip overhangs the
-     screenshot's left edge. */
-  top: 28%;
-  left: -11%;
-  transform: rotate(-5deg);
+  /* Sits ON the left edge, level with the first job listing:
+     ~70% outside, ~30% overlapping into the screenshot. */
+  top: 35%;
+  left: -10%;
+  transform: rotate(-8deg);
   animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
 }
 .showcase__callout--r {
-  /* Centered around 50% down, ~25% of the chip overhangs the
-     screenshot's right edge. */
-  top: 44%;
-  right: -3%;
-  transform: rotate(5deg);
+  /* Sits ON the right edge, level with the "Social clips and
+     YouTube" job card: ~70% outside, ~30% overlapping. */
+  top: 45%;
+  right: -8%;
+  transform: rotate(8deg);
   animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
 }
 .showcase__callout--bl {
-  /* Sits fully below the screenshot bottom edge, anchored
-     toward the left third. */
-  bottom: -12%;
+  /* Covers the "How To Workout Videos for Mens Fitness"
+     title row near the bottom of the screenshot: ~50%
+     overlapping, ~50% hanging below the bottom edge. */
+  bottom: -2%;
   left: 18%;
-  transform: rotate(-5deg);
+  transform: rotate(-8deg);
   animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
 }
 @keyframes showcaseCalloutFloatTR {
-  0%, 100% { transform: translateY(0)    rotate(-5deg); }
-  50%      { transform: translateY(-6px) rotate(-5deg); }
+  0%, 100% { transform: translateY(0)    rotate(8deg); }
+  50%      { transform: translateY(-6px) rotate(8deg); }
 }
 @keyframes showcaseCalloutFloatL {
-  0%, 100% { transform: translateY(0)    rotate(-5deg); }
-  50%      { transform: translateY(-6px) rotate(-5deg); }
+  0%, 100% { transform: translateY(0)    rotate(-8deg); }
+  50%      { transform: translateY(-6px) rotate(-8deg); }
 }
 @keyframes showcaseCalloutFloatR {
-  0%, 100% { transform: translateY(0)   rotate(5deg); }
-  50%      { transform: translateY(6px) rotate(5deg); }
+  0%, 100% { transform: translateY(0)   rotate(8deg); }
+  50%      { transform: translateY(6px) rotate(8deg); }
 }
 @keyframes showcaseCalloutFloatBL {
-  0%, 100% { transform: translateY(0)   rotate(-5deg); }
-  50%      { transform: translateY(6px) rotate(-5deg); }
+  0%, 100% { transform: translateY(0)   rotate(-8deg); }
+  50%      { transform: translateY(6px) rotate(-8deg); }
 }
 
 @media (max-width: 880px) {
@@ -1348,10 +1353,10 @@ button { font: inherit; cursor: pointer; }
     min-height: 3.6rem;
     border-radius: .85rem;
   }
-  .showcase__callout--tr { top: 5%; right: 4%; }
-  .showcase__callout--l  { top: 30%; left: -6%; }
-  .showcase__callout--r  { top: 46%; right: -2%; }
-  .showcase__callout--bl { bottom: -8%; left: 18%; }
+  .showcase__callout--tr { top: -3%; right: 5%; }
+  .showcase__callout--l  { top: 36%; left: -6%; }
+  .showcase__callout--r  { top: 46%; right: -5%; }
+  .showcase__callout--bl { bottom: -2%; left: 16%; }
 }
 @media (max-width: 560px) {
   /* Phones — abandon the floating layout (overlap with the side

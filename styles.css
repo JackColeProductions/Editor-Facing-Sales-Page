@@ -3645,6 +3645,21 @@ button { font: inherit; cursor: pointer; }
   opacity: .7;
 }
 
+.vs__bullet { min-width: 0; }
+.vs__bullet-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+.vs__bullet-why {
+  margin: .2rem 0 0;
+  font-size: .82rem;
+  line-height: 1.5;
+  color: var(--fg-dim);
+}
+.vs__bullets--faded .vs__bullet-why { color: hsl(240 5% 40%); }
+
 /* =========================================================
    FAQ — two-column premium rebuild. Atmosphere layer biased to
    the top-right (mirrors the right-column visual), grid + sparkle

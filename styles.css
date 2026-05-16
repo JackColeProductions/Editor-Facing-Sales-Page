@@ -1294,10 +1294,10 @@ button { font: inherit; cursor: pointer; }
    perspective — LEFT pills tilt CCW (-8deg), RIGHT pills tilt
    CW (+8deg). */
 .showcase__callout--tr {
-  /* Sits ON the top edge: ~50% above, ~50% overlapping into
-     the screenshot's top filter-bar row. */
+  /* Anchored well past the top-right corner — the chip hangs
+     off the right edge so only ~1/3 sits inside the screenshot. */
   top: -3%;
-  right: 8%;
+  right: -32%;
   transform: rotate(8deg);
   animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
 }
@@ -1319,10 +1319,10 @@ button { font: inherit; cursor: pointer; }
 }
 .showcase__callout--bl {
   /* Covers the "How To Workout Videos for Mens Fitness"
-     title row near the bottom of the screenshot: ~50%
-     overlapping, ~50% hanging below the bottom edge. */
+     title row near the bottom of the screenshot, pulled 5%
+     further left. */
   bottom: -2%;
-  left: 18%;
+  left: 13%;
   transform: rotate(-8deg);
   animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
 }

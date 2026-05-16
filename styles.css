@@ -1424,6 +1424,251 @@ button { font: inherit; cursor: pointer; }
   justify-content: center;
 }
 
+/* =========================================================
+   MARKETPLACE V2 — Three-card 3D stage with atmospheric
+   lighting (sits directly below the V1 showcase). Center
+   card tilts back, two side cards lean inward and tuck
+   behind the center, with a vertical light column + soft
+   god-ray streaks + radial halo + particle dust filling
+   the central column. Horizontal vignette masks the side
+   edges so the eye lands on the centre.
+   ========================================================= */
+.section.marketplace-v2 {
+  position: relative;
+  min-height: 100vh;
+  max-height: 1100px;
+  padding: 4rem 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  isolation: isolate;
+  overflow: hidden;
+  border-top: 1px dashed hsl(180 50% 50% / .15);
+}
+.marketplace-v2 > .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+}
+
+/* Atmosphere wrapper — sits behind everything, vignetted on
+   left + right so the lighting effect feels centered. */
+.mp2__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%);
+}
+.mp2__halo {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1300px;
+  height: 700px;
+  background:
+    radial-gradient(ellipse at center,
+      hsl(180 80% 55% / .22) 0%,
+      hsl(180 70% 45% / .1) 35%,
+      transparent 70%);
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+}
+.mp2__light-column {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 1000px;
+  background:
+    radial-gradient(ellipse 45% 60% at 50% 30%,
+      hsl(180 90% 75% / .5) 0%,
+      hsl(180 85% 60% / .28) 25%,
+      hsl(180 75% 45% / .12) 55%,
+      transparent 85%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+.mp2__streaks {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 90%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .75;
+  background:
+    radial-gradient(ellipse 40px 90% at 18% 50%, hsl(180 85% 75% / .14) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 95% at 32% 50%, hsl(180 90% 80% / .2)  0%, transparent 65%),
+    radial-gradient(ellipse 50px 90% at 45% 50%, hsl(180 85% 75% / .16) 0%, transparent 70%),
+    radial-gradient(ellipse 80px 100% at 50% 50%, hsl(180 95% 85% / .3) 0%, transparent 60%),
+    radial-gradient(ellipse 50px 90% at 55% 50%, hsl(180 85% 75% / .16) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 95% at 68% 50%, hsl(180 90% 80% / .2)  0%, transparent 65%),
+    radial-gradient(ellipse 40px 90% at 82% 50%, hsl(180 85% 75% / .14) 0%, transparent 70%);
+  mask-image: linear-gradient(180deg,
+    transparent 0%,
+    black 12%,
+    black 80%,
+    transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg,
+    transparent 0%,
+    black 12%,
+    black 80%,
+    transparent 100%);
+  filter: blur(14px);
+  mix-blend-mode: screen;
+}
+.mp2__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Header */
+.mp2__head {
+  text-align: center;
+  margin-bottom: 0;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 3;
+  max-width: 880px;
+}
+.mp2__head .section__title {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  line-height: 1.05;
+  margin: 1rem 0;
+  text-transform: none;
+  letter-spacing: -.02em;
+}
+.mp2__head .section__lede {
+  max-width: 580px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+.mp2__cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+/* Stage — three-card 3D composition */
+.mp2__stage {
+  position: relative;
+  width: 100%;
+  max-width: 1500px;
+  margin: 2rem auto 0;
+  height: 520px;
+  perspective: 2000px;
+  z-index: 2;
+}
+.mp2__card {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  transition: transform .4s cubic-bezier(.22, 1, .36, 1);
+}
+.mp2__card--center {
+  left: 50%;
+  bottom: 0;
+  width: 52%;
+  max-width: 780px;
+  transform: translateX(-50%) perspective(2000px) rotateX(8deg);
+  transform-origin: bottom center;
+  z-index: 3;
+  filter:
+    drop-shadow(0 40px 80px hsl(0 0% 0% / .7))
+    drop-shadow(0 0 60px hsl(180 80% 55% / .25));
+}
+.mp2__card--left {
+  left: 2%;
+  bottom: 20px;
+  width: 30%;
+  max-width: 440px;
+  transform: perspective(2000px) rotateX(6deg) rotateY(15deg) rotateZ(-4deg);
+  transform-origin: bottom right;
+  z-index: 2;
+  filter:
+    brightness(.92)
+    drop-shadow(0 25px 50px hsl(0 0% 0% / .55))
+    drop-shadow(0 0 40px hsl(180 70% 50% / .18));
+}
+.mp2__card--right {
+  right: 2%;
+  bottom: 20px;
+  width: 30%;
+  max-width: 440px;
+  transform: perspective(2000px) rotateX(6deg) rotateY(-15deg) rotateZ(4deg);
+  transform-origin: bottom left;
+  z-index: 2;
+  filter:
+    brightness(.92)
+    drop-shadow(0 25px 50px hsl(0 0% 0% / .55))
+    drop-shadow(0 0 40px hsl(180 70% 50% / .18));
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .mp2__stage { height: 440px; }
+  .mp2__card--center { width: 60%; max-width: 700px; }
+  .mp2__card--left {
+    width: 34%; max-width: 380px;
+    transform: perspective(2000px) rotateX(4deg) rotateY(8deg) rotateZ(-3deg);
+  }
+  .mp2__card--right {
+    width: 34%; max-width: 380px;
+    transform: perspective(2000px) rotateX(4deg) rotateY(-8deg) rotateZ(3deg);
+  }
+}
+
+/* Mobile — drop the 3D side cards, render the centre flat. */
+@media (max-width: 767px) {
+  .section.marketplace-v2 { min-height: auto; padding: 3.5rem 0 4rem; }
+  .mp2__stage {
+    height: auto;
+    perspective: none;
+  }
+  .mp2__card--left,
+  .mp2__card--right { display: none; }
+  .mp2__card--center {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    transform: none;
+  }
+  .mp2__light-column { width: 100%; }
+  .mp2__streaks { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mp2__card { transition: none; }
+}
+
 /* Standalone VSL section (was inline in hero) */
 /* VSL section — "stage spotlight" composition. Light descends from
    the top of the section in a soft cone, pools beneath the video,

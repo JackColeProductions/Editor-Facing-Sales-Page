@@ -1183,8 +1183,8 @@ button { font: inherit; cursor: pointer; }
 .showcase__card--left {
   top: -14%;
   left: -3%;
-  width: 31.2%;
-  max-width: 384px;
+  width: 28%;
+  max-width: 346px;
   transform: perspective(1800px) rotate(-5deg) rotateY(24deg);
   transform-origin: 100% 50%;
   animation: showcaseCardLeftFloat 7s ease-in-out infinite;

@@ -1185,7 +1185,7 @@ button { font: inherit; cursor: pointer; }
   left: -3%;
   width: 31.2%;
   max-width: 384px;
-  transform: perspective(2200px) rotate(-3deg) rotateY(18deg);
+  transform: perspective(1800px) rotate(-5deg) rotateY(24deg);
   transform-origin: 100% 50%;
   animation: showcaseCardLeftFloat 7s ease-in-out infinite;
 }
@@ -1199,8 +1199,8 @@ button { font: inherit; cursor: pointer; }
 /* Float + tilt: keep the rotateY across all keyframes so the
    card stays angled while it bobs. */
 @keyframes showcaseCardLeftFloat {
-  0%, 100% { transform: perspective(2200px) translateY(0)    rotate(-3deg) rotateY(18deg); }
-  50%      { transform: perspective(2200px) translateY(-8px) rotate(-3deg) rotateY(18deg); }
+  0%, 100% { transform: perspective(1800px) translateY(0)    rotate(-5deg) rotateY(24deg); }
+  50%      { transform: perspective(1800px) translateY(-8px) rotate(-5deg) rotateY(24deg); }
 }
 @keyframes showcaseCardRightFloat {
   0%, 100% { transform: perspective(1800px) translateY(0)   rotate(5deg) rotateY(-24deg); }

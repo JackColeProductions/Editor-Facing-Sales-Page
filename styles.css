@@ -1185,26 +1185,26 @@ button { font: inherit; cursor: pointer; }
   left: -3%;
   width: 31.2%;
   max-width: 384px;
-  transform: perspective(2400px) rotate(-5deg) rotateY(14deg);
+  transform: perspective(1800px) rotate(-5deg) rotateY(24deg);
   transform-origin: 100% 50%;
   animation: showcaseCardLeftFloat 7s ease-in-out infinite;
 }
 .showcase__card--right {
   bottom: -8%;
   right: -3%;
-  transform: perspective(2400px) rotate(5deg) rotateY(-14deg);
+  transform: perspective(1800px) rotate(5deg) rotateY(-24deg);
   transform-origin: 0% 50%;
   animation: showcaseCardRightFloat 7s ease-in-out infinite -2.5s;
 }
 /* Float + tilt: keep the rotateY across all keyframes so the
    card stays angled while it bobs. */
 @keyframes showcaseCardLeftFloat {
-  0%, 100% { transform: perspective(2400px) translateY(0)    rotate(-5deg) rotateY(14deg); }
-  50%      { transform: perspective(2400px) translateY(-8px) rotate(-5deg) rotateY(14deg); }
+  0%, 100% { transform: perspective(1800px) translateY(0)    rotate(-5deg) rotateY(24deg); }
+  50%      { transform: perspective(1800px) translateY(-8px) rotate(-5deg) rotateY(24deg); }
 }
 @keyframes showcaseCardRightFloat {
-  0%, 100% { transform: perspective(2400px) translateY(0)   rotate(5deg) rotateY(-14deg); }
-  50%      { transform: perspective(2400px) translateY(8px) rotate(5deg) rotateY(-14deg); }
+  0%, 100% { transform: perspective(1800px) translateY(0)   rotate(5deg) rotateY(-24deg); }
+  50%      { transform: perspective(1800px) translateY(8px) rotate(5deg) rotateY(-24deg); }
 }
 
 @media (max-width: 880px) {
@@ -1224,191 +1224,6 @@ button { font: inherit; cursor: pointer; }
   .showcase__card { animation: none !important; }
 }
 
-/* Floating callouts pinned around the marketplace screenshot.
-   Each label gets the yearly-pricing-card chrome: dark gradient
-   body, teal gradient stroke via a masked ::before pseudo, soft
-   cyan outer glow + a tiny rotation so they read as stickers. */
-.showcase__callout {
-  position: absolute;
-  z-index: 4;
-  width: 15.5rem;
-  min-height: 4.25rem;
-  padding: .85rem 1.1rem;
-  border-radius: .95rem;
-  background: linear-gradient(180deg, hsl(240 22% 10% / .96) 0%, hsl(240 26% 6% / .96) 100%);
-  color: hsl(0 0% 88%);
-  font-size: .88rem;
-  font-weight: 400;
-  line-height: 1.4;
-  letter-spacing: -.003em;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 1px 0 hsl(180 80% 90% / .1) inset,
-    0 20px 44px -22px hsl(0 0% 0% / .75),
-    0 0 28px -10px hsl(180 80% 55% / .22),
-    0 0 0 1px hsl(0 0% 0% / .25);
-  pointer-events: none;
-}
-.showcase__callout::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(180deg,
-    hsl(180 90% 78% / .55) 0%,
-    hsl(180 70% 55% / .35) 45%,
-    hsl(180 50% 35% / .12) 100%);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-          mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* The four positions echo image 2: top-right, right-mid, bottom-left,
-   left-mid. The two CARD images already own the TL + BR quadrants,
-   so the callouts hug the opposite corners. Light rotations make
-   them feel hand-placed instead of stenciled. */
-/* Positions match the image-2 wireframe pixel-by-pixel:
-   - "Filter by budget, type, niche." sits INSIDE the top-right
-     corner of the screenshot (over the filter bar area), not
-     floating above it.
-   - "Client pays upfront..." hangs OFF the left edge of the
-     screenshot at upper-middle height (most of the chip lives
-     outside the screenshot).
-   - "Jobs matched to your skills." hugs the right edge at
-     vertical middle.
-   - "Real budgets, attached to every job." drops below the
-     bottom edge, anchored toward the LEFT third (not centred).
-   All four tilt CCW ~-5° so the rail of stickers reads as one
-   consistent organic hand-placed set. */
-/* Positions follow the explicit spec: each callout must
-   intersect an edge of the screenshot (never fully inside,
-   never fully detached). Rotations mirror the screenshot's
-   perspective — LEFT pills tilt CCW (-8deg), RIGHT pills tilt
-   CW (+8deg). */
-.showcase__callout--tr {
-  /* Sits on the top-right edge of the screenshot, nudged 4%
-     further right than the original 8% inset. */
-  top: -3%;
-  right: 4%;
-  transform: rotate(8deg);
-  animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
-}
-.showcase__callout--l {
-  /* Sits ON the left edge, level with the first job listing:
-     ~70% outside, ~30% overlapping into the screenshot. */
-  top: 35%;
-  left: -10%;
-  transform: rotate(-8deg);
-  animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
-}
-.showcase__callout--r {
-  /* Sits ON the right edge, level with the "Social clips and
-     YouTube" job card: ~70% outside, ~30% overlapping. */
-  top: 45%;
-  right: -8%;
-  transform: rotate(8deg);
-  animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
-}
-.showcase__callout--bl {
-  /* Covers the "How To Workout Videos for Mens Fitness"
-     title row near the bottom of the screenshot, nudged 0.5%
-     further left than the original 18%. */
-  bottom: -2%;
-  left: 17.5%;
-  transform: rotate(-8deg);
-  animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
-}
-@keyframes showcaseCalloutFloatTR {
-  0%, 100% { transform: translateY(0)    rotate(8deg); }
-  50%      { transform: translateY(-6px) rotate(8deg); }
-}
-@keyframes showcaseCalloutFloatL {
-  0%, 100% { transform: translateY(0)    rotate(-8deg); }
-  50%      { transform: translateY(-6px) rotate(-8deg); }
-}
-@keyframes showcaseCalloutFloatR {
-  0%, 100% { transform: translateY(0)   rotate(8deg); }
-  50%      { transform: translateY(6px) rotate(8deg); }
-}
-@keyframes showcaseCalloutFloatBL {
-  0%, 100% { transform: translateY(0)   rotate(-8deg); }
-  50%      { transform: translateY(6px) rotate(-8deg); }
-}
-
-@media (max-width: 880px) {
-  /* Same anchor pattern as desktop but pulled in so nothing
-     drops fully off-canvas at narrower viewports. */
-  .showcase__callout {
-    font-size: .78rem;
-    padding: .65rem .85rem;
-    width: 12rem;
-    min-height: 3.6rem;
-    border-radius: .85rem;
-  }
-  .showcase__callout--tr { top: -3%; right: 5%; }
-  .showcase__callout--l  { top: 36%; left: -6%; }
-  .showcase__callout--r  { top: 46%; right: -5%; }
-  .showcase__callout--bl { bottom: -2%; left: 16%; }
-}
-@media (max-width: 560px) {
-  /* Phones — abandon the floating layout (overlap with the side
-     cards gets too tight) and stack the callouts cleanly below
-     the screenshot instead. */
-  .showcase__frame .showcase__callout { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .showcase__callout { animation: none !important; }
-}
-
-/* Mobile-only stacked fallback so the four claims still ship below
-   the screenshot on phones. */
-.showcase__callouts-mobile {
-  display: none;
-  list-style: none;
-  margin: clamp(2rem, 4vh, 2.5rem) auto 0;
-  padding: 0;
-  max-width: 420px;
-  gap: .55rem;
-}
-.showcase__callouts-mobile li {
-  display: flex;
-  align-items: flex-start;
-  gap: .55rem;
-  padding: .7rem .9rem;
-  border-radius: .8rem;
-  background: linear-gradient(180deg, hsl(240 22% 10%) 0%, hsl(240 26% 6%) 100%);
-  color: var(--fg-muted);
-  font-size: .82rem;
-  line-height: 1.35;
-  position: relative;
-}
-.showcase__callouts-mobile li::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(180deg, hsl(180 90% 70% / .6), hsl(180 50% 35% / .15));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  pointer-events: none;
-}
-@media (max-width: 560px) {
-  .showcase__callouts-mobile { display: grid; }
-}
 
 .showcase__claim {
   margin: clamp(2rem, 4vh, 2.75rem) auto 0;

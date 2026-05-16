@@ -330,6 +330,22 @@
                loading="lazy"
                decoding="async" />
 
+          <svg class="showcase__arrows" viewBox="0 0 200 100" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <marker id="showcase-arrow-head" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M 0 0.5 L 4 3 L 0 5.5" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+              </marker>
+            </defs>
+            <!-- TR "Filter by budget..." -> Budget sort filter -->
+            <path class="showcase__arrows-path" d="M162,7 C168,12 168,17 162,22" marker-end="url(#showcase-arrow-head)" />
+            <!-- L  "Client pays upfront..." -> Apply / price area on the first job card -->
+            <path class="showcase__arrows-path" d="M22,36 C70,30 120,55 145,50" marker-end="url(#showcase-arrow-head)" />
+            <!-- R  "Jobs matched..." -> "Matched for you" badge -->
+            <path class="showcase__arrows-path" d="M178,52 C160,46 145,40 130,37" marker-end="url(#showcase-arrow-head)" />
+            <!-- BL "Real budgets..." -> $600/month on the Marketing Company job card -->
+            <path class="showcase__arrows-path" d="M57,94 C95,84 130,75 158,62" marker-end="url(#showcase-arrow-head)" />
+          </svg>
+
           <span class="showcase__callout showcase__callout--tr">Filter by budget, type, niche.</span>
           <span class="showcase__callout showcase__callout--r">Jobs matched to your skills.</span>
           <span class="showcase__callout showcase__callout--bl">Real budgets, attached to every job.</span>

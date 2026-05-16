@@ -1143,6 +1143,38 @@ button { font: inherit; cursor: pointer; }
   margin: 0 auto;
 }
 
+/* Thin curved annotation arrows that link each perimeter callout
+   to its target UI feature inside the screenshot. SVG fills the
+   frame; viewBox 200x100 matches the screenshot's ~2:1 aspect so
+   the curves don't distort. vector-effect keeps stroke at 1px no
+   matter how the SVG scales. */
+.showcase__arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 3;
+  color: hsl(180 80% 70%);
+}
+.showcase__arrows-path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: .65;
+  filter: drop-shadow(0 0 3px hsl(180 80% 55% / .45));
+}
+@media (max-width: 640px) {
+  /* Floating callouts hide on phones, so the arrows go too. */
+  .showcase__arrows { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase__arrows-path { filter: none; }
+}
+
 .showcase__img {
   position: relative;
   z-index: 1;

@@ -1222,6 +1222,60 @@ button { font: inherit; cursor: pointer; }
   .showcase__card { animation: none !important; }
 }
 
+/* Callout row beneath the marketplace screenshot — 4 short value
+   props rendered as compact glassy chips with cyan check marks. */
+.showcase__callouts {
+  list-style: none;
+  margin: clamp(2.5rem, 5vh, 3.75rem) auto 0;
+  padding: 0;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .85rem;
+}
+.showcase__callouts li {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  padding: .85rem 1rem;
+  border: 1px solid hsl(0 0% 100% / .07);
+  border-radius: .9rem;
+  background: linear-gradient(180deg, hsl(240 18% 9% / .8), hsl(240 22% 6% / .85));
+  color: var(--fg-muted);
+  font-size: .88rem;
+  line-height: 1.35;
+  letter-spacing: .005em;
+}
+.showcase__callouts svg {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--primary);
+  margin-top: 1px;
+}
+@media (max-width: 880px) {
+  .showcase__callouts { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .showcase__callouts { grid-template-columns: 1fr; gap: .6rem; max-width: 420px; }
+}
+
+.showcase__claim {
+  margin: clamp(2rem, 4vh, 2.75rem) auto 0;
+  max-width: 760px;
+  text-align: center;
+  color: var(--fg-muted);
+  font-size: clamp(1rem, 1.15vw, 1.1rem);
+  line-height: 1.5;
+}
+.showcase__claim strong { color: var(--fg); font-weight: 700; }
+
+.showcase__cta {
+  margin-top: clamp(1.5rem, 3vh, 2.25rem);
+  display: flex;
+  justify-content: center;
+}
+
 /* Standalone VSL section (was inline in hero) */
 /* VSL section — "stage spotlight" composition. Light descends from
    the top of the section in a soft cone, pools beneath the video,

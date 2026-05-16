@@ -1229,21 +1229,25 @@ button { font: inherit; cursor: pointer; }
 .showcase__callout {
   position: absolute;
   z-index: 4;
-  max-width: 18ch;
-  padding: .7rem 1rem;
-  border-radius: 1rem;
-  background: linear-gradient(180deg, hsl(240 22% 10%) 0%, hsl(240 26% 6%) 100%);
-  color: var(--fg);
-  font-size: .9rem;
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -.005em;
-  text-align: left;
+  width: 15.5rem;
+  min-height: 4.25rem;
+  padding: .85rem 1.1rem;
+  border-radius: .95rem;
+  background: linear-gradient(180deg, hsl(240 22% 10% / .96) 0%, hsl(240 26% 6% / .96) 100%);
+  color: hsl(0 0% 88%);
+  font-size: .88rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -.003em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow:
-    0 1px 0 hsl(180 80% 90% / .12) inset,
-    0 24px 50px -22px hsl(0 0% 0% / .8),
-    0 0 36px -8px hsl(180 80% 55% / .3),
-    0 0 0 1px hsl(0 0% 0% / .3);
+    0 1px 0 hsl(180 80% 90% / .1) inset,
+    0 20px 44px -22px hsl(0 0% 0% / .75),
+    0 0 28px -10px hsl(180 80% 55% / .22),
+    0 0 0 1px hsl(0 0% 0% / .25);
   pointer-events: none;
 }
 .showcase__callout::before {
@@ -1251,12 +1255,11 @@ button { font: inherit; cursor: pointer; }
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1.4px;
+  padding: 1px;
   background: linear-gradient(180deg,
-    hsl(180 100% 88%) 0%,
-    hsl(180 90% 70% / .85) 25%,
-    hsl(180 70% 50% / .45) 65%,
-    hsl(180 50% 35% / .25) 100%);
+    hsl(180 90% 78% / .55) 0%,
+    hsl(180 70% 55% / .35) 45%,
+    hsl(180 50% 35% / .12) 100%);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -1293,7 +1296,6 @@ button { font: inherit; cursor: pointer; }
 .showcase__callout--l {
   top: 42%;
   left: -3%;
-  max-width: 16ch;
   transform: rotate(3deg);
   animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
 }
@@ -1316,7 +1318,13 @@ button { font: inherit; cursor: pointer; }
 
 @media (max-width: 880px) {
   /* Pull the side callouts in so they don't sit fully off-canvas. */
-  .showcase__callout { font-size: .78rem; padding: .55rem .8rem; max-width: 14ch; border-radius: .85rem; }
+  .showcase__callout {
+    font-size: .78rem;
+    padding: .65rem .85rem;
+    width: 12rem;
+    min-height: 3.6rem;
+    border-radius: .85rem;
+  }
   .showcase__callout--tr { top: -3%; right: 2%; }
   .showcase__callout--r  { top: 52%;  right: 1%; }
   .showcase__callout--bl { bottom: -4%; left: 30%; }

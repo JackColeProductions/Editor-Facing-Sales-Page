@@ -1435,7 +1435,7 @@ button { font: inherit; cursor: pointer; }
    ========================================================= */
 .section.marketplace-v2 {
   position: relative;
-  padding: 5rem 0 4rem;
+  padding: 5rem 0 5.5rem;
   isolation: isolate;
   overflow: hidden;
   border-top: 1px dashed hsl(180 50% 50% / .15);
@@ -1465,66 +1465,67 @@ button { font: inherit; cursor: pointer; }
 }
 .mp2__light-column {
   position: absolute;
-  top: 0;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
-  width: 1100px;
-  height: 1400px;
+  width: 1400px;
+  height: 900px;
   background:
-    radial-gradient(ellipse 40% 50% at 50% 25%,
-      hsl(180 95% 80% / .75) 0%,
-      hsl(180 90% 65% / .45) 20%,
-      hsl(180 80% 50% / .2) 50%,
-      hsl(180 70% 45% / .08) 75%,
+    radial-gradient(ellipse 55% 45% at 50% 55%,
+      hsl(180 95% 80% / .6) 0%,
+      hsl(180 90% 65% / .35) 22%,
+      hsl(180 80% 50% / .14) 55%,
+      hsl(180 70% 45% / .06) 80%,
       transparent 95%);
-  filter: blur(70px);
+  filter: blur(80px);
   z-index: 0;
   pointer-events: none;
   mix-blend-mode: screen;
 }
 .mp2__streaks {
   position: absolute;
-  top: 0;
+  top: 18%;
   left: 50%;
   transform: translateX(-50%);
   width: 900px;
-  height: 100%;
+  height: 75%;
   pointer-events: none;
   z-index: 1;
-  opacity: .9;
+  opacity: .5;
   background:
-    radial-gradient(ellipse 40px 90% at 18% 50%, hsl(180 90% 80% / .22) 0%, transparent 70%),
-    radial-gradient(ellipse 60px 95% at 32% 50%, hsl(180 95% 85% / .3)  0%, transparent 65%),
-    radial-gradient(ellipse 50px 90% at 45% 50%, hsl(180 90% 80% / .25) 0%, transparent 70%),
-    radial-gradient(ellipse 90px 100% at 50% 50%, hsl(180 100% 90% / .45) 0%, transparent 60%),
-    radial-gradient(ellipse 50px 90% at 55% 50%, hsl(180 90% 80% / .25) 0%, transparent 70%),
-    radial-gradient(ellipse 60px 95% at 68% 50%, hsl(180 95% 85% / .3)  0%, transparent 65%),
-    radial-gradient(ellipse 40px 90% at 82% 50%, hsl(180 90% 80% / .22) 0%, transparent 70%);
+    radial-gradient(ellipse 40px 90% at 18% 50%, hsl(180 90% 80% / .18) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 95% at 32% 50%, hsl(180 95% 85% / .22) 0%, transparent 65%),
+    radial-gradient(ellipse 50px 90% at 45% 50%, hsl(180 90% 80% / .2)  0%, transparent 70%),
+    radial-gradient(ellipse 90px 100% at 50% 50%, hsl(180 100% 90% / .32) 0%, transparent 60%),
+    radial-gradient(ellipse 50px 90% at 55% 50%, hsl(180 90% 80% / .2)  0%, transparent 70%),
+    radial-gradient(ellipse 60px 95% at 68% 50%, hsl(180 95% 85% / .22) 0%, transparent 65%),
+    radial-gradient(ellipse 40px 90% at 82% 50%, hsl(180 90% 80% / .18) 0%, transparent 70%);
   mask-image: linear-gradient(180deg,
     transparent 0%,
-    black 10%,
-    black 85%,
+    black 15%,
+    black 80%,
     transparent 100%);
   -webkit-mask-image: linear-gradient(180deg,
     transparent 0%,
-    black 10%,
-    black 85%,
+    black 15%,
+    black 80%,
     transparent 100%);
-  filter: blur(16px);
+  filter: blur(18px);
   mix-blend-mode: screen;
 }
 .mp2__halo {
   position: absolute;
-  bottom: 0;
+  bottom: -120px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1600px;
-  height: 800px;
+  width: 1700px;
+  height: 900px;
   background:
-    radial-gradient(ellipse at 50% 60%,
-      hsl(180 80% 55% / .3) 0%,
-      hsl(180 70% 45% / .12) 35%,
-      transparent 70%);
+    radial-gradient(ellipse at 50% 55%,
+      hsl(180 85% 60% / .42) 0%,
+      hsl(180 80% 55% / .22) 25%,
+      hsl(180 70% 45% / .08) 55%,
+      transparent 80%);
   filter: blur(120px);
   z-index: 0;
   pointer-events: none;
@@ -1572,13 +1573,15 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* Stage — three-card 3D composition. overflow: visible so the
-   rotated cards don't get clipped. */
+   rotated cards don't get clipped. Tighter top margin + a
+   shorter stage so the cluster sits close to the CTAs and reads
+   as one composed hero, not a floating screenshot down low. */
 .mp2__stage {
   position: relative;
   width: 100%;
-  max-width: 1400px;
-  margin: 3rem auto 0;
-  height: 640px;
+  max-width: 1500px;
+  margin: 1.5rem auto 0;
+  height: 540px;
   perspective: 2400px;
   overflow: visible;
   z-index: 2;
@@ -1621,58 +1624,58 @@ button { font: inherit; cursor: pointer; }
 .mp2__card--center {
   left: 50%;
   bottom: 0;
-  width: 60%;
-  max-width: 880px;
-  transform: translateX(-50%) perspective(2400px) rotateX(8deg);
+  width: 66%;
+  max-width: 1020px;
+  transform: translateX(-50%) perspective(2400px) rotateX(4deg);
   transform-origin: bottom center;
   z-index: 3;
   box-shadow:
-    0 40px 90px -15px hsl(0 0% 0% / .8),
-    0 0 90px -10px hsl(180 80% 55% / .4),
-    0 0 140px -20px hsl(180 70% 50% / .25),
-    inset 0 1px 0 hsl(180 95% 92% / .3),
-    inset 0 30px 60px -30px hsl(180 80% 65% / .25);
+    0 50px 100px -18px hsl(0 0% 0% / .85),
+    0 0 110px -10px hsl(180 80% 55% / .45),
+    0 0 160px -20px hsl(180 70% 50% / .3),
+    inset 0 1px 0 hsl(180 95% 92% / .35),
+    inset 0 40px 70px -40px hsl(180 80% 65% / .3);
 }
 .mp2__card--left {
   left: 0;
   bottom: 30px;
-  width: 38%;
-  max-width: 540px;
-  transform: perspective(2400px) rotateX(6deg) rotateY(15deg) rotateZ(-4deg);
-  transform-origin: 80% 100%;
+  width: 42%;
+  max-width: 600px;
+  transform: perspective(2400px) rotateX(4deg) rotateY(20deg) rotateZ(-4deg);
+  transform-origin: 90% 100%;
   z-index: 2;
   box-shadow:
-    0 25px 60px -15px hsl(0 0% 0% / .6),
-    0 0 50px -10px hsl(180 70% 50% / .25),
-    inset 0 1px 0 hsl(180 85% 90% / .22),
-    inset 0 20px 40px -20px hsl(180 60% 55% / .18);
+    0 30px 70px -15px hsl(0 0% 0% / .65),
+    0 0 60px -10px hsl(180 70% 50% / .3),
+    inset 0 1px 0 hsl(180 85% 90% / .25),
+    inset 0 25px 50px -25px hsl(180 60% 55% / .22);
 }
 .mp2__card--right {
   right: 0;
   bottom: 30px;
-  width: 38%;
-  max-width: 540px;
-  transform: perspective(2400px) rotateX(6deg) rotateY(-15deg) rotateZ(4deg);
-  transform-origin: 20% 100%;
+  width: 42%;
+  max-width: 600px;
+  transform: perspective(2400px) rotateX(4deg) rotateY(-20deg) rotateZ(4deg);
+  transform-origin: 10% 100%;
   z-index: 2;
   box-shadow:
-    0 25px 60px -15px hsl(0 0% 0% / .6),
-    0 0 50px -10px hsl(180 70% 50% / .25),
-    inset 0 1px 0 hsl(180 85% 90% / .22),
-    inset 0 20px 40px -20px hsl(180 60% 55% / .18);
+    0 30px 70px -15px hsl(0 0% 0% / .65),
+    0 0 60px -10px hsl(180 70% 50% / .3),
+    inset 0 1px 0 hsl(180 85% 90% / .25),
+    inset 0 25px 50px -25px hsl(180 60% 55% / .22);
 }
 
 /* Tablet */
 @media (max-width: 1023px) {
-  .mp2__stage { height: 500px; }
-  .mp2__card--center { width: 65%; max-width: 760px; }
+  .mp2__stage { height: 440px; margin-top: 1.25rem; }
+  .mp2__card--center { width: 70%; max-width: 780px; }
   .mp2__card--left {
-    width: 42%; max-width: 460px;
-    transform: perspective(2400px) rotateX(5deg) rotateY(10deg) rotateZ(-3deg);
+    width: 46%; max-width: 480px;
+    transform: perspective(2400px) rotateX(3deg) rotateY(14deg) rotateZ(-3deg);
   }
   .mp2__card--right {
-    width: 42%; max-width: 460px;
-    transform: perspective(2400px) rotateX(5deg) rotateY(-10deg) rotateZ(3deg);
+    width: 46%; max-width: 480px;
+    transform: perspective(2400px) rotateX(3deg) rotateY(-14deg) rotateZ(3deg);
   }
 }
 

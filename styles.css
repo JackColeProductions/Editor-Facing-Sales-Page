@@ -1275,45 +1275,51 @@ button { font: inherit; cursor: pointer; }
    left-mid. The two CARD images already own the TL + BR quadrants,
    so the callouts hug the opposite corners. Light rotations make
    them feel hand-placed instead of stenciled. */
+/* Positions echo the image-2 wireframe: Job Started card sits at
+   the very top-left, the "Client pays upfront" callout drops in
+   just below it on the left edge. Top-right corner is above the
+   screenshot. Right-side callout hugs the middle-right. Bottom
+   callout sits below the screenshot, center-left. Rotation
+   directions follow the reference. */
+.showcase__callout--l {
+  top: 22%;
+  left: -4%;
+  transform: rotate(-5deg);
+  animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
+}
 .showcase__callout--tr {
-  top: -4%;
+  top: -8%;
   right: -2%;
-  transform: rotate(4deg);
+  transform: rotate(5deg);
   animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
 }
 .showcase__callout--r {
-  top: 48%;
-  right: -5%;
-  transform: rotate(-3deg);
+  top: 52%;
+  right: -4%;
+  transform: rotate(4deg);
   animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
 }
 .showcase__callout--bl {
-  bottom: -6%;
-  left: 26%;
-  transform: rotate(-4deg);
+  bottom: -10%;
+  left: 28%;
+  transform: rotate(-5deg);
   animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
 }
-.showcase__callout--l {
-  top: 42%;
-  left: -3%;
-  transform: rotate(3deg);
-  animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
+@keyframes showcaseCalloutFloatL {
+  0%, 100% { transform: translateY(0)    rotate(-5deg); }
+  50%      { transform: translateY(-6px) rotate(-5deg); }
 }
 @keyframes showcaseCalloutFloatTR {
-  0%, 100% { transform: translateY(0)   rotate(4deg); }
-  50%      { transform: translateY(-6px) rotate(4deg); }
+  0%, 100% { transform: translateY(0)    rotate(5deg); }
+  50%      { transform: translateY(-6px) rotate(5deg); }
 }
 @keyframes showcaseCalloutFloatR {
-  0%, 100% { transform: translateY(0)   rotate(-3deg); }
-  50%      { transform: translateY(6px) rotate(-3deg); }
+  0%, 100% { transform: translateY(0)   rotate(4deg); }
+  50%      { transform: translateY(6px) rotate(4deg); }
 }
 @keyframes showcaseCalloutFloatBL {
-  0%, 100% { transform: translateY(0)   rotate(-4deg); }
-  50%      { transform: translateY(-6px) rotate(-4deg); }
-}
-@keyframes showcaseCalloutFloatL {
-  0%, 100% { transform: translateY(0)   rotate(3deg); }
-  50%      { transform: translateY(6px) rotate(3deg); }
+  0%, 100% { transform: translateY(0)   rotate(-5deg); }
+  50%      { transform: translateY(6px) rotate(-5deg); }
 }
 
 @media (max-width: 880px) {

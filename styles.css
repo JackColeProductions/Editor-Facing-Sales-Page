@@ -1275,47 +1275,54 @@ button { font: inherit; cursor: pointer; }
    left-mid. The two CARD images already own the TL + BR quadrants,
    so the callouts hug the opposite corners. Light rotations make
    them feel hand-placed instead of stenciled. */
-/* Positions echo the image-2 wireframe: Job Started card sits at
-   the very top-left, the "Client pays upfront" callout drops in
-   just below it on the left edge. Top-right corner is above the
-   screenshot. Right-side callout hugs the middle-right. Bottom
-   callout sits below the screenshot, center-left. Rotation
-   directions follow the reference. */
+/* Positions match the image-2 wireframe pixel-by-pixel:
+   - "Filter by budget, type, niche." sits INSIDE the top-right
+     corner of the screenshot (over the filter bar area), not
+     floating above it.
+   - "Client pays upfront..." hangs OFF the left edge of the
+     screenshot at upper-middle height (most of the chip lives
+     outside the screenshot).
+   - "Jobs matched to your skills." hugs the right edge at
+     vertical middle.
+   - "Real budgets, attached to every job." drops below the
+     bottom edge, anchored toward the LEFT third (not centred).
+   All four tilt CCW ~-5° so the rail of stickers reads as one
+   consistent organic hand-placed set. */
+.showcase__callout--tr {
+  top: 3%;
+  right: -2%;
+  transform: rotate(-5deg);
+  animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
+}
 .showcase__callout--l {
-  top: 22%;
-  left: -4%;
+  top: 30%;
+  left: -12%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatL 8s ease-in-out -4.5s infinite;
 }
-.showcase__callout--tr {
-  top: -8%;
-  right: -2%;
-  transform: rotate(5deg);
-  animation: showcaseCalloutFloatTR 8s ease-in-out infinite;
-}
 .showcase__callout--r {
-  top: 52%;
-  right: -4%;
-  transform: rotate(4deg);
+  top: 46%;
+  right: -1%;
+  transform: rotate(-5deg);
   animation: showcaseCalloutFloatR 7.5s ease-in-out -1.5s infinite;
 }
 .showcase__callout--bl {
-  bottom: -10%;
-  left: 28%;
+  bottom: -12%;
+  left: 7%;
   transform: rotate(-5deg);
   animation: showcaseCalloutFloatBL 8.5s ease-in-out -3s infinite;
+}
+@keyframes showcaseCalloutFloatTR {
+  0%, 100% { transform: translateY(0)    rotate(-5deg); }
+  50%      { transform: translateY(-6px) rotate(-5deg); }
 }
 @keyframes showcaseCalloutFloatL {
   0%, 100% { transform: translateY(0)    rotate(-5deg); }
   50%      { transform: translateY(-6px) rotate(-5deg); }
 }
-@keyframes showcaseCalloutFloatTR {
-  0%, 100% { transform: translateY(0)    rotate(5deg); }
-  50%      { transform: translateY(-6px) rotate(5deg); }
-}
 @keyframes showcaseCalloutFloatR {
-  0%, 100% { transform: translateY(0)   rotate(4deg); }
-  50%      { transform: translateY(6px) rotate(4deg); }
+  0%, 100% { transform: translateY(0)   rotate(-5deg); }
+  50%      { transform: translateY(6px) rotate(-5deg); }
 }
 @keyframes showcaseCalloutFloatBL {
   0%, 100% { transform: translateY(0)   rotate(-5deg); }
@@ -1323,7 +1330,8 @@ button { font: inherit; cursor: pointer; }
 }
 
 @media (max-width: 880px) {
-  /* Pull the side callouts in so they don't sit fully off-canvas. */
+  /* Same anchor pattern as desktop but pulled in so nothing
+     drops fully off-canvas at narrower viewports. */
   .showcase__callout {
     font-size: .78rem;
     padding: .65rem .85rem;
@@ -1331,10 +1339,10 @@ button { font: inherit; cursor: pointer; }
     min-height: 3.6rem;
     border-radius: .85rem;
   }
-  .showcase__callout--tr { top: -3%; right: 2%; }
-  .showcase__callout--r  { top: 52%;  right: 1%; }
-  .showcase__callout--bl { bottom: -4%; left: 30%; }
-  .showcase__callout--l  { top: 44%; left: 1%; }
+  .showcase__callout--tr { top: 3%; right: 1%; }
+  .showcase__callout--l  { top: 32%; left: -4%; }
+  .showcase__callout--r  { top: 48%; right: -2%; }
+  .showcase__callout--bl { bottom: -6%; left: 6%; }
 }
 @media (max-width: 560px) {
   /* Phones — abandon the floating layout (overlap with the side

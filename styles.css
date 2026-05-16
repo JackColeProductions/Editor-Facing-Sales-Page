@@ -1156,6 +1156,9 @@ button { font: inherit; cursor: pointer; }
   border-top-color: hsl(0 0% 100% / .06);
   box-shadow:
     0 50px 100px -20px hsl(0 0% 0% / .9);
+  /* Subtle backward tilt — top recedes, bottom comes forward. */
+  transform: perspective(2200px) rotateX(4deg);
+  transform-origin: bottom center;
 }
 
 /* Floating decorative cards over the marketplace screenshot — small

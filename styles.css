@@ -1922,6 +1922,12 @@ button { font: inherit; cursor: pointer; }
   align-items: center;
   gap: 1rem;
 }
+
+.stories__cta {
+  margin-top: clamp(1.75rem, 3vh, 2.5rem);
+  display: flex;
+  justify-content: center;
+}
 .stories__nav-btn {
   width: 52px;
   height: 52px;

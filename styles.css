@@ -225,10 +225,10 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Cap the viewport lock at 900px so the hero doesn't stretch into dead
-     space on tall desktop monitors. Short screens still get 100svh and the
-     card fan clips slightly past the bottom edge. */
-  min-height: min(100svh, 900px);
+  /* Cap viewport lock at 800px so the hero stops growing on tall desktop
+     monitors. At this size the card fan naturally extends just past the
+     bottom edge — same "slightly cut off" silhouette as a typical laptop. */
+  min-height: min(100svh, 800px);
   padding: clamp(5.5rem, 12vh, 7.5rem) 0 0;
 }
 
@@ -289,9 +289,6 @@ button { font: inherit; cursor: pointer; }
   align-items: center;
   width: 100%;
   flex: 1;
-  /* Min spacing between content block and card fan; extra space gets
-     absorbed by margin-top: auto on .hero__cards. */
-  gap: clamp(2rem, 5vh, 3.5rem);
 }
 
 .hero__content {
@@ -459,10 +456,7 @@ button { font: inherit; cursor: pointer; }
   position: relative;
   width: 100%;
   height: clamp(220px, 30vh, 280px);
-  /* Anchor the fan to the bottom of the hero so the silhouette is identical
-     across laptop and big-desktop sizes. The gap on .hero__inner enforces
-     a minimum gap under the CTA on shorter screens. */
-  margin-top: auto;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
   pointer-events: none;
 }
 

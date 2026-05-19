@@ -225,10 +225,10 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Cap viewport lock at 800px so the hero stops growing on tall desktop
-     monitors. At this size the card fan naturally extends just past the
-     bottom edge — same "slightly cut off" silhouette as a typical laptop. */
-  min-height: min(100svh, 800px);
+  /* Cap viewport lock so the hero doesn't stretch into dead space on tall
+     monitors. Paired with vw-scaled card sizing below, this produces the
+     same "slightly cut off" silhouette at every desktop resolution. */
+  min-height: min(100svh, 900px);
   padding: clamp(5.5rem, 12vh, 7.5rem) 0 0;
 }
 
@@ -447,15 +447,18 @@ button { font: inherit; cursor: pointer; }
    Job card fan (decorative, non-interactive)
    ========================================================= */
 .hero__cards {
-  --card-w: 300px;
-  --card-h: 290px;
-  --offset-near: 195px;
-  --offset-far: 390px;
+  /* Card geometry scales with viewport width so the fan reads at the same
+     relative size on a 1280px laptop and a 2560px desktop. Existing
+     max-width media queries below override these at <=1280px. */
+  --card-w: clamp(300px, 22vw, 440px);
+  --card-h: clamp(290px, 21vw, 420px);
+  --offset-near: clamp(195px, 14vw, 290px);
+  --offset-far: clamp(390px, 30vw, 600px);
   --rot-near: 6deg;
   --rot-far: 12deg;
   position: relative;
   width: 100%;
-  height: clamp(220px, 30vh, 280px);
+  height: clamp(220px, 30vh, 320px);
   margin-top: clamp(2rem, 5vh, 3.5rem);
   pointer-events: none;
 }

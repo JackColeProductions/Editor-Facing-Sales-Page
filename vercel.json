@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/go/:code",
+      "destination": "https://uploadjuice.vercel.app/track/click/:code"
+    }
+  ]
+}

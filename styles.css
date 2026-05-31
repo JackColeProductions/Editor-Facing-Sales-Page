@@ -4290,15 +4290,15 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Client page — hero title (uppercase + bold blue accent)
+   Client page — hero title (medium weight + bold italic blue accent)
    ========================================================= */
 .clients-page .hero__title {
-  text-transform: uppercase;
   font-weight: 500;
 }
-/* "not days." is the standout: bold blue against the medium-weight rest. */
+/* "not days." is the standout: bold + italic blue against the medium rest. */
 .clients-page .hero__title .grad {
   font-weight: 800;
+  font-style: italic;
 }
 
 /* =========================================================

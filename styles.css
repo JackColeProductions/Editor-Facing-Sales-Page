@@ -4300,30 +4300,69 @@ button { font: inherit; cursor: pointer; }
    .profile-setup__cards.
    ========================================================= */
 .clients-page .clients-hero-fan {
-  /* Larger card + wider spread than the .profile-setup fan so the deck
-     reads at hero scale (matches the editor hero's job-card fan footprint). */
-  --pcard-w:   clamp(205px, 22vw, 335px);
-  --pnear-x:   clamp(165px, 16.5vw, 260px);
-  --pfar-x:    clamp(320px, 31vw, 500px);
+  /* Smaller cards than v1 — the portrait screenshots were oversized and
+     the lower half (tags + Message/Invite) fell below the fold. */
+  --pcard-w:   clamp(160px, 16.5vw, 248px);
+  --pnear-x:   clamp(140px, 14.5vw, 222px);
+  --pfar-x:    clamp(270px, 28vw, 432px);
   --pnear-rot: 6deg;
   --pfar-rot:  12deg;
-  /* Shorter than the cards are tall on purpose: portrait screenshots
-     overflow the container and get clipped by .hero { overflow:hidden },
-     giving the "deck peeking up from the bottom" silhouette. */
-  height: clamp(250px, 32vh, 350px);
-  margin-top: clamp(1.5rem, 4vh, 3rem);
+  /* A gentle "deck peeking up" crop is intentional (same as the editor
+     hero), but the flattened arc below keeps ~80%+ of each card visible. */
+  height: clamp(250px, 33vh, 360px);
+  margin-top: clamp(1rem, 2.5vh, 2rem);
   max-width: var(--container);
+}
+
+/* Flatten the fan's vertical arc for the hero. The shared .profile-pic
+   keyframes push the centre card +60px down (great mid-page, too much in
+   the hero where space below the CTA is tight). Scoped keyframes here keep
+   the horizontal spread + rotation + float but pull every card up so far
+   less of each profile is clipped. Editor page keeps the originals. */
+.clients-page .clients-hero-fan .profile-pic--pos1 { animation: chFanPos1 7s ease-in-out infinite; }
+.clients-page .clients-hero-fan .profile-pic--pos2 { animation: chFanPos2 6s ease-in-out infinite -1s; }
+.clients-page .clients-hero-fan .profile-pic--pos3 { animation: chFanPos3 5.5s ease-in-out infinite -2s; }
+.clients-page .clients-hero-fan .profile-pic--pos4 { animation: chFanPos4 6s ease-in-out infinite -.5s; }
+.clients-page .clients-hero-fan .profile-pic--pos5 { animation: chFanPos5 7s ease-in-out infinite -1.5s; }
+
+@keyframes chFanPos1 {
+  0%,100% { transform: translate(-50%, -10px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+  50%     { transform: translate(-50%, -16px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+}
+@keyframes chFanPos2 {
+  0%,100% { transform: translate(-50%, 6px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
+  50%     { transform: translate(-50%, 0px) translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
+}
+@keyframes chFanPos3 {
+  0%,100% { transform: translate(-50%, 18px); }
+  50%     { transform: translate(-50%, 10px); }
+}
+@keyframes chFanPos4 {
+  0%,100% { transform: translate(-50%, 6px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
+  50%     { transform: translate(-50%, 0px) translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
+}
+@keyframes chFanPos5 {
+  0%,100% { transform: translate(-50%, -10px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
+  50%     { transform: translate(-50%, -16px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clients-page .clients-hero-fan .profile-pic--pos1 { transform: translate(-50%, -10px) translateX(calc(-1 * var(--pfar-x)))  rotate(calc(-1 * var(--pfar-rot))); }
+  .clients-page .clients-hero-fan .profile-pic--pos2 { transform: translate(-50%, 6px)   translateX(calc(-1 * var(--pnear-x))) rotate(calc(-1 * var(--pnear-rot))); }
+  .clients-page .clients-hero-fan .profile-pic--pos3 { transform: translate(-50%, 18px); }
+  .clients-page .clients-hero-fan .profile-pic--pos4 { transform: translate(-50%, 6px)   translateX(var(--pnear-x)) rotate(var(--pnear-rot)); }
+  .clients-page .clients-hero-fan .profile-pic--pos5 { transform: translate(-50%, -10px) translateX(var(--pfar-x)) rotate(var(--pfar-rot)); }
 }
 
 /* Tablet — tighten spread + tilt so all 5 cards stay in frame. */
 @media (max-width: 960px) {
   .clients-page .clients-hero-fan {
-    --pcard-w:   clamp(160px, 24vw, 220px);
-    --pnear-x:   120px;
-    --pfar-x:    235px;
+    --pcard-w:   clamp(138px, 22vw, 200px);
+    --pnear-x:   112px;
+    --pfar-x:    220px;
     --pnear-rot: 4deg;
     --pfar-rot:  8deg;
-    height: clamp(240px, 30vh, 320px);
+    height: clamp(230px, 28vh, 300px);
   }
 }
 
@@ -4331,12 +4370,12 @@ button { font: inherit; cursor: pointer; }
    the "more cards in the deck" read, same trick as the editor hero. */
 @media (max-width: 640px) {
   .clients-page .clients-hero-fan {
-    --pcard-w:   clamp(128px, 38vw, 165px);
-    --pnear-x:   54px;
-    --pfar-x:    112px;
+    --pcard-w:   clamp(118px, 36vw, 150px);
+    --pnear-x:   50px;
+    --pfar-x:    104px;
     --pnear-rot: 6deg;
     --pfar-rot:  11deg;
-    height: 300px;
-    margin-top: 1.5rem;
+    height: 280px;
+    margin-top: 1.25rem;
   }
 }

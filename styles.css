@@ -4443,3 +4443,9 @@ button { font: inherit; cursor: pointer; }
   .clients-page .profile-setup .hero__cards .job-card--pos4 { transform: translate(-50%, 30px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
   .clients-page .profile-setup .hero__cards .job-card--pos5 { transform: translate(-50%, -6px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
 }
+
+/* Pull the job-card fan up — the gap under the CTA was too large. */
+.clients-page .profile-setup .hero__cards { margin-top: -2rem; }
+@media (max-width: 640px) {
+  .clients-page .profile-setup .hero__cards { margin-top: -1rem; }
+}

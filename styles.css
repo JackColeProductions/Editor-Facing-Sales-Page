@@ -4301,7 +4301,7 @@ button { font: inherit; cursor: pointer; }
   font-style: italic;
 }
 /* A bit more breathing room under the comparison columns. */
-.clients-page .platform { padding-bottom: clamp(8rem, 14vh, 11rem); }
+.clients-page .platform { padding-bottom: clamp(6rem, 10vh, 8rem); }
 
 /* =========================================================
    Client page — hero title (medium weight + bold italic blue accent)

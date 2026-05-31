@@ -4290,16 +4290,15 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   Client page — hero title (uppercase + italic accent)
+   Client page — hero title (uppercase + bold blue accent)
    ========================================================= */
 .clients-page .hero__title {
   text-transform: uppercase;
 }
-/* "not days." rendered as a lighter italic accent inside the gradient
-   line (echoes the Active *Projects* style reference). */
-.clients-page .hero__title em {
-  font-style: italic;
-  font-weight: 600;
+/* "not days." is the standout: heaviest weight on the gradient accent so
+   it punches harder than the rest of the (already 800-weight) headline. */
+.clients-page .hero__title .grad {
+  font-weight: 900;
 }
 
 /* =========================================================

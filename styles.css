@@ -4558,7 +4558,6 @@ button { font: inherit; cursor: pointer; }
   gap: clamp(1.75rem, 4vw, 3.5rem);
   animation: workedWithScroll 45s linear infinite;
 }
-.clients-page .worked-with__marquee:hover .worked-with__track { animation-play-state: paused; }
 @keyframes workedWithScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }

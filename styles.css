@@ -4294,11 +4294,11 @@ button { font: inherit; cursor: pointer; }
    ========================================================= */
 .clients-page .hero__title {
   text-transform: uppercase;
+  font-weight: 500;
 }
-/* "not days." is the standout: heaviest weight on the gradient accent so
-   it punches harder than the rest of the (already 800-weight) headline. */
+/* "not days." is the standout: bold blue against the medium-weight rest. */
 .clients-page .hero__title .grad {
-  font-weight: 900;
+  font-weight: 800;
 }
 
 /* =========================================================

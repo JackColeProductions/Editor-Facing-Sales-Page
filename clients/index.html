@@ -1,0 +1,1564 @@
+<!doctype html>
+<!--
+  CLIENT-FACING landing page — served at /clients
+  Reuses the root design system (../styles.css) and interactions (../script.js)
+  and the shared /media assets. Section class names + ids are kept identical to
+  the editor page so all carousel / accordion / menu JS works with zero changes.
+
+  NOTE FOR JACK: placeholders to replace before going live are marked PLACEHOLDER.
+  - Client testimonials (Success Stories, Video Wins, Marquee) use stand-in copy.
+  - Pricing model + the pricing CTA URL are assumptions — confirm and update.
+  - Primary CTA copy = "Post a Job"; checkout/post URL is a placeholder.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Production+ | Hire Elite, Vetted Video Editors — Matched in Hours</title>
+    <meta name="description" content="VP+ is the gated marketplace where brands & creators get matched with vetted, elite video editors. Funded in escrow. Delivered on time. Post a job free." />
+    <meta name="author" content="Video Production+" />
+    <meta property="og:title" content="Video Production+ | Hire Elite, Vetted Video Editors" />
+    <meta property="og:description" content="Get matched with vetted, elite video editors inside our gated marketplace. Funded in escrow. Delivered on time. Post a job free." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@VideoProdPlus" />
+    <link rel="icon" type="image/png" sizes="256x256" href="../media/Plain%20Logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/Plain%20Logo.png" />
+    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="clients-page">
+    <!-- ============ NAV ============ -->
+    <header class="nav" id="top">
+      <div class="container nav__inner">
+        <a class="nav__brand" href="#top" aria-label="Video Production Plus home">
+          <img src="../media/VPP%20logo.png" alt="Video Production+" class="nav__logo" />
+        </a>
+        <nav class="nav__pill" aria-label="Primary">
+          <a href="#success-stories">Reviews</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#video-wins">Wins</a>
+          <a href="#platform">How It Works</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div class="nav__right">
+          <a class="btn btn--primary btn--glow nav__cta" href="#pricing">Post a Job</a>
+        </div>
+        <button class="nav__menu" id="navMenu" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__beam" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__glow hero__glow--1"></div>
+        <div class="hero__glow hero__glow--2"></div>
+        <div class="hero__grid"></div>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <div class="trusted-pill">
+            <div class="avatars" aria-hidden="true">
+              <span class="avatar"><img src="../media/avatar-1.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="../media/avatar-2.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="../media/avatar-3.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="../media/avatar-4.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="../media/avatar-5.jpg" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="../media/avatar-6.jpg" alt="" loading="lazy" /></span>
+            </div>
+            <span>Trusted by <strong>100+ creators</strong> worldwide</span>
+          </div>
+
+          <h1 class="hero__title">
+            Find Your Perfect<br />
+            <span class="grad grad--glow">Video Editor</span>
+          </h1>
+
+          <p class="hero__lede">
+            Connect with vetted freelance editors who specialize in your niche.<br />
+            <strong>Secure payments. Quality guaranteed.</strong>
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--xl btn--glow" href="#">
+              Browse Talent
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Editor profile-card fan — clients browse vetted editors.
+             Reuses the .profile-pic fan pattern (portrait Profile_N.png
+             screenshots) inside the hero shell, scaled up to hero
+             presence via .clients-hero-fan. Decorative / non-interactive. -->
+        <div class="hero__cards clients-hero-fan" aria-hidden="true">
+          <article class="profile-pic profile-pic--pos1">
+            <img src="../media/Profile_3.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos2">
+            <img src="../media/Profile_2.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos3 profile-pic--featured">
+            <img src="../media/Profile_1.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos4">
+            <img src="../media/Profile_4.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos5">
+            <img src="../media/Profile_5.png" alt="" loading="lazy" decoding="async" />
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats" aria-label="Marketplace stats">
+      <div class="stats__beam" aria-hidden="true"></div>
+      <div class="container stats__grid">
+        <div class="stat">
+          <span class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">600<span class="plus">+</span></div>
+            <div class="stat__label">Vetted Editors</div>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">24<span class="plus">h</span></div>
+            <div class="stat__label">Avg. Time to Match</div>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">2,500<span class="plus">+</span></div>
+            <div class="stat__label">Projects Delivered</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MARKETPLACE SHOWCASE ============ -->
+    <section class="section showcase">
+      <div class="showcase__atmosphere" aria-hidden="true">
+        <span class="showcase__beam"></span>
+        <svg class="showcase__particles" viewBox="0 0 1500 1000" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="912" cy="592" r="1.5" opacity=".49"/><circle cx="528" cy="519" r="1" opacity=".29"/><circle cx="135" cy="358" r="1" opacity=".38"/><circle cx="697" cy="169" r="1" opacity=".40"/><circle cx="1089" cy="879" r="1" opacity=".40"/><circle cx="353" cy="168" r="1" opacity=".36"/><circle cx="1230" cy="590" r="1" opacity=".29"/><circle cx="386" cy="451" r="1.5" opacity=".30"/><circle cx="1295" cy="730" r="1" opacity=".50"/><circle cx="638" cy="927" r="1.5" opacity=".41"/><circle cx="1475" cy="368" r="1" opacity=".34"/><circle cx="847" cy="346" r="1" opacity=".39"/><circle cx="33" cy="716" r="1" opacity=".44"/><circle cx="828" cy="36" r="1.5" opacity=".49"/><circle cx="688" cy="594" r="1" opacity=".43"/><circle cx="205" cy="719" r="1" opacity=".31"/><circle cx="1302" cy="453" r="1" opacity=".50"/><circle cx="166" cy="396" r="1" opacity=".47"/><circle cx="858" cy="827" r="1" opacity=".39"/><circle cx="527" cy="373" r="1.5" opacity=".30"/><circle cx="1291" cy="705" r="1" opacity=".30"/><circle cx="822" cy="224" r="1.5" opacity=".32"/><circle cx="923" cy="353" r="1.5" opacity=".49"/><circle cx="1019" cy="84" r="1" opacity=".36"/><circle cx="108" cy="918" r="1" opacity=".41"/><circle cx="618" cy="866" r="1" opacity=".46"/><circle cx="165" cy="161" r="1" opacity=".38"/><circle cx="659" cy="401" r="1.5" opacity=".49"/><circle cx="722" cy="780" r="1" opacity=".47"/><circle cx="832" cy="763" r="1.5" opacity=".31"/></svg>
+      </div>
+      <div class="container">
+        <header class="section__head showcase__head">
+          <h2 class="section__title">Inside <span class="grad">the marketplace.</span></h2>
+          <p class="section__lede">Hundreds of vetted editors. Browse, match, hire.</p>
+        </header>
+        <div class="showcase__frame">
+          <img class="showcase__card showcase__card--left"
+               src="../media/CARD_left.png"
+               alt="Job status card — escrow funded, ready to start"
+               loading="lazy"
+               decoding="async" />
+          <img class="showcase__img" src="../media/Screenshot%202026-05-10%20at%2022.34.56.png" alt="Inside the Video Production+ marketplace dashboard" loading="lazy" />
+          <img class="showcase__card showcase__card--right"
+               src="../media/CARD_right.png"
+               alt="Version history card — three previous revisions"
+               loading="lazy"
+               decoding="async" />
+        </div>
+
+        <p class="showcase__claim">
+          Real editors. Vetted portfolios. Ready to start.
+        </p>
+
+        <div class="showcase__cta">
+          <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+            Find my editor
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SUCCESS STORIES (client reviews carousel) ============ -->
+    <!-- PLACEHOLDER: replace names, photos, quotes with real client reviews -->
+    <section id="success-stories" class="section stories">
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">RESULTS</span>
+          <h2 class="section__title">Matched in <span class="grad">24 hours.</span></h2>
+          <p class="section__lede">Real brands. Real editors. Real fast.</p>
+        </header>
+
+        <div class="stories__avatars" role="tablist" aria-label="Client stories">
+          <button class="stories__avatar" type="button" data-index="0" aria-label="Faraz's story"><img src="../media/faraz-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="1" aria-label="Bavleo's story"><img src="../media/bavleo-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="2" aria-label="Caio's story"><img src="../media/caio-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="3" aria-label="Stinson's story"><img src="../media/stinson-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="4" aria-label="BabyJ's story"><img src="../media/babyj-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="5" aria-label="Weston's story"><img src="../media/weston-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="6" aria-label="Gawu's story"><img src="../media/gawu-headshot.jpg" alt="" /></button>
+        </div>
+
+        <div class="stories__carousel">
+          <article class="stories__card" data-index="0">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                1 day
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/faraz-headshot.jpg" alt="Faraz" />
+                <div>
+                  <p class="stories__person-name">Faraz</p>
+                  <p class="stories__person-title">VP+ Client</p>
+                </div>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "Posted a job and had three vetted editors to pick from within a day."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">Matched in 1 day</span>
+              <span class="stories__tag">3 editors</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="1">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                48 hrs
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/bavleo-headshot.jpg" alt="Bavleo" />
+                <div>
+                  <p class="stories__person-name">Bavleo</p>
+                  <p class="stories__person-title">VP+ Client</p>
+                </div>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "First edit back in 48 hours and it nailed the brief. No back-and-forth."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">48hr turnaround</span>
+              <span class="stories__tag">Nailed the brief</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="2">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Retainer
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/caio-headshot.jpg" alt="Caio" />
+                <div>
+                  <p class="stories__person-name">Caio</p>
+                  <p class="stories__person-title">VP+ Client</p>
+                </div>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "Found my long-term editor here. We've been working together for 8 months now."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">Ongoing retainer</span>
+              <span class="stories__tag">8 months</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="3" data-default>
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Same day
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/stinson-headshot.jpg" alt="Stinson" />
+                <div>
+                  <p class="stories__person-name">Stinson</p>
+                  <p class="stories__person-title">VP+ Client</p>
+                </div>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "Hired same day. Escrow meant I only paid once I approved the final cut."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">Same-day hire</span>
+              <span class="stories__tag">Escrow protected</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="4">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Scaled
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/babyj-headshot.jpg" alt="BabyJ" />
+                <div>
+                  <p class="stories__person-name">BabyJ</p>
+                  <p class="stories__person-title">VP+ Client</p>
+                </div>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "Went from 4 videos a month to 20. My editor scales with me."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">5x output</span>
+              <span class="stories__tag">Scaled fast</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="5">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                No risk
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/weston-headshot.jpg" alt="Weston" />
+                <div>
+                  <p class="stories__person-name">Weston</p>
+                  <p class="stories__person-title">VP+ Client</p>
+                </div>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "After getting burned on Fiverr twice, the vetting here is night and day."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">Properly vetted</span>
+              <span class="stories__tag">Zero misfires</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="6">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Easy
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/gawu-headshot.jpg" alt="Gawu" />
+                <div>
+                  <p class="stories__person-name">Gawu</p>
+                  <p class="stories__person-title">VP+ Client</p>
+                </div>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "Briefing, revisions and version history all in one place. So much simpler."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">All-in-one</span>
+              <span class="stories__tag">No email mess</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="stories__nav" aria-label="Carousel navigation">
+          <button class="stories__nav-btn" type="button" data-action="prev" aria-label="Previous story">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="stories__nav-btn" type="button" data-action="next" aria-label="Next story">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="stories__cta">
+          <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+            Post a Job
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <!-- PLACEHOLDER: confirm the client pricing model + the CTA destination URL -->
+    <section id="pricing" class="section pricing">
+      <div class="pricing__atmosphere" aria-hidden="true">
+        <div class="pricing__rays"></div>
+        <div class="pricing__sphere"></div>
+        <svg class="pricing__particles" viewBox="0 0 1500 1200" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="542" cy="1067" r="1.0" opacity="0.64"/><circle cx="1201" cy="704" r="1.0" opacity="0.30"/><circle cx="634" cy="997" r="2.0" opacity="0.42"/><circle cx="1181" cy="994" r="0.8" opacity="0.54"/><circle cx="705" cy="1045" r="1.8" opacity="0.35"/><circle cx="347" cy="1033" r="1.5" opacity="0.32"/><circle cx="447" cy="958" r="1.8" opacity="0.29"/><circle cx="711" cy="815" r="1.5" opacity="0.47"/><circle cx="1336" cy="1007" r="1.7" opacity="0.61"/><circle cx="1078" cy="1169" r="1.9" opacity="0.59"/><circle cx="628" cy="969" r="1.7" opacity="0.41"/><circle cx="766" cy="853" r="1.6" opacity="0.37"/><circle cx="592" cy="689" r="2.0" opacity="0.30"/><circle cx="1083" cy="849" r="1.8" opacity="0.28"/><circle cx="251" cy="831" r="1.6" opacity="0.27"/><circle cx="919" cy="175" r="1.4" opacity="0.64"/><circle cx="1258" cy="1122" r="1.6" opacity="0.64"/><circle cx="481" cy="573" r="1.4" opacity="0.33"/><circle cx="255" cy="777" r="1.0" opacity="0.50"/><circle cx="993" cy="761" r="1.3" opacity="0.52"/><circle cx="262" cy="851" r="1.5" opacity="0.59"/><circle cx="476" cy="1071" r="1.3" opacity="0.60"/><circle cx="868" cy="732" r="2" opacity="0.8" fill="#ffffff"/><circle cx="856" cy="812" r="2" opacity="0.8" fill="#ffffff"/><circle cx="541" cy="713" r="2" opacity="0.8" fill="#ffffff"/><circle cx="635" cy="736" r="2" opacity="0.8" fill="#ffffff"/><circle cx="677" cy="720" r="2" opacity="0.8" fill="#ffffff"/></svg>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">PRICING</span>
+          <h2 class="section__title">
+            Post for free.<br>
+            <span class="grad">Pay only when you hire.</span>
+          </h2>
+          <p class="section__lede">
+            No subscription to browse. Funds held safely in escrow.
+          </p>
+        </header>
+
+        <div class="pricing__plans">
+          <article class="pricing__plan">
+            <header class="pricing__head">
+              <h3 class="pricing__name">PAY AS YOU GO</h3>
+              <div class="pricing__price">
+                <span class="pricing__price-new">Free</span>
+                <span class="pricing__price-period">to post</span>
+              </div>
+              <p class="pricing__billing">Only pay your editor when you approve the work.</p>
+            </header>
+
+            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
+
+            <ul class="pricing__features">
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Post a job free and browse 600+ vetted editors.</p>
+                  <p class="pricing__feature-desc">So you only ever talk to editors who can actually do the work.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Matched with the right editors in hours.</p>
+                  <p class="pricing__feature-desc">So you skip weeks of sifting applications and trial edits.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Escrow payment protection on every project.</p>
+                  <p class="pricing__feature-desc">So your money is only released once you approve the final cut.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Built-in briefs, revisions &amp; version history.</p>
+                  <p class="pricing__feature-desc">So everything lives in one place — no endless email threads.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">A small platform fee on completed work.</p>
+                  <p class="pricing__feature-desc">So there's no upfront cost — you only pay when you hire.</p>
+                </div>
+              </li>
+            </ul>
+
+            <a href="#" class="pricing__cta">Post a Job</a>
+          </article>
+
+          <article class="pricing__plan pricing__plan--featured">
+            <span class="pricing__badge">FOR TEAMS</span>
+            <header class="pricing__head">
+              <h3 class="pricing__name">BUSINESS</h3>
+              <div class="pricing__price">
+                <span class="pricing__price-new">Custom</span>
+                <span class="pricing__price-period">/month</span>
+              </div>
+              <p class="pricing__billing">For brands &amp; agencies hiring at volume.</p>
+            </header>
+
+            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
+
+            <div class="pricing__includes">Everything in Pay As You Go, plus:</div>
+
+            <ul class="pricing__features">
+              <li>
+                <span class="pricing__plus" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">A dedicated account manager &amp; hand-picked matches.</p>
+                  <p class="pricing__feature-desc">So you get a shortlist of the perfect editors without lifting a finger.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__plus" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Priority access to top-rated editors &amp; team seats.</p>
+                  <p class="pricing__feature-desc">So your whole team can brief, review and approve in one workspace.</p>
+                </div>
+              </li>
+            </ul>
+
+            <a href="#" class="pricing__cta pricing__cta--featured">Talk to Sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ POST A JOB / GET MATCHED ============ -->
+    <section id="profile-setup" class="profile-setup">
+      <div class="profile-setup__bg" aria-hidden="true">
+        <div class="profile-setup__beam"></div>
+        <div class="profile-setup__glow profile-setup__glow--1"></div>
+        <div class="profile-setup__glow profile-setup__glow--2"></div>
+        <div class="profile-setup__grid"></div>
+        <svg class="profile-setup__spark" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" fill="#dffafa" aria-hidden="true">
+          <circle cx="180" cy="120" r="1.4" opacity="0.55"/>
+          <circle cx="980" cy="80"  r="1.2" opacity="0.45"/>
+          <circle cx="1100" cy="280" r="1.6" opacity="0.50"/>
+          <circle cx="60"  cy="380" r="1.0" opacity="0.40"/>
+          <circle cx="420" cy="60"  r="1.3" opacity="0.50"/>
+          <circle cx="760" cy="500" r="1.5" opacity="0.55"/>
+          <circle cx="240" cy="540" r="1.1" opacity="0.45"/>
+          <circle cx="600" cy="30"  r="1.5" opacity="0.6" fill="#ffffff"/>
+        </svg>
+      </div>
+
+      <div class="container profile-setup__inner">
+        <div class="profile-setup__content">
+          <div class="profile-setup__pill">
+            <span class="profile-setup__pill-dot"></span>
+            <span><strong>Vetted Editors</strong> Ready Today</span>
+          </div>
+
+          <h2 class="profile-setup__title">
+            Post your project.<br />
+            <span class="grad grad--glow">Get matched in hours.</span>
+          </h2>
+
+          <p class="profile-setup__lede">
+            Your perfect editor could be a single brief away.
+          </p>
+
+          <div class="profile-setup__cta">
+            <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+              Post a Job
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="profile-setup__cards" aria-label="Example editor profiles">
+          <article class="profile-pic profile-pic--pos1">
+            <img src="../media/Profile_3.png" alt="Editor profile preview — Adam" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos2">
+            <img src="../media/Profile_2.png" alt="Editor profile preview — Abhishek R" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos3 profile-pic--featured">
+            <img src="../media/Profile_1.png" alt="Editor profile preview — Valentine Fed" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos4">
+            <img src="../media/Profile_4.png" alt="Editor profile preview — Adeel Javed" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos5">
+            <img src="../media/Profile_5.png" alt="Editor profile preview — Khizer Ali" loading="lazy" decoding="async" />
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VIDEO TESTIMONIALS ============ -->
+    <!-- PLACEHOLDER: swap for real client video reviews + names/quotes -->
+    <section id="video-wins" class="section proof">
+      <div class="proof__atmosphere" aria-hidden="true">
+        <div class="proof__beam"></div>
+        <svg class="proof__particles" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="120" cy="180" r="1" opacity=".42"/><circle cx="280" cy="90" r="1" opacity=".28"/><circle cx="440" cy="220" r="1.5" opacity=".5"/><circle cx="610" cy="60" r="1" opacity=".35"/><circle cx="780" cy="180" r="1" opacity=".22"/><circle cx="940" cy="110" r="1.5" opacity=".48"/><circle cx="1110" cy="200" r="1" opacity=".3"/><circle cx="1280" cy="80" r="1" opacity=".42"/><circle cx="60" cy="360" r="1" opacity=".38"/><circle cx="380" cy="520" r="1.5" opacity=".45"/><circle cx="710" cy="510" r="1" opacity=".27"/><circle cx="1040" cy="540" r="1.5" opacity=".3"/><circle cx="1200" cy="380" r="1" opacity=".5"/><circle cx="180" cy="660" r="1" opacity=".34"/><circle cx="660" cy="690" r="1.5" opacity=".22"/><circle cx="900" cy="730" r="1" opacity=".4"/><circle cx="1380" cy="710" r="1" opacity=".44"/></svg>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">PROOF</span>
+          <h2 class="section__title">Hear it from the clients. <span class="grad">Not from us.</span></h2>
+          <p class="section__lede">
+            Real brands. Real edits. In their own words.
+          </p>
+        </header>
+
+        <div class="proof__carousel">
+          <div class="proof__track" tabindex="0" aria-label="Video testimonials">
+            <article class="proof__card" data-index="0">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/new-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Stinson</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Found my editor in a day</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="1">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/jallen-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Jallen</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Scaled to 20 videos/mo</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="2">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/juh-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Juh</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">No more bad hires</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="3">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/suleman-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Suleman</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Booked a full-time editor</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="4">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/nicko-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Nicko</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Escrow gave me peace of mind</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="5">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/riyo-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Riyo</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Best edits I've had</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="6">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/tipra-testimonial.mov" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Tipra</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Matched same day</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="7">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/sacha-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Sacha</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Found my long-term editor</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="8">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/vexa-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Vexa</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">10x'd my content output</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="9">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/joe-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Joe</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">Hired in 24 hours</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="proof__controls">
+          <div class="proof__nav-group">
+            <button class="proof__nav" type="button" data-action="prev" aria-label="Previous testimonial">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            </button>
+            <button class="proof__nav" type="button" data-action="next" aria-label="Next testimonial">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="proof__dots" role="tablist" aria-label="Carousel position">
+            <button class="proof__dot" type="button" data-index="0" aria-label="Go to testimonial 1"></button>
+            <button class="proof__dot" type="button" data-index="1" aria-label="Go to testimonial 2"></button>
+            <button class="proof__dot" type="button" data-index="2" aria-label="Go to testimonial 3"></button>
+            <button class="proof__dot" type="button" data-index="3" aria-label="Go to testimonial 4"></button>
+            <button class="proof__dot" type="button" data-index="4" aria-label="Go to testimonial 5"></button>
+            <button class="proof__dot" type="button" data-index="5" aria-label="Go to testimonial 6"></button>
+            <button class="proof__dot" type="button" data-index="6" aria-label="Go to testimonial 7"></button>
+            <button class="proof__dot" type="button" data-index="7" aria-label="Go to testimonial 8"></button>
+            <button class="proof__dot" type="button" data-index="8" aria-label="Go to testimonial 9"></button>
+            <button class="proof__dot" type="button" data-index="9" aria-label="Go to testimonial 10"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PLATFORM / HOW IT WORKS ============ -->
+    <section id="platform" class="section platform">
+      <div class="platform__atmosphere" aria-hidden="true">
+        <div class="platform__top-glow"></div>
+        <div class="platform__halo"></div>
+        <div class="platform__light-column"></div>
+        <div class="platform__streaks"></div>
+        <svg class="platform__particles" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="838" cy="523" r="1.6" opacity="0.57"/><circle cx="620" cy="238" r="1.5" opacity="0.20"/><circle cx="141" cy="316" r="0.9" opacity="0.55"/><circle cx="368" cy="146" r="1.0" opacity="0.52"/><circle cx="871" cy="643" r="1.6" opacity="0.48"/><circle cx="349" cy="574" r="1.7" opacity="0.56"/><circle cx="1087" cy="674" r="0.7" opacity="0.45"/><circle cx="136" cy="316" r="1.8" opacity="0.61"/><circle cx="1258" cy="475" r="1.8" opacity="0.50"/><circle cx="208" cy="799" r="1.1" opacity="0.44"/><circle cx="1210" cy="435" r="1.3" opacity="0.56"/><circle cx="426" cy="683" r="1.4" opacity="0.59"/><circle cx="929" cy="418" r="1.1" opacity="0.61"/><circle cx="1409" cy="602" r="1.6" opacity="0.49"/><circle cx="698" cy="693" r="0.8" opacity="0.57"/><circle cx="919" cy="366" r="1.5" opacity="0.50"/><circle cx="264" cy="185" r="1.9" opacity="0.52"/><circle cx="1130" cy="684" r="1.7" opacity="0.57"/><circle cx="731" cy="397" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="818" cy="386" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="689" cy="438" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="707" cy="459" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="804" cy="428" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="675" cy="528" r="1.8" opacity="0.8" fill="#ffffff"/></svg>
+      </div>
+
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">HOW IT WORKS</span>
+          <h2 class="section__title">
+            Never gamble on a random freelancer again.<br>
+            <span class="grad">We bring vetted editors to you.</span>
+          </h2>
+          <p class="section__lede">
+            VP+ is where serious brands find editors they can trust.
+          </p>
+          <div class="platform__cta-row">
+            <a class="btn btn--primary btn--glow" href="#pricing">Post a Job</a>
+          </div>
+        </header>
+
+        <div class="vs">
+          <article class="vs__card">
+            <h3 class="vs__card-title">VP+ Marketplace</h3>
+            <ul class="vs__bullets">
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Every editor is vetted &amp; portfolio-reviewed.</p>
+                  <p class="vs__bullet-why">So you never gamble on an unproven random again.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Funds held in escrow. Pay only when you approve.</p>
+                  <p class="vs__bullet-why">So your money is protected from the first brief to final delivery.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Matched in hours, not weeks of sifting applications.</p>
+                  <p class="vs__bullet-why">So you get straight to a shortlist of editors who fit your brief.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Briefs, revisions &amp; version history in one place.</p>
+                  <p class="vs__bullet-why">So nothing gets lost in messy email and DM threads.</p>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <aside class="vs__faded">
+            <h3 class="vs__faded-title">Hiring Elsewhere</h3>
+            <ul class="vs__bullets vs__bullets--faded">
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Sifting hundreds of applications from unvetted freelancers.</p>
+                  <p class="vs__bullet-why">Hours of your week gone before you've even seen one good edit.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Paying upfront and hoping the work turns up.</p>
+                  <p class="vs__bullet-why">No protection if it's late, off-brief, or never arrives at all.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Getting ghosted mid-project with no recourse.</p>
+                  <p class="vs__bullet-why">Back to square one, with a deadline that's now even closer.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Endless back-and-forth over files and revisions.</p>
+                  <p class="vs__bullet-why">Versions scattered across email, WeTransfer and Google Drive.</p>
+                </div>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS MARQUEE ============ -->
+    <!-- PLACEHOLDER: replace with real client quotes -->
+    <section id="testimonials" class="section testimonials">
+      <div class="testimonials__frame">
+        <div class="testimonials__corner-glow" aria-hidden="true"></div>
+        <div class="testimonials__grid-bg" aria-hidden="true"></div>
+        <svg class="testimonials__sparkles" viewBox="0 0 500 400" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
+            <circle cx="40"  cy="30"  r="1.2" fill="#b8f5f0" opacity="0.80"/>
+            <circle cx="120" cy="40"  r="1.5" fill="#b8f5f0" opacity="0.90"/>
+            <circle cx="150" cy="80"  r="1.0" fill="#b8f5f0" opacity="0.70"/>
+            <circle cx="95"  cy="130" r="1.3" fill="#b8f5f0" opacity="0.75"/>
+            <circle cx="230" cy="95"  r="1.1" fill="#b8f5f0" opacity="0.65"/>
+            <circle cx="140" cy="170" r="1.0" fill="#b8f5f0" opacity="0.60"/>
+            <circle cx="280" cy="110" r="0.9" fill="#b8f5f0" opacity="0.50"/>
+            <circle cx="200" cy="250" r="0.6" fill="#b8f5f0" opacity="0.35"/>
+        </svg>
+
+        <div class="container">
+          <header class="section__head testimonials__head">
+            <span class="kicker">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 7h4v4H8c0 2 1 3 3 3v2c-3 0-4-2-4-5V7zm9 0h4v4h-3c0 2 1 3 3 3v2c-3 0-4-2-4-5V7z"/></svg>
+              TESTIMONIALS
+            </span>
+            <h2 class="section__title">
+              From bad hires to<br />
+              <span class="grad">editors they trust.</span>
+            </h2>
+            <p class="section__lede">
+              Brands &amp; creators who stopped gambling on freelancers.
+            </p>
+          </header>
+        </div>
+
+        <div class="testimonials__marquee">
+            <div class="testimonials__row testimonials__row--ltr">
+              <div class="testimonials__track">
+                <!-- Set A -->
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Kostya-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Kostya</p>
+                    <p class="testimonials__role">VP+ Client · Matched in 1 day</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Had three vetted editors to choose from within a day of posting."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/T...-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">T…</p>
+                    <p class="testimonials__role">VP+ Client · Long-form</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"My editor gets my style now. First cut is basically the final cut."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/sokky-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">sokyy</p>
+                    <p class="testimonials__role">VP+ Client · Same-day hire</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Hired same day and the escrow flow made it completely painless."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Stinson-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Stinson</p>
+                    <p class="testimonials__role">VP+ Client · Retainer</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Found a full-time editor here. Best hiring decision I've made this year."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Sam-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Sam</p>
+                    <p class="testimonials__role">VP+ Client · 5x output</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Went from 4 videos a month to 20. My editor scales with me."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Julian-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Julian</p>
+                    <p class="testimonials__role">VP+ Client · No more bad hires</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"The vetting is the difference. No more rolling the dice on randoms."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Mohammad-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Mohamed</p>
+                    <p class="testimonials__role">VP+ Client · 48hr turnaround</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"First edit back in 48 hours and it nailed the brief."</p>
+              </article>
+              <!-- Set B (duplicate, aria-hidden) -->
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Kostya-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Kostya</p>
+                    <p class="testimonials__role">VP+ Client · Matched in 1 day</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Had three vetted editors to choose from within a day of posting."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/T...-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">T…</p>
+                    <p class="testimonials__role">VP+ Client · Long-form</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"My editor gets my style now. First cut is basically the final cut."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/sokky-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">sokyy</p>
+                    <p class="testimonials__role">VP+ Client · Same-day hire</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Hired same day and the escrow flow made it completely painless."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Stinson-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Stinson</p>
+                    <p class="testimonials__role">VP+ Client · Retainer</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Found a full-time editor here. Best hiring decision I've made this year."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Sam-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Sam</p>
+                    <p class="testimonials__role">VP+ Client · 5x output</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Went from 4 videos a month to 20. My editor scales with me."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Julian-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Julian</p>
+                    <p class="testimonials__role">VP+ Client · No more bad hires</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"The vetting is the difference. No more rolling the dice on randoms."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Mohammad-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Mohamed</p>
+                    <p class="testimonials__role">VP+ Client · 48hr turnaround</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"First edit back in 48 hours and it nailed the brief."</p>
+              </article>
+              </div>
+            </div>
+
+            <div class="testimonials__row testimonials__row--rtl">
+              <div class="testimonials__track">
+                <!-- Set A -->
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/sophie-pic.jpeg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">sophiemahdoul</p>
+                    <p class="testimonials__role">VP+ Client · First hire</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"My first hire here delivered better than editors I'd paid 3x for."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/riley-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Riley</p>
+                    <p class="testimonials__role">VP+ Client · Peace of mind</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Escrow meant I never paid for work I hadn't approved. Game changer."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Lev-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Lev</p>
+                    <p class="testimonials__role">VP+ Client · 2 hires</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Hired two editors for different niches. Both were spot on."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/James-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">James</p>
+                    <p class="testimonials__role">VP+ Client · Time saved</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Saved me a week of interviewing. Just got matched and went."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Milana-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Milana</p>
+                    <p class="testimonials__role">VP+ Client</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"The quality of editors on here is just a different league."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Gopi-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Gopi</p>
+                    <p class="testimonials__role">VP+ Client · Scaled content</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Finally have a reliable editor so I can post every single day."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Frab-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">frablasi</p>
+                    <p class="testimonials__role">VP+ Client · Stress-free</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"No chasing, no ghosting. It just works."</p>
+              </article>
+              <!-- Set B (duplicate, aria-hidden) -->
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/sophie-pic.jpeg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">sophiemahdoul</p>
+                    <p class="testimonials__role">VP+ Client · First hire</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"My first hire here delivered better than editors I'd paid 3x for."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/riley-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Riley</p>
+                    <p class="testimonials__role">VP+ Client · Peace of mind</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Escrow meant I never paid for work I hadn't approved. Game changer."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Lev-pic.png" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Lev</p>
+                    <p class="testimonials__role">VP+ Client · 2 hires</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Hired two editors for different niches. Both were spot on."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/James-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">James</p>
+                    <p class="testimonials__role">VP+ Client · Time saved</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Saved me a week of interviewing. Just got matched and went."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Milana-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Milana</p>
+                    <p class="testimonials__role">VP+ Client</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"The quality of editors on here is just a different league."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Gopi-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Gopi</p>
+                    <p class="testimonials__role">VP+ Client · Scaled content</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Finally have a reliable editor so I can post every single day."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" src="../media/Frab-pic.jpg" alt="" loading="lazy" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">frablasi</p>
+                    <p class="testimonials__role">VP+ Client · Stress-free</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"No chasing, no ghosting. It just works."</p>
+              </article>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- ============ VSL ============ -->
+    <section class="section vsl-section">
+      <div class="vsl-section__atmosphere" aria-hidden="true">
+        <div class="vsl-section__hex"></div>
+        <div class="vsl-section__ray vsl-section__ray--left"></div>
+        <div class="vsl-section__ray vsl-section__ray--left-core"></div>
+        <div class="vsl-section__ray vsl-section__ray--right"></div>
+        <div class="vsl-section__ray vsl-section__ray--right-core"></div>
+        <div class="vsl-section__source vsl-section__source--left" aria-hidden="true"></div>
+        <div class="vsl-section__source vsl-section__source--right" aria-hidden="true"></div>
+        <div class="vsl-section__pool"></div>
+        <svg class="vsl-section__particles" viewBox="0 0 1500 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <circle cx="180" cy="160" r="0.6" fill="#b8f5f0" opacity="0.30"/>
+          <circle cx="340" cy="320" r="0.7" fill="#b8f5f0" opacity="0.32"/>
+          <circle cx="500" cy="260" r="0.8" fill="#b8f5f0" opacity="0.35"/>
+          <circle cx="720" cy="220" r="0.9" fill="#ffffff" opacity="0.55"/>
+          <circle cx="860" cy="360" r="0.8" fill="#b8f5f0" opacity="0.35"/>
+          <circle cx="1000" cy="220" r="0.7" fill="#b8f5f0" opacity="0.30"/>
+          <circle cx="1240" cy="360" r="0.7" fill="#b8f5f0" opacity="0.28"/>
+          <circle cx="780" cy="620" r="0.6" fill="#b8f5f0" opacity="0.22"/>
+          <circle cx="1100" cy="540" r="0.6" fill="#b8f5f0" opacity="0.22"/>
+        </svg>
+      </div>
+
+      <div class="container">
+        <header class="section__head vsl-section__head">
+          <h2 class="section__title">Why I built <span class="grad">VP+.</span></h2>
+          <p class="section__lede">From Jack Cole, founder of VP+.</p>
+        </header>
+        <div class="vsl">
+          <div class="vsl__header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            </svg>
+            <span>Sound on.</span>
+          </div>
+          <div class="vsl__frame">
+            <video class="vsl__video" controls preload="metadata" playsinline poster="../media/vsl-poster.jpg" src="../media/Marketplace%20VSL%20v1222.mp4"></video>
+          </div>
+        </div>
+
+        <div class="vsl__cta">
+          <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+            Post a Job
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section id="faq" class="section faq">
+      <div class="faq__atmosphere" aria-hidden="true">
+        <div class="faq__grid-bg"></div>
+        <div class="faq__corner-glow"></div>
+        <svg class="faq__sparkles" viewBox="0 0 500 400" preserveAspectRatio="xMaxYMin meet" aria-hidden="true">
+          <circle cx="460" cy="30"  r="1.4" fill="#b8f5f0" opacity="0.75"/>
+          <circle cx="380" cy="40"  r="1.5" fill="#ffffff" opacity="0.85"/>
+          <circle cx="350" cy="80"  r="1.0" fill="#b8f5f0" opacity="0.6"/>
+          <circle cx="405" cy="130" r="1.3" fill="#b8f5f0" opacity="0.65"/>
+          <circle cx="270" cy="95"  r="1.1" fill="#b8f5f0" opacity="0.55"/>
+          <circle cx="360" cy="170" r="1.0" fill="#b8f5f0" opacity="0.5"/>
+          <circle cx="220" cy="110" r="0.9" fill="#b8f5f0" opacity="0.4"/>
+          <circle cx="300" cy="250" r="0.6" fill="#b8f5f0" opacity="0.25"/>
+        </svg>
+      </div>
+
+      <div class="container">
+        <header class="section__head faq__head">
+          <span class="kicker">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            FAQ
+          </span>
+          <h2 class="section__title">
+            Questions <span class="grad">Clients Ask</span>
+          </h2>
+          <p class="section__lede">
+            Everything you need to know before posting your first job.
+          </p>
+        </header>
+
+        <div class="faq__layout">
+          <div class="faq__left">
+            <div class="faq__social-proof">
+              <div class="faq__avatars" aria-hidden="true">
+                <img class="faq__avatar" src="../media/avatar-1.jpg" alt="" loading="lazy" />
+                <img class="faq__avatar" src="../media/avatar-2.jpg" alt="" loading="lazy" />
+                <img class="faq__avatar" src="../media/avatar-3.jpg" alt="" loading="lazy" />
+                <div class="faq__avatar-count">+2,500</div>
+              </div>
+              <div class="faq__rating">
+                <div class="faq__stars" aria-label="Rated 4.9 out of 5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                </div>
+                <span class="faq__rating-text"><strong>4.9/5</strong> from 2,500+ clients</span>
+              </div>
+            </div>
+
+            <div class="faq__accordion">
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How are the editors vetted?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Every editor is portfolio-reviewed and rated on real, completed projects. You only ever see editors with a proven track record on the platform.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How much does it cost to post a job?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Posting a job and browsing editors is free. You only pay your editor's rate when you hire, plus a small platform fee on completed work.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How does escrow / payment protection work?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>You fund the project into escrow up front, but the money is only released to the editor once you approve the final delivery. Your funds are protected the whole way through.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How fast will I get matched?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Most clients have qualified editors applying within hours of posting. The average time to match is under 24 hours.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What if I'm not happy with the work?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Revisions are built into every project, and because funds sit in escrow until you approve, you're never paying for work that doesn't meet the brief.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What types of editors are on VP+?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Short form, long form, YouTube, ads, documentary, real estate, ecom, education and more — across every niche and budget.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Can I hire for ongoing / retainer work?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Absolutely. Many clients start with a one-off project and convert their editor into a monthly retainer. You can hire for both right from the start.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Do I have to manage files and revisions myself?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>No. Briefs, file delivery, revisions and version history all live inside the platform — no scattered email threads or lost links.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <div class="faq__right">
+            <div class="faq__visual">
+              <img src="../media/Group-Shot.png" alt="VP+ community group shot" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section id="apply" class="section cta">
+      <div class="container cta__inner card">
+        <div class="cta__atmosphere" aria-hidden="true">
+          <div class="cta__hex"></div>
+          <div class="cta__glow cta__glow--top"></div>
+          <div class="cta__glow cta__glow--bottom"></div>
+          <svg class="cta__sparkles" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <circle cx="120" cy="80"  r="0.8" fill="#b8f5f0" opacity="0.55"/>
+            <circle cx="320" cy="60"  r="1.0" fill="#ffffff" opacity="0.65"/>
+            <circle cx="420" cy="180" r="0.7" fill="#b8f5f0" opacity="0.4"/>
+            <circle cx="620" cy="40"  r="0.9" fill="#b8f5f0" opacity="0.5"/>
+            <circle cx="820" cy="90"  r="0.7" fill="#b8f5f0" opacity="0.4"/>
+            <circle cx="1020" cy="60" r="0.5" fill="#b8f5f0" opacity="0.3"/>
+            <circle cx="380" cy="480" r="0.8" fill="#b8f5f0" opacity="0.4"/>
+            <circle cx="700" cy="500" r="1.0" fill="#ffffff" opacity="0.6"/>
+            <circle cx="1000" cy="460" r="0.7" fill="#b8f5f0" opacity="0.4"/>
+          </svg>
+        </div>
+        <span class="kicker">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ONE LAST THING
+        </span>
+        <h2 class="cta__title">No more wasted weeks vetting freelancers. <span class="grad">Get matched with your editor today.</span></h2>
+        <p class="cta__lede">Post a job and have vetted editors applying in hours.</p>
+        <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+          Post a Job
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+        <p class="cta__fineprint">Free to post. Pay only when you hire.</p>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <a class="footer__logo" href="#top" aria-label="Video Production+ home">
+            <img src="../media/VPP%20logo.png" alt="Video Production+" />
+          </a>
+          <p class="footer__tagline">
+            The gated marketplace connecting brands &amp; creators
+            with elite, vetted video editors.
+          </p>
+          <div class="footer__socials">
+            <a class="footer__social" href="#" aria-label="X (Twitter)" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="YouTube" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26.5 26.5 0 0 0 2 12a26.5 26.5 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26.5 26.5 0 0 0 22 12a26.5 26.5 0 0 0-.4-4.8ZM10 15.02V8.98L15.2 12 10 15.02Z"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="Discord" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.07.07 0 0 0-.073.035c-.21.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.07.07 0 0 0-.073-.034 19.74 19.74 0 0 0-4.885 1.515.06.06 0 0 0-.03.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.07.07 0 0 0 .077-.027c.462-.63.873-1.295 1.226-1.994a.07.07 0 0 0-.038-.097 13.1 13.1 0 0 1-1.872-.892.07.07 0 0 1-.008-.118c.126-.094.252-.192.372-.292a.07.07 0 0 1 .072-.01c3.927 1.793 8.18 1.793 12.062 0a.07.07 0 0 1 .073.009c.12.1.246.198.373.293a.07.07 0 0 1-.006.118c-.598.349-1.22.645-1.872.892a.07.07 0 0 0-.038.097c.36.7.77 1.363 1.225 1.993a.07.07 0 0 0 .077.028 19.84 19.84 0 0 0 6.002-3.03.08.08 0 0 0 .032-.055c.5-5.177-.838-9.674-3.548-13.66a.06.06 0 0 0-.03-.028ZM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.212 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.212 0 2.176 1.095 2.157 2.418 0 1.334-.945 2.419-2.157 2.419Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__heading">Explore</h4>
+          <ul class="footer__nav">
+            <li><a href="#success-stories">Reviews</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#video-wins">Wins</a></li>
+            <li><a href="#platform">How It Works</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__heading">For Clients</h4>
+          <ul class="footer__nav">
+            <li><a href="#pricing">Post a Job</a></li>
+            <li><a href="#">Browse editors</a></li>
+            <li><a href="/">For editors</a></li>
+            <li><a href="mailto:hello@videoproductionplus.com">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__cta">
+          <span class="footer__cta-eyebrow">
+            <span class="footer__cta-dot" aria-hidden="true"></span>
+            Vetted editors, ready today
+          </span>
+          <h3 class="footer__cta-title">Find your editor.</h3>
+          <a class="btn btn--primary btn--glow footer__cta-btn" href="#pricing">
+            Post a Job
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="container footer__bottom-inner">
+          <span>© <span id="year"></span> Video Production+. All rights reserved.</span>
+          <nav class="footer__legal-links" aria-label="Legal">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+  </body>
+</html>

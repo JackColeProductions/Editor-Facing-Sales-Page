@@ -4288,3 +4288,55 @@ button { font: inherit; cursor: pointer; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* =========================================================
+   Client page — hero profile-card fan
+   Scoped to .clients-page so the editor hero is untouched.
+   The hero swaps the text job-cards for the portrait editor
+   profile screenshots, reusing the proven .profile-pic fan
+   (positions + float keyframes + featured glow) but scaled up
+   to hero presence and feeding the --pcard-w / --p*-x / --p*-rot
+   vars off the .clients-hero-fan container instead of
+   .profile-setup__cards.
+   ========================================================= */
+.clients-page .clients-hero-fan {
+  /* Larger card + wider spread than the .profile-setup fan so the deck
+     reads at hero scale (matches the editor hero's job-card fan footprint). */
+  --pcard-w:   clamp(205px, 22vw, 335px);
+  --pnear-x:   clamp(165px, 16.5vw, 260px);
+  --pfar-x:    clamp(320px, 31vw, 500px);
+  --pnear-rot: 6deg;
+  --pfar-rot:  12deg;
+  /* Shorter than the cards are tall on purpose: portrait screenshots
+     overflow the container and get clipped by .hero { overflow:hidden },
+     giving the "deck peeking up from the bottom" silhouette. */
+  height: clamp(250px, 32vh, 350px);
+  margin-top: clamp(1.5rem, 4vh, 3rem);
+  max-width: var(--container);
+}
+
+/* Tablet — tighten spread + tilt so all 5 cards stay in frame. */
+@media (max-width: 960px) {
+  .clients-page .clients-hero-fan {
+    --pcard-w:   clamp(160px, 24vw, 220px);
+    --pnear-x:   120px;
+    --pfar-x:    235px;
+    --pnear-rot: 4deg;
+    --pfar-rot:  8deg;
+    height: clamp(240px, 30vh, 320px);
+  }
+}
+
+/* Phones — compact overlapping fan; far cards spill past the edge for
+   the "more cards in the deck" read, same trick as the editor hero. */
+@media (max-width: 640px) {
+  .clients-page .clients-hero-fan {
+    --pcard-w:   clamp(128px, 38vw, 165px);
+    --pnear-x:   54px;
+    --pfar-x:    112px;
+    --pnear-rot: 6deg;
+    --pfar-rot:  11deg;
+    height: 300px;
+    margin-top: 1.5rem;
+  }
+}

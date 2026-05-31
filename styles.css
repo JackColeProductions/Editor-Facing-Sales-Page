@@ -4295,6 +4295,15 @@ button { font: inherit; cursor: pointer; }
 .clients-page .hero__title {
   font-weight: 500;
 }
+
+/* Microcopy under a pricing CTA (e.g. "30-minute call."). */
+.clients-page .pricing__note {
+  margin: .85rem 0 0;
+  text-align: center;
+  color: var(--fg-dim);
+  font-size: .82rem;
+  letter-spacing: .005em;
+}
 /* "not days." is the standout: bold + italic blue against the medium rest. */
 .clients-page .hero__title .grad {
   font-weight: 800;

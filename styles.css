@@ -4514,7 +4514,12 @@ button { font: inherit; cursor: pointer; }
   opacity: .5;
   pointer-events: none;
 }
-.clients-page .worked-with::before { top: 0; }
+.clients-page .worked-with::before {
+  top: 0;
+  /* Harder, brighter separator above the band. */
+  background: linear-gradient(90deg, transparent, hsl(180 74% 63% / .6) 50%, transparent);
+  opacity: .95;
+}
 .clients-page .worked-with::after { bottom: 0; }
 
 /* Transparent wrapper — no box; the section band carries the atmosphere. */

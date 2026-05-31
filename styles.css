@@ -4299,6 +4299,33 @@ button { font: inherit; cursor: pointer; }
    vars off the .clients-hero-fan container instead of
    .profile-setup__cards.
    ========================================================= */
+/* Hero dual CTA — primary glow + ghost secondary, paired as pills. */
+.clients-page .hero__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .9rem;
+}
+.clients-page .hero__cta .btn--ghost.btn--xl {
+  border-radius: 999px;
+  background: hsl(240 15% 8% / .55);
+  border-color: hsl(0 0% 100% / .14);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.clients-page .hero__cta .btn--ghost.btn--xl:hover {
+  background: hsl(240 15% 11% / .7);
+  border-color: hsl(180 74% 63% / .5);
+  color: var(--fg);
+}
+@media (max-width: 640px) {
+  .clients-page .hero__cta .btn--ghost.btn--xl {
+    padding: .95rem 1.6rem;
+    font-size: .98rem;
+  }
+}
+
 .clients-page .clients-hero-fan {
   /* Smaller cards than v1 — the portrait screenshots were oversized and
      the lower half (tags + Message/Invite) fell below the fold. */

@@ -4290,6 +4290,19 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* =========================================================
+   Client page — hero title (uppercase + italic accent)
+   ========================================================= */
+.clients-page .hero__title {
+  text-transform: uppercase;
+}
+/* "not days." rendered as a lighter italic accent inside the gradient
+   line (echoes the Active *Projects* style reference). */
+.clients-page .hero__title em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* =========================================================
    Client page — hero profile-card fan
    Scoped to .clients-page so the editor hero is untouched.
    The hero swaps the text job-cards for the portrait editor

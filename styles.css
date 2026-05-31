@@ -4289,14 +4289,16 @@ button { font: inherit; cursor: pointer; }
   html { scroll-behavior: auto; }
 }
 
-/* How It Works headline — hero treatment: sentence case + medium weight,
-   with a bold italic blue accent on "a coin flip." (the rest of the
-   client section titles stay uppercase/800). */
-.clients-page .platform .section__title {
+/* Hero-treatment section titles — sentence case + medium weight with a
+   bold italic blue accent (How It Works + Pricing). Other client section
+   titles stay uppercase/800. */
+.clients-page .platform .section__title,
+.clients-page .pricing .section__title {
   text-transform: none;
   font-weight: 500;
 }
-.clients-page .platform .section__title .grad {
+.clients-page .platform .section__title .grad,
+.clients-page .pricing .section__title .grad {
   font-weight: 800;
   font-style: italic;
 }

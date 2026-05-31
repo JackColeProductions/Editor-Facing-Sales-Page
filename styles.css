@@ -4494,34 +4494,40 @@ button { font: inherit; cursor: pointer; }
    (same language as the testimonials marquee). Set A + Set B duplicate
    in the markup, so translating the track -50% loops seamlessly.
    ========================================================= */
-.clients-page .worked-with { padding: clamp(2.5rem, 6vh, 4.5rem) 0; overflow: hidden; }
-
-/* Luminous frame so the marquee reads as a deliberate, on-brand block
-   instead of avatars floating on black. */
-.clients-page .worked-with__frame {
+/* Full-bleed band — no boxed border. Integrates via a soft centre glow +
+   thin hairline seams top & bottom (same language as the stats / showcase
+   sections) so it flows into the page instead of sitting on top of it. */
+.clients-page .worked-with {
   position: relative;
+  padding: clamp(3rem, 6.5vh, 5rem) 0;
   overflow: hidden;
-  border-radius: var(--radius-xl);
-  border: 1px solid hsl(180 50% 60% / .16);
-  background:
-    radial-gradient(ellipse at 50% -10%, hsl(180 74% 63% / .1), transparent 60%),
-    linear-gradient(180deg, hsl(240 15% 9%), hsl(240 16% 6%));
-  box-shadow:
-    0 30px 70px -30px hsl(0 0% 0% / .7),
-    0 0 60px -24px hsl(180 70% 50% / .35),
-    inset 0 1px 0 hsl(180 80% 85% / .1);
-  padding: clamp(1.75rem, 4vh, 2.75rem) 0;
+  background: radial-gradient(ellipse 55% 65% at 50% 42%, hsl(180 74% 63% / .07), transparent 70%);
 }
-/* Soft teal halo bleeding down from the top edge. */
+.clients-page .worked-with::before,
+.clients-page .worked-with::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(180 74% 63% / .22) 50%, transparent);
+  opacity: .5;
+  pointer-events: none;
+}
+.clients-page .worked-with::before { top: 0; }
+.clients-page .worked-with::after { bottom: 0; }
+
+/* Transparent wrapper — no box; the section band carries the atmosphere. */
+.clients-page .worked-with__frame { position: relative; }
 .clients-page .worked-with__glow {
   position: absolute;
-  top: -40%;
+  top: -60%;
   left: 50%;
   transform: translateX(-50%);
-  width: 70%;
-  height: 80%;
-  background: radial-gradient(ellipse at center, hsl(180 74% 63% / .22), transparent 65%);
-  filter: blur(50px);
+  width: 80%;
+  height: 120%;
+  background: radial-gradient(ellipse at center, hsl(160 76% 56% / .12), transparent 65%);
+  filter: blur(60px);
   pointer-events: none;
   z-index: 0;
 }

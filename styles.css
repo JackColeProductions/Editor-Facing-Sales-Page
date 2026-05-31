@@ -4400,3 +4400,46 @@ button { font: inherit; cursor: pointer; }
     margin-top: 1.25rem;
   }
 }
+
+/* =========================================================
+   Client page — "Post your project" job-card fan arc
+   The job-card fan reuses the editor hero's .job-card--posN float
+   keyframes, which arc UPWARD (centre raised, edges drop). Here we flip
+   it to a DOWNWARD arc (centre dips lowest, edges ride high) to match the
+   profile-card fan composition. Scoped to the profile-setup section so the
+   editor hero's job-card fan keeps its original upward arc.
+   ========================================================= */
+.clients-page .profile-setup .hero__cards .job-card--pos1 { animation: psFanPos1 7s ease-in-out infinite; }
+.clients-page .profile-setup .hero__cards .job-card--pos2 { animation: psFanPos2 6s ease-in-out infinite -1s; }
+.clients-page .profile-setup .hero__cards .job-card--pos3 { animation: psFanPos3 5s ease-in-out infinite -2s; }
+.clients-page .profile-setup .hero__cards .job-card--pos4 { animation: psFanPos4 6s ease-in-out infinite -.5s; }
+.clients-page .profile-setup .hero__cards .job-card--pos5 { animation: psFanPos5 7s ease-in-out infinite -1.5s; }
+
+@keyframes psFanPos1 {
+  0%,100% { transform: translate(-50%, -6px)  translateX(calc(-1 * var(--offset-far)))  rotate(calc(-1 * var(--rot-far))); }
+  50%     { transform: translate(-50%, -14px) translateX(calc(-1 * var(--offset-far)))  rotate(calc(-1 * var(--rot-far))); }
+}
+@keyframes psFanPos2 {
+  0%,100% { transform: translate(-50%, 30px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
+  50%     { transform: translate(-50%, 22px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
+}
+@keyframes psFanPos3 {
+  0%,100% { transform: translate(-50%, 60px); }
+  50%     { transform: translate(-50%, 52px); }
+}
+@keyframes psFanPos4 {
+  0%,100% { transform: translate(-50%, 30px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
+  50%     { transform: translate(-50%, 22px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
+}
+@keyframes psFanPos5 {
+  0%,100% { transform: translate(-50%, -6px)  translateX(var(--offset-far)) rotate(var(--rot-far)); }
+  50%     { transform: translate(-50%, -14px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clients-page .profile-setup .hero__cards .job-card--pos1 { transform: translate(-50%, -6px) translateX(calc(-1 * var(--offset-far)))  rotate(calc(-1 * var(--rot-far))); }
+  .clients-page .profile-setup .hero__cards .job-card--pos2 { transform: translate(-50%, 30px) translateX(calc(-1 * var(--offset-near))) rotate(calc(-1 * var(--rot-near))); }
+  .clients-page .profile-setup .hero__cards .job-card--pos3 { transform: translate(-50%, 60px); }
+  .clients-page .profile-setup .hero__cards .job-card--pos4 { transform: translate(-50%, 30px) translateX(var(--offset-near)) rotate(var(--rot-near)); }
+  .clients-page .profile-setup .hero__cards .job-card--pos5 { transform: translate(-50%, -6px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
+}

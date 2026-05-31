@@ -4455,3 +4455,35 @@ button { font: inherit; cursor: pointer; }
   .clients-page .profile-setup { padding-bottom: calc(clamp(5rem, 10vh, 7.5rem) + 1rem); }
   .clients-page .profile-setup .hero__cards { margin-top: -1rem; }
 }
+
+/* Floating "600+ Editors Inside" pill over the FAQ image. */
+.clients-page .faq__visual .faq__badge {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .5rem .95rem;
+  border-radius: 999px;
+  border: 1px solid hsl(180 74% 63% / .35);
+  background: hsl(240 20% 6% / .72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 8px 26px -10px hsl(0 0% 0% / .7),
+    inset 0 1px 0 hsl(0 0% 100% / .08);
+  font-size: .82rem;
+  letter-spacing: .01em;
+  color: var(--fg-muted);
+}
+.clients-page .faq__visual .faq__badge strong { color: var(--fg); font-weight: 700; }
+.clients-page .faq__visual .faq__badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(160 76% 56%);
+  box-shadow: 0 0 12px hsl(160 76% 56% / .9), 0 0 0 4px hsl(160 76% 56% / .15);
+  animation: profilePillPulse 2.4s ease-in-out infinite;
+}

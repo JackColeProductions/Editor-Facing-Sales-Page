@@ -4444,8 +4444,14 @@ button { font: inherit; cursor: pointer; }
   .clients-page .profile-setup .hero__cards .job-card--pos5 { transform: translate(-50%, -6px) translateX(var(--offset-far)) rotate(var(--rot-far)); }
 }
 
-/* Pull the job-card fan up — the gap under the CTA was too large. */
+/* Pull the job-card fan up — the gap under the CTA was too large. The
+   negative margin shortens the section, so add the same amount back to
+   padding-bottom to keep the section's overall height unchanged. */
+.clients-page .profile-setup {
+  padding-bottom: calc(clamp(5rem, 10vh, 7.5rem) + 2rem);
+}
 .clients-page .profile-setup .hero__cards { margin-top: -2rem; }
 @media (max-width: 640px) {
+  .clients-page .profile-setup { padding-bottom: calc(clamp(5rem, 10vh, 7.5rem) + 1rem); }
   .clients-page .profile-setup .hero__cards { margin-top: -1rem; }
 }

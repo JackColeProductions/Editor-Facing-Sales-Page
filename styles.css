@@ -4495,7 +4495,39 @@ button { font: inherit; cursor: pointer; }
    in the markup, so translating the track -50% loops seamlessly.
    ========================================================= */
 .clients-page .worked-with { padding: clamp(2.5rem, 6vh, 4.5rem) 0; overflow: hidden; }
+
+/* Luminous frame so the marquee reads as a deliberate, on-brand block
+   instead of avatars floating on black. */
+.clients-page .worked-with__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border: 1px solid hsl(180 50% 60% / .16);
+  background:
+    radial-gradient(ellipse at 50% -10%, hsl(180 74% 63% / .1), transparent 60%),
+    linear-gradient(180deg, hsl(240 15% 9%), hsl(240 16% 6%));
+  box-shadow:
+    0 30px 70px -30px hsl(0 0% 0% / .7),
+    0 0 60px -24px hsl(180 70% 50% / .35),
+    inset 0 1px 0 hsl(180 80% 85% / .1);
+  padding: clamp(1.75rem, 4vh, 2.75rem) 0;
+}
+/* Soft teal halo bleeding down from the top edge. */
+.clients-page .worked-with__glow {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 80%;
+  background: radial-gradient(ellipse at center, hsl(180 74% 63% / .22), transparent 65%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
 .clients-page .worked-with__eyebrow {
+  position: relative;
+  z-index: 1;
   margin: 0 0 2rem;
   text-align: center;
   color: var(--fg-muted);
@@ -4503,6 +4535,8 @@ button { font: inherit; cursor: pointer; }
   letter-spacing: .02em;
 }
 .clients-page .worked-with__marquee {
+  position: relative;
+  z-index: 1;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);

@@ -1,0 +1,524 @@
+/* =========================================================
+   /tipra landing page — page-specific styles.
+   Loaded AFTER the shared styles.css. Everything here is scoped
+   to .tipra-page so the shared design system and every other
+   route stay untouched. Reuses the shared design tokens only.
+   ========================================================= */
+
+/* Sentence-case section headlines on this page (the brief copy is
+   sentence case). Mirrors the existing `.showcase .section__title`
+   precedent in styles.css. */
+.tipra-page .section__title {
+  text-transform: none;
+  letter-spacing: -.025em;
+}
+
+/* =========================================================
+   1 — HERO (VSL)
+   ========================================================= */
+.tipra-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+.tipra-hero__title {
+  max-width: 16ch;
+}
+.tipra-hero__lede {
+  max-width: 56ch;
+  margin: 0 auto;
+  color: var(--fg-muted);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.5;
+}
+
+/* VSLPlayer — 16:9 frame (reuses .vsl__frame) + poster + play overlay */
+.tipra-vsl {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  margin: .5rem auto 0;
+}
+.tipra-vsl__frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid hsl(180 74% 63% / .25);
+  box-shadow:
+    0 0 0 1px hsl(0 0% 100% / .03) inset,
+    0 30px 80px -30px hsl(0 0% 0% / .85),
+    0 0 60px -12px hsl(180 74% 63% / .4);
+}
+.tipra-vsl__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.tipra-vsl__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+.tipra-vsl__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(64px, 8vw, 88px);
+  height: clamp(64px, 8vw, 88px);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid hsl(180 74% 80% / .5);
+  background: var(--primary);
+  color: hsl(240 20% 4%);
+  cursor: pointer;
+  box-shadow: 0 10px 40px -6px hsl(180 74% 63% / .65);
+  transition: transform .15s ease, box-shadow .25s ease, background .2s ease;
+}
+.tipra-vsl__play svg { width: 38%; height: 38%; margin-left: 6%; }
+.tipra-vsl__play:hover {
+  background: var(--primary-2);
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 16px 50px -6px hsl(180 74% 63% / .8);
+}
+.tipra-vsl.is-playing .tipra-vsl__play,
+.tipra-vsl.is-playing .tipra-vsl__poster { display: none; }
+
+.tipra-hero__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .8rem;
+  margin-top: .25rem;
+}
+.tipra-hero__microcopy {
+  margin: 0;
+  color: var(--fg-dim);
+  font-size: .85rem;
+}
+
+/* Floating job cards peeking at the bottom (reused .hero__cards fan, faded) */
+.tipra-hero__floats { margin-top: clamp(1.5rem, 4vh, 2.75rem); }
+.tipra-hero__floats .job-card { opacity: .5; }
+.tipra-hero__floats .job-card--pos3 { opacity: .62; }
+@media (max-width: 640px) {
+  /* Drop the fan on phones — keep the fold quiet (headline, video, button). */
+  .tipra-hero__floats { display: none; }
+}
+
+/* =========================================================
+   2 — THE PROBLEM
+   ========================================================= */
+.tipra-problem__list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.tipra-problem__list li {
+  position: relative;
+  padding-left: 1.75rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.4;
+  color: hsl(0 0% 92%);
+}
+.tipra-problem__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: .6rem;
+  height: .6rem;
+  border-radius: 999px;
+  background: var(--coral);
+  box-shadow: 0 0 14px -2px hsl(0 72% 71% / .7);
+}
+.tipra-problem__close {
+  max-width: 760px;
+  margin: 2.75rem auto 0;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--fg);
+  text-wrap: balance;
+}
+
+/* =========================================================
+   3 — THE TURN
+   ========================================================= */
+.tipra-turn__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .tipra-turn__grid { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+}
+.tipra-turn__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse at 30% 20%, hsl(180 74% 63% / .12), transparent 60%),
+    linear-gradient(180deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.tipra-turn__photo-tag {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--fg-dim);
+  border: 1px dashed hsl(180 74% 63% / .35);
+  padding: .5rem .9rem;
+  border-radius: 999px;
+}
+.tipra-turn__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tipra-turn__body .kicker { align-self: flex-start; }
+.tipra-turn__body .section__title { text-align: left; }
+.tipra-turn__body p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+.tipra-turn__body p strong { color: var(--fg); font-weight: 700; }
+
+/* =========================================================
+   5 — THE MARKETPLACE (job-card grid + profiles)
+   ========================================================= */
+/* Neutralise the absolute fan positioning so cards flow in a grid. */
+.tipra-jobs .job-card,
+.tipra-upgrade__jobs-row .job-card {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: auto;
+  height: auto;
+  transform: none;
+  animation: none;
+  opacity: 1;
+  will-change: auto;
+}
+.tipra-jobs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1.1rem;
+  margin: 0 auto clamp(2rem, 5vw, 3.25rem);
+  max-width: 1100px;
+}
+.tipra-market__frame { margin-top: 0; }
+.tipra-market__support {
+  max-width: 640px;
+  margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
+  text-align: center;
+  color: var(--fg-muted);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+/* Profiles row */
+.tipra-profiles .profile-pic {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: auto;
+  transform: none;
+  animation: none;
+}
+.tipra-profiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem;
+  max-width: 760px;
+  margin: clamp(2rem, 5vw, 3rem) auto 0;
+}
+.tipra-profiles .profile-pic img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+.tipra-profiles__name {
+  position: absolute;
+  left: .65rem;
+  bottom: .6rem;
+  z-index: 2;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--fg);
+  background: hsl(240 20% 4% / .65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.tipra-profiles__badge {
+  position: absolute;
+  right: .6rem;
+  top: .6rem;
+  z-index: 2;
+  padding: .22rem .55rem;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--mint);
+  background: hsl(160 76% 56% / .14);
+  border: 1px solid hsl(160 76% 56% / .4);
+}
+@media (max-width: 640px) {
+  .tipra-profiles { grid-template-columns: 1fr 1fr; max-width: 440px; }
+  .tipra-profiles .profile-pic:last-child { grid-column: 1 / -1; max-width: 50%; margin: 0 auto; }
+}
+
+.tipra-cta-row {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+/* =========================================================
+   6 — THE EDIT UPGRADE
+   ========================================================= */
+.tipra-upgrade__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.75rem, 4vw, 3.25rem);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .tipra-upgrade__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+}
+.tipra-upgrade__clip {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse at 70% 30%, hsl(160 76% 56% / .14), transparent 60%),
+    linear-gradient(135deg, var(--card-2), var(--card));
+  border: 1px solid hsl(180 74% 63% / .22);
+  box-shadow: var(--shadow-card), 0 0 60px -16px hsl(180 74% 63% / .35);
+  display: grid;
+  grid-auto-flow: column;
+  place-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  overflow: hidden;
+}
+.tipra-upgrade__clip-from,
+.tipra-upgrade__clip-to {
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+.tipra-upgrade__clip-from { color: var(--fg-dim); }
+.tipra-upgrade__clip-to {
+  background: linear-gradient(90deg, hsl(180 74% 63%), hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.tipra-upgrade__clip-arrow { font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--primary); }
+.tipra-upgrade__clip-tag {
+  position: absolute;
+  bottom: .75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--fg-dim);
+  border: 1px dashed hsl(180 74% 63% / .35);
+  padding: .35rem .7rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.tipra-upgrade__body { display: flex; flex-direction: column; gap: 1rem; }
+.tipra-upgrade__body p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+.tipra-upgrade__body em { color: var(--fg); font-style: italic; }
+.tipra-upgrade__jobs { margin-top: .5rem; }
+.tipra-upgrade__caption {
+  display: inline-block;
+  margin-bottom: .6rem;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+.tipra-upgrade__jobs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .9rem;
+}
+.tipra-upgrade__jobs-row .job-card { font-size: .74rem; padding: .9rem .95rem; }
+@media (max-width: 480px) {
+  .tipra-upgrade__jobs-row { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   9 — WHO THIS IS FOR (for / not-for)
+   ========================================================= */
+.tipra-fit__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+@media (min-width: 800px) {
+  .tipra-fit__grid { grid-template-columns: 1fr 1fr; }
+}
+.tipra-fit__col {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  box-shadow: var(--shadow-card);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+}
+.tipra-fit__col--for {
+  border-color: hsl(160 76% 56% / .35);
+  box-shadow: var(--shadow-card), 0 0 50px -18px hsl(160 76% 56% / .5);
+}
+.tipra-fit__title {
+  margin: 0 0 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.tipra-fit__col--for .tipra-fit__title { color: var(--mint); }
+.tipra-fit__col--not .tipra-fit__title { color: var(--fg-dim); }
+.tipra-fit__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+.tipra-fit__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--fg-muted);
+}
+.tipra-fit__col--not .tipra-fit__list li { opacity: .8; }
+.tipra-fit__mark {
+  flex: 0 0 auto;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 800;
+  margin-top: .05rem;
+}
+.tipra-fit__mark--yes {
+  color: var(--mint);
+  background: hsl(160 76% 56% / .14);
+  border: 1px solid hsl(160 76% 56% / .4);
+}
+.tipra-fit__mark--no {
+  color: var(--coral);
+  background: hsl(0 72% 71% / .12);
+  border: 1px solid hsl(0 72% 71% / .35);
+}
+
+/* =========================================================
+   11 — GUARANTEE
+   ========================================================= */
+.tipra-guarantee { padding: 0 0 clamp(2rem, 5vw, 3.5rem); }
+.tipra-guarantee__banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .8rem;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid hsl(160 76% 56% / .35);
+  background: hsl(160 76% 56% / .07);
+  text-align: center;
+}
+.tipra-guarantee__banner + .tipra-guarantee__banner { margin-top: 1rem; }
+.tipra-guarantee__banner--strong {
+  border-color: hsl(180 74% 63% / .4);
+  background: hsl(180 74% 63% / .08);
+}
+.tipra-guarantee__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--mint);
+}
+.tipra-guarantee__banner--strong .tipra-guarantee__icon { color: var(--primary); }
+.tipra-guarantee__icon svg { width: 100%; height: 100%; }
+.tipra-guarantee__text {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* =========================================================
+   14 — FOOTER — Tipra social slots
+   ========================================================= */
+.footer__socials--tipra {
+  margin-top: 1rem;
+  align-items: center;
+}
+.footer__socials-label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-right: .35rem;
+}
+
+/* =========================================================
+   Reduced motion — kill the floating-card animation we reuse
+   in the hero for users who ask for less motion.
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .tipra-hero__floats .job-card { animation: none !important; }
+}

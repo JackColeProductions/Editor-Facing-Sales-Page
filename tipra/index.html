@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Production+ | The Gated Marketplace for Elite Video Editors</title>
-    <meta name="description" content="VP+ is the exclusive gated freelance marketplace where high-paying clients come to you. Zero outreach. Premium projects. Join 600+ elite video editors." />
-    <meta name="author" content="Video Production+" />
-    <meta property="og:title" content="Video Production+ | The Gated Marketplace for Elite Video Editors" />
-    <meta property="og:description" content="VP+ is the exclusive gated freelance marketplace where high-paying clients come to you. Zero outreach. Premium projects. Join 600+ elite video editors." />
+    <title>Tipra — Stop chasing clients. Start getting chosen.</title>
+    <meta name="description" content="Editors are landing $1,000–$3,500/month clients without sending a single cold DM. Get good enough to get chosen, and get where the clients already are — inside the VP+ marketplace." />
+    <meta name="author" content="Tipra · Video Production+" />
+    <meta property="og:title" content="Tipra — Stop chasing clients. Start getting chosen." />
+    <meta property="og:description" content="Editors are landing $1,000–$3,500/month clients without sending a single cold DM. Get good enough to get chosen, and get where the clients already are." />
     <meta property="og:type" content="website" />
+    <!-- TODO: OG image — swap for a real 1200x630 share image for the Tipra page. -->
+    <meta property="og:image" content="../media/Plain%20Logo.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@VideoProdPlus" />
     <link rel="icon" type="image/png" sizes="256x256" href="../media/Plain%20Logo.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="../media/Plain%20Logo.png" />
     <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="tipra.css" />
     <!-- Meta (Facebook) Pixel Code -->
     <script>
       !function(f,b,e,v,n,t,s)
@@ -32,22 +35,22 @@
       src="https://www.facebook.com/tr?id=1210831334403824&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel Code -->
   </head>
-  <body>
-    <!-- ============ NAV ============ -->
+  <body class="tipra-page">
+    <!-- ============ NAV (reused .nav) ============ -->
     <header class="nav" id="top">
       <div class="container nav__inner">
         <a class="nav__brand" href="#top" aria-label="Video Production Plus home">
           <img src="../media/VPP%20logo.png" alt="Video Production+" class="nav__logo" />
         </a>
         <nav class="nav__pill" aria-label="Primary">
-          <a href="#success-stories">Stories</a>
+          <a href="#turn">How it works</a>
+          <a href="#marketplace">Marketplace</a>
+          <a href="#proof">Proof</a>
           <a href="#pricing">Pricing</a>
-          <a href="#video-wins">Wins</a>
-          <a href="#platform">VP+ Way</a>
           <a href="#faq">FAQ</a>
         </nav>
         <div class="nav__right">
-          <a class="btn btn--primary btn--glow nav__cta" href="#pricing">Give Me Access</a>
+          <a class="btn btn--primary btn--glow nav__cta" data-cta href="https://checkout.videoproduction.plus/premium-intro">Give Me Access</a>
         </div>
         <button class="nav__menu" id="navMenu" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -55,8 +58,14 @@
       </div>
     </header>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero">
+    <main>
+    <!-- ============ 1 — HERO (VSL) ============ -->
+    <!--
+      A/B headline alternates for future testing:
+      - "The clients are already here. You just can't see them yet."
+      - "How average editors become the first pick for high-paying clients."
+    -->
+    <section class="hero tipra-hero" aria-label="Tipra — stop chasing clients">
       <div class="hero__beam" aria-hidden="true"></div>
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__glow hero__glow--1"></div>
@@ -64,55 +73,361 @@
         <div class="hero__grid"></div>
       </div>
 
-      <div class="container hero__inner">
-        <div class="hero__content">
-          <div class="trusted-pill">
-            <div class="avatars" aria-hidden="true">
-              <span class="avatar"><img src="../media/avatar-1.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="../media/avatar-2.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="../media/avatar-3.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="../media/avatar-4.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="../media/avatar-5.jpg" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="../media/avatar-6.jpg" alt="" loading="lazy" /></span>
-            </div>
-            <span>Trusted by <strong>600+ editors</strong> worldwide</span>
+      <div class="container tipra-hero__inner">
+        <div class="trusted-pill">
+          <div class="avatars" aria-hidden="true">
+            <span class="avatar"><img src="../media/avatar-1.jpg" alt="" loading="lazy" /></span>
+            <span class="avatar"><img src="../media/avatar-2.jpg" alt="" loading="lazy" /></span>
+            <span class="avatar"><img src="../media/avatar-3.jpg" alt="" loading="lazy" /></span>
+            <span class="avatar"><img src="../media/avatar-4.jpg" alt="" loading="lazy" /></span>
+            <span class="avatar"><img src="../media/avatar-5.jpg" alt="" loading="lazy" /></span>
+            <span class="avatar"><img src="../media/avatar-6.jpg" alt="" loading="lazy" /></span>
           </div>
+          <span>Trusted by <strong>600+ editors</strong> worldwide</span>
+        </div>
 
-          <h1 class="hero__title">
-            Stop chasing clients.<br />
-            <span class="grad grad--glow">Start picking them.</span>
-          </h1>
+        <h1 class="hero__title tipra-hero__title">
+          Stop chasing clients.<br />
+          <span class="grad grad--glow">Start getting chosen.</span>
+        </h1>
 
-          <p class="hero__lede">
-            Connect directly with high-ticket clients inside our gated marketplace.
-          </p>
+        <p class="hero__lede tipra-hero__lede">
+          Press play. I'll show you how editors are landing $1,000–$3,500/month
+          clients without sending a single cold DM. (2 min)
+        </p>
 
-          <div class="hero__cta">
-            <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
-              Give Me Access
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
-            </a>
+        <!-- VSLPlayer: lazy poster + centered play button.
+             TODO: VSL embed — set data-embed to Tipra's YouTube/Vimeo/Wistia URL.
+             Until then it falls back to the native VSL in data-video. -->
+        <div class="tipra-vsl" data-vsl data-embed="" data-video="../media/Marketplace%20VSL%20v1222.mp4">
+          <div class="vsl__frame tipra-vsl__frame">
+            <img class="tipra-vsl__poster" src="../media/vsl-poster.jpg" alt="Watch Tipra's 2 minute video" loading="lazy" decoding="async" />
+            <button class="tipra-vsl__play" type="button" aria-label="Play the video">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7,4 21,12 7,20"/></svg>
+            </button>
           </div>
         </div>
 
-        <!-- Job card fan -->
-        <div class="hero__cards" aria-hidden="false">
-          <article class="job-card job-card--pos1">
+        <div class="tipra-hero__cta">
+          <a class="btn btn--primary btn--xl btn--glow" data-cta href="https://checkout.videoproduction.plus/premium-intro">
+            Give Me Access
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+          <p class="tipra-hero__microcopy">New jobs posted every single day · Cancel anytime</p>
+        </div>
+      </div>
+
+      <!-- Floating job cards peeking above the fold (reused .hero__cards fan, faded) -->
+      <div class="hero__cards tipra-hero__floats" aria-hidden="true">
+        <article class="job-card job-card--pos2">
+          <header class="job-card__head">
+            <div class="job-card__title-block">
+              <h3 class="job-card__title">Poker / Sports Editor</h3>
+              <div class="job-card__meta">
+                <span class="job-card__avatar" style="--av:#e4669b">M</span>
+                <span>Marin Ivanov</span>
+                <span class="job-card__dot">·</span>
+                <span>Retainer</span>
+              </div>
+            </div>
+          </header>
+          <div class="job-card__price-row">
+            <span class="job-card__price">$1,500<span class="job-card__price-unit">/month</span></span>
+          </div>
+          <div class="job-card__tags">
+            <span class="tag tag--cyan">LONG FORM</span>
+            <span class="tag tag--violet">Entertainment</span>
+            <span class="tag tag--cyan">Sound Design</span>
+          </div>
+          <p class="job-card__desc">Skilled editor for long-form Poker and Sports content…</p>
+        </article>
+
+        <article class="job-card job-card--pos3 job-card--featured">
+          <header class="job-card__head">
+            <div class="job-card__title-block">
+              <h3 class="job-card__title">Full Time Editor</h3>
+              <div class="job-card__meta">
+                <span class="job-card__avatar" style="--av:#5cb1ff">G</span>
+                <span>Gage Andrews</span>
+                <span class="job-card__dot">·</span>
+                <span>Retainer</span>
+              </div>
+            </div>
+          </header>
+          <div class="job-card__price-row">
+            <span class="job-card__price">$2,500<span class="job-card__price-unit">/month</span></span>
+          </div>
+          <div class="job-card__tags">
+            <span class="tag tag--cyan">LONG FORM</span>
+            <span class="tag tag--cyan">SHORT FORM</span>
+            <span class="tag tag--violet">Real Estate</span>
+          </div>
+          <p class="job-card__desc">Editor who understands Real Estate, Ecom, and Education…</p>
+        </article>
+
+        <article class="job-card job-card--pos4">
+          <header class="job-card__head">
+            <div class="job-card__title-block">
+              <h3 class="job-card__title">Vanlife Editor</h3>
+              <div class="job-card__meta">
+                <span class="job-card__avatar" style="--av:#3ad29f">S</span>
+                <span>Sami S</span>
+                <span class="job-card__dot">·</span>
+                <span>One-Off</span>
+              </div>
+            </div>
+          </header>
+          <div class="job-card__price-row">
+            <span class="job-card__price">$1,000</span>
+          </div>
+          <div class="job-card__tags">
+            <span class="tag tag--cyan">LONG FORM</span>
+            <span class="tag tag--violet">Travel</span>
+            <span class="tag tag--violet">Documentary</span>
+          </div>
+          <p class="job-card__desc">YouTube long form + short form editing for a Travel brand…</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 2 — THE PROBLEM ============ -->
+    <section class="section tipra-problem" id="problem">
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">SOUND FAMILIAR?</span>
+          <h2 class="section__title">You're working twice as hard for a quarter of the pay.</h2>
+        </header>
+
+        <ul class="tipra-problem__list">
+          <li>Hours a day on cold DMs that go nowhere.</li>
+          <li>Pitching small YouTubers who can only pay $50.</li>
+          <li>Losing jobs to editors charging $5 an hour overseas.</li>
+          <li>Every month starting back at zero, never sure where the next check is coming from.</li>
+        </ul>
+
+        <p class="tipra-problem__close">
+          You already know more DMs won't fix this. There's a reason the work isn't
+          coming — and it's not the one you've been told.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 3 — THE TURN (TheTurnSection) ============ -->
+    <section class="section tipra-turn" id="turn">
+      <div class="container tipra-turn__grid">
+        <div class="tipra-turn__media">
+          <!-- TODO: Tipra photo — drop a real photo of Tipra here. -->
+          <div class="tipra-turn__photo" role="img" aria-label="Photo of Tipra (placeholder)">
+            <span class="tipra-turn__photo-tag">TODO: Tipra photo</span>
+          </div>
+        </div>
+
+        <div class="tipra-turn__body">
+          <span class="kicker">THE REAL REASON YOU'RE STUCK</span>
+          <h2 class="section__title">It's not your outreach. It's two things nobody told you.</h2>
+
+          <p>
+            I'm Tipra. I've been editing for years. I went to zero. I clawed my way
+            back. Then I went to zero again — with a family counting on me and the
+            work not coming.
+          </p>
+          <p>Sending more messages never fixed it. Two things did.</p>
+          <p>
+            <strong>One — my work got good enough to do the selling.</strong> When
+            your edit is a 9, you stop convincing people. The market is packed with
+            editors who are "fine." Clients scroll past "fine" all day.
+          </p>
+          <p>
+            <strong>Two — I stopped fishing where there were no fish.</strong> I quit
+            chasing strangers and got where high-paying clients were already posting
+            jobs every single day.
+          </p>
+          <p>Better work. Right pond. That's the whole thing.</p>
+          <p>
+            Now I get $1,200 for a single video. I bought my dad a motorbike. My
+            sister an iPad. My mom a necklace that cost $3,000. All from editing.
+          </p>
+          <p>
+            You can get there faster than I did — without the years it took me.
+            Here's how both pieces work.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 — OLD WAY vs NEW WAY (reused .vs) ============ -->
+    <section class="section platform" id="platform">
+      <div class="platform__atmosphere" aria-hidden="true">
+        <div class="platform__top-glow"></div>
+        <div class="platform__halo"></div>
+        <div class="platform__light-column"></div>
+        <div class="platform__streaks"></div>
+        <svg class="platform__particles" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="838" cy="523" r="1.6" opacity="0.57"/><circle cx="349" cy="574" r="1.7" opacity="0.56"/><circle cx="1258" cy="475" r="1.8" opacity="0.50"/><circle cx="1210" cy="435" r="1.3" opacity="0.56"/><circle cx="929" cy="418" r="1.1" opacity="0.61"/><circle cx="264" cy="185" r="1.9" opacity="0.52"/><circle cx="731" cy="397" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="818" cy="386" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="689" cy="438" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="804" cy="428" r="1.8" opacity="0.8" fill="#ffffff"/></svg>
+      </div>
+
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">THE PLATFORM</span>
+          <h2 class="section__title">Never outreach again. The clients come to you.</h2>
+          <p class="section__lede">VP+ is where serious clients post their projects.</p>
+          <div class="platform__cta-row">
+            <a class="btn btn--primary btn--glow" data-cta href="https://checkout.videoproduction.plus/premium-intro">Give Me Access</a>
+          </div>
+        </header>
+
+        <div class="vs">
+          <article class="vs__card">
+            <h3 class="vs__card-title">VP+ Marketplace</h3>
+            <ul class="vs__bullets">
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Zero hours outreaching. Clients come to you.</p>
+                  <p class="vs__bullet-why">You spend your time editing and getting paid, not chasing leads.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Every job is filtered.</p>
+                  <p class="vs__bullet-why">Every client you talk to is ready to pay.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Real brand owners with real budgets.</p>
+                  <p class="vs__bullet-why">You land $1,000+/month clients, not $100 one-offs.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Open the dashboard. Pick a job. Start.</p>
+                  <p class="vs__bullet-why">Landing a client takes 30 seconds, not 3 weeks.</p>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <aside class="vs__faded">
+            <h3 class="vs__faded-title">The Old Way</h3>
+            <ul class="vs__bullets vs__bullets--faded">
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Hours a day on cold DMs that go nowhere.</p>
+                  <p class="vs__bullet-why">Time you could've spent editing, gone.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Pitching YouTubers who can only pay $50.</p>
+                  <p class="vs__bullet-why">Twice the work for a quarter of the rate.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Losing jobs to $5-an-hour editors.</p>
+                  <p class="vs__bullet-why">A race to the bottom you can't win.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Never knowing where next month's check is coming from.</p>
+                  <p class="vs__bullet-why">Every month starts at zero.</p>
+                </div>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 — THE MARKETPLACE (reused job cards + showcase + profiles) ============ -->
+    <section class="section showcase tipra-market" id="marketplace">
+      <div class="showcase__atmosphere" aria-hidden="true">
+        <span class="showcase__beam"></span>
+        <svg class="showcase__particles" viewBox="0 0 1500 1000" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="912" cy="592" r="1.5" opacity=".49"/><circle cx="528" cy="519" r="1" opacity=".29"/><circle cx="697" cy="169" r="1" opacity=".40"/><circle cx="1230" cy="590" r="1" opacity=".29"/><circle cx="386" cy="451" r="1.5" opacity=".30"/><circle cx="828" cy="36" r="1.5" opacity=".49"/><circle cx="688" cy="594" r="1" opacity=".43"/><circle cx="527" cy="373" r="1.5" opacity=".30"/><circle cx="923" cy="353" r="1.5" opacity=".49"/><circle cx="659" cy="401" r="1.5" opacity=".49"/></svg>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">INSIDE THE MARKETPLACE</span>
+          <h2 class="section__title">Real jobs. Real budgets. Posted every single day.</h2>
+          <p class="section__lede">Open the dashboard, pick a project, get paid. Your pay is locked in before you start.</p>
+        </header>
+
+        <div class="tipra-jobs" aria-label="Example marketplace jobs">
+          <article class="job-card">
             <header class="job-card__head">
               <div class="job-card__title-block">
-                <h3 class="job-card__title">Vanlife Content Editor</h3>
+                <h3 class="job-card__title">Full Time Editor</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#5cb1ff">G</span>
+                  <span>Gage Andrews</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$2,500<span class="job-card__price-unit">/month</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--violet">Real Estate</span>
+              <span class="tag tag--violet">Ecom</span>
+            </div>
+            <p class="job-card__desc">Editor who understands Real Estate, Ecom, and Education. YouTube long form + short form…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Poker / Sports Editor</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#e4669b">M</span>
+                  <span>Marin Ivanov</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$1,500<span class="job-card__price-unit">/month</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--violet">Entertainment</span>
+              <span class="tag tag--cyan">Sound Design</span>
+              <span class="tag tag--cyan">Repurposing</span>
+            </div>
+            <p class="job-card__desc">Skilled editor for long-form Poker and Sports content. B-roll, sound design, repurposing…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Vanlife Editor</h3>
                 <div class="job-card__meta">
                   <span class="job-card__avatar" style="--av:#3ad29f">S</span>
                   <span>Sami S</span>
                   <span class="job-card__dot">·</span>
-                  <span>2d ago</span>
-                  <span class="job-card__dot">·</span>
                   <span>One-Off</span>
                 </div>
               </div>
-              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              </button>
             </header>
             <div class="job-card__price-row">
               <span class="job-card__price">$1,000</span>
@@ -120,7 +435,6 @@
             <div class="job-card__tags">
               <span class="tag tag--cyan">LONG FORM</span>
               <span class="tag tag--cyan">SHORT FORM</span>
-              <span class="tag tag--neutral">2 videos</span>
               <span class="tag tag--violet">Travel</span>
               <span class="tag tag--violet">Documentary</span>
             </div>
@@ -131,104 +445,26 @@
             </div>
           </article>
 
-          <article class="job-card job-card--pos3 job-card--featured">
+          <article class="job-card">
             <header class="job-card__head">
               <div class="job-card__title-block">
-                <h3 class="job-card__title">Full Time Editor</h3>
-                <div class="job-card__meta">
-                  <span class="job-card__avatar" style="--av:#5cb1ff">G</span>
-                  <span>Gage Andrews</span>
-                  <span class="job-card__dot">·</span>
-                  <span>3d ago</span>
-                  <span class="job-card__dot">·</span>
-                  <span>Retainer</span>
-                </div>
-              </div>
-              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              </button>
-            </header>
-            <div class="job-card__price-row">
-              <span class="job-card__price">$2,500<span class="job-card__price-unit">/month</span></span>
-            </div>
-            <div class="job-card__tags">
-              <span class="tag tag--cyan">LONG FORM</span>
-              <span class="tag tag--cyan">SHORT FORM</span>
-              <span class="tag tag--violet">Real Estate</span>
-              <span class="tag tag--violet">Ecom</span>
-              <span class="tag tag--cyan">Video Editing</span>
-            </div>
-            <p class="job-card__desc">Editor who understands Real Estate, Ecom, and Education. YouTube long form + short form…</p>
-            <div class="job-card__actions">
-              <span class="btn btn--ghost btn--sm">Details</span>
-              <span class="btn btn--apply btn--sm">Apply</span>
-            </div>
-          </article>
-
-          <article class="job-card job-card--pos2">
-            <header class="job-card__head">
-              <div class="job-card__title-block">
-                <h3 class="job-card__title">Poker / Sports Editor</h3>
-                <div class="job-card__meta">
-                  <span class="job-card__avatar" style="--av:#e4669b">M</span>
-                  <span>Marin Ivanov</span>
-                  <span class="job-card__dot">·</span>
-                  <span>5d ago</span>
-                  <span class="job-card__dot">·</span>
-                  <span>Retainer</span>
-                </div>
-              </div>
-              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              </button>
-            </header>
-            <div class="job-card__price-row">
-              <span class="job-card__price">$1,500<span class="job-card__price-unit">/month</span></span>
-            </div>
-            <div class="job-card__tags">
-              <span class="tag tag--cyan">LONG FORM</span>
-              <span class="tag tag--violet">Entertainment</span>
-              <span class="tag tag--violet">Other</span>
-              <span class="tag tag--cyan">B-Roll &amp; Visuals</span>
-              <span class="tag tag--cyan">Sound Design</span>
-              <span class="tag tag--cyan">Repurposing</span>
-              <span class="tag tag--neutral">+1</span>
-            </div>
-            <p class="job-card__desc">Skilled editor for long-form Poker and Sports content. B-roll, sound design, repurposing…</p>
-            <div class="job-card__actions">
-              <span class="btn btn--ghost btn--sm">Details</span>
-              <span class="btn btn--apply btn--sm">Apply</span>
-            </div>
-          </article>
-
-          <article class="job-card job-card--pos4">
-            <header class="job-card__head">
-              <div class="job-card__title-block">
-                <h3 class="job-card__title">Short Form Editor Organic + Meta Ads</h3>
+                <h3 class="job-card__title">Health &amp; Wellness Editor</h3>
                 <div class="job-card__meta">
                   <span class="job-card__avatar" style="--av:#5b8bff">J</span>
                   <span>Jabez Collective</span>
                   <span class="job-card__dot">·</span>
-                  <span>1d ago</span>
-                  <span class="job-card__dot">·</span>
                   <span>Retainer</span>
                 </div>
               </div>
-              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              </button>
             </header>
             <div class="job-card__price-row">
-              <span class="job-card__price">$750<span class="job-card__price-unit">/month</span></span>
+              <span class="job-card__price">Retainer</span>
             </div>
             <div class="job-card__tags">
               <span class="tag tag--cyan">SHORT FORM</span>
-              <span class="tag tag--cyan">LONG FORM</span>
-              <span class="tag tag--neutral">5 videos</span>
               <span class="tag tag--violet">Health &amp; Wellness</span>
               <span class="tag tag--cyan">Hooks/Intros</span>
               <span class="tag tag--cyan">Sound Design</span>
-              <span class="tag tag--neutral">+1</span>
             </div>
             <p class="job-card__desc">Editor who understands Health &amp; Wellness and Home Service brands. Short form + Meta ads…</p>
             <div class="job-card__actions">
@@ -237,7 +473,7 @@
             </div>
           </article>
 
-          <article class="job-card job-card--pos5">
+          <article class="job-card">
             <header class="job-card__head">
               <div class="job-card__title-block">
                 <h3 class="job-card__title">Private School Videos</h3>
@@ -245,25 +481,18 @@
                   <span class="job-card__avatar" style="--av:#7c5cff">H</span>
                   <span>Hassen Rasool</span>
                   <span class="job-card__dot">·</span>
-                  <span>2d ago</span>
-                  <span class="job-card__dot">·</span>
                   <span>Retainer</span>
                 </div>
               </div>
-              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              </button>
             </header>
             <div class="job-card__price-row">
-              <span class="job-card__price">$1,000<span class="job-card__price-unit">/month</span></span>
+              <span class="job-card__price">Retainer</span>
             </div>
             <div class="job-card__tags">
               <span class="tag tag--cyan">LONG FORM</span>
-              <span class="tag tag--neutral">3 videos</span>
               <span class="tag tag--violet">Marketing</span>
               <span class="tag tag--violet">Business</span>
               <span class="tag tag--cyan">Basic Editing</span>
-              <span class="tag tag--cyan">Sound Design</span>
             </div>
             <p class="job-card__desc">YouTube long form, talking head, documentary, ad content for Marketing &amp; Education niches…</p>
             <div class="job-card__actions">
@@ -272,68 +501,8 @@
             </div>
           </article>
         </div>
-      </div>
-    </section>
 
-    <!-- ============ STATS STRIP ============ -->
-    <section class="stats" aria-label="Marketplace stats">
-      <div class="stats__beam" aria-hidden="true"></div>
-      <div class="container stats__grid">
-        <div class="stat">
-          <span class="stat__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </span>
-          <div class="stat__body">
-            <div class="stat__num">600<span class="plus">+</span></div>
-            <div class="stat__label">Active Members</div>
-          </div>
-        </div>
-        <div class="stat">
-          <span class="stat__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 10v6"/>
-              <path d="M2 10l10-5 10 5-10 5z"/>
-              <path d="M6 12v5a6 6 0 0 0 12 0v-5"/>
-            </svg>
-          </span>
-          <div class="stat__body">
-            <div class="stat__num">$1,000,000<span class="plus">+</span></div>
-            <div class="stat__label">Total Student Earnings</div>
-          </div>
-        </div>
-        <div class="stat">
-          <span class="stat__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="8.5" cy="7" r="4"/>
-              <path d="m17 11 2 2 4-4"/>
-            </svg>
-          </span>
-          <div class="stat__body">
-            <div class="stat__num">2,500<span class="plus">+</span></div>
-            <div class="stat__label">Clients Landed</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ MARKETPLACE SHOWCASE ============ -->
-    <section class="section showcase">
-      <div class="showcase__atmosphere" aria-hidden="true">
-        <span class="showcase__beam"></span>
-        <svg class="showcase__particles" viewBox="0 0 1500 1000" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="912" cy="592" r="1.5" opacity=".49"/><circle cx="1087" cy="929" r="1" opacity=".34"/><circle cx="528" cy="519" r="1" opacity=".29"/><circle cx="135" cy="358" r="1" opacity=".38"/><circle cx="697" cy="169" r="1" opacity=".40"/><circle cx="1089" cy="879" r="1" opacity=".40"/><circle cx="353" cy="168" r="1" opacity=".36"/><circle cx="1051" cy="65" r="1" opacity=".40"/><circle cx="236" cy="19" r="1" opacity=".40"/><circle cx="1230" cy="590" r="1" opacity=".29"/><circle cx="386" cy="451" r="1.5" opacity=".30"/><circle cx="1295" cy="730" r="1" opacity=".50"/><circle cx="1438" cy="146" r="1" opacity=".34"/><circle cx="638" cy="927" r="1.5" opacity=".41"/><circle cx="115" cy="890" r="1" opacity=".38"/><circle cx="1475" cy="368" r="1" opacity=".34"/><circle cx="847" cy="346" r="1" opacity=".39"/><circle cx="1359" cy="152" r="1.5" opacity=".32"/><circle cx="1432" cy="122" r="1" opacity=".38"/><circle cx="33" cy="716" r="1" opacity=".44"/><circle cx="1498" cy="478" r="1" opacity=".46"/><circle cx="1410" cy="462" r="1" opacity=".36"/><circle cx="828" cy="36" r="1.5" opacity=".49"/><circle cx="688" cy="594" r="1" opacity=".43"/><circle cx="1294" cy="892" r="1" opacity=".36"/><circle cx="205" cy="719" r="1" opacity=".31"/><circle cx="541" cy="689" r="1" opacity=".30"/><circle cx="1302" cy="453" r="1" opacity=".50"/><circle cx="166" cy="396" r="1" opacity=".47"/><circle cx="1323" cy="150" r="1" opacity=".37"/><circle cx="341" cy="3" r="1" opacity=".35"/><circle cx="858" cy="827" r="1" opacity=".39"/><circle cx="129" cy="291" r="1" opacity=".44"/><circle cx="527" cy="373" r="1.5" opacity=".30"/><circle cx="199" cy="774" r="1" opacity=".49"/><circle cx="1291" cy="705" r="1" opacity=".30"/><circle cx="1372" cy="96" r="1" opacity=".44"/><circle cx="822" cy="224" r="1.5" opacity=".32"/><circle cx="923" cy="353" r="1.5" opacity=".49"/><circle cx="1322" cy="615" r="1" opacity=".39"/><circle cx="935" cy="28" r="1" opacity=".47"/><circle cx="1324" cy="419" r="1" opacity=".30"/><circle cx="1019" cy="84" r="1" opacity=".36"/><circle cx="1369" cy="383" r="1" opacity=".50"/><circle cx="108" cy="918" r="1" opacity=".41"/><circle cx="618" cy="866" r="1" opacity=".46"/><circle cx="26" cy="939" r="1" opacity=".32"/><circle cx="165" cy="161" r="1" opacity=".38"/><circle cx="842" cy="771" r="1" opacity=".29"/><circle cx="659" cy="401" r="1.5" opacity=".49"/><circle cx="1440" cy="883" r="1" opacity=".46"/><circle cx="722" cy="780" r="1" opacity=".47"/><circle cx="55" cy="746" r="1" opacity=".34"/><circle cx="832" cy="763" r="1.5" opacity=".31"/><circle cx="689" cy="863" r="1" opacity=".40"/></svg>
-      </div>
-      <div class="container">
-        <header class="section__head showcase__head">
-          <h2 class="section__title">Inside <span class="grad">the marketplace.</span></h2>
-          <p class="section__lede">With brand new jobs, every single day.</p>
-        </header>
-        <div class="showcase__frame">
+        <div class="showcase__frame tipra-market__frame">
           <img class="showcase__card showcase__card--left"
                src="../media/CARD_left.png"
                alt="Job status card — escrow funded, ready to start"
@@ -347,245 +516,30 @@
                decoding="async" />
         </div>
 
-        <p class="showcase__claim">
-          Real jobs. Real budgets. Posted daily.
+        <div class="tipra-profiles" aria-label="Editors getting found">
+          <article class="profile-pic">
+            <img src="../media/Profile_3.png" alt="Editor profile preview — Adam" loading="lazy" decoding="async" />
+            <span class="tipra-profiles__name">Adam</span>
+          </article>
+          <article class="profile-pic profile-pic--featured">
+            <span class="tipra-profiles__badge">Top Rated</span>
+            <img src="../media/Profile_5.png" alt="Editor profile preview — Khizer Ali" loading="lazy" decoding="async" />
+            <span class="tipra-profiles__name">Khizer Ali</span>
+          </article>
+          <article class="profile-pic">
+            <span class="tipra-profiles__badge">Top Rated</span>
+            <img src="../media/Profile_1.png" alt="Editor profile preview — Valentine Fed" loading="lazy" decoding="async" />
+            <span class="tipra-profiles__name">Valentine Fed</span>
+          </article>
+        </div>
+
+        <p class="tipra-market__support">
+          Set up your profile once. Then clients find you, message you, and hire
+          you — while you sleep.
         </p>
 
-        <div class="showcase__cta">
-          <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
-            I'm in
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SUCCESS STORIES (testimonial carousel) ============ -->
-    <section id="success-stories" class="section stories">
-      <div class="container">
-        <header class="section__head">
-          <span class="kicker">RESULTS</span>
-          <h2 class="section__title">Closed in <span class="grad">week one.</span></h2>
-          <p class="section__lede">Real editors. Real numbers.</p>
-        </header>
-
-        <div class="stories__avatars" role="tablist" aria-label="Editor stories">
-          <button class="stories__avatar" type="button" data-index="0" aria-label="Faraz's story"><img src="../media/faraz-headshot.jpg" alt="" /></button>
-          <button class="stories__avatar" type="button" data-index="1" aria-label="Bavleo's story"><img src="../media/bavleo-headshot.jpg" alt="" /></button>
-          <button class="stories__avatar" type="button" data-index="2" aria-label="Caio Lima's story"><img src="../media/caio-headshot.jpg" alt="" /></button>
-          <button class="stories__avatar" type="button" data-index="3" aria-label="Stinson Thomas's story"><img src="../media/stinson-headshot.jpg" alt="" /></button>
-          <button class="stories__avatar" type="button" data-index="4" aria-label="babyj's story"><img src="../media/babyj-headshot.jpg" alt="" /></button>
-          <button class="stories__avatar" type="button" data-index="5" aria-label="Weston's story"><img src="../media/weston-headshot.jpg" alt="" /></button>
-          <button class="stories__avatar" type="button" data-index="6" aria-label="Gawu's story"><img src="../media/gawu-headshot.jpg" alt="" /></button>
-        </div>
-
-        <div class="stories__carousel">
-          <article class="stories__card" data-index="0">
-            <div class="stories__card-head">
-              <span class="stories__chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                Week 1
-              </span>
-              <div class="stories__person">
-                <img class="stories__person-avatar" src="../media/faraz-headshot.jpg" alt="Faraz" />
-                <div>
-                  <p class="stories__person-name">Faraz</p>
-                  <p class="stories__person-title">VP+ Editor</p>
-                </div>
-              </div>
-            </div>
-            <div class="stories__rating" aria-label="Rated 5 out of 5">
-              <span class="stories__stars" aria-hidden="true">★★★★★</span>
-              <span class="stories__rating-num">5.0</span>
-            </div>
-            <blockquote class="stories__quote">
-              "Got my first client for $900 within my first week of joining VP+."
-            </blockquote>
-            <div class="stories__tags">
-              <span class="stories__tag">First client</span>
-              <span class="stories__tag">$900/mo</span>
-              <span class="stories__tag">Week 1</span>
-            </div>
-          </article>
-
-          <article class="stories__card" data-index="1">
-            <div class="stories__card-head">
-              <span class="stories__chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                4 days
-              </span>
-              <div class="stories__person">
-                <img class="stories__person-avatar" src="../media/bavleo-headshot.jpg" alt="Bavleo" />
-                <div>
-                  <p class="stories__person-name">Bavleo</p>
-                  <p class="stories__person-title">VP+ Editor</p>
-                </div>
-              </div>
-            </div>
-            <div class="stories__rating" aria-label="Rated 5 out of 5">
-              <span class="stories__stars" aria-hidden="true">★★★★★</span>
-              <span class="stories__rating-num">5.0</span>
-            </div>
-            <blockquote class="stories__quote">
-              "In just 4 days, I made 3X the money I invested in VP+."
-            </blockquote>
-            <div class="stories__tags">
-              <span class="stories__tag">3X ROI</span>
-              <span class="stories__tag">4 days in</span>
-            </div>
-          </article>
-
-          <article class="stories__card" data-index="2">
-            <div class="stories__card-head">
-              <span class="stories__chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                5 days
-              </span>
-              <div class="stories__person">
-                <img class="stories__person-avatar" src="../media/caio-headshot.jpg" alt="Caio Lima" />
-                <div>
-                  <p class="stories__person-name">Caio Lima</p>
-                  <p class="stories__person-title">VP+ Editor</p>
-                </div>
-              </div>
-            </div>
-            <div class="stories__rating" aria-label="Rated 5 out of 5">
-              <span class="stories__stars" aria-hidden="true">★★★★★</span>
-              <span class="stories__rating-num">5.0</span>
-            </div>
-            <blockquote class="stories__quote">
-              "In just 5 days at VP+, I closed my first long-term client paying $1k+ per month."
-            </blockquote>
-            <div class="stories__tags">
-              <span class="stories__tag">$1k+/mo retainer</span>
-              <span class="stories__tag">Long-term</span>
-              <span class="stories__tag">5 days in</span>
-            </div>
-          </article>
-
-          <article class="stories__card" data-index="3" data-default>
-            <div class="stories__card-head">
-              <span class="stories__chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                7 days
-              </span>
-              <div class="stories__person">
-                <img class="stories__person-avatar" src="../media/stinson-headshot.jpg" alt="Stinson Thomas" />
-                <div>
-                  <p class="stories__person-name">Stinson Thomas</p>
-                  <p class="stories__person-title">VP+ Editor</p>
-                </div>
-              </div>
-            </div>
-            <div class="stories__rating" aria-label="Rated 5 out of 5">
-              <span class="stories__stars" aria-hidden="true">★★★★★</span>
-              <span class="stories__rating-num">5.0</span>
-            </div>
-            <blockquote class="stories__quote">
-              "7 days inside VP+ and closed a $3,500/m retainer."
-            </blockquote>
-            <div class="stories__tags">
-              <span class="stories__tag">$3,500/m retainer</span>
-              <span class="stories__tag">Week 1</span>
-            </div>
-          </article>
-
-          <article class="stories__card" data-index="4">
-            <div class="stories__card-head">
-              <span class="stories__chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                5 days
-              </span>
-              <div class="stories__person">
-                <img class="stories__person-avatar" src="../media/babyj-headshot.jpg" alt="babyj" />
-                <div>
-                  <p class="stories__person-name">babyj</p>
-                  <p class="stories__person-title">VP+ Editor</p>
-                </div>
-              </div>
-            </div>
-            <div class="stories__rating" aria-label="Rated 5 out of 5">
-              <span class="stories__stars" aria-hidden="true">★★★★★</span>
-              <span class="stories__rating-num">5.0</span>
-            </div>
-            <blockquote class="stories__quote">
-              "$1k/mo client &amp; 3 interviews 5 days after joining VP+."
-            </blockquote>
-            <div class="stories__tags">
-              <span class="stories__tag">$1k/mo client</span>
-              <span class="stories__tag">3 interviews</span>
-              <span class="stories__tag">5 days in</span>
-            </div>
-          </article>
-
-          <article class="stories__card" data-index="5">
-            <div class="stories__card-head">
-              <span class="stories__chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                2 clients
-              </span>
-              <div class="stories__person">
-                <img class="stories__person-avatar" src="../media/weston-headshot.jpg" alt="Weston" />
-                <div>
-                  <p class="stories__person-name">Weston</p>
-                  <p class="stories__person-title">VP+ Editor</p>
-                </div>
-              </div>
-            </div>
-            <div class="stories__rating" aria-label="Rated 5 out of 5">
-              <span class="stories__stars" aria-hidden="true">★★★★★</span>
-              <span class="stories__rating-num">5.0</span>
-            </div>
-            <blockquote class="stories__quote">
-              "Closed my first client from VP+ ($600/m) and just closed another today ($1,400/m)."
-            </blockquote>
-            <div class="stories__tags">
-              <span class="stories__tag">$600/m</span>
-              <span class="stories__tag">$1,400/m</span>
-              <span class="stories__tag">$2k/mo combined</span>
-            </div>
-          </article>
-
-          <article class="stories__card" data-index="6">
-            <div class="stories__card-head">
-              <span class="stories__chip">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                9 days
-              </span>
-              <div class="stories__person">
-                <img class="stories__person-avatar" src="../media/gawu-headshot.jpg" alt="Gawu" />
-                <div>
-                  <p class="stories__person-name">Gawu</p>
-                  <p class="stories__person-title">VP+ Editor</p>
-                </div>
-              </div>
-            </div>
-            <div class="stories__rating" aria-label="Rated 5 out of 5">
-              <span class="stories__stars" aria-hidden="true">★★★★★</span>
-              <span class="stories__rating-num">5.0</span>
-            </div>
-            <blockquote class="stories__quote">
-              "£3,000 in 9 days video editing in VP+."
-            </blockquote>
-            <div class="stories__tags">
-              <span class="stories__tag">£3,000 banked</span>
-              <span class="stories__tag">9 days</span>
-              <span class="stories__tag">Challenge mode</span>
-            </div>
-          </article>
-        </div>
-
-        <div class="stories__nav" aria-label="Carousel navigation">
-          <button class="stories__nav-btn" type="button" data-action="prev" aria-label="Previous story">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          </button>
-          <button class="stories__nav-btn" type="button" data-action="next" aria-label="Next story">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-
-        <div class="stories__cta">
-          <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+        <div class="tipra-cta-row">
+          <a class="btn btn--primary btn--xl btn--glow" data-cta href="https://checkout.videoproduction.plus/premium-intro">
             Show me the jobs
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
           </a>
@@ -593,213 +547,98 @@
       </div>
     </section>
 
-    <!-- ============ PRICING ============ -->
-    <section id="pricing" class="section pricing">
-      <div class="pricing__atmosphere" aria-hidden="true">
-        <div class="pricing__rays"></div>
-        <div class="pricing__sphere"></div>
-        <svg class="pricing__particles" viewBox="0 0 1500 1200" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="542" cy="1067" r="1.0" opacity="0.64"/><circle cx="1201" cy="704" r="1.0" opacity="0.30"/><circle cx="634" cy="997" r="2.0" opacity="0.42"/><circle cx="1181" cy="994" r="0.8" opacity="0.54"/><circle cx="705" cy="1045" r="1.8" opacity="0.35"/><circle cx="100" cy="708" r="1.6" opacity="0.17"/><circle cx="347" cy="1033" r="1.5" opacity="0.32"/><circle cx="1376" cy="1072" r="1.8" opacity="0.18"/><circle cx="447" cy="958" r="1.8" opacity="0.29"/><circle cx="1390" cy="935" r="1.7" opacity="0.21"/><circle cx="711" cy="815" r="1.5" opacity="0.47"/><circle cx="1336" cy="1007" r="1.7" opacity="0.61"/><circle cx="1275" cy="1007" r="1.9" opacity="0.27"/><circle cx="1078" cy="1169" r="1.9" opacity="0.59"/><circle cx="628" cy="969" r="1.7" opacity="0.41"/><circle cx="643" cy="107" r="0.9" opacity="0.36"/><circle cx="766" cy="853" r="1.6" opacity="0.37"/><circle cx="25" cy="1142" r="1.7" opacity="0.27"/><circle cx="789" cy="338" r="0.8" opacity="0.20"/><circle cx="592" cy="689" r="2.0" opacity="0.30"/><circle cx="1280" cy="37" r="0.9" opacity="0.44"/><circle cx="434" cy="330" r="0.9" opacity="0.50"/><circle cx="1083" cy="849" r="1.8" opacity="0.28"/><circle cx="251" cy="831" r="1.6" opacity="0.27"/><circle cx="919" cy="175" r="1.4" opacity="0.64"/><circle cx="1258" cy="1122" r="1.6" opacity="0.64"/><circle cx="1094" cy="623" r="0.8" opacity="0.52"/><circle cx="481" cy="573" r="1.4" opacity="0.33"/><circle cx="1341" cy="725" r="1.0" opacity="0.19"/><circle cx="1466" cy="206" r="1.2" opacity="0.40"/><circle cx="255" cy="777" r="1.0" opacity="0.50"/><circle cx="622" cy="128" r="1.6" opacity="0.61"/><circle cx="993" cy="761" r="1.3" opacity="0.52"/><circle cx="25" cy="1036" r="1.1" opacity="0.21"/><circle cx="755" cy="962" r="1.4" opacity="0.18"/><circle cx="262" cy="851" r="1.5" opacity="0.59"/><circle cx="476" cy="1071" r="1.3" opacity="0.60"/><circle cx="617" cy="751" r="1.0" opacity="0.22"/><circle cx="1240" cy="754" r="0.8" opacity="0.32"/><circle cx="1226" cy="215" r="1.2" opacity="0.59"/><circle cx="868" cy="732" r="2" opacity="0.8" fill="#ffffff"/><circle cx="856" cy="812" r="2" opacity="0.8" fill="#ffffff"/><circle cx="541" cy="713" r="2" opacity="0.8" fill="#ffffff"/><circle cx="635" cy="736" r="2" opacity="0.8" fill="#ffffff"/><circle cx="677" cy="720" r="2" opacity="0.8" fill="#ffffff"/></svg>
-      </div>
+    <!-- ============ 6 — THE EDIT UPGRADE (EditUpgradeSection) ============ -->
+    <section class="section tipra-upgrade" id="upgrade">
       <div class="container">
         <header class="section__head">
-          <span class="kicker">PRICING</span>
-          <h2 class="section__title">
-            One project pays for<br>
-            <span class="grad">A WHOLE YEAR.</span>
-          </h2>
-          <p class="section__lede">
-            New jobs every single day. Cancel anytime.
-          </p>
+          <span class="kicker">THE EDIT UPGRADE</span>
+          <h2 class="section__title">A marketplace full of clients is useless if your work is mid.</h2>
         </header>
 
-        <div class="pricing__plans">
-          <article class="pricing__plan">
-            <header class="pricing__head">
-              <h3 class="pricing__name">MONTHLY</h3>
-              <div class="pricing__price">
-                <span class="pricing__price-old">$49</span>
-                <span class="pricing__price-new">$24</span>
-                <span class="pricing__price-period">first month</span>
+        <div class="tipra-upgrade__grid">
+          <div class="tipra-upgrade__media">
+            <!-- TODO: before/after clip — drop a real before/after edit clip here. -->
+            <div class="tipra-upgrade__clip" role="img" aria-label="Before / after edit clip (placeholder)">
+              <span class="tipra-upgrade__clip-from">6</span>
+              <span class="tipra-upgrade__clip-arrow" aria-hidden="true">→</span>
+              <span class="tipra-upgrade__clip-to">9</span>
+              <span class="tipra-upgrade__clip-tag">TODO: before / after clip</span>
+            </div>
+          </div>
+
+          <div class="tipra-upgrade__body">
+            <p>
+              Here's what nobody says out loud: most editors lose jobs for one
+              reason — their work is just okay. Clients can tell in three seconds.
+            </p>
+            <p>
+              So every week, live, I take a real member's project and rebuild it —
+              from a 6 to a 9. Smoother motion. Cleaner color. Tighter pace. Better
+              sound. You watch every move and steal it for your own edits.
+            </p>
+            <p>
+              You also get my storyboarding course — how I plan an edit before I
+              touch the timeline, so the hard part is done before you start.
+            </p>
+            <p>
+              This is the difference between <em>applying</em> for a job and getting
+              <em>picked</em> for it.
+            </p>
+
+            <div class="tipra-upgrade__jobs" aria-label="Jobs you start winning">
+              <span class="tipra-upgrade__caption">now you win these</span>
+              <div class="tipra-upgrade__jobs-row">
+                <article class="job-card">
+                  <header class="job-card__head">
+                    <div class="job-card__title-block">
+                      <h3 class="job-card__title">Full Time Editor</h3>
+                      <div class="job-card__meta">
+                        <span class="job-card__avatar" style="--av:#5cb1ff">G</span>
+                        <span>Retainer</span>
+                      </div>
+                    </div>
+                  </header>
+                  <div class="job-card__price-row">
+                    <span class="job-card__price">$2,500<span class="job-card__price-unit">/month</span></span>
+                  </div>
+                </article>
+                <article class="job-card">
+                  <header class="job-card__head">
+                    <div class="job-card__title-block">
+                      <h3 class="job-card__title">Poker / Sports Editor</h3>
+                      <div class="job-card__meta">
+                        <span class="job-card__avatar" style="--av:#e4669b">M</span>
+                        <span>Retainer</span>
+                      </div>
+                    </div>
+                  </header>
+                  <div class="job-card__price-row">
+                    <span class="job-card__price">$1,500<span class="job-card__price-unit">/month</span></span>
+                  </div>
+                </article>
               </div>
-              <p class="pricing__billing">Then $49/month. Cancel anytime.</p>
-            </header>
-
-            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
-
-            <ul class="pricing__features">
-              <li>
-                <span class="pricing__check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
-                </span>
-                <div>
-                  <p class="pricing__feature-title">Full access to the VP+ Marketplace.</p>
-                  <p class="pricing__feature-desc">So you stop chasing leads and start picking the jobs you actually want.</p>
-                </div>
-              </li>
-              <li>
-                <span class="pricing__check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
-                </span>
-                <div>
-                  <p class="pricing__feature-title">New jobs every single day.</p>
-                  <p class="pricing__feature-desc">So your pipeline never runs dry, even in slow months.</p>
-                </div>
-              </li>
-              <li>
-                <span class="pricing__check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
-                </span>
-                <div>
-                  <p class="pricing__feature-title">Weekly live coaching to fix what's blocking you.</p>
-                  <p class="pricing__feature-desc">So you can have longer, more profitable client relationships.</p>
-                </div>
-              </li>
-              <li>
-                <span class="pricing__check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
-                </span>
-                <div>
-                  <p class="pricing__feature-title">Access to 600+ editor Discord community.</p>
-                  <p class="pricing__feature-desc">So you're never stuck solving problems alone. Get answers in minutes, not days.</p>
-                </div>
-              </li>
-              <li>
-                <span class="pricing__check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
-                </span>
-                <div>
-                  <p class="pricing__feature-title">Advanced training to land high-ticket clients.</p>
-                  <p class="pricing__feature-desc">So you stop competing on price and start charging what you're worth.</p>
-                </div>
-              </li>
-            </ul>
-
-            <a href="https://checkout.videoproduction.plus/premium-intro" class="pricing__cta">Give Me Access</a>
-          </article>
-
-          <article class="pricing__plan pricing__plan--featured">
-            <span class="pricing__badge">BEST VALUE</span>
-            <header class="pricing__head">
-              <h3 class="pricing__name">YEARLY</h3>
-              <div class="pricing__price">
-                <span class="pricing__price-old">$588</span>
-                <span class="pricing__price-new">$297</span>
-                <span class="pricing__price-period">/year</span>
-              </div>
-              <p class="pricing__billing">That's $24.75/month. Save $291.</p>
-            </header>
-
-            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
-
-            <div class="pricing__includes">Everything in the Monthly Plan, plus:</div>
-
-            <ul class="pricing__features">
-              <li>
-                <span class="pricing__plus" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-                </span>
-                <div>
-                  <p class="pricing__feature-title">Save $291 vs paying month-to-month.</p>
-                  <p class="pricing__feature-desc">So a single project covers your entire year. Every job after is pure profit.</p>
-                </div>
-              </li>
-              <li>
-                <span class="pricing__plus" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-                </span>
-                <div>
-                  <p class="pricing__feature-title">30-minute onboarding call with the founder, Jack Cole.</p>
-                  <p class="pricing__feature-desc">So you skip the trial-and-error and start landing clients in week one.</p>
-                </div>
-              </li>
-            </ul>
-
-            <a href="https://checkout.videoproduction.plus/premium-intro" class="pricing__cta pricing__cta--featured">Give Me Access</a>
-          </article>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ SETUP PROFILE ============ -->
-    <section id="profile-setup" class="profile-setup">
-      <div class="profile-setup__bg" aria-hidden="true">
-        <div class="profile-setup__beam"></div>
-        <div class="profile-setup__glow profile-setup__glow--1"></div>
-        <div class="profile-setup__glow profile-setup__glow--2"></div>
-        <div class="profile-setup__grid"></div>
-        <svg class="profile-setup__spark" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" fill="#dffafa" aria-hidden="true">
-          <circle cx="180" cy="120" r="1.4" opacity="0.55"/>
-          <circle cx="980" cy="80"  r="1.2" opacity="0.45"/>
-          <circle cx="1100" cy="280" r="1.6" opacity="0.50"/>
-          <circle cx="60"  cy="380" r="1.0" opacity="0.40"/>
-          <circle cx="420" cy="60"  r="1.3" opacity="0.50"/>
-          <circle cx="760" cy="500" r="1.5" opacity="0.55"/>
-          <circle cx="240" cy="540" r="1.1" opacity="0.45"/>
-          <circle cx="600" cy="30"  r="1.5" opacity="0.6" fill="#ffffff"/>
-        </svg>
-      </div>
-
-      <div class="container profile-setup__inner">
-        <div class="profile-setup__content">
-          <div class="profile-setup__pill">
-            <span class="profile-setup__pill-dot"></span>
-            <span><strong>New Jobs Posted</strong> Every Single Day</span>
-          </div>
-
-          <h2 class="profile-setup__title">
-            Set up your profile.<br />
-            <span class="grad grad--glow">Let the clients come to you.</span>
-          </h2>
-
-          <p class="profile-setup__lede">
-            Your first project could be days away.
-          </p>
-
-          <div class="profile-setup__cta">
-            <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
-              Give Me Access
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="profile-setup__cards" aria-label="Example editor profiles">
-          <article class="profile-pic profile-pic--pos1">
-            <img src="../media/Profile_3.png" alt="Editor profile preview — Adam" loading="lazy" decoding="async" />
-          </article>
-          <article class="profile-pic profile-pic--pos2">
-            <img src="../media/Profile_2.png" alt="Editor profile preview — Abhishek R" loading="lazy" decoding="async" />
-          </article>
-          <article class="profile-pic profile-pic--pos3 profile-pic--featured">
-            <img src="../media/Profile_1.png" alt="Editor profile preview — Valentine Fed" loading="lazy" decoding="async" />
-          </article>
-          <article class="profile-pic profile-pic--pos4">
-            <img src="../media/Profile_4.png" alt="Editor profile preview — Adeel Javed" loading="lazy" decoding="async" />
-          </article>
-          <article class="profile-pic profile-pic--pos5">
-            <img src="../media/Profile_5.png" alt="Editor profile preview — Khizer Ali" loading="lazy" decoding="async" />
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ VIDEO TESTIMONIALS ============ -->
-    <section id="video-wins" class="section proof">
+    <!-- ============ 7 — PROOF (reused .proof video testimonials) ============ -->
+    <section id="proof" class="section proof">
       <div class="proof__atmosphere" aria-hidden="true">
         <div class="proof__beam"></div>
-        <svg class="proof__particles" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="120" cy="180" r="1" opacity=".42"/><circle cx="280" cy="90" r="1" opacity=".28"/><circle cx="440" cy="220" r="1.5" opacity=".5"/><circle cx="610" cy="60" r="1" opacity=".35"/><circle cx="780" cy="180" r="1" opacity=".22"/><circle cx="940" cy="110" r="1.5" opacity=".48"/><circle cx="1110" cy="200" r="1" opacity=".3"/><circle cx="1280" cy="80" r="1" opacity=".42"/><circle cx="1430" cy="170" r="1" opacity=".26"/><circle cx="60" cy="360" r="1" opacity=".38"/><circle cx="220" cy="430" r="1" opacity=".22"/><circle cx="380" cy="520" r="1.5" opacity=".45"/><circle cx="540" cy="380" r="1" opacity=".35"/><circle cx="710" cy="510" r="1" opacity=".27"/><circle cx="880" cy="420" r="1" opacity=".44"/><circle cx="1040" cy="540" r="1.5" opacity=".3"/><circle cx="1200" cy="380" r="1" opacity=".5"/><circle cx="1370" cy="490" r="1" opacity=".24"/><circle cx="180" cy="660" r="1" opacity=".34"/><circle cx="420" cy="720" r="1" opacity=".48"/><circle cx="660" cy="690" r="1.5" opacity=".22"/><circle cx="900" cy="730" r="1" opacity=".4"/><circle cx="1140" cy="680" r="1" opacity=".32"/><circle cx="1380" cy="710" r="1" opacity=".44"/></svg>
+        <svg class="proof__particles" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="120" cy="180" r="1" opacity=".42"/><circle cx="440" cy="220" r="1.5" opacity=".5"/><circle cx="780" cy="180" r="1" opacity=".22"/><circle cx="940" cy="110" r="1.5" opacity=".48"/><circle cx="1280" cy="80" r="1" opacity=".42"/><circle cx="380" cy="520" r="1.5" opacity=".45"/><circle cx="880" cy="420" r="1" opacity=".44"/><circle cx="1200" cy="380" r="1" opacity=".5"/><circle cx="420" cy="720" r="1" opacity=".48"/><circle cx="900" cy="730" r="1" opacity=".4"/></svg>
       </div>
       <div class="container">
         <header class="section__head">
           <span class="kicker">PROOF</span>
-          <h2 class="section__title">Hear it from the editors. <span class="grad">Not from us.</span></h2>
-          <p class="section__lede">
-            Real editors. Real wins. In their own words.
-          </p>
+          <h2 class="section__title">Hear it from the editors. Not from us.</h2>
+          <p class="section__lede">Real editors. Real wins. In their own words.</p>
         </header>
 
         <div class="proof__carousel">
           <div class="proof__track" tabindex="0" aria-label="Video testimonials">
+            <!-- TODO: testimonial videos — wire real testimonial clips for each card. -->
             <article class="proof__card" data-index="0">
               <div class="proof__video-wrap">
                 <video class="proof__video" src="../media/new-testimonial.mp4" preload="metadata" playsinline muted></video>
@@ -812,43 +651,11 @@
                   <p class="proof__name">Stinson</p>
                   <span class="proof__stars" aria-hidden="true">★★★★★</span>
                 </div>
-                <p class="proof__quote">Zero to $11K/month</p>
+                <p class="proof__quote">zero to $11K/month</p>
               </div>
             </article>
 
             <article class="proof__card" data-index="1">
-              <div class="proof__video-wrap">
-                <video class="proof__video" src="../media/jallen-testimonial.mp4" preload="metadata" playsinline muted></video>
-                <button class="proof__play" type="button" aria-label="Play Jallen's testimonial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
-                </button>
-              </div>
-              <div class="proof__info">
-                <div class="proof__meta">
-                  <p class="proof__name">Jallen</p>
-                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
-                </div>
-                <p class="proof__quote">Quit his 9-5 job</p>
-              </div>
-            </article>
-
-            <article class="proof__card" data-index="2">
-              <div class="proof__video-wrap">
-                <video class="proof__video" src="../media/juh-testimonial.mp4" preload="metadata" playsinline muted></video>
-                <button class="proof__play" type="button" aria-label="Play Juh's testimonial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
-                </button>
-              </div>
-              <div class="proof__info">
-                <div class="proof__meta">
-                  <p class="proof__name">Juh</p>
-                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
-                </div>
-                <p class="proof__quote">Zero to $8K/month</p>
-              </div>
-            </article>
-
-            <article class="proof__card" data-index="3">
               <div class="proof__video-wrap">
                 <video class="proof__video" src="../media/suleman-testimonial.mp4" preload="metadata" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Suleman's testimonial">
@@ -864,6 +671,38 @@
               </div>
             </article>
 
+            <article class="proof__card" data-index="2">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/juh-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Juh's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Juh</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">zero to $8K/month</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="3">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/jallen-testimonial.mp4" preload="metadata" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Jallen's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Jallen</p>
+                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
+                </div>
+                <p class="proof__quote">quit his 9–5</p>
+              </div>
+            </article>
+
             <article class="proof__card" data-index="4">
               <div class="proof__video-wrap">
                 <video class="proof__video" src="../media/nicko-testimonial.mp4" preload="metadata" playsinline muted></video>
@@ -876,87 +715,7 @@
                   <p class="proof__name">Nicko</p>
                   <span class="proof__stars" aria-hidden="true">★★★★★</span>
                 </div>
-                <p class="proof__quote">Zero to $5K/month</p>
-              </div>
-            </article>
-
-            <article class="proof__card" data-index="5">
-              <div class="proof__video-wrap">
-                <video class="proof__video" src="../media/riyo-testimonial.mp4" preload="metadata" playsinline muted></video>
-                <button class="proof__play" type="button" aria-label="Play Riyo's testimonial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
-                </button>
-              </div>
-              <div class="proof__info">
-                <div class="proof__meta">
-                  <p class="proof__name">Riyo</p>
-                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
-                </div>
-                <p class="proof__quote">Zero to $11K/month</p>
-              </div>
-            </article>
-
-            <article class="proof__card" data-index="6">
-              <div class="proof__video-wrap">
-                <video class="proof__video" src="../media/tipra-testimonial.mov" preload="metadata" playsinline muted></video>
-                <button class="proof__play" type="button" aria-label="Play Tipra's testimonial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
-                </button>
-              </div>
-              <div class="proof__info">
-                <div class="proof__meta">
-                  <p class="proof__name">Tipra</p>
-                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
-                </div>
-                <p class="proof__quote">Zero to $6K/month</p>
-              </div>
-            </article>
-
-            <article class="proof__card" data-index="7">
-              <div class="proof__video-wrap">
-                <video class="proof__video" src="../media/sacha-testimonial.mp4" preload="metadata" playsinline muted></video>
-                <button class="proof__play" type="button" aria-label="Play Sacha's testimonial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
-                </button>
-              </div>
-              <div class="proof__info">
-                <div class="proof__meta">
-                  <p class="proof__name">Sacha</p>
-                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
-                </div>
-                <p class="proof__quote">Zero to $4K/month</p>
-              </div>
-            </article>
-
-            <article class="proof__card" data-index="8">
-              <div class="proof__video-wrap">
-                <video class="proof__video" src="../media/vexa-testimonial.mp4" preload="metadata" playsinline muted></video>
-                <button class="proof__play" type="button" aria-label="Play Vexa's testimonial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
-                </button>
-              </div>
-              <div class="proof__info">
-                <div class="proof__meta">
-                  <p class="proof__name">Vexa</p>
-                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
-                </div>
-                <p class="proof__quote">Zero to $10K/month</p>
-              </div>
-            </article>
-
-            <article class="proof__card" data-index="9">
-              <div class="proof__video-wrap">
-                <video class="proof__video" src="../media/joe-testimonial.mp4" preload="metadata" playsinline muted></video>
-                <button class="proof__play" type="button" aria-label="Play Joe's testimonial">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
-                </button>
-              </div>
-              <div class="proof__info">
-                <div class="proof__meta">
-                  <p class="proof__name">Joe</p>
-                  <span class="proof__stars" aria-hidden="true">★★★★★</span>
-                </div>
-                <p class="proof__quote">Zero to $5K/month</p>
+                <p class="proof__quote">zero to $5K/month</p>
               </div>
             </article>
           </div>
@@ -977,558 +736,362 @@
             <button class="proof__dot" type="button" data-index="2" aria-label="Go to testimonial 3"></button>
             <button class="proof__dot" type="button" data-index="3" aria-label="Go to testimonial 4"></button>
             <button class="proof__dot" type="button" data-index="4" aria-label="Go to testimonial 5"></button>
-            <button class="proof__dot" type="button" data-index="5" aria-label="Go to testimonial 6"></button>
-            <button class="proof__dot" type="button" data-index="6" aria-label="Go to testimonial 7"></button>
-            <button class="proof__dot" type="button" data-index="7" aria-label="Go to testimonial 8"></button>
-            <button class="proof__dot" type="button" data-index="8" aria-label="Go to testimonial 9"></button>
-            <button class="proof__dot" type="button" data-index="9" aria-label="Go to testimonial 10"></button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ PLATFORM SHOWCASE ============ -->
-    <section id="platform" class="section platform">
-      <div class="platform__atmosphere" aria-hidden="true">
-        <div class="platform__top-glow"></div>
-        <div class="platform__halo"></div>
-        <div class="platform__light-column"></div>
-        <div class="platform__streaks"></div>
-        <svg class="platform__particles" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="838" cy="523" r="1.6" opacity="0.57"/><circle cx="620" cy="238" r="1.5" opacity="0.20"/><circle cx="141" cy="316" r="0.9" opacity="0.55"/><circle cx="368" cy="146" r="1.0" opacity="0.52"/><circle cx="367" cy="116" r="1.2" opacity="0.47"/><circle cx="871" cy="643" r="1.6" opacity="0.48"/><circle cx="349" cy="574" r="1.7" opacity="0.56"/><circle cx="129" cy="185" r="1.0" opacity="0.42"/><circle cx="1087" cy="674" r="0.7" opacity="0.45"/><circle cx="674" cy="780" r="1.3" opacity="0.20"/><circle cx="136" cy="316" r="1.8" opacity="0.61"/><circle cx="1258" cy="475" r="1.8" opacity="0.50"/><circle cx="1426" cy="50" r="1.8" opacity="0.19"/><circle cx="208" cy="799" r="1.1" opacity="0.44"/><circle cx="1210" cy="435" r="1.3" opacity="0.56"/><circle cx="426" cy="683" r="1.4" opacity="0.59"/><circle cx="929" cy="418" r="1.1" opacity="0.61"/><circle cx="1459" cy="8" r="1.4" opacity="0.53"/><circle cx="1161" cy="98" r="1.3" opacity="0.25"/><circle cx="1409" cy="602" r="1.6" opacity="0.49"/><circle cx="997" cy="462" r="1.7" opacity="0.25"/><circle cx="698" cy="693" r="0.8" opacity="0.57"/><circle cx="919" cy="366" r="1.5" opacity="0.50"/><circle cx="264" cy="185" r="1.9" opacity="0.52"/><circle cx="552" cy="417" r="0.8" opacity="0.46"/><circle cx="489" cy="96" r="1.8" opacity="0.34"/><circle cx="1130" cy="684" r="1.7" opacity="0.57"/><circle cx="1393" cy="221" r="1.9" opacity="0.39"/><circle cx="1496" cy="632" r="0.9" opacity="0.28"/><circle cx="765" cy="790" r="1.3" opacity="0.27"/><circle cx="731" cy="397" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="818" cy="386" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="689" cy="438" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="707" cy="459" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="804" cy="428" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="675" cy="528" r="1.8" opacity="0.8" fill="#ffffff"/></svg>
-      </div>
-
+    <!-- ============ 8 — THE NUMBERS (reused .stories carousel + .stats) ============ -->
+    <section id="numbers" class="section stories">
       <div class="container">
         <header class="section__head">
-          <span class="kicker">THE PLATFORM</span>
-          <h2 class="section__title">
-            Never Outreach Again.<br>
-            <span class="grad">We Bring Clients To You.</span>
-          </h2>
-          <p class="section__lede">
-            VP+ is where serious clients post their projects.
-          </p>
-          <div class="platform__cta-row">
-            <a class="btn btn--primary btn--glow" href="#pricing">Give Me Access</a>
-          </div>
+          <span class="kicker">RESULTS</span>
+          <h2 class="section__title">Closed in week one.</h2>
+          <p class="section__lede">Real editors. Real numbers.</p>
         </header>
 
-        <div class="vs">
-          <article class="vs__card">
-            <h3 class="vs__card-title">VP+ Marketplace</h3>
-            <ul class="vs__bullets">
-              <li>
-                <span class="vs__check" aria-hidden="true">✓</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Zero hours spent outreaching. We bring clients to you.</p>
-                  <p class="vs__bullet-why">So you spend your time editing and getting paid, not chasing leads.</p>
+        <div class="stories__avatars" role="tablist" aria-label="Editor stories">
+          <button class="stories__avatar" type="button" data-index="0" aria-label="Stinson Thomas's story"><img src="../media/stinson-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="1" aria-label="A VP+ editor's story"><img src="../media/caio-headshot.jpg" alt="" /></button>
+          <button class="stories__avatar" type="button" data-index="2" aria-label="A VP+ editor's story"><img src="../media/bavleo-headshot.jpg" alt="" /></button>
+        </div>
+
+        <div class="stories__carousel">
+          <article class="stories__card" data-index="0" data-default>
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                7 days
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/stinson-headshot.jpg" alt="Stinson Thomas" />
+                <div>
+                  <p class="stories__person-name">Stinson Thomas</p>
+                  <p class="stories__person-title">VP+ Editor</p>
                 </div>
-              </li>
-              <li>
-                <span class="vs__check" aria-hidden="true">✓</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Every job is filtered. No time-wasters.</p>
-                  <p class="vs__bullet-why">So every client you talk to is ready to pay.</p>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "7 days inside VP+ and closed a $3,500/month retainer."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">$3,500/month</span>
+              <span class="stories__tag">Week 1</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="1">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                This week
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/caio-headshot.jpg" alt="VP+ Editor" />
+                <div>
+                  <p class="stories__person-name">VP+ Editor</p>
+                  <p class="stories__person-title">VP+ Editor</p>
                 </div>
-              </li>
-              <li>
-                <span class="vs__check" aria-hidden="true">✓</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Real brand owners with real budgets. Not $50-a-video YouTubers.</p>
-                  <p class="vs__bullet-why">So you're landing $1K+ retainers, not haggling over $100 one-offs.</p>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "3 clients this week. A month ago I was stuck at $300/month."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">3 clients</span>
+              <span class="stories__tag">One week</span>
+            </div>
+          </article>
+
+          <article class="stories__card" data-index="2">
+            <div class="stories__card-head">
+              <span class="stories__chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                2 days
+              </span>
+              <div class="stories__person">
+                <img class="stories__person-avatar" src="../media/bavleo-headshot.jpg" alt="VP+ Editor" />
+                <div>
+                  <p class="stories__person-name">VP+ Editor</p>
+                  <p class="stories__person-title">VP+ Editor</p>
                 </div>
-              </li>
-              <li>
-                <span class="vs__check" aria-hidden="true">✓</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Open the dashboard. Pick a project. Get to work.</p>
-                  <p class="vs__bullet-why">So landing a client takes 30 seconds, not 3 weeks.</p>
-                </div>
-              </li>
+              </div>
+            </div>
+            <div class="stories__rating" aria-label="Rated 5 out of 5">
+              <span class="stories__stars" aria-hidden="true">★★★★★</span>
+              <span class="stories__rating-num">5.0</span>
+            </div>
+            <blockquote class="stories__quote">
+              "Closed a former UFC fighter 2 days after joining."
+            </blockquote>
+            <div class="stories__tags">
+              <span class="stories__tag">2 days in</span>
+              <span class="stories__tag">Big name</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="stories__nav" aria-label="Carousel navigation">
+          <button class="stories__nav-btn" type="button" data-action="prev" aria-label="Previous story">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="stories__nav-btn" type="button" data-action="next" aria-label="Next story">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="stats tipra-stats" aria-label="Marketplace results">
+          <div class="stats__beam" aria-hidden="true"></div>
+          <div class="container stats__grid">
+            <div class="stat">
+              <span class="stat__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </span>
+              <div class="stat__body">
+                <div class="stat__num">600<span class="plus">+</span></div>
+                <div class="stat__label">active members</div>
+              </div>
+            </div>
+            <div class="stat">
+              <span class="stat__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6"/>
+                  <path d="M2 10l10-5 10 5-10 5z"/>
+                  <path d="M6 12v5a6 6 0 0 0 12 0v-5"/>
+                </svg>
+              </span>
+              <div class="stat__body">
+                <div class="stat__num">$1,000,000<span class="plus">+</span></div>
+                <div class="stat__label">earned by members</div>
+              </div>
+            </div>
+            <div class="stat">
+              <span class="stat__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="8.5" cy="7" r="4"/>
+                  <path d="m17 11 2 2 4-4"/>
+                </svg>
+              </span>
+              <div class="stat__body">
+                <div class="stat__num">2,500<span class="plus">+</span></div>
+                <div class="stat__label">clients landed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9 — WHO THIS IS FOR (ForNotForBlock) ============ -->
+    <section class="section tipra-fit" id="fit">
+      <div class="container">
+        <header class="section__head">
+          <h2 class="section__title">This is for you if…</h2>
+        </header>
+
+        <div class="tipra-fit__grid">
+          <article class="tipra-fit__col tipra-fit__col--for">
+            <h3 class="tipra-fit__title">This is for you</h3>
+            <ul class="tipra-fit__list">
+              <li><span class="tipra-fit__mark tipra-fit__mark--yes" aria-hidden="true">✓</span><span>You can edit, but it never turns into steady money.</span></li>
+              <li><span class="tipra-fit__mark tipra-fit__mark--yes" aria-hidden="true">✓</span><span>You land a client, they leave, and you're back to zero.</span></li>
+              <li><span class="tipra-fit__mark tipra-fit__mark--yes" aria-hidden="true">✓</span><span>You're sick of losing $50 gigs to overseas editors.</span></li>
+              <li><span class="tipra-fit__mark tipra-fit__mark--yes" aria-hidden="true">✓</span><span>You want to get genuinely good — not just hustle harder.</span></li>
             </ul>
           </article>
 
-          <aside class="vs__faded">
-            <h3 class="vs__faded-title">The Old Way</h3>
-            <ul class="vs__bullets vs__bullets--faded">
+          <article class="tipra-fit__col tipra-fit__col--not">
+            <h3 class="tipra-fit__title">This isn't for you</h3>
+            <ul class="tipra-fit__list">
+              <li><span class="tipra-fit__mark tipra-fit__mark--no" aria-hidden="true">×</span><span>Anyone hunting for a get-rich button. The work is real.</span></li>
+              <li><span class="tipra-fit__mark tipra-fit__mark--no" aria-hidden="true">×</span><span>Anyone who won't put in the reps to improve.</span></li>
+              <li><span class="tipra-fit__mark tipra-fit__mark--no" aria-hidden="true">×</span><span>Editors already booked solid with dream clients — you don't need this.</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 — PRICING (reused .pricing) ============ -->
+    <section id="pricing" class="section pricing">
+      <div class="pricing__atmosphere" aria-hidden="true">
+        <div class="pricing__rays"></div>
+        <div class="pricing__sphere"></div>
+        <svg class="pricing__particles" viewBox="0 0 1500 1200" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="542" cy="1067" r="1.0" opacity="0.64"/><circle cx="1201" cy="704" r="1.0" opacity="0.30"/><circle cx="634" cy="997" r="2.0" opacity="0.42"/><circle cx="711" cy="815" r="1.5" opacity="0.47"/><circle cx="628" cy="969" r="1.7" opacity="0.41"/><circle cx="919" cy="175" r="1.4" opacity="0.64"/><circle cx="1094" cy="623" r="0.8" opacity="0.52"/><circle cx="868" cy="732" r="2" opacity="0.8" fill="#ffffff"/><circle cx="856" cy="812" r="2" opacity="0.8" fill="#ffffff"/><circle cx="541" cy="713" r="2" opacity="0.8" fill="#ffffff"/><circle cx="635" cy="736" r="2" opacity="0.8" fill="#ffffff"/><circle cx="677" cy="720" r="2" opacity="0.8" fill="#ffffff"/></svg>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">PRICING</span>
+          <h2 class="section__title">One job pays for the whole year.</h2>
+          <p class="section__lede">New jobs every single day. Cancel anytime.</p>
+        </header>
+
+        <div class="pricing__plans">
+          <article class="pricing__plan">
+            <header class="pricing__head">
+              <h3 class="pricing__name">MONTHLY</h3>
+              <div class="pricing__price">
+                <span class="pricing__price-old">$49</span>
+                <span class="pricing__price-new">$24</span>
+                <span class="pricing__price-period">first month</span>
+              </div>
+              <p class="pricing__billing">then $49/month · cancel anytime</p>
+            </header>
+
+            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
+
+            <ul class="pricing__features">
               <li>
-                <span class="vs__cross" aria-hidden="true">×</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Hours every day on cold outreach that goes nowhere.</p>
-                  <p class="vs__bullet-why">Time you could've spent editing. Gone, with nothing to show for it.</p>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Full access to the VP+ marketplace</p>
+                  <p class="pricing__feature-desc">pick the jobs you actually want.</p>
                 </div>
               </li>
               <li>
-                <span class="vs__cross" aria-hidden="true">×</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Pitching small YouTubers who can only pay $50.</p>
-                  <p class="vs__bullet-why">Working twice as hard for a quarter of the rate.</p>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">New paid jobs every single day</p>
+                  <p class="pricing__feature-desc">your work never dries up, even in slow months.</p>
                 </div>
               </li>
               <li>
-                <span class="vs__cross" aria-hidden="true">×</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Losing jobs to editors charging $5/hr overseas.</p>
-                  <p class="vs__bullet-why">Racing to the bottom on price instead of competing on quality.</p>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Weekly live editing sessions with Tipra</p>
+                  <p class="pricing__feature-desc">watch real edits go from a 6 to a 9, and steal every move.</p>
                 </div>
               </li>
               <li>
-                <span class="vs__cross" aria-hidden="true">×</span>
-                <div class="vs__bullet">
-                  <p class="vs__bullet-title">Never knowing where next month's cheque is coming from.</p>
-                  <p class="vs__bullet-why">Every month starts at zero. The anxiety never lets up.</p>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Tipra's storyboarding course</p>
+                  <p class="pricing__feature-desc">plan edits like a pro before you touch the timeline.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">600+ editor Discord</p>
+                  <p class="pricing__feature-desc">answers in minutes, never stuck alone.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Advanced client training</p>
+                  <p class="pricing__feature-desc">stop competing on price, start charging what you're worth.</p>
                 </div>
               </li>
             </ul>
-          </aside>
+
+            <a data-cta href="https://checkout.videoproduction.plus/premium-intro" class="pricing__cta">Give Me Access</a>
+          </article>
+
+          <article class="pricing__plan pricing__plan--featured">
+            <span class="pricing__badge">BEST VALUE</span>
+            <header class="pricing__head">
+              <h3 class="pricing__name">YEARLY</h3>
+              <div class="pricing__price">
+                <span class="pricing__price-old">$588</span>
+                <span class="pricing__price-new">$297</span>
+                <span class="pricing__price-period">/year</span>
+              </div>
+              <p class="pricing__billing">Best value · about $25/month · save $291</p>
+            </header>
+
+            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
+
+            <div class="pricing__includes">Everything in Monthly, plus:</div>
+
+            <ul class="pricing__features">
+              <li>
+                <span class="pricing__plus" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Save $291 vs monthly</p>
+                  <p class="pricing__feature-desc">one job covers your whole year. Every job after is pure profit.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__plus" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">30-minute onboarding call with founder Jack Cole</p>
+                  <p class="pricing__feature-desc">skip the trial-and-error, land clients in week one.</p>
+                </div>
+              </li>
+            </ul>
+
+            <a data-cta href="https://checkout.videoproduction.plus/premium-intro" class="pricing__cta pricing__cta--featured">Give Me Access</a>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ============ TESTIMONIALS MARQUEE ============ -->
-    <section id="testimonials" class="section testimonials">
-      <div class="testimonials__frame">
-        <div class="testimonials__corner-glow" aria-hidden="true"></div>
-        <div class="testimonials__grid-bg" aria-hidden="true"></div>
-        <svg class="testimonials__sparkles" viewBox="0 0 500 400" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
-            <circle cx="40"  cy="30"  r="1.2" fill="#b8f5f0" opacity="0.80"/>
-            <circle cx="85"  cy="55"  r="0.8" fill="#b8f5f0" opacity="0.60"/>
-            <circle cx="120" cy="40"  r="1.5" fill="#b8f5f0" opacity="0.90"/>
-            <circle cx="60"  cy="90"  r="0.6" fill="#b8f5f0" opacity="0.50"/>
-            <circle cx="150" cy="80"  r="1.0" fill="#b8f5f0" opacity="0.70"/>
-            <circle cx="200" cy="60"  r="0.9" fill="#b8f5f0" opacity="0.60"/>
-            <circle cx="95"  cy="130" r="1.3" fill="#b8f5f0" opacity="0.75"/>
-            <circle cx="180" cy="120" r="0.7" fill="#b8f5f0" opacity="0.50"/>
-            <circle cx="230" cy="95"  r="1.1" fill="#b8f5f0" opacity="0.65"/>
-            <circle cx="45"  cy="160" r="0.8" fill="#b8f5f0" opacity="0.55"/>
-            <circle cx="140" cy="170" r="1.0" fill="#b8f5f0" opacity="0.60"/>
-            <circle cx="220" cy="150" r="0.6" fill="#b8f5f0" opacity="0.45"/>
-            <circle cx="280" cy="110" r="0.9" fill="#b8f5f0" opacity="0.50"/>
-            <circle cx="75"  cy="220" r="0.7" fill="#b8f5f0" opacity="0.40"/>
-            <circle cx="175" cy="210" r="0.8" fill="#b8f5f0" opacity="0.45"/>
-            <circle cx="260" cy="180" r="0.6" fill="#b8f5f0" opacity="0.40"/>
-            <circle cx="320" cy="140" r="0.7" fill="#b8f5f0" opacity="0.40"/>
-            <circle cx="110" cy="260" r="0.5" fill="#b8f5f0" opacity="0.35"/>
-            <circle cx="200" cy="250" r="0.6" fill="#b8f5f0" opacity="0.35"/>
-            <circle cx="290" cy="220" r="0.5" fill="#b8f5f0" opacity="0.30"/>
-        </svg>
-
-        <div class="container">
-          <header class="section__head testimonials__head">
-            <span class="kicker">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 7h4v4H8c0 2 1 3 3 3v2c-3 0-4-2-4-5V7zm9 0h4v4h-3c0 2 1 3 3 3v2c-3 0-4-2-4-5V7z"/></svg>
-              TESTIMONIALS
-            </span>
-            <h2 class="section__title">
-              From $300/month to<br />
-              <span class="grad">$1,600 weeks.</span>
-            </h2>
-            <p class="section__lede">
-              Editors who stopped chasing clients.
-            </p>
-          </header>
-        </div>
-
-        <div class="testimonials__marquee">
-            <div class="testimonials__row testimonials__row--ltr">
-              <div class="testimonials__track">
-                
-                
-                
-                <!-- Set A -->
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Kostya-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Kostya</p>
-                    <p class="testimonials__role">VP+ Editor · $1,600 week</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"$1,600 earned last week in VP+. Biggest so far."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/T...-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">T…</p>
-                    <p class="testimonials__role">VP+ Editor · $1,200/vid</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Bruh, closed a $1,200 per vid client."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/sokky-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">sokyy</p>
-                    <p class="testimonials__role">VP+ Editor · 10 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Landed my first client 10 days after joining VP+!"</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Stinson-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Stinson Thomas</p>
-                    <p class="testimonials__role">VP+ Editor · $6,000/m</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Major win. Onboarded a $6,000/m client from VP+. 30 days in and this is the biggest yet."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Sam-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Sam</p>
-                    <p class="testimonials__role">VP+ Editor · 3 clients/wk</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"3 clients closed this week from VP+. A month ago I was stuck at $300/month."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Julian-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Julian</p>
-                    <p class="testimonials__role">VP+ Editor · 2 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Closed a former UFC fighter 2 days after joining VP+."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Mohammad-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Mohamed</p>
-                    <p class="testimonials__role">VP+ Editor · 4 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"New client 4 days after joining VP+. They DM'd me first."</p>
-              </article>
-              <!-- Set B (duplicate, aria-hidden) -->
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Kostya-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Kostya</p>
-                    <p class="testimonials__role">VP+ Editor · $1,600 week</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"$1,600 earned last week in VP+. Biggest so far."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/T...-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">T…</p>
-                    <p class="testimonials__role">VP+ Editor · $1,200/vid</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Bruh, closed a $1,200 per vid client."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/sokky-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">sokyy</p>
-                    <p class="testimonials__role">VP+ Editor · 10 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Landed my first client 10 days after joining VP+!"</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Stinson-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Stinson Thomas</p>
-                    <p class="testimonials__role">VP+ Editor · $6,000/m</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Major win. Onboarded a $6,000/m client from VP+. 30 days in and this is the biggest yet."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Sam-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Sam</p>
-                    <p class="testimonials__role">VP+ Editor · 3 clients/wk</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"3 clients closed this week from VP+. A month ago I was stuck at $300/month."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Julian-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Julian</p>
-                    <p class="testimonials__role">VP+ Editor · 2 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Closed a former UFC fighter 2 days after joining VP+."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Mohammad-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Mohamed</p>
-                    <p class="testimonials__role">VP+ Editor · 4 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"New client 4 days after joining VP+. They DM'd me first."</p>
-              </article>
-            
-            
-            
-              </div>
-            </div>
-
-            <div class="testimonials__row testimonials__row--rtl">
-              <div class="testimonials__track">
-                
-                
-                
-                <!-- Set A -->
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/sophie-pic.jpeg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">sophiemahdoul</p>
-                    <p class="testimonials__role">VP+ Editor · First $2K</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"I just made my first $2K from video editing!!! Thank you VP+."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/riley-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Riley</p>
-                    <p class="testimonials__role">VP+ Editor · First $1k/mo</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Just closed a single client for $1k a month. That used to be my goal in total!"</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Lev-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Lev Yalkovskiy</p>
-                    <p class="testimonials__role">VP+ Editor · 2 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Just closed another client. 2nd day in VP+ lol."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/James-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">James</p>
-                    <p class="testimonials__role">VP+ Editor · Bought a Mac</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Just received my MacBook thanks to VP+."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Milana-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Milana</p>
-                    <p class="testimonials__role">VP+ Editor</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"There is so much sauce in VP+. I can not believe I didn't join earlier."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Gopi-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Gopi</p>
-                    <p class="testimonials__role">VP+ Editor · $5K/mo</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"$5K/month has been a long dream of mine, and I finally hit it from VP+. Feels super good."</p>
-              </article>
-              <article class="testimonials__card">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Frab-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">frablasi</p>
-                    <p class="testimonials__role">VP+ Editor · Bought an iPad</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Bought an iPad with editing money from VP+."</p>
-              </article>
-              <!-- Set B (duplicate, aria-hidden) -->
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/sophie-pic.jpeg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">sophiemahdoul</p>
-                    <p class="testimonials__role">VP+ Editor · First $2K</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"I just made my first $2K from video editing!!! Thank you VP+."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/riley-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Riley</p>
-                    <p class="testimonials__role">VP+ Editor · First $1k/mo</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Just closed a single client for $1k a month. That used to be my goal in total!"</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Lev-pic.png" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Lev Yalkovskiy</p>
-                    <p class="testimonials__role">VP+ Editor · 2 days in</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Just closed another client. 2nd day in VP+ lol."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/James-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">James</p>
-                    <p class="testimonials__role">VP+ Editor · Bought a Mac</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Just received my MacBook thanks to VP+."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Milana-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Milana</p>
-                    <p class="testimonials__role">VP+ Editor</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"There is so much sauce in VP+. I can not believe I didn't join earlier."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Gopi-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">Gopi</p>
-                    <p class="testimonials__role">VP+ Editor · $5K/mo</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"$5K/month has been a long dream of mine, and I finally hit it from VP+. Feels super good."</p>
-              </article>
-              <article class="testimonials__card" aria-hidden="true">
-                <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="../media/Frab-pic.jpg" alt="" loading="lazy" />
-                  <div class="testimonials__card-info">
-                    <p class="testimonials__name">frablasi</p>
-                    <p class="testimonials__role">VP+ Editor · Bought an iPad</p>
-                  </div>
-                </div>
-                <p class="testimonials__quote">"Bought an iPad with editing money from VP+."</p>
-              </article>
-            
-            
-            
-              </div>
-            </div>
-          </div>
-        </div>
-    </section>
-
-    <!-- ============ VSL ============ -->
-    <section class="section vsl-section">
-      <div class="vsl-section__atmosphere" aria-hidden="true">
-        <div class="vsl-section__hex"></div>
-        <div class="vsl-section__ray vsl-section__ray--left"></div>
-        <div class="vsl-section__ray vsl-section__ray--left-core"></div>
-        <div class="vsl-section__ray vsl-section__ray--right"></div>
-        <div class="vsl-section__ray vsl-section__ray--right-core"></div>
-        <div class="vsl-section__source vsl-section__source--left" aria-hidden="true"></div>
-        <div class="vsl-section__source vsl-section__source--right" aria-hidden="true"></div>
-        <div class="vsl-section__pool"></div>
-        <svg class="vsl-section__particles" viewBox="0 0 1500 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <circle cx="180" cy="160" r="0.6" fill="#b8f5f0" opacity="0.30"/>
-          <circle cx="260" cy="240" r="0.5" fill="#b8f5f0" opacity="0.22"/>
-          <circle cx="340" cy="320" r="0.7" fill="#b8f5f0" opacity="0.32"/>
-          <circle cx="420" cy="180" r="0.5" fill="#b8f5f0" opacity="0.20"/>
-          <circle cx="500" cy="260" r="0.8" fill="#b8f5f0" opacity="0.35"/>
-          <circle cx="580" cy="340" r="0.6" fill="#b8f5f0" opacity="0.25"/>
-          <circle cx="640" cy="420" r="0.5" fill="#b8f5f0" opacity="0.22"/>
-          <circle cx="720" cy="220" r="0.9" fill="#ffffff" opacity="0.55"/>
-          <circle cx="760" cy="380" r="0.7" fill="#b8f5f0" opacity="0.32"/>
-          <circle cx="700" cy="500" r="0.6" fill="#b8f5f0" opacity="0.25"/>
-          <circle cx="800" cy="280" r="0.5" fill="#b8f5f0" opacity="0.22"/>
-          <circle cx="860" cy="360" r="0.8" fill="#b8f5f0" opacity="0.35"/>
-          <circle cx="920" cy="440" r="0.6" fill="#b8f5f0" opacity="0.25"/>
-          <circle cx="1000" cy="220" r="0.7" fill="#b8f5f0" opacity="0.30"/>
-          <circle cx="1080" cy="320" r="0.5" fill="#b8f5f0" opacity="0.22"/>
-          <circle cx="1160" cy="280" r="0.6" fill="#b8f5f0" opacity="0.25"/>
-          <circle cx="1240" cy="360" r="0.7" fill="#b8f5f0" opacity="0.28"/>
-          <circle cx="1320" cy="200" r="0.5" fill="#b8f5f0" opacity="0.22"/>
-          <circle cx="580" cy="580" r="0.5" fill="#b8f5f0" opacity="0.20"/>
-          <circle cx="780" cy="620" r="0.6" fill="#b8f5f0" opacity="0.22"/>
-          <circle cx="960" cy="600" r="0.5" fill="#b8f5f0" opacity="0.20"/>
-          <circle cx="1100" cy="540" r="0.6" fill="#b8f5f0" opacity="0.22"/>
-        </svg>
-      </div>
-
+    <!-- ============ 11 — GUARANTEE ============ -->
+    <section class="tipra-guarantee" id="guarantee" aria-label="Guarantee">
       <div class="container">
-        <header class="section__head vsl-section__head">
-          <h2 class="section__title">Why I built <span class="grad">VP+.</span></h2>
-          <p class="section__lede">From Jack Cole, founder of VP+.</p>
-        </header>
-        <div class="vsl">
-          <div class="vsl__header">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-            </svg>
-            <span>Sound on.</span>
-          </div>
-          <div class="vsl__frame">
-            <video class="vsl__video" controls preload="metadata" playsinline poster="../media/vsl-poster.jpg" src="../media/Marketplace%20VSL%20v1222.mp4"></video>
-          </div>
+        <div class="tipra-guarantee__banner">
+          <span class="tipra-guarantee__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
+          <p class="tipra-guarantee__text">Cancel anytime, in one click. No calls, no hoops.</p>
         </div>
 
-        <div class="vsl__cta">
-          <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
-            Give Me Access
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
-          </a>
+        <!--
+          OPTIONAL stronger guarantee — uncomment this block to switch it on:
+        <div class="tipra-guarantee__banner tipra-guarantee__banner--strong">
+          <span class="tipra-guarantee__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
+          <p class="tipra-guarantee__text">Land your first paid job in 30 days, or your next month is free. We only win when you do.</p>
         </div>
+        -->
       </div>
     </section>
 
-    <!-- ============ FAQ ============ -->
+    <!-- ============ 12 — FAQ (reused .faq accordion) ============ -->
     <section id="faq" class="section faq">
       <div class="faq__atmosphere" aria-hidden="true">
         <div class="faq__grid-bg"></div>
         <div class="faq__corner-glow"></div>
         <svg class="faq__sparkles" viewBox="0 0 500 400" preserveAspectRatio="xMaxYMin meet" aria-hidden="true">
           <circle cx="460" cy="30"  r="1.4" fill="#b8f5f0" opacity="0.75"/>
-          <circle cx="415" cy="55"  r="0.8" fill="#b8f5f0" opacity="0.5"/>
           <circle cx="380" cy="40"  r="1.5" fill="#ffffff" opacity="0.85"/>
-          <circle cx="440" cy="90"  r="0.6" fill="#b8f5f0" opacity="0.4"/>
           <circle cx="350" cy="80"  r="1.0" fill="#b8f5f0" opacity="0.6"/>
-          <circle cx="300" cy="60"  r="0.9" fill="#b8f5f0" opacity="0.5"/>
           <circle cx="405" cy="130" r="1.3" fill="#b8f5f0" opacity="0.65"/>
-          <circle cx="320" cy="120" r="0.7" fill="#b8f5f0" opacity="0.4"/>
           <circle cx="270" cy="95"  r="1.1" fill="#b8f5f0" opacity="0.55"/>
-          <circle cx="455" cy="160" r="0.8" fill="#b8f5f0" opacity="0.45"/>
           <circle cx="360" cy="170" r="1.0" fill="#b8f5f0" opacity="0.5"/>
-          <circle cx="280" cy="150" r="0.6" fill="#b8f5f0" opacity="0.35"/>
-          <circle cx="220" cy="110" r="0.9" fill="#b8f5f0" opacity="0.4"/>
-          <circle cx="425" cy="220" r="0.7" fill="#b8f5f0" opacity="0.3"/>
-          <circle cx="325" cy="210" r="0.8" fill="#b8f5f0" opacity="0.35"/>
           <circle cx="240" cy="180" r="0.6" fill="#b8f5f0" opacity="0.3"/>
-          <circle cx="180" cy="140" r="0.7" fill="#b8f5f0" opacity="0.3"/>
-          <circle cx="390" cy="260" r="0.5" fill="#b8f5f0" opacity="0.25"/>
-          <circle cx="300" cy="250" r="0.6" fill="#b8f5f0" opacity="0.25"/>
-          <circle cx="210" cy="220" r="0.5" fill="#b8f5f0" opacity="0.2"/>
         </svg>
       </div>
 
@@ -1538,12 +1101,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             FAQ
           </span>
-          <h2 class="section__title">
-            Questions <span class="grad">Editors Ask</span>
-          </h2>
-          <p class="section__lede">
-            Everything you need to know before joining the VP+ marketplace.
-          </p>
+          <h2 class="section__title">Questions editors ask</h2>
+          <p class="section__lede">Everything you need to know before joining the VP+ marketplace.</p>
         </header>
 
         <div class="faq__layout">
@@ -1571,98 +1130,77 @@
               <details class="faq__item">
                 <summary>
                   <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">Why pay $24/month when other places are free?</span>
+                  <span class="faq__q-text">Is the marketplace actually active?</span>
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>Free sites are packed with editors bidding $5/hr. The $24 keeps them out. That's the point of the gate.</p>
+                  <p>Yes. New paid jobs go up every single day, and members have earned over $1,000,000 inside. You'll see live jobs the moment you're in.</p>
                 </div>
               </details>
 
               <details class="faq__item">
                 <summary>
                   <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">What's the catch?</span>
+                  <span class="faq__q-text">My niche isn't finance or business. Does this still work?</span>
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>No hidden fees. $24 your first month, $49 after. VP+ takes 10% on what you book through the marketplace. That's it.</p>
+                  <p>Yes. Clients post across every niche — gaming, fitness, real estate, e-commerce, and more. Good editing wins in all of them, and that's what you'll learn.</p>
                 </div>
               </details>
 
               <details class="faq__item">
                 <summary>
                   <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">What if I don't land a client?</span>
+                  <span class="faq__q-text">Do I actually get better, or just watch you edit?</span>
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>Editors who apply often, land work. Editors who don't, don't. The jobs are real. Average project pays $465+. The rest is on you.</p>
-                  <p>Cancel anytime.</p>
+                  <p>You bring your own projects. I rebuild real member work live, and you apply it to your edits that same week. You don't watch — you copy.</p>
                 </div>
               </details>
 
               <details class="faq__item">
                 <summary>
                   <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">What else do I get besides the marketplace?</span>
+                  <span class="faq__q-text">How much time does this take?</span>
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>A lot.</p>
-                  <ul class="faq__list">
-                    <li>The 600+ editor Discord.</li>
-                    <li>Two live coaching calls every week, plus guest speakers.</li>
-                    <li>Courses on winning work inside the marketplace.</li>
-                    <li>Advanced editing courses to sharpen your craft.</li>
-                    <li>Editing packs and assets you can drop straight into projects.</li>
-                    <li>Software tools to help you land your own clients outside the marketplace too.</li>
-                  </ul>
-                  <p>Most platforms drop you on a board and wish you luck. We help you win.</p>
+                  <p>Watch the weekly session live or on replay, and apply to jobs when you're ready. You move at your own pace.</p>
                 </div>
               </details>
 
               <details class="faq__item">
                 <summary>
                   <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">I'm not a top editor yet. Can I still join?</span>
+                  <span class="faq__q-text">I'm still a beginner. Is it too early?</span>
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>Yes. There are jobs at every level. Pick a niche, get good at it, win work. And the editing courses inside help you get better fast.</p>
+                  <p>If you can edit at all, you're ready. The marketplace has stepping-stone jobs to start, and the sessions get you to client-ready fast.</p>
                 </div>
               </details>
 
               <details class="faq__item">
                 <summary>
                   <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">How do I know the clients are real?</span>
+                  <span class="faq__q-text">Who are you?</span>
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>Every job is posted with a budget. Clients fund the full project in Escrow before you even begin work.</p>
+                  <p>I'm Tipra — a VP+ editor since year one. I get $1,200 for a single video and I've bought my family real things with editing money. Now I show other editors how.</p>
                 </div>
               </details>
 
               <details class="faq__item">
                 <summary>
                   <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">How often are jobs posted?</span>
+                  <span class="faq__q-text">Can I cancel?</span>
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>New jobs every single day, across loads of niches. The marketplace is always growing.</p>
-                </div>
-              </details>
-
-              <details class="faq__item">
-                <summary>
-                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
-                  <span class="faq__q-text">Can I cancel anytime?</span>
-                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                </summary>
-                <div class="faq__answer">
-                  <p>Yes. One click.</p>
+                  <p>Anytime, one click. No phone call, no guilt trip.</p>
                 </div>
               </details>
             </div>
@@ -1677,7 +1215,7 @@
       </div>
     </section>
 
-    <!-- ============ FINAL CTA ============ -->
+    <!-- ============ 13 — FINAL CTA (reused .cta) ============ -->
     <section id="apply" class="section cta">
       <div class="container cta__inner card">
         <div class="cta__atmosphere" aria-hidden="true">
@@ -1686,41 +1224,31 @@
           <div class="cta__glow cta__glow--bottom"></div>
           <svg class="cta__sparkles" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <circle cx="120" cy="80"  r="0.8" fill="#b8f5f0" opacity="0.55"/>
-            <circle cx="220" cy="140" r="0.6" fill="#b8f5f0" opacity="0.35"/>
             <circle cx="320" cy="60"  r="1.0" fill="#ffffff" opacity="0.65"/>
-            <circle cx="420" cy="180" r="0.7" fill="#b8f5f0" opacity="0.4"/>
-            <circle cx="520" cy="100" r="0.5" fill="#b8f5f0" opacity="0.3"/>
             <circle cx="620" cy="40"  r="0.9" fill="#b8f5f0" opacity="0.5"/>
-            <circle cx="720" cy="150" r="0.6" fill="#b8f5f0" opacity="0.35"/>
             <circle cx="820" cy="90"  r="0.7" fill="#b8f5f0" opacity="0.4"/>
-            <circle cx="920" cy="170" r="0.8" fill="#b8f5f0" opacity="0.45"/>
             <circle cx="1020" cy="60" r="0.5" fill="#b8f5f0" opacity="0.3"/>
-            <circle cx="1080" cy="180" r="0.6" fill="#b8f5f0" opacity="0.35"/>
-            <circle cx="80"  cy="440" r="0.7" fill="#b8f5f0" opacity="0.35"/>
-            <circle cx="220" cy="520" r="0.5" fill="#b8f5f0" opacity="0.3"/>
             <circle cx="380" cy="480" r="0.8" fill="#b8f5f0" opacity="0.4"/>
-            <circle cx="520" cy="540" r="0.6" fill="#b8f5f0" opacity="0.3"/>
             <circle cx="700" cy="500" r="1.0" fill="#ffffff" opacity="0.6"/>
-            <circle cx="860" cy="540" r="0.6" fill="#b8f5f0" opacity="0.35"/>
             <circle cx="1000" cy="460" r="0.7" fill="#b8f5f0" opacity="0.4"/>
-            <circle cx="1140" cy="520" r="0.5" fill="#b8f5f0" opacity="0.3"/>
           </svg>
         </div>
         <span class="kicker">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           ONE LAST THING
         </span>
-        <h2 class="cta__title">No more late nights wondering <span class="grad">where the next project is coming from.</span></h2>
-        <p class="cta__lede">Join VP+ and be inside the marketplace in 60 seconds.</p>
-        <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+        <h2 class="cta__title">No more late nights wondering <span class="grad">where the next job is coming from.</span></h2>
+        <p class="cta__lede">Get good enough to get chosen. Get where the clients already are. You can be inside the marketplace in 60 seconds.</p>
+        <a class="btn btn--primary btn--xl btn--glow" data-cta href="https://checkout.videoproduction.plus/premium-intro">
           Give Me Access
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
         </a>
-        <p class="cta__fineprint">Cancel anytime.</p>
+        <p class="cta__fineprint">Cancel anytime</p>
       </div>
     </section>
+    </main>
 
-    <!-- ============ FOOTER ============ -->
+    <!-- ============ 14 — FOOTER (reused .footer) ============ -->
     <footer class="footer">
       <div class="container footer__inner">
         <div class="footer__brand">
@@ -1728,8 +1256,8 @@
             <img src="../media/VPP%20logo.png" alt="Video Production+" />
           </a>
           <p class="footer__tagline">
-            The gated marketplace where high-paying clients
-            come looking for elite video editors.
+            Where editors get good enough to get chosen — and get found by the
+            clients who pay.
           </p>
           <div class="footer__socials">
             <a class="footer__social" href="#" aria-label="X (Twitter)" target="_blank" rel="noopener">
@@ -1745,15 +1273,29 @@
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.07.07 0 0 0-.073.035c-.21.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.07.07 0 0 0-.073-.034 19.74 19.74 0 0 0-4.885 1.515.06.06 0 0 0-.03.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.07.07 0 0 0 .077-.027c.462-.63.873-1.295 1.226-1.994a.07.07 0 0 0-.038-.097 13.1 13.1 0 0 1-1.872-.892.07.07 0 0 1-.008-.118c.126-.094.252-.192.372-.292a.07.07 0 0 1 .072-.01c3.927 1.793 8.18 1.793 12.062 0a.07.07 0 0 1 .073.009c.12.1.246.198.373.293a.07.07 0 0 1-.006.118c-.598.349-1.22.645-1.872.892a.07.07 0 0 0-.038.097c.36.7.77 1.363 1.225 1.993a.07.07 0 0 0 .077.028 19.84 19.84 0 0 0 6.002-3.03.08.08 0 0 0 .032-.055c.5-5.177-.838-9.674-3.548-13.66a.06.06 0 0 0-.03-.028ZM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.212 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.212 0 2.176 1.095 2.157 2.418 0 1.334-.945 2.419-2.157 2.419Z"/></svg>
             </a>
           </div>
+
+          <!-- TODO: Tipra socials — swap the # hrefs for Tipra's real profiles. -->
+          <div class="footer__socials footer__socials--tipra" aria-label="Tipra's socials">
+            <span class="footer__socials-label">Tipra</span>
+            <a class="footer__social" href="#" aria-label="Tipra on X (Twitter)" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="Tipra on Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="Tipra on YouTube" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26.5 26.5 0 0 0 2 12a26.5 26.5 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26.5 26.5 0 0 0 22 12a26.5 26.5 0 0 0-.4-4.8ZM10 15.02V8.98L15.2 12 10 15.02Z"/></svg>
+            </a>
+          </div>
         </div>
 
         <div class="footer__col">
           <h4 class="footer__heading">Explore</h4>
           <ul class="footer__nav">
-            <li><a href="#success-stories">Stories</a></li>
+            <li><a href="#turn">How it works</a></li>
+            <li><a href="#marketplace">Marketplace</a></li>
+            <li><a href="#proof">Proof</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#video-wins">Wins</a></li>
-            <li><a href="#platform">The VP+ Way</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
@@ -1761,7 +1303,7 @@
         <div class="footer__col">
           <h4 class="footer__heading">Membership</h4>
           <ul class="footer__nav">
-            <li><a href="#pricing">Join VP+</a></li>
+            <li><a data-cta href="https://checkout.videoproduction.plus/premium-intro">Join VP+</a></li>
             <li><a href="#">Member login</a></li>
             <li><a href="#">Affiliate program</a></li>
             <li><a href="mailto:hello@videoproductionplus.com">Contact</a></li>
@@ -1774,7 +1316,7 @@
             New jobs every single day
           </span>
           <h3 class="footer__cta-title">Get on the marketplace.</h3>
-          <a class="btn btn--primary btn--glow footer__cta-btn" href="#pricing">
+          <a class="btn btn--primary btn--glow footer__cta-btn" data-cta href="https://checkout.videoproduction.plus/premium-intro">
             Give Me Access
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
           </a>
@@ -1794,5 +1336,6 @@
     </footer>
 
     <script src="../script.js" defer></script>
+    <script src="tipra.js" defer></script>
   </body>
 </html>

@@ -110,10 +110,17 @@
   font-size: .85rem;
 }
 
-/* Floating job cards peeking at the bottom (reused .hero__cards fan, faded) */
-.tipra-hero__floats { margin-top: clamp(1.5rem, 4vh, 2.75rem); }
-.tipra-hero__floats .job-card { opacity: .5; }
-.tipra-hero__floats .job-card--pos3 { opacity: .62; }
+/* Floating job cards peeking at the bottom edge (reused .hero__cards fan,
+   faded). Smaller cards + a short container so only their tops show — the
+   hero's overflow:hidden clips the rest into a subtle "peek". */
+.tipra-hero__floats {
+  --card-w: clamp(230px, 19vw, 330px);
+  --card-h: clamp(220px, 17vw, 300px);
+  height: clamp(120px, 17vh, 190px);
+  margin-top: clamp(1rem, 3vh, 2rem);
+}
+.tipra-hero__floats .job-card { opacity: .4; }
+.tipra-hero__floats .job-card--pos3 { opacity: .5; }
 @media (max-width: 640px) {
   /* Drop the fan on phones — keep the fold quiet (headline, video, button). */
   .tipra-hero__floats { display: none; }

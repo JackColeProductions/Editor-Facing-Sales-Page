@@ -789,13 +789,19 @@ button { font: inherit; cursor: pointer; }
 @media (max-width: 640px) {
   /* Hero padding-top: 2rem cleared no space for the 68px sticky
      nav, so the translucent nav was overlapping the trusted-pill.
-     Bump the top padding to a full nav-height + breathing room. */
-  .hero { min-height: 0; padding: 5.5rem 0 1.5rem; }
+     Bump the top padding to a full nav-height + breathing room.
+     Zero bottom padding: the card fan is meant to run off the
+     bottom edge of the hero (see below). */
+  .hero { min-height: 0; padding: 5.5rem 0 0; }
 
   /* Phones — keep all 5 cards, tight overlapping fan that wraps
      around the centre card. Far cards intentionally extend past
      the viewport edge so the silhouette reads as "more cards in
-     the deck", not "missing assets". */
+     the deck", not "missing assets".
+     The container is shorter than the cards on purpose: paired
+     with the hero's overflow:hidden and zero bottom padding, the
+     deck crops mid-card at the section seam — the same seamless
+     "cards sliding out of frame" cut as the desktop hero fold. */
   .hero__cards {
     --card-w: 200px;
     --card-h: 248px;
@@ -803,8 +809,10 @@ button { font: inherit; cursor: pointer; }
     --offset-far: 116px;
     --rot-near: 6deg;
     --rot-far: 12deg;
-    height: 320px;
-    margin-top: 1.5rem;
+    /* Crop line sits just under the centre card's buttons — side
+       cards cut deeper, like the desktop fold. */
+    height: 246px;
+    margin-top: 1.25rem;
   }
   /* Make the in-card text scale down so the smaller card still
      looks like a real job card, not a squished thumbnail. */
@@ -4268,6 +4276,16 @@ button { font: inherit; cursor: pointer; }
   .footer__inner { padding-bottom: 2.5rem; gap: 2.25rem; }
 }
 
+/* Editor footer dropped the Membership column — reflow the grid so
+   the remaining three blocks fill the row (clients page keeps the
+   original 4-column layout). */
+@media (min-width: 960px) {
+  .footer__inner--slim { grid-template-columns: 1.6fr 1fr 1.5fr; }
+}
+@media (min-width: 640px) and (max-width: 959px) {
+  .footer__inner--slim .footer__cta { grid-column: auto; }
+}
+
 /* =========================================================
    Mobile polish — pass 2. Covers the sections below the hero:
    Platform, Video testimonials, Profile setup, Testimonials
@@ -4347,6 +4365,23 @@ button { font: inherit; cursor: pointer; }
   .pricing::before { height: 120px; }
   .pricing__sphere { width: 640px; height: 640px; bottom: -470px; }
   .pricing__plans { padding-top: 1.25rem; gap: 1.25rem; }
+  /* Monthly ($24) card, editor page, phones only: drop the
+     per-feature explainer lines — five titles + five sub-lines
+     read as a wall of text at this width — and give the price
+     the same gradient treatment as the yearly $297. */
+  body:not(.clients-page) .pricing__plan:not(.pricing__plan--featured) .pricing__feature-desc {
+    display: none;
+  }
+  body:not(.clients-page) .pricing__plan:not(.pricing__plan--featured) .pricing__features { gap: 1rem; }
+  body:not(.clients-page) .pricing__price-new {
+    background: linear-gradient(135deg,
+      hsl(180 100% 95%) 0%,
+      hsl(180 90% 75%) 50%,
+      hsl(180 78% 50%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
   /* Decorative particle layers reposition unpredictably against
      stacked mobile layouts — bright dots were landing right next
@@ -4383,8 +4418,10 @@ button { font: inherit; cursor: pointer; }
      so it doesn't dominate, and tighten accordion padding. */
   .faq__visual { height: 240px; border-radius: 1.1rem; }
   .faq__social-proof { padding: .55rem .9rem .55rem .7rem; }
-  .faq__avatar, .faq__avatar-count { width: 30px; height: 30px; }
-  .faq__avatar-count { font-size: .68rem; }
+  .faq__avatar, .faq__avatar-count { width: 32px; height: 32px; }
+  /* "+600" was wider than the 30px circle and clipped at both
+     edges — smaller, tighter digits fit inside the badge. */
+  .faq__avatar-count { font-size: .56rem; letter-spacing: -.02em; }
   .faq__stars svg { width: 12px; height: 12px; }
   .faq__rating-text { font-size: .74rem; }
 

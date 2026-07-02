@@ -787,12 +787,20 @@ button { font: inherit; cursor: pointer; }
   }
 }
 @media (max-width: 640px) {
-  /* Hero padding-top: 2rem cleared no space for the 68px sticky
-     nav, so the translucent nav was overlapping the trusted-pill.
-     Bump the top padding to a full nav-height + breathing room.
-     Zero bottom padding: the card fan is meant to run off the
-     bottom edge of the hero (see below). */
-  .hero { min-height: 0; padding: 5.5rem 0 0; }
+  /* Viewport-locked hero, same as desktop: the section owns the
+     whole first screen (svh = stable height with Safari's URL bar
+     visible), content centers in the free space, and the card fan
+     crops exactly at the fold — nothing from the next section
+     peeks into the first impression. Zero bottom padding so the
+     fan's crop line IS the screen edge. */
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 5.5rem 0 0;
+  }
+  /* Split the leftover viewport space evenly above and below the
+     text block so the composition stays balanced on tall phones. */
+  .hero__content { margin-block: auto; }
 
   /* Phones — keep all 5 cards, tight overlapping fan that wraps
      around the centre card. Far cards intentionally extend past

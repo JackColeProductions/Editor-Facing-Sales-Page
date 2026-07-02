@@ -20,13 +20,25 @@ if (nav && navMenu) {
   nav.querySelectorAll('.nav__pill a').forEach(a => {
     a.addEventListener('click', closeMenu);
   });
-  document.addEventListener('click', (e) => {
+  // pointerdown, not click: iOS Safari doesn't synthesize click
+  // events for taps on non-interactive elements, so an outside tap
+  // on plain page content would never close the panel.
+  document.addEventListener('pointerdown', (e) => {
     if (nav.classList.contains('is-open') && !nav.contains(e.target)) closeMenu();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
+  // The nav is absolute, so an open panel scrolls away with the
+  // page while staying "open" — close it as soon as scrolling starts.
+  window.addEventListener('scroll', () => {
+    if (nav.classList.contains('is-open')) closeMenu();
+  }, { passive: true });
 }
+
+// Respect reduced-motion in JS-initiated scrolling too (the CSS
+// side is handled by the global reduced-motion block).
+const scrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
 // Close other FAQ items when one opens (accordion behavior)
 const faqItems = document.querySelectorAll('.faq__item');
@@ -246,15 +258,24 @@ if (proof) {
     }
     const durEl = card.querySelector('.proof__duration');
 
-    const playOthers = () => videos.forEach(v => {
-      if (v !== video) { v.pause(); v.muted = true; }
-    });
+    const playOthers = () => {
+      videos.forEach(v => {
+        if (v !== video) { v.pause(); v.muted = true; }
+      });
+      // The founder VSL has its own controls but shares the page's
+      // audio space — don't let it talk over a testimonial.
+      const vsl = document.querySelector('.vsl__video');
+      if (vsl && !vsl.paused) vsl.pause();
+    };
 
     card.addEventListener('click', () => {
       if (video.paused) {
         playOthers();
         video.muted = false;
-        video.play().catch(() => { video.muted = true; video.play(); });
+        video.play().catch(() => {
+          video.muted = true;
+          video.play().catch(() => {});
+        });
       } else {
         video.pause();
       }
@@ -264,11 +285,12 @@ if (proof) {
     video.addEventListener('pause', () => card.classList.remove('is-playing'));
     video.addEventListener('ended', () => card.classList.remove('is-playing'));
 
-    // Force the first painted frame + populate duration pill on metadata load.
-    video.addEventListener('loadedmetadata', () => {
-      try { video.currentTime = 0.1; } catch (_) {}
-      if (durEl) durEl.textContent = fmtTime(video.duration);
-    }, { once: true });
+    // Populate the duration pill whenever metadata becomes available.
+    // (Posters cover the first frame now, so no currentTime poke —
+    // that used to force a media-data range fetch per video.)
+    const fillDuration = () => { if (durEl) durEl.textContent = fmtTime(video.duration); };
+    if (video.readyState >= 1) fillDuration();
+    else video.addEventListener('loadedmetadata', fillDuration, { once: true });
   });
 
   // Carousel arrows — scroll by one card width + gap.
@@ -278,8 +300,8 @@ if (proof) {
     const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 16;
     return cardWidth + gap;
   };
-  prevBtn?.addEventListener('click', () => track.scrollBy({ left: -cardStep(), behavior: 'smooth' }));
-  nextBtn?.addEventListener('click', () => track.scrollBy({ left:  cardStep(), behavior: 'smooth' }));
+  prevBtn?.addEventListener('click', () => track.scrollBy({ left: -cardStep(), behavior: scrollBehavior }));
+  nextBtn?.addEventListener('click', () => track.scrollBy({ left:  cardStep(), behavior: scrollBehavior }));
 
   // Dot click → snap to that card.
   dots.forEach((dot, i) => {
@@ -287,7 +309,7 @@ if (proof) {
       const card = cards[i];
       if (!card) return;
       const offset = card.offsetLeft - track.offsetLeft;
-      track.scrollTo({ left: offset, behavior: 'smooth' });
+      track.scrollTo({ left: offset, behavior: scrollBehavior });
     });
   });
 
@@ -324,6 +346,10 @@ if (proof) {
 
   const onTrackDown = (e) => {
     if (e.target.closest('.proof__nav-btn, .proof__dot')) return;
+    // Touch gets native scrolling + scroll-snap (smoother, and the
+    // custom scrollLeft writes would fight the browser's gesture);
+    // this drag layer is for mouse users only.
+    if (e.pointerType && e.pointerType !== 'mouse') return;
     cancelMomentum();
     dragStartX = e.clientX;
     lastX = e.clientX;
@@ -417,12 +443,18 @@ if (proof) {
   track.style.cursor = 'grab';
   track.style.userSelect = 'none';
 
-  // Keep the active dot in sync with scroll position.
+  // Keep the active dot in sync with scroll position. rAF-batched:
+  // cardStep() forces a layout read, so once per frame at most.
+  let dotsRaf = null;
   const updateDots = () => {
-    if (!cards.length || !dots.length) return;
-    const step = cardStep() || 1;
-    const idx = Math.min(dots.length - 1, Math.max(0, Math.round(track.scrollLeft / step)));
-    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    if (dotsRaf) return;
+    dotsRaf = requestAnimationFrame(() => {
+      dotsRaf = null;
+      if (!cards.length || !dots.length) return;
+      const step = cardStep() || 1;
+      const idx = Math.min(dots.length - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    });
   };
   track.addEventListener('scroll', updateDots, { passive: true });
   window.addEventListener('resize', updateDots);
@@ -434,11 +466,13 @@ if (proof) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach(({ target, isIntersecting }) => {
         if (!isIntersecting) {
-          const v = target.querySelector('.proof__video');
-          if (v && !v.paused) { v.pause(); v.muted = true; }
+          const v = target.querySelector('video');
+          if (v && !v.paused) { v.pause(); if (v.classList.contains('proof__video')) v.muted = true; }
         }
       });
     }, { threshold: 0.35 });
     cards.forEach(c => io.observe(c));
+    const vslFrame = document.querySelector('.vsl');
+    if (vslFrame) io.observe(vslFrame);
   }
 }

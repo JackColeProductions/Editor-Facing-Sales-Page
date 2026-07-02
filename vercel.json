@@ -4,5 +4,16 @@
       "source": "/go/:code",
       "destination": "https://uploadjuice.vercel.app/track/click/:code"
     }
+  ],
+  "headers": [
+    {
+      "source": "/media/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    }
   ]
 }

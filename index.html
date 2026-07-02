@@ -16,7 +16,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./media/Plain%20Logo.png" />
     <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
-    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="./styles.css" />
     <!-- Meta (Facebook) Pixel Code -->
     <script>
@@ -42,7 +43,7 @@
         <a class="nav__brand" href="#top" aria-label="Video Production Plus home">
           <img src="media/VPP%20logo.png" alt="Video Production+" class="nav__logo" />
         </a>
-        <nav class="nav__pill" aria-label="Primary">
+        <nav class="nav__pill" id="navPill" aria-label="Primary">
           <a href="#success-stories">Stories</a>
           <a href="#pricing">Pricing</a>
           <a href="#video-wins">Wins</a>
@@ -53,7 +54,7 @@
         <div class="nav__right">
           <a class="btn btn--primary btn--glow nav__cta" href="#pricing">Give Me Access</a>
         </div>
-        <button class="nav__menu" id="navMenu" aria-label="Toggle menu" aria-expanded="false">
+        <button class="nav__menu" id="navMenu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPill">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -72,12 +73,12 @@
         <div class="hero__content">
           <div class="trusted-pill">
             <div class="avatars" aria-hidden="true">
-              <span class="avatar"><img src="media/opt/avatar-1-96.webp" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/opt/avatar-2-96.webp" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/opt/avatar-3-96.webp" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/opt/avatar-4-96.webp" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/opt/avatar-5-96.webp" alt="" loading="lazy" /></span>
-              <span class="avatar"><img src="media/opt/avatar-6-96.webp" alt="" loading="lazy" /></span>
+              <span class="avatar"><img src="media/opt/avatar-1-96.webp" alt="" width="96" height="96" /></span>
+              <span class="avatar"><img src="media/opt/avatar-2-96.webp" alt="" width="96" height="96" /></span>
+              <span class="avatar"><img src="media/opt/avatar-3-96.webp" alt="" width="96" height="96" /></span>
+              <span class="avatar"><img src="media/opt/avatar-4-96.webp" alt="" width="96" height="96" /></span>
+              <span class="avatar"><img src="media/opt/avatar-5-96.webp" alt="" width="96" height="96" /></span>
+              <span class="avatar"><img src="media/opt/avatar-6-96.webp" alt="" width="96" height="96" /></span>
             </div>
             <span>Trusted by <strong>600+ editors</strong><span class="trusted-pill__loc"> worldwide</span></span>
           </div>
@@ -100,7 +101,7 @@
         </div>
 
         <!-- Job card fan -->
-        <div class="hero__cards" aria-hidden="false">
+        <div class="hero__cards" aria-hidden="true">
           <article class="job-card job-card--pos1">
             <header class="job-card__head">
               <div class="job-card__title-block">
@@ -373,7 +374,7 @@
           <p class="section__lede">Real editors. Real numbers.</p>
         </header>
 
-        <div class="stories__avatars" role="tablist" aria-label="Editor stories">
+        <div class="stories__avatars" role="group" aria-label="Editor stories">
           <button class="stories__avatar" type="button" data-index="0" aria-label="Faraz's story"><img src="media/opt/faraz-headshot-200.webp" alt="" /></button>
           <button class="stories__avatar" type="button" data-index="1" aria-label="Bavleo's story"><img src="media/opt/bavleo-headshot-200.webp" alt="" /></button>
           <button class="stories__avatar" type="button" data-index="2" aria-label="Caio Lima's story"><img src="media/opt/caio-headshot-200.webp" alt="" /></button>
@@ -806,7 +807,7 @@
           <div class="proof__track" tabindex="0" aria-label="Video testimonials">
             <article class="proof__card" data-index="0">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/new-testimonial.mp4" poster="media/posters/new-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/new-testimonial.mp4" poster="media/posters/new-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Stinson's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -822,7 +823,7 @@
 
             <article class="proof__card" data-index="1">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/jallen-testimonial.mp4" poster="media/posters/jallen-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/jallen-testimonial.mp4" poster="media/posters/jallen-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Jallen's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -838,7 +839,7 @@
 
             <article class="proof__card" data-index="2">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/juh-testimonial.mp4" poster="media/posters/juh-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/juh-testimonial.mp4" poster="media/posters/juh-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Juh's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -854,7 +855,7 @@
 
             <article class="proof__card" data-index="3">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/suleman-testimonial.mp4" poster="media/posters/suleman-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/suleman-testimonial.mp4" poster="media/posters/suleman-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Suleman's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -870,7 +871,7 @@
 
             <article class="proof__card" data-index="4">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/nicko-testimonial.mp4" poster="media/posters/nicko-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/nicko-testimonial.mp4" poster="media/posters/nicko-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Nicko's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -886,7 +887,7 @@
 
             <article class="proof__card" data-index="5">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/riyo-testimonial.mp4" poster="media/posters/riyo-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/riyo-testimonial.mp4" poster="media/posters/riyo-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Riyo's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -902,7 +903,7 @@
 
             <article class="proof__card" data-index="6">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/tipra-testimonial.mp4" poster="media/posters/tipra-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/tipra-testimonial.mp4" poster="media/posters/tipra-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Tipra's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -918,7 +919,7 @@
 
             <article class="proof__card" data-index="7">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/sacha-testimonial.mp4" poster="media/posters/sacha-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/sacha-testimonial.mp4" poster="media/posters/sacha-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Sacha's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -934,7 +935,7 @@
 
             <article class="proof__card" data-index="8">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/vexa-testimonial.mp4" poster="media/posters/vexa-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/vexa-testimonial.mp4" poster="media/posters/vexa-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Vexa's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -950,7 +951,7 @@
 
             <article class="proof__card" data-index="9">
               <div class="proof__video-wrap">
-                <video class="proof__video" src="media/joe-testimonial.mp4" poster="media/posters/joe-testimonial-poster.jpg" preload="metadata" playsinline muted></video>
+                <video class="proof__video" src="media/joe-testimonial.mp4" poster="media/posters/joe-testimonial-poster.jpg" preload="none" playsinline muted></video>
                 <button class="proof__play" type="button" aria-label="Play Joe's testimonial">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
                 </button>
@@ -1141,7 +1142,7 @@
                 <!-- Set A -->
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Kostya-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Kostya-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Kostya</p>
                     <p class="testimonials__role">VP+ Editor · $1,600 week</p>
@@ -1151,7 +1152,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/T...-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/T...-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">T…</p>
                     <p class="testimonials__role">VP+ Editor · $1,200/vid</p>
@@ -1161,7 +1162,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/sokky-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/sokky-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">sokyy</p>
                     <p class="testimonials__role">VP+ Editor · 10 days in</p>
@@ -1171,7 +1172,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Stinson-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Stinson-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Stinson Thomas</p>
                     <p class="testimonials__role">VP+ Editor · $6,000/m</p>
@@ -1181,7 +1182,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Sam-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Sam-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Sam</p>
                     <p class="testimonials__role">VP+ Editor · 3 clients/wk</p>
@@ -1191,7 +1192,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Julian-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Julian-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Julian</p>
                     <p class="testimonials__role">VP+ Editor · 2 days in</p>
@@ -1201,7 +1202,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Mohammad-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Mohammad-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Mohamed</p>
                     <p class="testimonials__role">VP+ Editor · 4 days in</p>
@@ -1212,7 +1213,7 @@
               <!-- Set B (duplicate, aria-hidden) -->
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Kostya-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Kostya-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Kostya</p>
                     <p class="testimonials__role">VP+ Editor · $1,600 week</p>
@@ -1222,7 +1223,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/T...-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/T...-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">T…</p>
                     <p class="testimonials__role">VP+ Editor · $1,200/vid</p>
@@ -1232,7 +1233,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/sokky-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/sokky-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">sokyy</p>
                     <p class="testimonials__role">VP+ Editor · 10 days in</p>
@@ -1242,7 +1243,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Stinson-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Stinson-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Stinson Thomas</p>
                     <p class="testimonials__role">VP+ Editor · $6,000/m</p>
@@ -1252,7 +1253,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Sam-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Sam-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Sam</p>
                     <p class="testimonials__role">VP+ Editor · 3 clients/wk</p>
@@ -1262,7 +1263,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Julian-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Julian-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Julian</p>
                     <p class="testimonials__role">VP+ Editor · 2 days in</p>
@@ -1272,7 +1273,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Mohammad-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Mohammad-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Mohamed</p>
                     <p class="testimonials__role">VP+ Editor · 4 days in</p>
@@ -1294,7 +1295,7 @@
                 <!-- Set A -->
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/sophie-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/sophie-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">sophiemahdoul</p>
                     <p class="testimonials__role">VP+ Editor · First $2K</p>
@@ -1304,7 +1305,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/riley-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/riley-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Riley</p>
                     <p class="testimonials__role">VP+ Editor · First $1k/mo</p>
@@ -1314,7 +1315,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Lev-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Lev-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Lev Yalkovskiy</p>
                     <p class="testimonials__role">VP+ Editor · 2 days in</p>
@@ -1324,7 +1325,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/James-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/James-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">James</p>
                     <p class="testimonials__role">VP+ Editor · Bought a Mac</p>
@@ -1334,7 +1335,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Milana-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Milana-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Milana</p>
                     <p class="testimonials__role">VP+ Editor</p>
@@ -1344,7 +1345,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Gopi-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Gopi-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Gopi</p>
                     <p class="testimonials__role">VP+ Editor · $5K/mo</p>
@@ -1354,7 +1355,7 @@
               </article>
               <article class="testimonials__card">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Frab-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Frab-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">frablasi</p>
                     <p class="testimonials__role">VP+ Editor · Bought an iPad</p>
@@ -1365,7 +1366,7 @@
               <!-- Set B (duplicate, aria-hidden) -->
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/sophie-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/sophie-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">sophiemahdoul</p>
                     <p class="testimonials__role">VP+ Editor · First $2K</p>
@@ -1375,7 +1376,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/riley-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/riley-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Riley</p>
                     <p class="testimonials__role">VP+ Editor · First $1k/mo</p>
@@ -1385,7 +1386,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Lev-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Lev-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Lev Yalkovskiy</p>
                     <p class="testimonials__role">VP+ Editor · 2 days in</p>
@@ -1395,7 +1396,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/James-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/James-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">James</p>
                     <p class="testimonials__role">VP+ Editor · Bought a Mac</p>
@@ -1405,7 +1406,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Milana-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Milana-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Milana</p>
                     <p class="testimonials__role">VP+ Editor</p>
@@ -1415,7 +1416,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Gopi-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Gopi-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">Gopi</p>
                     <p class="testimonials__role">VP+ Editor · $5K/mo</p>
@@ -1425,7 +1426,7 @@
               </article>
               <article class="testimonials__card" aria-hidden="true">
                 <div class="testimonials__card-head">
-                  <img class="testimonials__avatar" src="media/opt/Frab-pic-112.webp" alt="" loading="lazy" />
+                  <img class="testimonials__avatar" width="112" height="112" src="media/opt/Frab-pic-112.webp" alt="" />
                   <div class="testimonials__card-info">
                     <p class="testimonials__name">frablasi</p>
                     <p class="testimonials__role">VP+ Editor · Bought an iPad</p>
@@ -1494,7 +1495,7 @@
             <span>Sound on.</span>
           </div>
           <div class="vsl__frame">
-            <video class="vsl__video" controls preload="metadata" playsinline poster="media/vsl-poster.jpg" src="media/Marketplace%20VSL%20v1222.mp4"></video>
+            <video class="vsl__video" controls preload="metadata" playsinline poster="media/posters/vsl-poster-800.jpg" src="media/Marketplace%20VSL%20v1222.mp4"></video>
           </div>
         </div>
 

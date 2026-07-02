@@ -268,10 +268,16 @@ button { font: inherit; cursor: pointer; }
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+.nav.is-open .nav__pill {
+  /* Full-width rows: the base pill centers items, which left each
+     link's tap area only as wide as its text. */
+  align-items: stretch;
+}
 .nav.is-open .nav__pill a {
   padding: .85rem 1rem;
   font-size: .95rem;
   border-radius: .75rem;
+  text-align: center;
 }
 .nav.is-open .nav__pill a:active { background: hsl(0 0% 100% / .06); }
 .nav.is-open .nav__pill .nav__pill-cta {
@@ -2928,7 +2934,7 @@ button { font: inherit; cursor: pointer; }
 .proof__dots {
   display: flex;
   align-items: center;
-  gap: .45rem;
+  gap: .6rem;
   padding: .5rem .75rem;
   border-radius: 999px;
   background: hsl(240 20% 9% / .5);
@@ -2945,12 +2951,14 @@ button { font: inherit; cursor: pointer; }
   cursor: pointer;
   transition: width .3s ease, background .3s ease;
 }
-/* Invisible hit-area extension — 8px dots are untappable on touch;
-   this brings each one up to ~32px without changing the visual. */
+/* Invisible hit-area extension — 8px dots are untappable on touch.
+   Horizontal extension stays under half the dot pitch so adjacent
+   hit boxes never overlap (an overlap makes the later dot steal
+   every tap); vertical extension carries the 44px-target duty. */
 .proof__dot::after {
   content: '';
   position: absolute;
-  inset: -12px;
+  inset: -14px -4px;
 }
 .proof__dot:hover { background: hsl(180 74% 63% / .55); }
 .proof__dot.is-active {
@@ -4253,6 +4261,8 @@ button { font: inherit; cursor: pointer; }
 .footer__bottom {
   border-top: 1px solid var(--border-soft);
   padding: 1.25rem 0;
+  /* Keep the legal links clear of the iOS home indicator. */
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
 }
 .footer__bottom-inner {
   display: flex;
@@ -4365,12 +4375,8 @@ button { font: inherit; cursor: pointer; }
   .pricing__features { gap: .85rem; }
   .pricing__price-new { font-size: 2.4rem; }
   .pricing__price-period { font-size: .85rem; }
-  /* Kill the dead black band under the yearly card: the desktop
-     8rem tail + oversized fade band added ~2 empty screens on
-     phones. Pull the sphere up so its glow still forms a soft
-     horizon right under the cards. */
-  .pricing { padding-top: 3rem; padding-bottom: 4.5rem; }
-  .pricing::before { height: 120px; }
+  /* Pull the sphere up so its glow forms a soft horizon right
+     under the cards (padding fixes live in the ≤819px block). */
   .pricing__sphere { width: 640px; height: 640px; bottom: -470px; }
   .pricing__plans { padding-top: 1.25rem; gap: 1.25rem; }
   /* Monthly ($24) card, editor page, phones only: drop the
@@ -4391,18 +4397,8 @@ button { font: inherit; cursor: pointer; }
     color: transparent;
   }
 
-  /* Decorative particle layers reposition unpredictably against
-     stacked mobile layouts — bright dots were landing right next
-     to headlines, reading as stray punctuation. Hide the layers
-     that use slice-scaled viewBoxes; corner-anchored sparkle
-     clusters (FAQ / testimonials) stay. */
-  .pricing__particles,
-  .platform__particles,
-  .proof__particles,
-  .showcase__particles,
-  .vsl-section__particles,
-  .cta__sparkles,
-  .profile-setup__spark { display: none; }
+  /* (Particle-layer hiding and pricing tail trims live in the
+     ≤819px block below so tablets get them too.) */
 
   /* VSL — source glows scale tighter on phones so the bright
      dots don't dominate the bottom of the section. */
@@ -4453,7 +4449,7 @@ button { font: inherit; cursor: pointer; }
      below the card. Shrink to fit the active card content. */
   .stories__carousel {
     height: auto;
-    min-height: 280px;
+    min-height: 240px;
     margin-bottom: .5rem;
     /* JS pins the height to the active card; ease between cards of
        different quote lengths instead of jumping. */
@@ -4479,13 +4475,9 @@ button { font: inherit; cursor: pointer; }
   .stories__tag           { font-size: .65rem; padding: .25rem .55rem; }
   .stories__chip          { font-size: .62rem; padding: .25rem .5rem; }
 
-  /* Video testimonials carousel — at phone scale the backdrop-blur
-     edge overlays compress into hard dark bands that look like a
-     shadow cropping the cards. Drop them entirely: a centered
-     snap card with neighbours peeking past both edges is the
-     premium mobile pattern, no fake fades needed. */
-  .proof__carousel::before,
-  .proof__carousel::after { display: none; }
+  /* Video testimonials carousel — centered snap card with
+     neighbours peeking past both edges (edge-overlay removal for
+     phones AND tablets lives in the ≤767px block below). */
   .proof__card {
     flex: 0 0 min(62vw, 250px);
     scroll-snap-align: center;
@@ -4501,6 +4493,44 @@ button { font: inherit; cursor: pointer; }
   .proof__quote { font-size: .8rem; }
   .proof__play  { width: 56px; height: 56px; }
   .proof__controls { justify-content: center; gap: 1.25rem; }
+
+  /* Type-tier coherence: section ledes step down with their titles,
+     and the profile-setup headline (a hero-echo) matches the hero
+     tier instead of sitting at its desktop clamp floor. */
+  .section__lede { font-size: .95rem; }
+  .profile-setup__title { font-size: clamp(1.75rem, 8vw, 2.35rem); }
+
+  /* Stacked stats: equal-width rows so the three icons sit on one
+     vertical axis instead of each row centering independently. */
+  .stat__body { width: 11.5rem; }
+
+  /* Final CTA card floats with side insets instead of running
+     flush against both screen edges (the card IS the container,
+     so its border was touching the viewport). */
+  .cta__inner { width: calc(100% - 1.5rem); }
+}
+
+/* Tablets + foldables (641-819px) share the phone-era defects the
+   ≤640px block fixes — slice-scaled particle dots landing beside
+   headlines, and the pricing section's two-screen black tail. */
+@media (max-width: 819px) {
+  .pricing { padding-top: 3rem; padding-bottom: 4.5rem; }
+  .pricing::before { height: 120px; }
+  .pricing__particles,
+  .platform__particles,
+  .proof__particles,
+  .showcase__particles,
+  .vsl-section__particles,
+  .cta__sparkles,
+  .profile-setup__spark { display: none; }
+}
+
+/* Below tablet width the proof carousel's backdrop-blur edge fades
+   compress into hard dark bands that read as shadows cropping the
+   cards — cards peek naturally past the edges instead. */
+@media (max-width: 767px) {
+  .proof__carousel::before,
+  .proof__carousel::after { display: none; }
 }
 
 /* =========================================================

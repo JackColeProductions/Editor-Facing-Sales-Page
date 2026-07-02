@@ -34,7 +34,23 @@
    Reset + Base
    ========================================================= */
 *,*::before,*::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Belt-and-braces against horizontal rubber-banding on iOS —
+     body alone having overflow-x:hidden isn't always enough. */
+  overflow-x: hidden;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Kill the 350ms double-tap-zoom delay heuristics on interactive
+   elements without disabling pinch zoom on the page. */
+a, button, summary { touch-action: manipulation; }
+:focus-visible {
+  outline: 2px solid hsl(180 74% 63% / .7);
+  outline-offset: 2px;
+}
 
 body {
   margin: 0;
@@ -58,8 +74,18 @@ button { font: inherit; cursor: pointer; }
   max-width: var(--container);
   margin-inline: auto;
   padding-inline: 1.25rem;
+  /* Respect the notch/home-indicator zones in landscape on
+     notched phones (viewport-fit=cover is set in the HTML). */
+  padding-left: max(1.25rem, env(safe-area-inset-left));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
 }
-@media (min-width: 768px) { .container { padding-inline: 2rem; } }
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 2rem;
+    padding-left: max(2rem, env(safe-area-inset-left));
+    padding-right: max(2rem, env(safe-area-inset-right));
+  }
+}
 
 .plus { color: var(--primary); font-weight: 700; }
 
@@ -188,32 +214,74 @@ button { font: inherit; cursor: pointer; }
 .nav__menu {
   display: inline-flex;
   flex-direction: column;
+  justify-content: center;
   gap: 4px;
   background: transparent;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px 9px;
+  border-radius: 10px;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  align-items: center;
   margin-left: auto;
 }
 .nav__menu span {
   width: 18px; height: 2px;
   background: var(--fg-muted);
   border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
 }
+/* Hamburger → X when the menu is open */
+.nav.is-open .nav__menu span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav.is-open .nav__menu span:nth-child(2) { opacity: 0; }
+.nav.is-open .nav__menu span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 @media (min-width: 980px) { .nav__menu { display: none; } }
 
-/* Mobile menu open */
+/* CTA inside the mobile menu panel — hidden everywhere else
+   (desktop nav shows the standalone .nav__cta instead). */
+.nav__pill-cta { display: none; }
+
+/* Mobile menu open — floating glass panel instead of a flat
+   full-bleed strip: rounded, blurred, with real tap targets. */
+@media (max-width: 979px) {
 .nav.is-open .nav__pill {
   display: flex;
   position: absolute;
-  inset: 68px 0 auto 0;
+  inset: 72px .75rem auto .75rem;
   flex-direction: column;
-  padding: 1rem 1.25rem 1.25rem;
-  background: hsl(240 15% 6%);
-  border-radius: 0;
+  gap: .2rem;
+  padding: .6rem;
+  background: hsl(240 18% 7% / .96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(0 0% 100% / .1);
+  border-radius: 1.1rem;
+  box-shadow:
+    0 30px 60px -20px hsl(0 0% 0% / .85),
+    0 0 0 1px hsl(180 74% 63% / .06);
   transform: none;
-  left: 0;
-  border-top: 1px solid var(--border);
+  left: .75rem;
+  z-index: 60;
+  animation: navPanelIn .22s ease both;
+}
+@keyframes navPanelIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.nav.is-open .nav__pill a {
+  padding: .85rem 1rem;
+  font-size: .95rem;
+  border-radius: .75rem;
+}
+.nav.is-open .nav__pill a:active { background: hsl(0 0% 100% / .06); }
+.nav.is-open .nav__pill .nav__pill-cta {
+  display: inline-flex;
+  justify-content: center;
+  margin-top: .5rem;
+  padding: .9rem 1rem;
+  font-size: .95rem;
+  color: hsl(240 25% 6%);
+}
 }
 
 /* =========================================================
@@ -741,6 +809,10 @@ button { font: inherit; cursor: pointer; }
   /* Make the in-card text scale down so the smaller card still
      looks like a real job card, not a squished thumbnail. */
   .job-card { padding: .9rem .95rem .85rem; gap: .5rem; font-size: .7rem; }
+  /* The centre (featured) card is the only fully-readable one —
+     let it grow to fit its content instead of hard-clipping the
+     description mid-sentence at the fixed fan height. */
+  .job-card--featured { height: auto; min-height: var(--card-h); }
   .job-card__title { font-size: .82rem; }
   .job-card__meta { font-size: .62rem; }
   .job-card__price { font-size: .8rem; }
@@ -767,13 +839,21 @@ button { font: inherit; cursor: pointer; }
     margin-left: -8px;
   }
   /* All 6 avatars stay visible on mobile — tightened sizing
-     above means they fit on one line at 320px+. */
+     above means they fit on one line at 375px+. */
 
-  /* Title — was wrapping the second sentence ("We Bring Clients
-     To You.") onto a third line. Aggressive size cap so the full
-     sentence stays on one line at every common phone width
-     (320px / 375px / 390px / 414px). */
+  /* Editor hero headline — the h1 must lead the page's type
+     hierarchy on phones (it was capped at ~22px, smaller than the
+     section h2s below it). 8vw ≈ 31px at 390px, floored so it
+     never collapses on small phones. */
   .hero__title {
+    font-size: clamp(1.75rem, 8vw, 2.35rem);
+    line-height: 1.07;
+    letter-spacing: -.028em;
+  }
+  /* Clients hero keeps the tighter cap so "We Bring Clients To
+     You." holds one line at every common phone width
+     (320px / 375px / 390px / 414px). */
+  .clients-page .hero__title {
     font-size: clamp(1.3rem, 5.8vw, 1.75rem);
     line-height: 1.08;
     letter-spacing: -.03em;
@@ -786,19 +866,35 @@ button { font: inherit; cursor: pointer; }
      overshoots the viewport on phones. Pull the bloom in tight,
      drop the outer ring spread, and slim the button padding. */
   .btn--glow.btn--xl {
-    padding: .95rem 1.6rem;
-    font-size: .98rem;
+    padding: 1rem 1.6rem;
+    font-size: 1rem;
+    /* Full-width-feeling CTA (capped) — a bigger, easier target
+       that reads as the page's primary action on a phone. */
+    width: min(100%, 20rem);
     box-shadow:
       inset 0 1px 0 hsl(0 0% 100% / .55),
       0 0 0 4px hsl(180 74% 63% / .12),
       0 0 40px -8px hsl(180 74% 63% / .85),
       0 14px 36px -10px hsl(180 74% 63% / .55);
   }
+
+  /* The breathing drop-shadow filter on the gradient headline is a
+     continuous repaint — costly on phone GPUs. Freeze it at its
+     resting glow. */
+  .grad--glow { animation: none; }
   .btn--glow.btn--xl::after {
     inset: -25%;
     opacity: .7;
     filter: blur(22px);
   }
+}
+
+/* Small phones — the full pill (6 avatars + full sentence) wraps
+   onto two lines below ~370px; trim the trailing "worldwide" so it
+   stays a single-line trust chip with all six faces. */
+@media (max-width: 370px) {
+  .trusted-pill { font-size: .7rem; gap: .45rem; }
+  .trusted-pill__loc { display: none; }
 }
 
 /* =========================================================
@@ -1072,6 +1168,7 @@ button { font: inherit; cursor: pointer; }
    extend a few px past the safe area for that "more cards behind"
    silhouette (same trick as the hero job-card fan on phones). */
 @media (max-width: 640px) {
+  .profile-setup { padding-bottom: 3rem; }
   .profile-setup__content { margin-bottom: 1.75rem; }
   .profile-setup__cards {
     --pcard-w: clamp(120px, 36vw, 150px);
@@ -1079,7 +1176,9 @@ button { font: inherit; cursor: pointer; }
     --pfar-x: 105px;
     --pnear-rot: 6deg;
     --pfar-rot: 11deg;
-    height: clamp(240px, 50vh, 290px);
+    /* Sized to the fan itself — the old 50vh tail left ~2 blank
+       card-heights of black under the cards. */
+    height: 265px;
   }
 }
 
@@ -1683,6 +1782,7 @@ button { font: inherit; cursor: pointer; }
   letter-spacing: -.02em;
   line-height: 1.05;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 .section__lede {
   margin: 0;
@@ -2819,14 +2919,22 @@ button { font: inherit; cursor: pointer; }
   border: 1px solid hsl(0 0% 100% / .07);
 }
 .proof__dot {
-  width: 7px;
-  height: 7px;
+  position: relative;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   border: 0;
   padding: 0;
   background: hsl(0 0% 100% / .2);
   cursor: pointer;
   transition: width .3s ease, background .3s ease;
+}
+/* Invisible hit-area extension — 8px dots are untappable on touch;
+   this brings each one up to ~32px without changing the visual. */
+.proof__dot::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
 }
 .proof__dot:hover { background: hsl(180 74% 63% / .55); }
 .proof__dot.is-active {
@@ -2845,6 +2953,18 @@ button { font: inherit; cursor: pointer; }
   .proof__card:hover { transform: none; }
   .proof__card:hover .proof__play::before,
   .proof__live::before { animation: none; }
+}
+
+/* Touch devices: hover states stick after a tap (iOS keeps :hover
+   applied until the next touch), so the lift + pulse ring would
+   freeze on whichever card was last touched. Replace with a quick
+   press response instead. */
+@media (hover: none) {
+  .proof__card:hover { transform: none; }
+  .proof__card:hover .proof__play::before { animation: none; }
+  .proof__card:hover .proof__play { transform: translate(-50%, -50%); }
+  .proof__card:active { transform: scale(.985); }
+  .proof__card.is-playing:active { transform: translateY(-4px) scale(1.005); }
 }
 
 /* =========================================================
@@ -3816,14 +3936,16 @@ button { font: inherit; cursor: pointer; }
 /* Tablet: stack to one column; visual goes ABOVE the FAQ */
 @media (max-width: 1023px) {
   .faq__layout { grid-template-columns: 1fr; gap: 2.5rem; }
-  .faq__right  { order: -1; max-width: 640px; margin: 0 auto; }
-  .faq__visual { max-height: 420px; }
-  .faq__visual img { object-fit: cover; object-position: top; }
+  .faq__right  { order: -1; width: 100%; max-width: 640px; margin: 0 auto; }
+  /* Fixed height (not max-height) so object-fit actually crops the
+     group shot instead of letting it overflow-clip mid-face. */
+  .faq__visual { height: 420px; }
+  .faq__visual img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
   .faq__social-proof { margin: 0 auto; }
 }
 @media (max-width: 767px) {
   .section.faq { padding: 3.5rem 0 4.5rem; }
-  .faq__visual { max-height: 280px; }
+  .faq__visual { height: 280px; }
   .faq__item summary { padding: 1rem 1.15rem; gap: .8rem; font-size: .92rem; }
   .faq__q-icon { width: 26px; height: 26px; }
   .faq__answer { padding: 0 1.15rem 1.1rem 3.4rem; font-size: .88rem; }
@@ -4070,6 +4192,9 @@ button { font: inherit; cursor: pointer; }
   color: var(--fg-muted);
   font-size: .92rem;
   transition: color .2s ease;
+  display: inline-block;
+  padding-block: .2rem;
+  margin-block: -.2rem;
 }
 .footer__nav a:hover { color: var(--fg); }
 
@@ -4128,11 +4253,13 @@ button { font: inherit; cursor: pointer; }
 }
 .footer__legal-links {
   display: flex;
-  gap: 1.25rem;
+  gap: .75rem;
 }
 .footer__legal-links a {
   color: var(--fg-dim);
   transition: color .2s ease;
+  padding: .5rem .25rem;
+  margin: -.5rem 0;
 }
 .footer__legal-links a:hover { color: var(--fg); }
 
@@ -4172,6 +4299,11 @@ button { font: inherit; cursor: pointer; }
      real scroll across the page. */
   .section__head { margin: 0 auto 2rem; }
 
+  /* Hard <br> line breaks in section titles were tuned for desktop
+     widths; on phones they strand orphan words ("FOR", "YOU.") on
+     their own line. Let text-wrap: balance split them instead. */
+  .section__title br { display: none; }
+
   /* Testimonials marquee — card width was 320px which left almost
      no headroom after the 15% edge fade; the result was content
      getting clipped mid-sentence. Shrink the cards a touch and
@@ -4203,10 +4335,31 @@ button { font: inherit; cursor: pointer; }
   /* Pricing — tighter cards + CTAs so the section reads as a
      pair of decision blocks, not full-screen blocks. */
   .pricing__plan { padding: 1.5rem 1.25rem 1.5rem; border-radius: 1.25rem; }
-  .pricing__cta { padding: .75rem 1.1rem; font-size: .84rem; }
+  .pricing__cta { padding: .85rem 1.1rem; font-size: .84rem; }
   .pricing__features { gap: .85rem; }
   .pricing__price-new { font-size: 2.4rem; }
   .pricing__price-period { font-size: .85rem; }
+  /* Kill the dead black band under the yearly card: the desktop
+     8rem tail + oversized fade band added ~2 empty screens on
+     phones. Pull the sphere up so its glow still forms a soft
+     horizon right under the cards. */
+  .pricing { padding-top: 3rem; padding-bottom: 4.5rem; }
+  .pricing::before { height: 120px; }
+  .pricing__sphere { width: 640px; height: 640px; bottom: -470px; }
+  .pricing__plans { padding-top: 1.25rem; gap: 1.25rem; }
+
+  /* Decorative particle layers reposition unpredictably against
+     stacked mobile layouts — bright dots were landing right next
+     to headlines, reading as stray punctuation. Hide the layers
+     that use slice-scaled viewBoxes; corner-anchored sparkle
+     clusters (FAQ / testimonials) stay. */
+  .pricing__particles,
+  .platform__particles,
+  .proof__particles,
+  .showcase__particles,
+  .vsl-section__particles,
+  .cta__sparkles,
+  .profile-setup__spark { display: none; }
 
   /* VSL — source glows scale tighter on phones so the bright
      dots don't dominate the bottom of the section. */
@@ -4228,7 +4381,7 @@ button { font: inherit; cursor: pointer; }
 
   /* FAQ — visual sits above the accordion on mobile; cap height
      so it doesn't dominate, and tighten accordion padding. */
-  .faq__visual { max-height: 240px; border-radius: 1.1rem; }
+  .faq__visual { height: 240px; border-radius: 1.1rem; }
   .faq__social-proof { padding: .55rem .9rem .55rem .7rem; }
   .faq__avatar, .faq__avatar-count { width: 30px; height: 30px; }
   .faq__avatar-count { font-size: .68rem; }
@@ -4239,23 +4392,39 @@ button { font: inherit; cursor: pointer; }
      cards have real visible width on either side (was 92% with
      prev/next pushed 290px off-centre, putting both side cards
      fully off-screen). */
-  .stories__avatars { gap: .35rem; padding-bottom: .75rem; }
+  /* Avatar strip: 7 fixed-width avatars overflowed the container
+     at 390px, clipping the first and last. Viewport-scaled sizes
+     keep the full row visible down to 320px. */
+  .stories__avatars { gap: .3rem; padding-bottom: .5rem; margin: .75rem 0 1.5rem; }
+  .stories__avatar { width: clamp(29px, 9.4vw, 38px); height: clamp(29px, 9.4vw, 38px); }
+  .stories__avatar[data-pos="active"] {
+    width: clamp(48px, 15vw, 62px);
+    height: clamp(48px, 15vw, 62px);
+  }
+  .stories__avatar[data-pos="near"] { width: clamp(36px, 11.5vw, 46px); height: clamp(36px, 11.5vw, 46px); }
+  .stories__avatar[data-pos="mid"]  { width: clamp(31px, 10vw, 40px);   height: clamp(31px, 10vw, 40px); }
   /* Carousel was holding a fixed clamp(380, 50vh, 440px) height
      — which on a 390px viewport leaves ~150px of dead space
      below the card. Shrink to fit the active card content. */
   .stories__carousel {
     height: auto;
-    min-height: 340px;
-    margin-bottom: 1rem;
+    min-height: 280px;
+    margin-bottom: .5rem;
+    /* JS pins the height to the active card; ease between cards of
+       different quote lengths instead of jumping. */
+    transition: height .35s ease;
   }
   .stories__nav { margin-top: 0; }
+  .stories__nav-btn { width: 48px; height: 48px; }
+  .stories__cta { margin-top: 1.5rem; }
+  .stories { padding-bottom: 3rem; }
   .stories__card {
-    width: 68%;
-    padding: 1rem 1rem 1.15rem;
+    width: 76%;
+    padding: 1.1rem 1.1rem 1.25rem;
     gap: .8rem;
   }
-  .stories__card[data-pos="prev"] { transform: translateX(calc(-50% - 58% + var(--drag, 0px))) scale(.82); }
-  .stories__card[data-pos="next"] { transform: translateX(calc(-50% + 58% + var(--drag, 0px))) scale(.82); }
+  .stories__card[data-pos="prev"] { transform: translateX(calc(-50% - 64% + var(--drag, 0px))) scale(.84); }
+  .stories__card[data-pos="next"] { transform: translateX(calc(-50% + 64% + var(--drag, 0px))) scale(.84); }
   .stories__card[data-pos="far"]  { display: none; }
   .stories__person-avatar { width: 34px; height: 34px; }
   .stories__person-name   { font-size: .9rem; }
@@ -4265,20 +4434,28 @@ button { font: inherit; cursor: pointer; }
   .stories__tag           { font-size: .65rem; padding: .25rem .55rem; }
   .stories__chip          { font-size: .62rem; padding: .25rem .5rem; }
 
-  /* Video testimonials carousel — proof cards smaller + much
-     thinner side fade overlays so the focused card stands out
-     without the neighbours getting dissolved completely. */
-  .proof__card { flex: 0 0 175px; }
+  /* Video testimonials carousel — at phone scale the backdrop-blur
+     edge overlays compress into hard dark bands that look like a
+     shadow cropping the cards. Drop them entirely: a centered
+     snap card with neighbours peeking past both edges is the
+     premium mobile pattern, no fake fades needed. */
   .proof__carousel::before,
-  .proof__carousel::after { width: 50px; }
+  .proof__carousel::after { display: none; }
+  .proof__card {
+    flex: 0 0 min(62vw, 250px);
+    scroll-snap-align: center;
+  }
+  /* Symmetric gutters sized so every card — including first and
+     last — can snap dead-centre in the viewport. */
   .proof__track {
-    gap: .85rem;
-    padding: 3rem clamp(1rem, calc(50vw - 87px), 3.5rem) 3.5rem;
-    scroll-padding-left: clamp(1rem, calc(50vw - 87px), 3.5rem);
+    gap: .9rem;
+    padding: 2.25rem calc(50vw - min(31vw, 125px)) 2.75rem;
+    scroll-padding-left: 0;
   }
   .proof__name  { font-size: .9rem; }
   .proof__quote { font-size: .8rem; }
   .proof__play  { width: 56px; height: 56px; }
+  .proof__controls { justify-content: center; gap: 1.25rem; }
 }
 
 /* =========================================================

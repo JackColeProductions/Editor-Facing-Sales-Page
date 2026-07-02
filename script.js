@@ -6,15 +6,25 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 const nav = document.querySelector('.nav');
 const navMenu = document.getElementById('navMenu');
 if (nav && navMenu) {
+  const closeMenu = () => {
+    nav.classList.remove('is-open');
+    navMenu.setAttribute('aria-expanded', 'false');
+  };
   navMenu.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open');
     navMenu.setAttribute('aria-expanded', String(open));
   });
-  nav.querySelectorAll('.nav__links a').forEach(a => {
-    a.addEventListener('click', () => {
-      nav.classList.remove('is-open');
-      navMenu.setAttribute('aria-expanded', 'false');
-    });
+  // The links live in .nav__pill (a previous selector targeted a
+  // .nav__links element that doesn't exist, so the panel stayed
+  // open over the page after tapping a link).
+  nav.querySelectorAll('.nav__pill a').forEach(a => {
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('is-open') && !nav.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
   });
 }
 
@@ -74,7 +84,25 @@ if (stories) {
       setAvatarPos(av, d);
       av.setAttribute('aria-selected', d === 0 ? 'true' : 'false');
     });
+    syncCarouselHeight();
   };
+
+  // On phones the carousel container is height:auto with absolutely
+  // positioned cards, so it can't grow with its content. Track the
+  // active card's real height to kill the dead band under short
+  // quotes without clipping long ones.
+  const carouselEl = stories.querySelector('.stories__carousel');
+  const mobileCarousel = window.matchMedia('(max-width: 640px)');
+  const syncCarouselHeight = () => {
+    if (!carouselEl) return;
+    if (!mobileCarousel.matches) { carouselEl.style.height = ''; return; }
+    const activeCard = cards[active];
+    if (activeCard) carouselEl.style.height = activeCard.offsetHeight + 'px';
+  };
+  window.addEventListener('resize', syncCarouselHeight);
+  // Re-measure once assets/fonts have settled — text metrics shift
+  // when the webfont swaps in.
+  window.addEventListener('load', syncCarouselHeight);
 
   const go = (i) => { active = mod(i, total); render(); };
 
@@ -399,4 +427,18 @@ if (proof) {
   track.addEventListener('scroll', updateDots, { passive: true });
   window.addEventListener('resize', updateDots);
   updateDots();
+
+  // Pause a playing video once its card scrolls out of view, so
+  // audio doesn't keep running under the rest of the page.
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting) {
+          const v = target.querySelector('.proof__video');
+          if (v && !v.paused) { v.pause(); v.muted = true; }
+        }
+      });
+    }, { threshold: 0.35 });
+    cards.forEach(c => io.observe(c));
+  }
 }

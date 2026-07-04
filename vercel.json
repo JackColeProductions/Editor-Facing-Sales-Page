@@ -3,6 +3,10 @@
     {
       "source": "/go/:code",
       "destination": "https://uploadjuice.vercel.app/track/click/:code"
+    },
+    {
+      "source": "/:code",
+      "destination": "https://uploadjuice.vercel.app/track/click/:code"
     }
   ],
   "headers": [

@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#080810" />
+    <!-- Visitor portal: skip the Editor/Client gate before first paint if
+         this session already chose "editor" (no overlay flash on revisit). -->
+    <script>
+      try {
+        if (sessionStorage.getItem('vppVisitorType') === 'editor') {
+          document.documentElement.classList.add('portal-done');
+        }
+      } catch (e) {}
+    </script>
+    <noscript><style>.portal{display:none!important}html:not(.portal-done) body{overflow:auto!important}</style></noscript>
     <title>Video Production+ | The Gated Marketplace for Elite Video Editors</title>
     <meta name="description" content="VP+ is the exclusive gated freelance marketplace where high-paying clients come to you. Zero outreach. Premium projects. Join 600+ elite video editors." />
     <meta name="author" content="Video Production+" />
@@ -37,6 +47,28 @@
     <!-- End Meta Pixel Code -->
   </head>
   <body>
+    <!-- ============ VISITOR PORTAL (Editor / Client gate) ============ -->
+    <div class="portal" id="portal" role="dialog" aria-modal="true" aria-labelledby="portalTitle">
+      <div class="portal__bg" aria-hidden="true">
+        <div class="portal__glow"></div>
+      </div>
+      <div class="portal__card">
+        <img src="media/VPP%20logo.png" alt="Video Production+" class="portal__logo" />
+        <h2 class="portal__title" id="portalTitle">Are you an editor<br />or a client?</h2>
+        <p class="portal__lede">So we can send you to the right place.</p>
+        <div class="portal__actions">
+          <button class="btn btn--glow portal__btn" id="portalEditor" type="button">
+            I&rsquo;m an Editor
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </button>
+          <a class="btn btn--ghost portal__btn" href="https://hiring.videoproduction.plus/">
+            I&rsquo;m a Client
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- ============ NAV ============ -->
     <header class="nav" id="top">
       <div class="container nav__inner">

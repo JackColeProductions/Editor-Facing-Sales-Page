@@ -4859,3 +4859,96 @@ button { font: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .clients-page .worked-with__track { animation: none; }
 }
+
+/* =========================================================
+   Visitor Portal — Editor / Client gate
+   ========================================================= */
+.portal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: var(--bg);
+  transition: opacity .4s ease;
+}
+.portal--closing { opacity: 0; pointer-events: none; }
+html.portal-done .portal { display: none; }
+/* Keep the page from scrolling behind the gate until a choice is made. */
+html:not(.portal-done) body { overflow: hidden; }
+
+.portal__bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.portal__glow {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: min(64rem, 150vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(closest-side, hsl(180 74% 63% / .08), transparent 62%),
+    radial-gradient(closest-side, hsl(160 76% 56% / .06), transparent 72%);
+  filter: blur(24px);
+}
+
+.portal__card {
+  position: relative;
+  width: 100%;
+  max-width: 25rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2rem 2.25rem;
+  box-shadow: var(--shadow-card);
+  animation: portalIn .5s ease both;
+}
+.portal__logo {
+  height: 30px;
+  width: auto;
+  display: block;
+  margin: 0 auto 1.6rem;
+}
+.portal__title {
+  margin: 0 0 .55rem;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+.portal__lede {
+  margin: 0 0 1.75rem;
+  color: var(--fg-muted);
+  font-size: .95rem;
+}
+.portal__actions {
+  display: grid;
+  gap: .8rem;
+}
+.portal__btn {
+  width: 100%;
+  border-radius: 999px;
+  padding: .95rem 1.5rem;
+  font-size: .95rem;
+}
+.portal__btn svg { width: 18px; height: 18px; }
+
+@keyframes portalIn {
+  from { opacity: 0; transform: translateY(14px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal { transition: none; }
+  .portal__card { animation: none; }
+}
+@media (max-width: 480px) {
+  .portal__card { padding: 2rem 1.4rem 1.75rem; }
+  .portal__title { font-size: 1.4rem; }
+}

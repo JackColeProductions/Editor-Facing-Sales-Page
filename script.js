@@ -476,3 +476,26 @@ if (proof) {
     if (vslFrame) io.observe(vslFrame);
   }
 }
+
+// Visitor portal — Editor / Client gate. Clients are a plain link to the
+// hiring site; editors dismiss the gate here and the choice is remembered
+// for the rest of the browsing session (the head snippet skips the gate
+// before first paint on revisit).
+const portal = document.getElementById('portal');
+if (portal) {
+  if (document.documentElement.classList.contains('portal-done')) {
+    portal.remove();
+  } else {
+    const editorBtn = document.getElementById('portalEditor');
+    if (editorBtn) editorBtn.addEventListener('click', () => {
+      try { sessionStorage.setItem('vppVisitorType', 'editor'); } catch (e) {}
+      portal.classList.add('portal--closing');
+      // Matches the .4s opacity transition; also covers reduced-motion,
+      // where the transition is disabled and transitionend never fires.
+      setTimeout(() => {
+        document.documentElement.classList.add('portal-done');
+        portal.remove();
+      }, 450);
+    });
+  }
+}

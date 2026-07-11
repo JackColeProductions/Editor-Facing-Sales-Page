@@ -499,3 +499,181 @@ if (portal) {
     });
   }
 }
+
+// Scroll-reveal wave — each section's elements rise/fade in as they enter
+// the viewport. Config-driven (no markup changes): containers are enrolled
+// here, hidden only after init (html.rv-init), revealed with a per-batch
+// stagger, then released (classes removed) so native transitions and hover
+// states come back untouched.
+//
+// An IntersectionObserver does the precise triggering, but it can miss
+// elements that cross the whole viewport between two rendering frames on a
+// fast flick — so a rAF-throttled scroll sweep over the still-pending set
+// is the correctness backstop: in-view -> reveal, already passed -> release.
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+
+  // What animates, and how. Containers over children: elements with their
+  // own perpetual animations (job-card fan, profile-pic fan, marquee
+  // tracks, carousel slides) are only ever revealed via their wrapper.
+  const GROUPS = [
+    // Hero — plays as the visitor portal lifts
+    { sel: '.nav', v: 'fade' },
+    { sel: '.hero .trusted-pill', v: 'up' },
+    { sel: '.hero__title', v: 'up' },
+    { sel: '.hero__lede', v: 'up' },
+    { sel: '.hero__cta', v: 'up' },
+    { sel: '.hero__cards', v: 'scale' },
+    // Stats band
+    { sel: '.stat', v: 'up' },
+    // Marketplace showcase
+    { sel: '.showcase .section__head', v: 'up' },
+    { sel: '.showcase__frame', v: 'scale' },
+    { sel: '.showcase__claim', v: 'up' },
+    { sel: '.showcase__cta', v: 'up' },
+    // Success stories
+    { sel: '.stories .section__head', v: 'up' },
+    { sel: '.stories__avatar', v: 'up' },
+    { sel: '.stories__carousel', v: 'up' },
+    { sel: '.stories__nav', v: 'fade' },
+    { sel: '.stories__cta', v: 'up' },
+    // Pricing
+    { sel: '.pricing .section__head', v: 'up' },
+    { sel: '.pricing__plan', v: 'up' },
+    // Profile setup
+    { sel: '.profile-setup__pill', v: 'up' },
+    { sel: '.profile-setup__title', v: 'up' },
+    { sel: '.profile-setup__lede', v: 'up' },
+    { sel: '.profile-setup__cta', v: 'up' },
+    { sel: '.profile-setup__cards', v: 'up' },
+    // Video wins
+    { sel: '.proof .section__head', v: 'up' },
+    { sel: '.proof__card', v: 'up' },
+    // Platform comparison
+    { sel: '.platform .section__head', v: 'up' },
+    { sel: '.vs__card', v: 'up' },
+    { sel: '.vs__faded', v: 'up' },
+    // Testimonials marquee
+    { sel: '.testimonials__head', v: 'up' },
+    { sel: '.testimonials__row', v: 'fade' },
+    // VSL
+    { sel: '.vsl-section .section__head', v: 'up' },
+    { sel: '.vsl', v: 'scale' },
+    { sel: '.vsl__cta', v: 'up' },
+    // FAQ
+    { sel: '.faq .section__head', v: 'up' },
+    { sel: '.faq__social-proof', v: 'up' },
+    { sel: '.faq__item', v: 'up' },
+    { sel: '.faq__visual', v: 'up' },
+    // Final CTA + footer
+    { sel: '.cta__inner', v: 'scale' },
+    { sel: '.footer__inner', v: 'fade' },
+  ];
+
+  const targets = [];
+  GROUPS.forEach(({ sel, v }) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      if (el.closest('.portal')) return;
+      targets.push({ el, v });
+    });
+  });
+  if (!targets.length) return;
+
+  const pending = new Set();
+  let io = null;
+  let sweepQueued = false;
+
+  const release = (el) => {
+    el.classList.remove('rv', 'rv--up', 'rv--fade', 'rv--scale', 'rv-in');
+    el.style.removeProperty('transition-delay');
+  };
+
+  const finish = () => {
+    if (pending.size) return;
+    if (io) io.disconnect();
+    window.removeEventListener('scroll', onScroll);
+  };
+
+  // Animated entrance, staggered within whatever batch arrived together.
+  const reveal = (el, batchIndex) => {
+    if (!pending.has(el)) return;
+    pending.delete(el);
+    if (io) io.unobserve(el);
+    const delay = Math.min(batchIndex * 80, 480);
+    el.style.transitionDelay = delay + 'ms';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.classList.add('rv-in');
+    }));
+    setTimeout(() => release(el), delay + 800);
+    finish();
+  };
+
+  // Instant appearance for elements the user already flicked past —
+  // animating something that is above the viewport helps nobody.
+  const dismiss = (el) => {
+    if (!pending.has(el)) return;
+    pending.delete(el);
+    if (io) io.unobserve(el);
+    release(el);
+    finish();
+  };
+
+  const sweep = () => {
+    sweepQueued = false;
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    let batch = 0;
+    pending.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom <= 0) {
+        dismiss(el);
+      } else if (r.top < vh * 0.93 && r.left < vw && r.right > 0) {
+        reveal(el, batch++);
+      }
+    });
+  };
+
+  const onScroll = () => {
+    if (sweepQueued) return;
+    sweepQueued = true;
+    requestAnimationFrame(sweep);
+  };
+
+  const start = () => {
+    io = new IntersectionObserver((entries) => {
+      let batch = 0;
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          reveal(entry.target, batch++);
+        } else if (entry.boundingClientRect.bottom <= 0) {
+          dismiss(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+
+    targets.forEach(({ el, v }) => {
+      // Anything already scrolled past at init (restored scroll position)
+      // must simply stay visible.
+      if (el.getBoundingClientRect().bottom < 0) return;
+      el.classList.add('rv', 'rv--' + v);
+      pending.add(el);
+      io.observe(el);
+    });
+    document.documentElement.classList.add('rv-init');
+    window.addEventListener('scroll', onScroll, { passive: true });
+  };
+
+  // First visit: hold the wave until the visitor portal lifts, so the hero
+  // reveals as the gate fades instead of finishing unseen behind it.
+  const portalGate = document.getElementById('portal');
+  if (portalGate && !document.documentElement.classList.contains('portal-done')) {
+    let started = false;
+    const startOnce = () => { if (!started) { started = true; setTimeout(start, 150); } };
+    const editorChoice = document.getElementById('portalEditor');
+    if (editorChoice) editorChoice.addEventListener('click', startOnce);
+    window.addEventListener('scroll', startOnce, { once: true, passive: true });
+  } else {
+    start();
+  }
+})();

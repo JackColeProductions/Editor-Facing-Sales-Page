@@ -5051,3 +5051,21 @@ html:not(.portal-done) body { overflow: hidden; }
      generic top wash instead of a directional key. */
   .portal__glow { right: -55%; top: -20%; width: 165vw; }
 }
+
+/* =========================================================
+   Scroll reveal — quiet fade/rise wave per section
+   Elements are hidden ONLY once JS has initialised
+   (html.rv-init), so nothing is ever hidden without JS.
+   The classes are removed again right after each reveal so
+   every element's native transitions/hover states return.
+   ========================================================= */
+html.rv-init .rv {
+  opacity: 0;
+  transition:
+    opacity .6s cubic-bezier(.33, 1, .68, 1),
+    transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+html.rv-init .rv--up    { transform: translateY(20px); }
+html.rv-init .rv--scale { transform: translateY(24px) scale(.975); }
+html.rv-init .rv--fade  { transform: none; }
+html.rv-init .rv.rv-in  { opacity: 1; transform: none; }

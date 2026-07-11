@@ -4893,9 +4893,24 @@ html:not(.portal-done) body { overflow: hidden; }
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   background:
-    radial-gradient(closest-side, hsl(180 74% 63% / .08), transparent 62%),
-    radial-gradient(closest-side, hsl(160 76% 56% / .06), transparent 72%);
-  filter: blur(24px);
+    radial-gradient(closest-side, hsl(180 74% 63% / .2), transparent 62%),
+    radial-gradient(closest-side, hsl(160 76% 56% / .15), transparent 72%);
+  filter: blur(28px);
+}
+/* Tighter "key light" directly behind the card, biased slightly above its
+   center, so the glass rim visibly catches light along its top edge. */
+.portal__bg::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 41%;
+  width: min(28rem, 92vw);
+  aspect-ratio: 1 / .72;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(closest-side, hsl(185 85% 72% / .28), transparent 68%),
+    radial-gradient(closest-side, hsl(160 76% 60% / .14), transparent 80%);
+  filter: blur(26px);
 }
 
 .portal__inner {
@@ -4914,13 +4929,55 @@ html:not(.portal-done) body { overflow: hidden; }
   margin: 0 0 1.75rem;
 }
 .portal__card {
+  position: relative;
   width: 100%;
   text-align: center;
-  background: linear-gradient(180deg, var(--card-2), var(--card));
-  border: 1px solid var(--border);
+  /* Translucent glass fill (+ a faint top sheen painted UNDER the text so
+     copy stays crisp); the bg glow bleeds through via backdrop-filter. */
+  background:
+    radial-gradient(130% 75% at 50% 0%, hsl(0 0% 100% / .05), transparent 55%),
+    hsl(240 15% 10% / .55);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  backdrop-filter: blur(24px) saturate(140%);
+  border: 0;
   border-radius: var(--radius-xl);
   padding: 2rem 1.75rem;
-  box-shadow: var(--shadow-card);
+  box-shadow:
+    inset 0 1px 0 hsl(0 0% 100% / .18),
+    0 30px 70px -25px hsl(240 40% 2% / .9),
+    0 12px 40px -12px hsl(240 40% 2% / .6),
+    0 0 70px -18px hsl(180 74% 63% / .18);
+}
+/* Liquid-glass rim: ~1.5px specular ring (mask-composite technique) —
+   brightest where the light hits at the top-left, near-invisible mid-run,
+   warming into faint brand mint toward the bottom-right corner. */
+.portal__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    hsl(190 60% 93% / .55) 0%,
+    hsl(185 80% 84% / .35) 18%,
+    hsl(200 30% 88% / .13) 44%,
+    hsl(190 30% 86% / .11) 62%,
+    hsl(160 76% 66% / .38) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+/* Solid-ish fallback when backdrop-filter isn't supported. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .portal__card {
+    background:
+      radial-gradient(130% 75% at 50% 0%, hsl(0 0% 100% / .04), transparent 55%),
+      linear-gradient(180deg, hsl(240 15% 11% / .97), hsl(240 15% 8% / .98));
+  }
 }
 .portal__title {
   margin: 0 0 1.4rem;

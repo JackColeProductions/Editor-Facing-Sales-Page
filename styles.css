@@ -4907,7 +4907,7 @@ html:not(.portal-done) body { overflow: hidden; }
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 48% 42% at 57% 40%, black 0%, black 30%, transparent 96%);
   -webkit-mask-image: radial-gradient(ellipse 48% 42% at 57% 40%, black 0%, black 30%, transparent 96%);
-  opacity: .5;
+  opacity: .34;
 }
 /* Ambient key pool — enters at the top-right corner and spills diagonally
    down toward the card; the far side of the frame stays near-black. */
@@ -4947,7 +4947,12 @@ html:not(.portal-done) body { overflow: hidden; }
   align-items: center;
   width: 100%;
   max-width: 23rem;
-  animation: portalIn .5s ease both;
+  /* fill-mode must NOT be 'both': a retained opacity/transform animation
+     keeps this element composited in WebKit, which isolates the card's
+     backdrop-filter from .portal__bg — the glass then stops blurring the
+     grid/glow behind it in Safari. 'backwards' releases the layer once the
+     entrance finishes (the final keyframe equals the natural state). */
+  animation: portalIn .5s ease backwards;
 }
 .portal__logo {
   height: 32px;
@@ -4959,13 +4964,15 @@ html:not(.portal-done) body { overflow: hidden; }
   position: relative;
   width: 100%;
   text-align: center;
-  /* Translucent glass fill (+ a sheen biased to the top-right source and a
-     barely-there 120deg gloss band, both painted UNDER the text so copy
-     stays crisp); the bg glow + grid bleed through via backdrop-filter. */
+  /* Glass fill (+ a sheen biased to the top-right source and a barely-there
+     120deg gloss band, both painted UNDER the text so copy stays crisp).
+     The fill is opaque enough that the grid can never read through the pane
+     even where backdrop-filter is unavailable; the blur + soft glow
+     bleed-through still frost the edges where it is supported. */
   background:
     linear-gradient(120deg, transparent 34%, hsl(0 0% 100% / .03) 46%, hsl(0 0% 100% / .013) 55%, transparent 68%),
     radial-gradient(130% 80% at 80% -6%, hsl(0 0% 100% / .06), transparent 55%),
-    hsl(240 15% 10% / .55);
+    hsl(240 15% 10% / .8);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
   backdrop-filter: blur(24px) saturate(140%);
   border: 0;

@@ -4884,32 +4884,59 @@ html:not(.portal-done) body { overflow: hidden; }
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  /* Dual-plane fill painted on the backdrop itself:
+     1) ultra-faint mint bounce at the lower-left — just enough to shape the
+        card's dark side (a stop or two above black, never a second key);
+     2) soft vignette anchored to the top-right source, so every corner the
+        light can't reach settles back to near-black. */
+  background:
+    radial-gradient(110% 85% at -4% 104%, hsl(160 76% 56% / .07), transparent 52%),
+    radial-gradient(150% 125% at 88% -10%, transparent 52%, hsl(240 24% 2% / .6) 100%);
 }
+/* Brand grid — same tokens as .hero__grid (64px cells, 1px hsl(240 10% 22%)
+   lines) but far quieter, masked to an ellipse that hugs the lit region
+   behind/around the card and dies well before the screen edges. It passes
+   UNDER the card so the backdrop-filter visibly frosts it at the glass edge. */
+.portal__bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(hsl(240 10% 22% / .8) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(240 10% 22% / .8) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 48% 42% at 57% 40%, black 0%, black 30%, transparent 96%);
+  -webkit-mask-image: radial-gradient(ellipse 48% 42% at 57% 40%, black 0%, black 30%, transparent 96%);
+  opacity: .5;
+}
+/* Ambient key pool — enters at the top-right corner and spills diagonally
+   down toward the card; the far side of the frame stays near-black. */
 .portal__glow {
   position: absolute;
-  left: 50%;
-  top: 44%;
-  width: min(64rem, 150vw);
+  right: -15%;
+  top: -25%;
+  width: min(75rem, 185vw);
   aspect-ratio: 1;
-  transform: translate(-50%, -50%);
   background:
-    radial-gradient(closest-side, hsl(180 74% 63% / .2), transparent 62%),
-    radial-gradient(closest-side, hsl(160 76% 56% / .15), transparent 72%);
-  filter: blur(28px);
+    radial-gradient(closest-side at 68% 26%, hsl(180 74% 63% / .17), transparent 58%),
+    radial-gradient(closest-side at 46% 40%, hsl(175 74% 60% / .10), transparent 55%),
+    radial-gradient(closest-side at 60% 32%, hsl(160 76% 56% / .09), transparent 72%);
+  filter: blur(30px);
 }
-/* Tighter "key light" directly behind the card, biased slightly above its
-   center, so the glass rim visibly catches light along its top edge. */
+/* Tighter "fall" of that key: an elongated pool tilted along the top-right →
+   card diagonal, landing just above the card's right shoulder so the glass
+   rim visibly catches it. */
 .portal__bg::after {
   content: "";
   position: absolute;
   left: 50%;
-  top: 41%;
-  width: min(28rem, 92vw);
-  aspect-ratio: 1 / .72;
-  transform: translate(-50%, -50%);
+  top: 40%;
+  width: min(30rem, 94vw);
+  aspect-ratio: 1 / .68;
+  transform: translate(-34%, -62%) rotate(-24deg);
   background:
     radial-gradient(closest-side, hsl(185 85% 72% / .28), transparent 68%),
-    radial-gradient(closest-side, hsl(160 76% 60% / .14), transparent 80%);
+    radial-gradient(closest-side, hsl(160 76% 60% / .12), transparent 80%);
   filter: blur(26px);
 }
 
@@ -4932,10 +4959,12 @@ html:not(.portal-done) body { overflow: hidden; }
   position: relative;
   width: 100%;
   text-align: center;
-  /* Translucent glass fill (+ a faint top sheen painted UNDER the text so
-     copy stays crisp); the bg glow bleeds through via backdrop-filter. */
+  /* Translucent glass fill (+ a sheen biased to the top-right source and a
+     barely-there 120deg gloss band, both painted UNDER the text so copy
+     stays crisp); the bg glow + grid bleed through via backdrop-filter. */
   background:
-    radial-gradient(130% 75% at 50% 0%, hsl(0 0% 100% / .05), transparent 55%),
+    linear-gradient(120deg, transparent 34%, hsl(0 0% 100% / .03) 46%, hsl(0 0% 100% / .013) 55%, transparent 68%),
+    radial-gradient(130% 80% at 80% -6%, hsl(0 0% 100% / .06), transparent 55%),
     hsl(240 15% 10% / .55);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
   backdrop-filter: blur(24px) saturate(140%);
@@ -4944,13 +4973,14 @@ html:not(.portal-done) body { overflow: hidden; }
   padding: 2rem 1.75rem;
   box-shadow:
     inset 0 1px 0 hsl(0 0% 100% / .18),
-    0 30px 70px -25px hsl(240 40% 2% / .9),
-    0 12px 40px -12px hsl(240 40% 2% / .6),
+    -10px 32px 70px -25px hsl(240 40% 2% / .9),
+    -4px 12px 40px -12px hsl(240 40% 2% / .6),
     0 0 70px -18px hsl(180 74% 63% / .18);
 }
 /* Liquid-glass rim: ~1.5px specular ring (mask-composite technique) —
-   brightest where the light hits at the top-left, near-invisible mid-run,
-   warming into faint brand mint toward the bottom-right corner. */
+   brightest where the top-right key strikes the corner, decaying along both
+   sides, with a faint mint counter-catch (light wrap off the bounce) at the
+   bottom-left corner. */
 .portal__card::before {
   content: "";
   position: absolute;
@@ -4959,12 +4989,13 @@ html:not(.portal-done) body { overflow: hidden; }
   padding: 1.5px;
   pointer-events: none;
   background: linear-gradient(
-    135deg,
-    hsl(190 60% 93% / .55) 0%,
-    hsl(185 80% 84% / .35) 18%,
-    hsl(200 30% 88% / .13) 44%,
-    hsl(190 30% 86% / .11) 62%,
-    hsl(160 76% 66% / .38) 100%
+    225deg,
+    hsl(190 60% 94% / .6) 0%,
+    hsl(185 80% 84% / .38) 16%,
+    hsl(200 30% 88% / .12) 42%,
+    hsl(220 20% 82% / .07) 62%,
+    hsl(160 76% 66% / .06) 84%,
+    hsl(160 76% 66% / .27) 100%
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -4975,8 +5006,8 @@ html:not(.portal-done) body { overflow: hidden; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .portal__card {
     background:
-      radial-gradient(130% 75% at 50% 0%, hsl(0 0% 100% / .04), transparent 55%),
-      linear-gradient(180deg, hsl(240 15% 11% / .97), hsl(240 15% 8% / .98));
+      radial-gradient(130% 80% at 80% -6%, hsl(0 0% 100% / .05), transparent 55%),
+      linear-gradient(200deg, hsl(240 15% 11% / .97), hsl(240 15% 8% / .98));
   }
 }
 .portal__title {
@@ -5008,4 +5039,8 @@ html:not(.portal-done) body { overflow: hidden; }
 @media (max-width: 480px) {
   .portal__card { padding: 1.75rem 1.4rem; }
   .portal__title { font-size: 1.35rem; }
+  /* Keep the key firmly in the top-right corner on small screens — without
+     this the oversized pool spills across the top-left and reads as a
+     generic top wash instead of a directional key. */
+  .portal__glow { right: -55%; top: -20%; width: 165vw; }
 }

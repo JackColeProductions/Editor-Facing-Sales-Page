@@ -413,24 +413,15 @@ button { font: inherit; cursor: pointer; }
   color: hsl(0 0% 96%);
 }
 
-/* Glow on the gradient text — drop-shadow works through background-clip */
+/* Glow on the gradient text — drop-shadow works through background-clip.
+   Static on purpose: the old glowBreathe animation pulsed this filter every
+   3.6s, and animating a filter forces the browser to re-rasterize the text
+   plus the layers behind it (blurred sphere + blend-mode rays on /ads
+   pricing), which flashed as a periodic glitch on some machines. */
 .grad--glow {
   filter:
     drop-shadow(0 0 22px hsl(180 74% 63% / .65))
     drop-shadow(0 0 50px hsl(160 76% 56% / .4));
-  animation: glowBreathe 3.6s ease-in-out infinite;
-}
-@keyframes glowBreathe {
-  0%,100% {
-    filter:
-      drop-shadow(0 0 22px hsl(180 74% 63% / .65))
-      drop-shadow(0 0 50px hsl(160 76% 56% / .4));
-  }
-  50% {
-    filter:
-      drop-shadow(0 0 32px hsl(180 74% 73% / .85))
-      drop-shadow(0 0 70px hsl(160 76% 56% / .6));
-  }
 }
 
 .hero__lede {

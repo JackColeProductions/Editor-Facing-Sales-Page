@@ -527,6 +527,13 @@ if (portal) {
     { sel: '.hero__cards', v: 'scale' },
     // Stats band
     { sel: '.stat', v: 'up' },
+    // Partnership + formats (ads page only — selectors miss elsewhere)
+    { sel: '.partners .section__head', v: 'up' },
+    { sel: '.partners__card', v: 'up' },
+    { sel: '.partners__x', v: 'fade' },
+    { sel: '.partners__claim', v: 'up' },
+    { sel: '.formats .section__head', v: 'up' },
+    { sel: '.formats__card', v: 'up' },
     // Marketplace showcase
     { sel: '.showcase .section__head', v: 'up' },
     { sel: '.showcase__frame', v: 'scale' },

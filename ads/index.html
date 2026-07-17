@@ -1,0 +1,1119 @@
+<!doctype html>
+<!--
+  ADS landing page — served at /ads
+  Offer: ecom brands join the platform for infinite ad creatives on demand —
+  AI ads, AI UGC, and classic ads — pay per video, delivered in 24-48 hours.
+  A Video Production+ × Epic Ads Lab collaboration.
+
+  Reuses the root design system (../styles.css) and interactions (../script.js)
+  plus the clients-page scoped styles (body carries .clients-page) so the fans,
+  marquee, and section treatments render identically. Ads-only additions
+  (partnership section, formats grid, collab pill, letter avatars) are scoped
+  under .ads-page at the end of ../styles.css.
+
+  NOTE FOR JACK: placeholders to replace before going live are marked PLACEHOLDER.
+  - All CTAs point at #pricing; swap for the real signup/checkout URL.
+  - Pricing copy assumes pay-per-video with escrow — confirm the exact model.
+  - Partnership stats come from Epic Ads Lab's public pages (epicadslab.com +
+    the Ad Creators Lab Skool) — confirm the numbers Camilo wants quoted.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Production+ × Epic Ads Lab | Infinite Ad Creatives On Demand — Delivered in 24-48 Hours</title>
+    <meta name="description" content="The best in the ad space teamed up with the best in the editing space. Ecom brands get AI ads, AI UGC, and classic ad edits on demand — pay per video, delivered in 24-48 hours." />
+    <meta name="author" content="Video Production+" />
+    <meta property="og:title" content="Video Production+ × Epic Ads Lab | Infinite Ad Creatives On Demand" />
+    <meta property="og:description" content="AI ads, AI UGC, and classic ad edits from elite, vetted editors. Pay per video. Delivered in 24-48 hours. No retainers. No subscriptions." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@VideoProdPlus" />
+    <link rel="icon" type="image/png" sizes="256x256" href="../media/Plain%20Logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/Plain%20Logo.png" />
+    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="clients-page ads-page">
+    <!-- ============ NAV ============ -->
+    <header class="nav" id="top">
+      <div class="container nav__inner">
+        <a class="nav__brand" href="#top" aria-label="Video Production Plus home">
+          <img src="../media/VPP%20logo.png" alt="Video Production+" class="nav__logo" />
+        </a>
+        <nav class="nav__pill" aria-label="Primary">
+          <a href="#partnership">The Partnership</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div class="nav__right">
+          <a class="btn btn--primary btn--glow nav__cta" href="#pricing">Get Ads Now</a>
+        </div>
+        <button class="nav__menu" id="navMenu" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__beam" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__glow hero__glow--1"></div>
+        <div class="hero__glow hero__glow--2"></div>
+        <div class="hero__grid"></div>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <!-- Collab lockup takes the trusted-pill slot — the partnership IS
+               the credibility play on this page. -->
+          <div class="trusted-pill ads-collab-pill">
+            <img class="ads-collab-pill__vpp" src="../media/VPP%20logo.png" alt="Video Production+" />
+            <span class="ads-collab-pill__x" aria-hidden="true">×</span>
+            <img class="ads-collab-pill__eal" src="../media/epic-ads-lab-logo.png" alt="" />
+            <span class="ads-collab-pill__name">Epic Ads Lab</span>
+          </div>
+
+          <h1 class="hero__title">
+            Every ad your brand needs.<br />
+            Delivered in <span class="grad grad--glow">24-48 hours.</span>
+          </h1>
+
+          <p class="hero__lede">
+            AI ads, AI UGC, and classic ad edits from elite, vetted editors — on demand.
+            <strong>Pay per video. No retainers. No subscriptions.</strong>
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+              Get Your First Ad
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Editor profile-card fan — the on-demand editing bench behind the
+             offer. Same decorative fan as the clients hero. -->
+        <div class="hero__cards clients-hero-fan" aria-hidden="true">
+          <article class="profile-pic profile-pic--pos1">
+            <img src="../media/Profile_3.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos2">
+            <img src="../media/Profile_2.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos3 profile-pic--featured">
+            <img src="../media/Profile_1.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos4">
+            <img src="../media/Profile_4.png" alt="" loading="lazy" decoding="async" />
+          </article>
+          <article class="profile-pic profile-pic--pos5">
+            <img src="../media/Profile_5.png" alt="" loading="lazy" decoding="async" />
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats" aria-label="Platform stats">
+      <div class="stats__beam" aria-hidden="true"></div>
+      <div class="container stats__grid">
+        <div class="stat">
+          <span class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">24-48<span class="plus">h</span></div>
+            <div class="stat__label">Delivery Per Ad</div>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="2" x2="12" y2="22"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">$150M<span class="plus">+</span></div>
+            <div class="stat__label">Ad Spend Behind the Frameworks</div>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="stat__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </span>
+          <div class="stat__body">
+            <div class="stat__num">600<span class="plus">+</span></div>
+            <div class="stat__label">Vetted Ad Editors</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE PARTNERSHIP ============ -->
+    <!-- PLACEHOLDER: stats sourced from Epic Ads Lab public pages — confirm. -->
+    <section id="partnership" class="section partners">
+      <div class="partners__atmosphere" aria-hidden="true">
+        <div class="partners__glow partners__glow--eal"></div>
+        <div class="partners__glow partners__glow--vpp"></div>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">THE PARTNERSHIP</span>
+          <h2 class="section__title">
+            The best in ads.<br>
+            The best in <span class="grad grad--glow">editing.</span>
+          </h2>
+          <p class="section__lede">
+            Epic Ads Lab brings the frameworks behind $150M+ in ad spend.
+            VP+ brings the largest bench of elite, vetted editors. One platform.
+          </p>
+        </header>
+
+        <div class="partners__grid">
+          <article class="partners__card partners__card--eal">
+            <div class="partners__logo">
+              <img src="../media/epic-ads-lab-logo.png" alt="Epic Ads Lab" />
+              <span class="partners__wordmark">EPIC ADS LAB</span>
+            </div>
+            <p class="partners__role">The best in the ad space</p>
+            <p class="partners__desc">
+              Camilo Castaneda's team has managed <strong>$150M+ in ad spend</strong>,
+              scaled accounts past $1M/month, and ships 1,000+ ad creatives a month
+              for DTC and ecom brands.
+            </p>
+            <ul class="partners__stats">
+              <li><strong>$150M+</strong><span>ad spend managed</span></li>
+              <li><strong>1,000+</strong><span>ads shipped monthly</span></li>
+              <li><strong>35+</strong><span>enterprise brands</span></li>
+            </ul>
+          </article>
+
+          <div class="partners__x" aria-hidden="true"><span>×</span></div>
+
+          <article class="partners__card partners__card--vpp">
+            <div class="partners__logo">
+              <img src="../media/VPP%20logo.png" alt="Video Production+" />
+            </div>
+            <p class="partners__role">The best in the editing space</p>
+            <p class="partners__desc">
+              The gated marketplace where <strong>600+ elite, vetted editors</strong>
+              have delivered 2,500+ projects for creators and brands — every editor
+              portfolio-reviewed before they touch a single frame.
+            </p>
+            <ul class="partners__stats">
+              <li><strong>600+</strong><span>vetted editors</span></li>
+              <li><strong>2,500+</strong><span>projects delivered</span></li>
+              <li><strong>24-48h</strong><span>turnarounds</span></li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="partners__claim">
+          Together: one platform that serves <strong>all</strong> your ad needs —
+          AI ads, AI UGC, classic ads — on demand.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ AD FORMATS ============ -->
+    <section class="section formats">
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">EVERY FORMAT</span>
+          <h2 class="section__title">
+            All your ad needs. <span class="grad">One platform.</span>
+          </h2>
+          <p class="section__lede">
+            From AI-native formats to classic direct-response edits — brief it once,
+            get it back in 24-48 hours.
+          </p>
+        </header>
+
+        <div class="formats__grid">
+          <article class="formats__card formats__card--ai">
+            <span class="formats__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/>
+                <path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.4l-.8-1.9-1.9-.8 1.9-.8z"/>
+              </svg>
+            </span>
+            <h3 class="formats__title">AI Ads</h3>
+            <p class="formats__desc">
+              Scroll-stopping AI formats your competitors haven't caught up to yet —
+              produced with the systems taught inside Ad Creators Lab.
+            </p>
+            <div class="formats__tags">
+              <span class="tag tag--violet">Claymation</span>
+              <span class="tag tag--violet">3D Animated</span>
+              <span class="tag tag--violet">AI Podcast</span>
+              <span class="tag tag--neutral">+ More</span>
+            </div>
+          </article>
+
+          <article class="formats__card formats__card--ugc">
+            <span class="formats__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 7l-7 5 7 5V7z"/>
+                <rect x="1" y="5" width="15" height="14" rx="2"/>
+              </svg>
+            </span>
+            <h3 class="formats__title">AI UGC</h3>
+            <p class="formats__desc">
+              Hyper-real AI creators holding, demoing, and selling your product —
+              infinite hook and angle variations without booking a single creator.
+            </p>
+            <div class="formats__tags">
+              <span class="tag tag--cyan">AI Creators</span>
+              <span class="tag tag--cyan">Product Demos</span>
+              <span class="tag tag--cyan">Hook Variations</span>
+            </div>
+          </article>
+
+          <article class="formats__card formats__card--classic">
+            <span class="formats__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 3v18"/><path d="M17 3v18"/><path d="M3 7h4"/><path d="M3 17h4"/><path d="M17 7h4"/><path d="M17 17h4"/><path d="M3 12h18"/>
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+              </svg>
+            </span>
+            <h3 class="formats__title">Classic Ads</h3>
+            <p class="formats__desc">
+              UGC edits, direct-response video ads, and repurposed winners cut from
+              your raw footage by editors who live in ad creative.
+            </p>
+            <div class="formats__tags">
+              <span class="tag tag--cyan">UGC Edits</span>
+              <span class="tag tag--cyan">DR Video Ads</span>
+              <span class="tag tag--cyan">Repurposing</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PLATFORM SHOWCASE ============ -->
+    <section class="section showcase">
+      <div class="showcase__atmosphere" aria-hidden="true">
+        <span class="showcase__beam"></span>
+        <svg class="showcase__particles" viewBox="0 0 1500 1000" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="912" cy="592" r="1.5" opacity=".49"/><circle cx="528" cy="519" r="1" opacity=".29"/><circle cx="135" cy="358" r="1" opacity=".38"/><circle cx="697" cy="169" r="1" opacity=".40"/><circle cx="1089" cy="879" r="1" opacity=".40"/><circle cx="353" cy="168" r="1" opacity=".36"/><circle cx="1230" cy="590" r="1" opacity=".29"/><circle cx="386" cy="451" r="1.5" opacity=".30"/><circle cx="1295" cy="730" r="1" opacity=".50"/><circle cx="638" cy="927" r="1.5" opacity=".41"/><circle cx="1475" cy="368" r="1" opacity=".34"/><circle cx="847" cy="346" r="1" opacity=".39"/><circle cx="33" cy="716" r="1" opacity=".44"/><circle cx="828" cy="36" r="1.5" opacity=".49"/><circle cx="688" cy="594" r="1" opacity=".43"/><circle cx="205" cy="719" r="1" opacity=".31"/><circle cx="1302" cy="453" r="1" opacity=".50"/><circle cx="166" cy="396" r="1" opacity=".47"/><circle cx="858" cy="827" r="1" opacity=".39"/><circle cx="527" cy="373" r="1.5" opacity=".30"/><circle cx="1291" cy="705" r="1" opacity=".30"/><circle cx="822" cy="224" r="1.5" opacity=".32"/><circle cx="923" cy="353" r="1.5" opacity=".49"/><circle cx="1019" cy="84" r="1" opacity=".36"/><circle cx="108" cy="918" r="1" opacity=".41"/><circle cx="618" cy="866" r="1" opacity=".46"/><circle cx="165" cy="161" r="1" opacity=".38"/><circle cx="659" cy="401" r="1.5" opacity=".49"/><circle cx="722" cy="780" r="1" opacity=".47"/><circle cx="832" cy="763" r="1.5" opacity=".31"/></svg>
+      </div>
+      <div class="container">
+        <header class="section__head showcase__head">
+          <h2 class="section__title">Inside <span class="grad">the platform.</span></h2>
+          <p class="section__lede">Brief your ad, get matched with a vetted ad editor, approve, done.</p>
+        </header>
+        <div class="showcase__frame">
+          <img class="showcase__card showcase__card--left"
+               src="../media/CARD_left.png"
+               alt="Job status card — escrow funded, ready to start"
+               loading="lazy"
+               decoding="async" />
+          <img class="showcase__img" src="../media/Screenshot%202026-05-10%20at%2022.34.56.png" alt="Inside the Video Production+ platform dashboard" loading="lazy" />
+          <img class="showcase__card showcase__card--right"
+               src="../media/CARD_right.png"
+               alt="Version history card — three previous revisions"
+               loading="lazy"
+               decoding="async" />
+        </div>
+
+        <p class="showcase__claim">
+          Real ad editors. Vetted portfolios. On-demand capacity.
+        </p>
+
+        <div class="showcase__cta">
+          <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+            Get my ads
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <!-- PLACEHOLDER: confirm the pay-per-video pricing model + CTA URLs -->
+    <section id="pricing" class="section pricing">
+      <div class="pricing__atmosphere" aria-hidden="true">
+        <div class="pricing__rays"></div>
+        <div class="pricing__sphere"></div>
+        <svg class="pricing__particles" viewBox="0 0 1500 1200" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="542" cy="1067" r="1.0" opacity="0.64"/><circle cx="1201" cy="704" r="1.0" opacity="0.30"/><circle cx="634" cy="997" r="2.0" opacity="0.42"/><circle cx="1181" cy="994" r="0.8" opacity="0.54"/><circle cx="705" cy="1045" r="1.8" opacity="0.35"/><circle cx="347" cy="1033" r="1.5" opacity="0.32"/><circle cx="447" cy="958" r="1.8" opacity="0.29"/><circle cx="711" cy="815" r="1.5" opacity="0.47"/><circle cx="1336" cy="1007" r="1.7" opacity="0.61"/><circle cx="1078" cy="1169" r="1.9" opacity="0.59"/><circle cx="628" cy="969" r="1.7" opacity="0.41"/><circle cx="766" cy="853" r="1.6" opacity="0.37"/><circle cx="592" cy="689" r="2.0" opacity="0.30"/><circle cx="1083" cy="849" r="1.8" opacity="0.28"/><circle cx="251" cy="831" r="1.6" opacity="0.27"/><circle cx="919" cy="175" r="1.4" opacity="0.64"/><circle cx="1258" cy="1122" r="1.6" opacity="0.64"/><circle cx="481" cy="573" r="1.4" opacity="0.33"/><circle cx="255" cy="777" r="1.0" opacity="0.50"/><circle cx="993" cy="761" r="1.3" opacity="0.52"/><circle cx="262" cy="851" r="1.5" opacity="0.59"/><circle cx="476" cy="1071" r="1.3" opacity="0.60"/><circle cx="868" cy="732" r="2" opacity="0.8" fill="#ffffff"/><circle cx="856" cy="812" r="2" opacity="0.8" fill="#ffffff"/><circle cx="541" cy="713" r="2" opacity="0.8" fill="#ffffff"/><circle cx="635" cy="736" r="2" opacity="0.8" fill="#ffffff"/><circle cx="677" cy="720" r="2" opacity="0.8" fill="#ffffff"/></svg>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">PRICING</span>
+          <h2 class="section__title">
+            Pay per <span class="grad grad--glow">video.</span><br>
+            Scale to infinite.
+          </h2>
+          <p class="section__lede">
+            No retainers. No subscriptions. Just ads, on demand.
+          </p>
+        </header>
+
+        <div class="pricing__plans">
+          <article class="pricing__plan">
+            <header class="pricing__head">
+              <h3 class="pricing__name">PAY PER VIDEO</h3>
+              <div class="pricing__price">
+                <span class="pricing__price-new">Free</span>
+                <span class="pricing__price-period">to join</span>
+              </div>
+              <p class="pricing__billing">Only pay for the ads you order. Nothing else.</p>
+            </header>
+
+            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
+
+            <ul class="pricing__features">
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Every format on demand — AI ads, AI UGC, classic edits.</p>
+                  <p class="pricing__feature-desc">One platform for your whole creative pipeline.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Delivered in 24-48 hours, every time.</p>
+                  <p class="pricing__feature-desc">Brief today. Test this week. Never pause a campaign on creative.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Elite, vetted editors trained on winning ad frameworks.</p>
+                  <p class="pricing__feature-desc">VP+ vets the talent. Epic Ads Lab supplies the playbook.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Escrow protection on every single video.</p>
+                  <p class="pricing__feature-desc">Funds only release once you approve the final ad.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">No minimums. Order 1 ad or 100.</p>
+                  <p class="pricing__feature-desc">Creative spend scales with your testing — not a retainer.</p>
+                </div>
+              </li>
+            </ul>
+
+            <a href="#" class="pricing__cta">Get Your First Ad</a>
+          </article>
+
+          <article class="pricing__plan pricing__plan--featured">
+            <span class="pricing__badge">FOR SCALING BRANDS</span>
+            <header class="pricing__head">
+              <h3 class="pricing__name">INFINITE ADS</h3>
+              <div class="pricing__price">
+                <span class="pricing__price-new">Custom</span>
+                <span class="pricing__price-period">/month</span>
+              </div>
+              <p class="pricing__billing">For brands testing 20+ creatives a month.</p>
+            </header>
+
+            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
+
+            <div class="pricing__includes">Everything in Pay Per Video, plus:</div>
+
+            <ul class="pricing__features">
+              <li>
+                <span class="pricing__plus" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">A dedicated creative strategist from the Epic Ads Lab side.</p>
+                  <p class="pricing__feature-desc">Concepts, hooks, and briefs built from what's winning right now.</p>
+                </div>
+              </li>
+              <li>
+                <span class="pricing__plus" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </span>
+                <div>
+                  <p class="pricing__feature-title">Priority editor pods and volume pricing.</p>
+                  <p class="pricing__feature-desc">Parallel capacity — 30 ads ship as fast as 3.</p>
+                </div>
+              </li>
+            </ul>
+
+            <a href="#" class="pricing__cta pricing__cta--featured">Talk to Us</a>
+            <p class="pricing__note">30-minute call.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BRIEF YOUR AD / GET MATCHED ============ -->
+    <section id="profile-setup" class="profile-setup">
+      <div class="profile-setup__bg" aria-hidden="true">
+        <div class="profile-setup__beam"></div>
+        <div class="profile-setup__glow profile-setup__glow--1"></div>
+        <div class="profile-setup__glow profile-setup__glow--2"></div>
+        <div class="profile-setup__grid"></div>
+        <svg class="profile-setup__spark" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" fill="#dffafa" aria-hidden="true">
+          <circle cx="180" cy="120" r="1.4" opacity="0.55"/>
+          <circle cx="980" cy="80"  r="1.2" opacity="0.45"/>
+          <circle cx="1100" cy="280" r="1.6" opacity="0.50"/>
+          <circle cx="60"  cy="380" r="1.0" opacity="0.40"/>
+          <circle cx="420" cy="60"  r="1.3" opacity="0.50"/>
+          <circle cx="760" cy="500" r="1.5" opacity="0.55"/>
+          <circle cx="240" cy="540" r="1.1" opacity="0.45"/>
+          <circle cx="600" cy="30"  r="1.5" opacity="0.6" fill="#ffffff"/>
+        </svg>
+      </div>
+
+      <div class="container profile-setup__inner">
+        <div class="profile-setup__content">
+          <div class="profile-setup__pill">
+            <span class="profile-setup__pill-dot"></span>
+            <span><strong>Ad Editors</strong> On Standby</span>
+          </div>
+
+          <h2 class="profile-setup__title">
+            Brief your ad today.<br />
+            <span class="grad grad--glow">Test it this week.</span>
+          </h2>
+
+          <p class="profile-setup__lede">
+            Every brief goes straight to editors who live in ad creative.
+          </p>
+
+          <div class="profile-setup__cta">
+            <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+              Get Ads Now
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Ad-brief card fan (same decorative fan as the clients page) -->
+        <div class="hero__cards" aria-hidden="true">
+          <article class="job-card job-card--pos1">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">AI UGC Product Ad</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#e4669b">G</span>
+                  <span>Glow Skincare</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Today</span>
+                  <span class="job-card__dot">·</span>
+                  <span>24h Rush</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$250<span class="job-card__price-unit">/video</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">AI UGC</span>
+              <span class="tag tag--neutral">3 hooks</span>
+              <span class="tag tag--violet">Skincare</span>
+              <span class="tag tag--violet">Beauty</span>
+            </div>
+            <p class="job-card__desc">Hyper-real AI creator demoing the hero serum. 3 hook variations for TikTok Shop…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">In Production</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos3 job-card--featured">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Meta DR Video Ad</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#5cb1ff">H</span>
+                  <span>Halo Home</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Today</span>
+                  <span class="job-card__dot">·</span>
+                  <span>48h</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$300<span class="job-card__price-unit">/video</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--cyan">Direct Response</span>
+              <span class="tag tag--violet">Ecom</span>
+              <span class="tag tag--violet">Home</span>
+            </div>
+            <p class="job-card__desc">Direct-response edit from raw UGC footage. Problem-agitate-solve structure, 9:16 + 1:1…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">In Production</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos2">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Claymation AI Ad</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#7c5cff">P</span>
+                  <span>Peak Supps</span>
+                  <span class="job-card__dot">·</span>
+                  <span>1d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>48h</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$400<span class="job-card__price-unit">/video</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--violet">AI ADS</span>
+              <span class="tag tag--violet">Claymation</span>
+              <span class="tag tag--violet">Supplements</span>
+              <span class="tag tag--cyan">Sound Design</span>
+            </div>
+            <p class="job-card__desc">Claymation-style AI ad for a pre-workout launch. Zack D Films energy, 30s cut…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">In Production</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos4">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Hook Variations Pack</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#3ad29f">B</span>
+                  <span>Brew Labs</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Today</span>
+                  <span class="job-card__dot">·</span>
+                  <span>24h Rush</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$150<span class="job-card__price-unit">/video</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--neutral">10 hooks</span>
+              <span class="tag tag--violet">Coffee</span>
+              <span class="tag tag--cyan">Hooks/Intros</span>
+            </div>
+            <p class="job-card__desc">10 fresh hooks cut onto a proven winner. Beat creative fatigue before it starts…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">In Production</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos5">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">AI Podcast Style Ad</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#5b8bff">N</span>
+                  <span>NovaFit</span>
+                  <span class="job-card__dot">·</span>
+                  <span>2d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>48h</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$350<span class="job-card__price-unit">/video</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--violet">AI ADS</span>
+              <span class="tag tag--violet">Podcast Style</span>
+              <span class="tag tag--violet">Fitness</span>
+              <span class="tag tag--cyan">Captions</span>
+            </div>
+            <p class="job-card__desc">AI podcast-clip ad for a fitness app. Native feel for TikTok + Reels placements…</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">In Production</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SHIPPED ADS FOR (brands marquee) ============ -->
+    <!-- Brand names from Epic Ads Lab's public track record. Letter avatars
+         (no brand logos on hand) — swap for real logos when supplied. -->
+    <section class="section worked-with" aria-label="Brands this partnership has shipped ads for">
+      <div class="container">
+        <div class="worked-with__frame">
+          <span class="worked-with__glow" aria-hidden="true"></span>
+          <p class="worked-with__eyebrow">This partnership has shipped ads for</p>
+          <div class="worked-with__marquee">
+            <div class="worked-with__track">
+              <!-- Set A -->
+          <figure class="worked-with__item">
+            <span class="worked-with__avatar worked-with__avatar--letter" aria-hidden="true">R</span>
+            <figcaption class="worked-with__name">Remington</figcaption>
+            <span class="worked-with__subs">Consumer Brand</span>
+          </figure>
+          <figure class="worked-with__item">
+            <span class="worked-with__avatar worked-with__avatar--letter" aria-hidden="true">V</span>
+            <figcaption class="worked-with__name">VShred</figcaption>
+            <span class="worked-with__subs">Fitness</span>
+          </figure>
+          <figure class="worked-with__item">
+            <span class="worked-with__avatar worked-with__avatar--letter" aria-hidden="true">G</span>
+            <figcaption class="worked-with__name">Gratsi</figcaption>
+            <span class="worked-with__subs">DTC Wine</span>
+          </figure>
+          <figure class="worked-with__item">
+            <span class="worked-with__avatar worked-with__avatar--letter" aria-hidden="true">F</span>
+            <figcaption class="worked-with__name">Fresh Healthcare</figcaption>
+            <span class="worked-with__subs">Supplements</span>
+          </figure>
+          <figure class="worked-with__item">
+            <span class="worked-with__avatar worked-with__avatar--letter" aria-hidden="true">F</span>
+            <figcaption class="worked-with__name">Focus Supplements</figcaption>
+            <span class="worked-with__subs">Nootropics</span>
+          </figure>
+          <figure class="worked-with__item">
+            <span class="worked-with__avatar worked-with__avatar--letter" aria-hidden="true">+</span>
+            <figcaption class="worked-with__name">30+ More</figcaption>
+            <span class="worked-with__subs">Ecom &amp; DTC Brands</span>
+          </figure>
+          <!-- Set B (duplicate, aria-hidden) for seamless loop -->
+          <figure class="worked-with__item" aria-hidden="true">
+            <span class="worked-with__avatar worked-with__avatar--letter">R</span>
+            <figcaption class="worked-with__name">Remington</figcaption>
+            <span class="worked-with__subs">Consumer Brand</span>
+          </figure>
+          <figure class="worked-with__item" aria-hidden="true">
+            <span class="worked-with__avatar worked-with__avatar--letter">V</span>
+            <figcaption class="worked-with__name">VShred</figcaption>
+            <span class="worked-with__subs">Fitness</span>
+          </figure>
+          <figure class="worked-with__item" aria-hidden="true">
+            <span class="worked-with__avatar worked-with__avatar--letter">G</span>
+            <figcaption class="worked-with__name">Gratsi</figcaption>
+            <span class="worked-with__subs">DTC Wine</span>
+          </figure>
+          <figure class="worked-with__item" aria-hidden="true">
+            <span class="worked-with__avatar worked-with__avatar--letter">F</span>
+            <figcaption class="worked-with__name">Fresh Healthcare</figcaption>
+            <span class="worked-with__subs">Supplements</span>
+          </figure>
+          <figure class="worked-with__item" aria-hidden="true">
+            <span class="worked-with__avatar worked-with__avatar--letter">F</span>
+            <figcaption class="worked-with__name">Focus Supplements</figcaption>
+            <span class="worked-with__subs">Nootropics</span>
+          </figure>
+          <figure class="worked-with__item" aria-hidden="true">
+            <span class="worked-with__avatar worked-with__avatar--letter">+</span>
+            <figcaption class="worked-with__name">30+ More</figcaption>
+            <span class="worked-with__subs">Ecom &amp; DTC Brands</span>
+          </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PLATFORM / HOW IT WORKS ============ -->
+    <section id="platform" class="section platform">
+      <div class="platform__atmosphere" aria-hidden="true">
+        <div class="platform__top-glow"></div>
+        <div class="platform__halo"></div>
+        <div class="platform__light-column"></div>
+        <div class="platform__streaks"></div>
+        <svg class="platform__particles" viewBox="0 0 1500 800" preserveAspectRatio="xMidYMid slice" fill="#dffafa"><circle cx="838" cy="523" r="1.6" opacity="0.57"/><circle cx="620" cy="238" r="1.5" opacity="0.20"/><circle cx="141" cy="316" r="0.9" opacity="0.55"/><circle cx="368" cy="146" r="1.0" opacity="0.52"/><circle cx="871" cy="643" r="1.6" opacity="0.48"/><circle cx="349" cy="574" r="1.7" opacity="0.56"/><circle cx="1087" cy="674" r="0.7" opacity="0.45"/><circle cx="136" cy="316" r="1.8" opacity="0.61"/><circle cx="1258" cy="475" r="1.8" opacity="0.50"/><circle cx="208" cy="799" r="1.1" opacity="0.44"/><circle cx="1210" cy="435" r="1.3" opacity="0.56"/><circle cx="426" cy="683" r="1.4" opacity="0.59"/><circle cx="929" cy="418" r="1.1" opacity="0.61"/><circle cx="1409" cy="602" r="1.6" opacity="0.49"/><circle cx="698" cy="693" r="0.8" opacity="0.57"/><circle cx="919" cy="366" r="1.5" opacity="0.50"/><circle cx="264" cy="185" r="1.9" opacity="0.52"/><circle cx="1130" cy="684" r="1.7" opacity="0.57"/><circle cx="731" cy="397" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="818" cy="386" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="689" cy="438" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="707" cy="459" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="804" cy="428" r="1.8" opacity="0.8" fill="#ffffff"/><circle cx="675" cy="528" r="1.8" opacity="0.8" fill="#ffffff"/></svg>
+      </div>
+
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">HOW IT WORKS</span>
+          <h2 class="section__title">
+            Creative testing shouldn't<br>
+            <span class="grad grad--glow">bottleneck growth.</span>
+          </h2>
+          <p class="section__lede">
+            The platform built on pay-per-video pricing, ad-trained editors, and 24-48 hour delivery.
+          </p>
+          <div class="platform__cta-row">
+            <a class="btn btn--primary btn--glow" href="#pricing">Get Ads Now</a>
+          </div>
+        </header>
+
+        <div class="vs">
+          <article class="vs__card">
+            <h3 class="vs__card-title">VP+ × Epic Ads Lab</h3>
+            <ul class="vs__bullets">
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Pay per video — only for the ads you order.</p>
+                  <p class="vs__bullet-why">So creative spend scales with your testing, not a retainer.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Every ad delivered in 24-48 hours.</p>
+                  <p class="vs__bullet-why">So you never pause a winning campaign waiting on creative.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Editors vetted by VP+, frameworks from Epic Ads Lab.</p>
+                  <p class="vs__bullet-why">So every edit is built to convert, not just to look pretty.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__check" aria-hidden="true">✓</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Infinite parallel capacity across 600+ editors.</p>
+                  <p class="vs__bullet-why">So 30 ads ship at the same speed as 3.</p>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <aside class="vs__faded">
+            <h3 class="vs__faded-title">The Old Way</h3>
+            <ul class="vs__bullets vs__bullets--faded">
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Locked into $3-5K/month agency retainers.</p>
+                  <p class="vs__bullet-why">You pay for capacity whether you use it or not.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Two-week turnarounds on every creative.</p>
+                  <p class="vs__bullet-why">Winners fatigue while replacements sit in a queue.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">Freelancers who've never cut a direct-response ad.</p>
+                  <p class="vs__bullet-why">Pretty videos that don't convert cold traffic.</p>
+                </div>
+              </li>
+              <li>
+                <span class="vs__cross" aria-hidden="true">×</span>
+                <div class="vs__bullet">
+                  <p class="vs__bullet-title">One editor's calendar caps your whole test schedule.</p>
+                  <p class="vs__bullet-why">Scaling means recruiting, vetting, and managing all over again.</p>
+                </div>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section id="faq" class="section faq">
+      <div class="faq__atmosphere" aria-hidden="true">
+        <div class="faq__grid-bg"></div>
+        <div class="faq__corner-glow"></div>
+        <svg class="faq__sparkles" viewBox="0 0 500 400" preserveAspectRatio="xMaxYMin meet" aria-hidden="true">
+          <circle cx="460" cy="30"  r="1.4" fill="#b8f5f0" opacity="0.75"/>
+          <circle cx="380" cy="40"  r="1.5" fill="#ffffff" opacity="0.85"/>
+          <circle cx="350" cy="80"  r="1.0" fill="#b8f5f0" opacity="0.6"/>
+          <circle cx="405" cy="130" r="1.3" fill="#b8f5f0" opacity="0.65"/>
+          <circle cx="270" cy="95"  r="1.1" fill="#b8f5f0" opacity="0.55"/>
+          <circle cx="360" cy="170" r="1.0" fill="#b8f5f0" opacity="0.5"/>
+          <circle cx="220" cy="110" r="0.9" fill="#b8f5f0" opacity="0.4"/>
+          <circle cx="300" cy="250" r="0.6" fill="#b8f5f0" opacity="0.25"/>
+        </svg>
+      </div>
+
+      <div class="container">
+        <header class="section__head faq__head">
+          <span class="kicker">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            FAQ
+          </span>
+          <h2 class="section__title">
+            What brands ask <span class="grad">before they join.</span>
+          </h2>
+        </header>
+
+        <div class="faq__layout">
+          <div class="faq__left">
+            <div class="faq__social-proof">
+              <div class="faq__avatars" aria-hidden="true">
+                <img class="faq__avatar" src="../media/avatar-1.jpg" alt="" loading="lazy" />
+                <img class="faq__avatar" src="../media/avatar-2.jpg" alt="" loading="lazy" />
+                <img class="faq__avatar" src="../media/avatar-3.jpg" alt="" loading="lazy" />
+                <div class="faq__avatar-count">+35</div>
+              </div>
+              <div class="faq__rating">
+                <div class="faq__stars" aria-label="Rated 4.9 out of 5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                </div>
+                <span class="faq__rating-text"><strong>4.9/5</strong> from ecom brands</span>
+              </div>
+            </div>
+
+            <div class="faq__accordion">
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How fast will I actually get my ads?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>24-48 hours from brief to delivery, per video. Because capacity fans out across hundreds of editors, ordering more ads doesn't slow anything down — 30 creatives ship as fast as 3.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What ad formats can I order?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Everything. AI ads (claymation, 3D animated, AI podcast style), AI UGC with hyper-real creators, and classic ads — UGC edits, direct-response video ads, hook variation packs, and repurposed winners. All from one dashboard.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How does pay-per-video pricing work?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Joining is free. You fund each video when you order it, the money sits in escrow, and it only releases to the editor when you approve the final ad. No subscription, no retainer, no minimums.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Who's actually editing my ads?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Elite editors from the VP+ marketplace — every one portfolio-reviewed and vetted before they can take work — matched to your brief by niche and working from Epic Ads Lab's ad creative frameworks.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What's the Epic Ads Lab connection?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>This platform is a collaboration. Epic Ads Lab — the team behind $150M+ in managed ad spend and 1,000+ ads a month — brings the creative strategy and frameworks. VP+ brings 600+ elite, vetted editors. The best in the ad space, working with the best in the editing space.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What about revisions?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Revisions are built into the flow — request them right on the video, with full version history. You don't release payment until you approve the final cut, so the incentives stay aligned.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Do I need to send footage?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>For classic ads, send raw footage or existing assets and we cut from those. For AI ads and AI UGC, product shots and a brief are enough — the creative is generated, so there's nothing to film.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Can you really handle "infinite" volume?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Yes — that's the point of the model. Your briefs fan out across 600+ vetted editors working in parallel, so volume never queues behind one person's calendar. Order one ad or a hundred; the turnaround stays 24-48 hours.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <div class="faq__right">
+            <div class="faq__visual">
+              <img src="../media/Group-Shot.png" alt="VP+ editor community group shot" loading="lazy" />
+              <span class="faq__badge">
+                <span class="faq__badge-dot" aria-hidden="true"></span>
+                <span><strong>600+ Editors</strong> On Standby</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section id="apply" class="section cta">
+      <div class="container cta__inner card">
+        <div class="cta__atmosphere" aria-hidden="true">
+          <div class="cta__hex"></div>
+          <div class="cta__glow cta__glow--top"></div>
+          <div class="cta__glow cta__glow--bottom"></div>
+          <svg class="cta__sparkles" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <circle cx="120" cy="80"  r="0.8" fill="#b8f5f0" opacity="0.55"/>
+            <circle cx="320" cy="60"  r="1.0" fill="#ffffff" opacity="0.65"/>
+            <circle cx="420" cy="180" r="0.7" fill="#b8f5f0" opacity="0.4"/>
+            <circle cx="620" cy="40"  r="0.9" fill="#b8f5f0" opacity="0.5"/>
+            <circle cx="820" cy="90"  r="0.7" fill="#b8f5f0" opacity="0.4"/>
+            <circle cx="1020" cy="60" r="0.5" fill="#b8f5f0" opacity="0.3"/>
+            <circle cx="380" cy="480" r="0.8" fill="#b8f5f0" opacity="0.4"/>
+            <circle cx="700" cy="500" r="1.0" fill="#ffffff" opacity="0.6"/>
+            <circle cx="1000" cy="460" r="0.7" fill="#b8f5f0" opacity="0.4"/>
+          </svg>
+        </div>
+        <span class="kicker">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ONE LAST THING
+        </span>
+        <h2 class="cta__title">Your next winning ad is <span class="grad">24-48 hours away.</span></h2>
+        <p class="cta__lede">Join the platform. Brief your first ad today.</p>
+        <a class="btn btn--primary btn--xl btn--glow" href="#pricing">
+          Get Ads Now
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+        <p class="cta__fineprint">Pay per video. No retainers. No subscriptions.</p>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <a class="footer__logo" href="#top" aria-label="Video Production+ home">
+            <img src="../media/VPP%20logo.png" alt="Video Production+" />
+          </a>
+          <p class="footer__tagline">
+            The on-demand ad creative platform — a collaboration between
+            Video Production+ and Epic Ads Lab.
+          </p>
+          <div class="footer__socials">
+            <a class="footer__social" href="#" aria-label="X (Twitter)" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="YouTube" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2 26.5 26.5 0 0 0 2 12a26.5 26.5 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77A26.5 26.5 0 0 0 22 12a26.5 26.5 0 0 0-.4-4.8ZM10 15.02V8.98L15.2 12 10 15.02Z"/></svg>
+            </a>
+            <a class="footer__social" href="#" aria-label="Discord" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.07.07 0 0 0-.073.035c-.21.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.07.07 0 0 0-.073-.034 19.74 19.74 0 0 0-4.885 1.515.06.06 0 0 0-.03.027C.533 9.046-.32 13.58.099 18.057a.08.08 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.07.07 0 0 0 .077-.027c.462-.63.873-1.295 1.226-1.994a.07.07 0 0 0-.038-.097 13.1 13.1 0 0 1-1.872-.892.07.07 0 0 1-.008-.118c.126-.094.252-.192.372-.292a.07.07 0 0 1 .072-.01c3.927 1.793 8.18 1.793 12.062 0a.07.07 0 0 1 .073.009c.12.1.246.198.373.293a.07.07 0 0 1-.006.118c-.598.349-1.22.645-1.872.892a.07.07 0 0 0-.038.097c.36.7.77 1.363 1.225 1.993a.07.07 0 0 0 .077.028 19.84 19.84 0 0 0 6.002-3.03.08.08 0 0 0 .032-.055c.5-5.177-.838-9.674-3.548-13.66a.06.06 0 0 0-.03-.028ZM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.212 0 2.176 1.095 2.157 2.418 0 1.334-.955 2.419-2.157 2.419Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.418 2.157-2.418 1.212 0 2.176 1.095 2.157 2.418 0 1.334-.945 2.419-2.157 2.419Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__heading">Explore</h4>
+          <ul class="footer__nav">
+            <li><a href="#partnership">The Partnership</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#platform">How It Works</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__heading">For Brands</h4>
+          <ul class="footer__nav">
+            <li><a href="#pricing">Get Ads</a></li>
+            <li><a href="https://www.epicadslab.com/" target="_blank" rel="noopener">Epic Ads Lab</a></li>
+            <li><a href="/clients">Hire an editor</a></li>
+            <li><a href="/">For editors</a></li>
+            <li><a href="mailto:hello@videoproductionplus.com">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__cta">
+          <span class="footer__cta-eyebrow">
+            <span class="footer__cta-dot" aria-hidden="true"></span>
+            Ad editors on standby
+          </span>
+          <h3 class="footer__cta-title">Ship more winners.</h3>
+          <a class="btn btn--primary btn--glow footer__cta-btn" href="#pricing">
+            Get Ads Now
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="container footer__bottom-inner">
+          <span>© <span id="year"></span> Video Production+. In collaboration with Epic Ads Lab.</span>
+          <nav class="footer__legal-links" aria-label="Legal">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Cookies</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+  </body>
+</html>

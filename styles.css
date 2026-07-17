@@ -5405,3 +5405,10 @@ html.rv-init .rv.rv-in  { opacity: 1; transform: none; }
     var(--card);
   border-color: hsl(300 50% 70% / .25);
 }
+
+/* Single-plan pricing on /ads: centre the lone Pay Per Video card
+   instead of leaving it in the left column of the two-up grid. */
+.ads-page .pricing__plans {
+  grid-template-columns: min(520px, 100%);
+  justify-content: center;
+}

@@ -119,13 +119,18 @@
     } catch (e) { /* Safari private mode — carry on in memory */ }
   }
 
-  // Params on this page load win over anything stored from an earlier one.
+  // A visit that carries ANY attribution replaces the stored set outright
+  // rather than merging into it. Merging per key looks harmless until a
+  // visitor arrives from campaign A, comes back later from campaign B whose
+  // URL only carries utm_source, and campaign A's utm_campaign and click ID
+  // ride along to checkout — attributing B's sale to A.
   var attribution = (function () {
-    var stored = loadStoredParams();
     var fresh = readParams();
-    Object.keys(fresh).forEach(function (key) { stored[key] = fresh[key]; });
-    if (Object.keys(stored).length) storeParams(stored);
-    return stored;
+    if (Object.keys(fresh).length) {
+      storeParams(fresh);
+      return fresh;
+    }
+    return loadStoredParams();
   })();
 
   // Build the checkout URL with attribution appended. Anything already on
@@ -178,6 +183,11 @@
     } catch (e) { /* no-op */ }
   }
 
+  // NOTE: client_sprint_purchase is deliberately NOT fired here. It belongs
+  // on the post-checkout confirmation page, which lives in the checkout
+  // stack rather than in this repo. Whoever wires that page should fire
+  // client_sprint_purchase plus the Meta standard Purchase event with
+  // value 129 / currency USD, and carry these same UTM params through.
   track(PAGE_ID + '_page_view', {
     utm_source: attribution.utm_source || null,
     utm_medium: attribution.utm_medium || null,
@@ -248,15 +258,32 @@
     var heroVisible = true;
     var quietVisible = 0;
     var shown = false;
+    var reported = false;
 
     function apply() {
       var shouldShow = !heroVisible && quietVisible === 0;
       if (shouldShow === shown) return;
       shown = shouldShow;
-      bar.hidden = !shouldShow;
-      bar.classList.toggle('is-visible', shouldShow);
-      document.body.classList.toggle('sprint-has-sticky', shouldShow);
-      if (shouldShow) track(PAGE_ID + '_sticky_cta_shown', {});
+
+      if (shouldShow) {
+        // [hidden] has to come off a frame before .is-visible, or the
+        // element goes display:none -> visible in one style change and
+        // the opacity/transform transition never gets a start value.
+        bar.hidden = false;
+        requestAnimationFrame(function () {
+          if (shown) bar.classList.add('is-visible');
+        });
+        // One impression per page load. The bar legitimately comes and
+        // goes a dozen times on a page this long; reporting each one
+        // would drown the funnel in noise.
+        if (!reported) {
+          reported = true;
+          track(PAGE_ID + '_sticky_cta_shown', {});
+        }
+      } else {
+        bar.classList.remove('is-visible');
+        bar.hidden = true;
+      }
     }
 
     new IntersectionObserver(function (entries) {
@@ -281,6 +308,35 @@
   })();
 
   // =======================================================
+  // 5b — SCROLL LOCK
+  // =======================================================
+
+  // The obvious `body { overflow: hidden }` is inert on this site: the
+  // shared stylesheet sets `html { overflow-x: clip }`, so the body's
+  // overflow never propagates to the viewport, and the portal rule
+  // already puts overflow:hidden on <body> anyway. Lock the root element
+  // instead, and pad for the scrollbar width so the page does not jump
+  // sideways when it disappears.
+  var scrollLock = null;
+
+  function lockScroll() {
+    if (scrollLock !== null) return;
+    var root = document.documentElement;
+    var gutter = window.innerWidth - root.clientWidth;
+    scrollLock = { overflow: root.style.overflow, padding: root.style.paddingRight };
+    root.style.overflow = 'hidden';
+    if (gutter > 0) root.style.paddingRight = gutter + 'px';
+  }
+
+  function unlockScroll() {
+    if (scrollLock === null) return;
+    var root = document.documentElement;
+    root.style.overflow = scrollLock.overflow;
+    root.style.paddingRight = scrollLock.padding;
+    scrollLock = null;
+  }
+
+  // =======================================================
   // 6 — GUARANTEE TERMS MODAL
   // =======================================================
 
@@ -294,6 +350,12 @@
     var opener = null;
     var supportsDialog = typeof modal.showModal === 'function';
 
+    // Without showModal there is no ::backdrop, so the fallback paints its
+    // own via a fixed pseudo-element on the dialog. Hit-testing attributes
+    // clicks on a pseudo-element to its originating element, which is what
+    // makes the click-outside-to-dismiss handler below work there too.
+    if (!supportsDialog) modal.classList.add('sprint-modal--fallback');
+
     function open(trigger) {
       opener = trigger || null;
       if (supportsDialog) {
@@ -303,8 +365,13 @@
       }
       modal.classList.add('is-open');
       document.body.classList.add('sprint-modal-open');
+      lockScroll();
+      if (!supportsDialog) trapFocus(true);
+      // preventScroll: the page is locked behind the modal, but a plain
+      // focus() can still scroll the document to reveal the focused node,
+      // which drops the visitor somewhere new when the modal closes.
       var closeBtn = modal.querySelector('[data-guarantee-close]');
-      if (closeBtn) closeBtn.focus();
+      if (closeBtn) focusQuietly(closeBtn);
       track(PAGE_ID + '_guarantee_details_opened', {
         source: (trigger && trigger.getAttribute('data-cta-location')) ||
                 (trigger && trigger.closest('.faq__item') ? 'faq' : 'guarantee-section')
@@ -316,8 +383,30 @@
       else modal.removeAttribute('open');
       modal.classList.remove('is-open');
       document.body.classList.remove('sprint-modal-open');
-      if (opener && typeof opener.focus === 'function') opener.focus();
+      if (!supportsDialog) trapFocus(false);
+      unlockScroll();
+      if (opener) focusQuietly(opener);
       opener = null;
+    }
+
+    // showModal() makes the rest of the document inert for free. The
+    // [open]-attribute fallback does not, so keep focus inside by hand.
+    function focusQuietly(el) {
+      if (!el || typeof el.focus !== 'function') return;
+      try {
+        el.focus({ preventScroll: true });
+      } catch (e) {
+        el.focus();
+      }
+    }
+
+    function onFocusIn(e) {
+      if (modal.contains(e.target)) return;
+      focusQuietly(modal.querySelector('[data-guarantee-close]'));
+    }
+    function trapFocus(on) {
+      if (on) document.addEventListener('focusin', onFocusIn);
+      else document.removeEventListener('focusin', onFocusIn);
     }
 
     document.querySelectorAll('[data-guarantee-open]').forEach(function (btn) {
@@ -342,6 +431,7 @@
     modal.addEventListener('close', function () {
       modal.classList.remove('is-open');
       document.body.classList.remove('sprint-modal-open');
+      unlockScroll();
     });
     if (!supportsDialog) {
       document.addEventListener('keydown', function (e) {
@@ -498,6 +588,43 @@
       pending.add(el);
       io.observe(el);
     });
+
+    // Scroll-sweep backstop, mirroring the shared wave in script.js. An
+    // element that never gets an IntersectionObserver callback would sit
+    // at opacity 0 forever, and on a sales page invisible copy is a lost
+    // sale — so a cheap rAF-throttled sweep releases anything the
+    // observer missed.
+    var sweepQueued = false;
+
+    function sweep() {
+      sweepQueued = false;
+      var vh = window.innerHeight;
+      pending.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom <= 0 || r.top < vh * 0.93) {
+          pending.delete(el);
+          io.unobserve(el);
+          if (r.bottom <= 0) {
+            release(el);
+          } else {
+            requestAnimationFrame(function () { el.classList.add('rv-in'); });
+            setTimeout(function () { release(el); }, 800);
+          }
+        }
+      });
+      if (!pending.size) {
+        io.disconnect();
+        window.removeEventListener('scroll', onScroll);
+      }
+    }
+
+    function onScroll() {
+      if (sweepQueued) return;
+      sweepQueued = true;
+      requestAnimationFrame(sweep);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     // The shared reveal adds this too; adding it again is a no-op, but a
     // page whose shared wave bailed early still needs it for .rv to bite.

@@ -377,6 +377,14 @@
     padding-bottom: .35rem;
   }
   .sprint-wins__grid::-webkit-scrollbar { display: none; }
+  /* The rail is tabbable so keyboard users can reach the cards that are
+     off-screen; give it the same focus ring the rest of the site uses,
+     inset so it is not clipped by the negative margin above. */
+  .sprint-wins__grid:focus-visible {
+    outline: 2px solid hsl(180 74% 63% / .7);
+    outline-offset: -4px;
+    border-radius: var(--radius);
+  }
   .sprint-win {
     flex: 0 0 78%;
     max-width: 300px;
@@ -771,6 +779,21 @@
 }
 .sprint-qualify__list li::marker { color: var(--sprint-accent); font-weight: 800; }
 
+/* The claim window and the counting rules sit under the qualify list rather
+   than only inside the modal - they are as material as the four conditions
+   above them, so they get the same weight, not fine print. */
+.sprint-qualify__foot {
+  margin: .9rem 0 0;
+  padding-top: .85rem;
+  border-top: 1px solid var(--border-soft);
+  font-size: .84rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+.sprint-qualify__foot strong { color: var(--fg); font-weight: 800; }
+.sprint-qualify__foot a { color: var(--sprint-accent); text-decoration: underline; text-underline-offset: 3px; }
+.sprint-qualify__foot .sprint-inline-link { font-size: inherit; }
+
 .sprint-guarantee__payoff {
   margin: .4rem 0 0;
   font-size: 1rem;
@@ -1000,6 +1023,18 @@
    12 — PROOF WALL
    ========================================================= */
 
+/* Terms section 9 says earnings figures are examples, not projections. The
+   fast-win cards carry that line already; the video wall and the marquee are
+   the two biggest proof blocks on the page and need it just as much. */
+.sprint-proof__qualifier {
+  margin: 2rem auto 0;
+  max-width: 62ch;
+  text-align: center;
+  font-size: .78rem;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+
 /* The marquee ships with its own section header on the main page;
    here it runs straight on from the video wall above it. */
 .sprint-page .sprint-wall .testimonials__frame { padding-top: 0; }
@@ -1195,7 +1230,7 @@
 }
 
 /* Phones — fixed bottom conversion bar. */
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .sprint-sticky {
     left: 0;
     right: 0;
@@ -1225,8 +1260,6 @@
   }
   .sprint-sticky__label strong { color: var(--fg); font-weight: 800; }
   .sprint-sticky__btn-long { display: none; }
-  /* Keep the footer clear of the bar while it is up. */
-  .sprint-page.sprint-has-sticky .footer__bottom { padding-bottom: var(--sprint-sticky-h); }
 }
 
 .sprint-sticky__btn {
@@ -1264,6 +1297,19 @@
 /* Fallback for browsers without <dialog>: the element is only ever
    given [open] by the page script, so this cannot show unbidden. */
 .sprint-modal:not([open]) { display: none; }
+/* ...and no ::backdrop either, so paint one. It sits on the dialog itself
+   rather than on a separate node, which keeps click-outside-to-dismiss
+   working: a click on a pseudo-element is dispatched to its originating
+   element, so the handler's `e.target === modal` test still fires. */
+.sprint-modal--fallback::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: hsl(240 24% 2% / .82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 .sprint-modal[open] {
   position: fixed;
   inset: auto;
@@ -1272,7 +1318,11 @@
   transform: translate(-50%, -50%);
   z-index: 1000;
 }
-.sprint-page.sprint-modal-open { overflow: hidden; }
+/* Body-level overflow cannot lock this page (the shared stylesheet already
+   sets overflow:hidden on body, and html { overflow-x: clip } stops it
+   propagating to the viewport), so the real lock lives in client-sprint.js
+   on the root element. This class stays purely as a styling hook. */
+.sprint-page.sprint-modal-open .sprint-sticky { opacity: 0; pointer-events: none; }
 
 .sprint-modal__inner {
   position: relative;
@@ -1313,6 +1363,9 @@
 
 .sprint-modal__body {
   overflow-y: auto;
+  /* iOS ignores a root-level overflow lock often enough that reaching the
+     end of the terms would chain the scroll into the page underneath. */
+  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   padding-right: .5rem;
   border-top: 1px solid var(--border-soft);

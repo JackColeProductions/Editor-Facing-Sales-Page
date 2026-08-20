@@ -29,12 +29,25 @@
   4. FOUNDING COHORT SCARCITY is BUILT BUT OFF. Turn on in
      client-sprint.js -> SPRINT_COHORT.enabled = true ONLY if you really
      are capping the first cohort and really are tracking remaining seats.
-  5. GUARANTEE TERMS need a legal read before publication. Terms of Service
-     section 5 already anticipates this ("a specific guarantee promoted on
-     our pricing page applies on the terms stated with that offer") and
-     routes refunds to hello@videoproductionplus.com, which is what the
-     modal says. Terms section 9 says "no guarantee of results" — this page
-     is careful to promise a refund of the $129, never an earnings outcome.
+  5. GUARANTEE TERMS need a legal read before publication. Terms section 5
+     already anticipates a promoted guarantee and routes refunds to
+     hello@videoproductionplus.com, which is what the modal says, and
+     Terms section 9 says "no guarantee of results" — so this page is
+     careful to promise a refund of the $129 and never an earnings
+     outcome. Three specific things to settle with whoever reviews it:
+     a) Terms section 5 scopes the guarantee carve-out to a guarantee
+        "promoted on our pricing page" and scopes the 14-day-right waiver
+        to "the membership". The Sprint is a one-time access purchase sold
+        on this page, so it is arguably neither. Widen the Terms wording
+        to cover any promoted offer and any paid access product, or accept
+        that the carve-out may not reach this page.
+     b) The gated-access policy. See the TODO next to the guarantee block:
+        profile review time, when the 90-day clock starts, and what
+        happens to the $129 if a profile is declined.
+     c) The under-supply sentence in the modal ("If fewer than 100 relevant
+        jobs are posted during your Sprint..."). Without it the guarantee
+        is unwinnable in any Sprint where the board posts fewer than 100
+        suitable jobs. Confirm you will stand behind it.
   6. "New jobs every day" — the FAQ deliberately uses the softer, provable
      wording ("continuously... throughout the week"). The hero label still
      says POSTED DAILY, matching the live site. Verify against real supply
@@ -373,7 +386,8 @@
           <p class="section__lede">Real editors. Real clients. Real timelines.</p>
         </header>
 
-        <ul class="sprint-wins__grid" data-rv="up">
+        <ul class="sprint-wins__grid" data-rv="up" tabindex="0" role="group"
+            aria-label="Editor wins, by days to first client. Scrollable on small screens.">
           <li class="sprint-win">
             <div class="sprint-win__days"><span class="sprint-win__num">2</span> <span class="sprint-win__unit">days</span></div>
             <p class="sprint-win__result">First client landed</p>
@@ -439,7 +453,7 @@
           Individual results. Your Sprint is 90 days for a reason.
         </p>
 
-        <div class="sprint-cta-row" data-rv="up">
+        <div class="sprint-cta-row">
           <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="fast-win-proof" href="#offer">
             Start My Sprint &mdash; $129
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
@@ -535,7 +549,10 @@
       <div class="container">
         <header class="section__head showcase__head">
           <span class="kicker">WHY THIS IS DIFFERENT</span>
-          <h2 class="section__title">You Don't Need More Advice.<br /><span class="grad">You Need More Opportunities.</span></h2>
+          <h2 class="section__title">
+            You Don't Need More Advice.<br />
+            <span class="grad">You Need More Opportunities.</span>
+          </h2>
           <p class="section__lede">
             Most freelance advice teaches you how to chase clients. VP+ does the opposite. We bring
             clients into the marketplace, they post the work they need, and editors apply directly
@@ -590,7 +607,7 @@
           </li>
         </ul>
 
-        <div class="sprint-cta-row" data-rv="up">
+        <div class="sprint-cta-row">
           <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="marketplace" href="#offer">
             Give Me 90 Days Inside VP+
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
@@ -675,6 +692,17 @@
                 <li>Remain reasonably responsive to clients who contact you.</li>
                 <li>Do not have a paying VP+ client secured during the Sprint.</li>
               </ol>
+              <!-- The four conditions above are the ones the brief specifies, but
+                   the claim window and the counting rules decide just as directly
+                   whether a buyer gets their money back, so they stay on the page
+                   instead of living only inside the modal. -->
+              <p class="sprint-qualify__foot">
+                <strong>To claim:</strong> email
+                <a href="mailto:hello@videoproductionplus.com">hello@videoproductionplus.com</a>
+                from your VP+ account address within 14 days of your Sprint ending. Applications
+                are counted from VP+ platform records. One claim per person.
+                <button class="sprint-inline-link" type="button" data-guarantee-open>Read the full terms</button>
+              </p>
             </div>
 
             <p class="sprint-guarantee__payoff">
@@ -683,6 +711,20 @@
             </p>
             <p class="sprint-guarantee__fine">
               No credits. No extra subscription months. A refund of the original Sprint purchase.
+            </p>
+            <!-- TODO(jack): VP+ is a gated marketplace (Terms section 3 lets us
+                 decline an application at our discretion) and the guarantee's
+                 first condition is an APPROVED profile. Two policy calls are
+                 needed before launch and neither can be invented here:
+                   1. How long profile review takes, and whether the 90-day clock
+                      starts at purchase or at approval. The modal currently says
+                      access-start, which is the buyer-friendly reading.
+                   2. What happens to the $129 if a profile is declined. Until
+                      that is decided, this page discloses the gate and promises
+                      nothing about it. -->
+            <p class="sprint-guarantee__fine">
+              VP+ is a gated marketplace. Your editor profile is reviewed before your access
+              begins, and your 90 days start when your access starts.
             </p>
 
             <div class="sprint-guarantee__actions">
@@ -916,7 +958,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
           </div>
-          <div class="proof__dots" role="tablist" aria-label="Carousel position">
+          <div class="proof__dots" role="group" aria-label="Carousel position">
             <button class="proof__dot" type="button" data-index="0" aria-label="Go to testimonial 1"></button>
             <button class="proof__dot" type="button" data-index="1" aria-label="Go to testimonial 2"></button>
             <button class="proof__dot" type="button" data-index="2" aria-label="Go to testimonial 3"></button>
@@ -1196,7 +1238,14 @@
         </div>
       </div>
 
-      <div class="container sprint-cta-row" data-rv="up">
+      <div class="container">
+        <p class="sprint-proof__qualifier">
+          Individual results. These are examples of what some VP+ editors have achieved, not a
+          promise or projection of what you will earn.
+        </p>
+      </div>
+
+      <div class="container sprint-cta-row">
         <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="proof-wall" href="#offer">
           Start My 90-Day Client Sprint
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
@@ -1216,6 +1265,11 @@
           </h2>
         </header>
 
+        <!-- TODO(jack): this quotation comes from the build brief, not from
+             anything you have said publicly — it appears nowhere on the live
+             site. Either confirm the wording is yours to attribute, or drop
+             the quotation marks and the attribution and run it as page copy
+             under the WHY VP+ EXISTS kicker above. -->
         <figure class="sprint-founder__quote" data-rv="up">
           <blockquote>
             "I built VP+ because client acquisition was the part of freelancing most editors
@@ -1409,6 +1463,7 @@
                 </summary>
                 <div class="faq__answer">
                   <p>A client secured through VP+ who commits to a paid project or retainer with you through the platform.</p>
+                  <p>That is the same definition the guarantee turns on, so a hire that reaches you through VP+ counts whether it is a one-off project or an ongoing retainer.</p>
                 </div>
               </details>
 
@@ -1430,7 +1485,14 @@
                   <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
                 </summary>
                 <div class="faq__answer">
-                  <p>VP+ sources new client opportunities continuously, and new jobs are posted throughout the week across different niches, budgets and editing formats.</p>
+                  <!-- TODO(jack): "every day" is now a single, load-bearing claim.
+                       It appears in the hero lede, the POSTED DAILY hero label, the
+                       marketplace claim line and here, and it matches what the main
+                       sales page has said for months. Verify it against real supply
+                       before you spend on this page. If daily is not provable, the
+                       honest version is four string changes: this answer, the hero
+                       lede, the POSTED DAILY chip and the showcase claim line. -->
+                  <p>Yes. VP+ sources new client opportunities continuously and new jobs go up every day, across different niches, budgets and editing formats. Volume varies day to day, so some days bring a handful and some bring a lot more.</p>
                 </div>
               </details>
 
@@ -1547,7 +1609,7 @@
         </div>
 
         <div class="footer__col">
-          <h4 class="footer__heading">The Sprint</h4>
+          <h3 class="footer__heading">The Sprint</h3>
           <ul class="footer__nav">
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#results">Results</a></li>
@@ -1642,15 +1704,29 @@
               reasonably perform, from your real profile and portfolio, and follows marketplace
               rules. Duplicate, blank, automated, copy-pasted-to-everything or off-brief
               applications do not count toward the 100.
+              <!-- TODO(jack): confirm you are happy to stand behind this sentence.
+                   Without it the guarantee is unwinnable in any Sprint where the
+                   board posts fewer than 100 jobs an editor could reasonably do -
+                   they can never hit 100, so they can never qualify for the
+                   refund. That is a trap, and a refund request that surfaces it
+                   is worse than the sentence. -->
+              If fewer than 100 relevant jobs are posted during your Sprint, applying to every
+              relevant job that is posted counts as meeting this requirement.
             </li>
             <li>
               <strong>Stay reasonably responsive.</strong> Reply to clients who contact you about
               your applications within a reasonable time during the Sprint.
             </li>
             <li>
-              <strong>Have no paying VP+ client secured during the Sprint.</strong> If a client
-              hired you for a paid project or retainer through VP+ at any point in the 90 days,
-              the outcome was delivered and the guarantee does not apply.
+              <strong>Have no paying VP+ client secured during the Sprint.</strong> A client is
+              secured when they commit, through VP+, to a paid project or retainer with you.
+              If that happened at any point in the 90 days, the outcome was delivered and the
+              guarantee does not apply.
+              <!-- TODO(jack): this wording is the brief's recommended definition and
+                   is now used identically here, in the on-page guarantee block and
+                   in the FAQ. Confirm it matches the real booking and payment flow
+                   (does "commit" mean accepted offer, funded escrow, or first
+                   payment released?) before publishing. -->
             </li>
           </ol>
 

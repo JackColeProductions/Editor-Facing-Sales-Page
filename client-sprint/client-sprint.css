@@ -1,0 +1,1375 @@
+/* =========================================================
+   /client-sprint — VP+ 90-Day Client Sprint. Page-only styles.
+
+   Loaded AFTER the shared styles.css. Every rule is scoped to
+   .sprint-page so the design system and every other route stay
+   untouched. Only the shared tokens are used — no new palette.
+
+   Accent note: the build brief asked for "the existing orange
+   accent". VP+ is cyan (--primary: hsl(180 74% 63%)). Built in
+   cyan so the page reads as VP+ rather than a rebrand. If it has
+   to be orange, override --sprint-accent in the block below and
+   the whole page follows.
+   ========================================================= */
+
+.sprint-page {
+  /* Single knob for the page's accent. Points at the VP+ cyan. */
+  --sprint-accent: hsl(180 74% 63%);
+  --sprint-accent-soft: hsl(180 74% 63% / .12);
+  --sprint-accent-line: hsl(180 74% 63% / .35);
+  --sprint-sticky-h: 68px;
+}
+
+/* Sentence-case headlines. The brief copy is written in sentence
+   case, and the default .section__title is uppercase. Mirrors the
+   existing .showcase / .tipra-page precedent. */
+.sprint-page .section__title {
+  text-transform: none;
+  letter-spacing: -.025em;
+}
+
+/* Skip link — the page is long and the nav is the first stop. */
+.sprint-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: .75rem 1.1rem;
+  border-radius: 0 0 var(--radius) 0;
+  background: var(--sprint-accent);
+  color: hsl(240 20% 4%);
+  font-weight: 700;
+  font-size: .85rem;
+}
+.sprint-skip:focus {
+  left: 0;
+}
+
+.sprint-page .sprint-dot { color: var(--fg-dim); margin: 0 .1rem; }
+
+/* =========================================================
+   1 — HERO
+   ========================================================= */
+
+/* The main page locks its hero to 100svh and crops the card fan at
+   the fold. This page has more that must be readable before any
+   scroll — headline, price, and the guarantee card — so the hero
+   grows to fit its content instead. */
+/* Vertical budget matters more than drama here. Everything a cold
+   visitor has to answer before scrolling — what it is, the outcome,
+   the term, the price, and what happens if it doesn't work — has to
+   clear the fold on a 1280x720 laptop, which leaves roughly 600px
+   for the content stack and the rest for the deck. */
+.sprint-page .sprint-hero {
+  min-height: auto;
+  padding: clamp(5.25rem, 9vh, 6.5rem) 0 clamp(1.5rem, 4vh, 3rem);
+}
+/* .hero__inner is a flex column; pushing the deck to order:1 lets the
+   labels (DOM-ordered after it, so they stay next to the cards they
+   describe) render above it. */
+.sprint-page .sprint-hero .hero__cards {
+  order: 1;
+  margin-top: clamp(1rem, 2.5vh, 1.75rem);
+}
+
+/* Eyebrow reuses the trusted-pill chrome, swapping the avatar stack
+   for a live dot — this page leads with the offer, not headcount. */
+.sprint-page .sprint-eyebrow {
+  gap: .55rem;
+  padding: .4rem .95rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .7rem;
+  font-weight: 600;
+}
+.sprint-page .sprint-eyebrow strong { font-weight: 800; color: var(--fg); }
+.sprint-eyebrow__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sprint-accent);
+  box-shadow: 0 0 0 4px hsl(180 74% 63% / .15);
+  flex-shrink: 0;
+}
+.sprint-eyebrow__sub { color: var(--fg-dim); }
+
+/* Smaller than the main page's h1 on purpose: this headline is a
+   full sentence plus a guarantee, not three words. */
+.sprint-page .sprint-hero__title {
+  max-width: 32ch;
+  font-size: clamp(2rem, 3.8vw, 3.05rem);
+  line-height: 1.04;
+}
+.sprint-page .sprint-hero__lede {
+  max-width: 60ch;
+  margin-top: .3rem;
+}
+
+.sprint-hero__price {
+  margin: .1rem 0 0;
+  font-size: .92rem;
+  color: var(--fg-muted);
+  letter-spacing: .005em;
+}
+.sprint-hero__price strong { color: var(--fg); font-weight: 700; }
+
+/* Guarantee microcard — the risk reversal, above the fold. */
+.sprint-gcard {
+  display: flex;
+  align-items: flex-start;
+  gap: .9rem;
+  text-align: left;
+  max-width: 34rem;
+  margin-top: .75rem;
+  padding: .8rem 1.1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top left, hsl(180 74% 63% / .1), transparent 65%),
+    hsl(240 18% 8% / .75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px -28px hsl(0 0% 0% / .9);
+}
+.sprint-gcard__icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--sprint-accent);
+  background: var(--sprint-accent-soft);
+  border: 1px solid var(--sprint-accent-line);
+}
+.sprint-gcard__icon svg { width: 18px; height: 18px; }
+.sprint-gcard__body { min-width: 0; }
+.sprint-gcard__title {
+  margin: 0 0 .25rem;
+  font-size: .92rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+}
+.sprint-gcard__text {
+  margin: 0;
+  font-size: .81rem;
+  line-height: 1.45;
+  color: var(--fg-muted);
+}
+.sprint-gcard__link {
+  display: inline-block;
+  margin-top: .3rem;
+  font-size: .79rem;
+  font-weight: 600;
+  color: var(--sprint-accent);
+  border-bottom: 1px solid hsl(180 74% 63% / .4);
+}
+.sprint-gcard__link:hover { color: var(--primary-2); }
+
+/* REAL JOBS / REAL BUDGETS / POSTED DAILY. Real text, not an image
+   caption — the fan itself is decorative and aria-hidden. */
+/* Above the deck rather than below it: on a laptop fold the cards
+   crop, and these three words are worth more than the extra 40px of
+   card. Ordered ahead of .hero__cards by flex order so the markup can
+   keep the deck next to the content it illustrates. */
+.sprint-hero__labels {
+  position: relative;
+  z-index: 2;
+  list-style: none;
+  margin: clamp(.85rem, 2.2vh, 1.4rem) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem .75rem;
+}
+.sprint-hero__labels li {
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: hsl(180 45% 72%);
+  padding: .3rem .7rem;
+  border-radius: 999px;
+  border: 1px solid hsl(180 74% 63% / .22);
+  background: hsl(180 74% 63% / .06);
+}
+
+@media (max-width: 640px) {
+  .sprint-page .sprint-hero { padding: 5.25rem 0 1.5rem; }
+  /* The optional "Built for client-ready video editors" line wrapped the
+     eyebrow pill onto two lines on every phone width. Same trim the main
+     page applies to .trusted-pill__loc. */
+  .sprint-eyebrow__sub { display: none; }
+  /* The main page centres hero content in leftover viewport space;
+     with no viewport lock here that rule would fight the flow. */
+  .sprint-page .sprint-hero .hero__content { margin-block: 0; }
+  .sprint-page .sprint-hero__title { font-size: clamp(1.8rem, 8.2vw, 2.4rem); }
+  .sprint-hero__price { font-size: .82rem; }
+  .sprint-gcard { padding: .85rem .95rem; gap: .7rem; }
+  .sprint-gcard__title { font-size: .86rem; }
+  .sprint-gcard__text { font-size: .78rem; }
+  /* Tighter deck so the guarantee card is not pushed off screen. */
+  .sprint-page .sprint-hero .hero__cards {
+    height: 200px;
+    margin-top: 1rem;
+  }
+  .sprint-hero__labels li { font-size: .58rem; padding: .25rem .55rem; letter-spacing: .14em; }
+}
+
+/* Short phones (iPhone SE and friends at 375x667). The seven answers
+   the acceptance test asks for still have to clear the fold there, so
+   the hero trims rather than scrolls. */
+@media (max-width: 640px) and (max-height: 720px) {
+  .sprint-page .sprint-hero { padding-top: 4.5rem; }
+  .sprint-page .sprint-hero__title { font-size: clamp(1.6rem, 7.2vw, 2.05rem); }
+  .sprint-page .sprint-hero__lede { font-size: .85rem; }
+  .sprint-page .sprint-hero .hero__cta { margin-top: .35rem; }
+  .sprint-page .sprint-hero .btn--glow.btn--xl { padding: .85rem 1.4rem; font-size: .92rem; }
+  .sprint-gcard { padding: .7rem .85rem; gap: .6rem; margin-top: .55rem; }
+  .sprint-gcard__icon { width: 28px; height: 28px; }
+  .sprint-gcard__icon svg { width: 15px; height: 15px; }
+  .sprint-gcard__title { font-size: .8rem; }
+  .sprint-gcard__text { font-size: .73rem; line-height: 1.4; }
+  .sprint-gcard__link { font-size: .74rem; }
+}
+
+/* =========================================================
+   2 — SHARED PAGE FURNITURE
+   ========================================================= */
+
+.sprint-cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .65rem;
+  margin-top: clamp(2rem, 5vh, 3rem);
+  text-align: center;
+}
+.sprint-cta-row__note {
+  margin: 0;
+  font-size: .82rem;
+  color: var(--fg-dim);
+}
+
+/* Text button that has to sit inline inside body copy. */
+.sprint-inline-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--sprint-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sprint-inline-link:hover { color: var(--primary-2); }
+
+/* =========================================================
+   3 — FAST-WIN PROOF
+   ========================================================= */
+
+.sprint-wins__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.1rem;
+}
+@media (min-width: 1000px) {
+  .sprint-wins__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.sprint-win {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding: 1.35rem 1.35rem 1.15rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  box-shadow: var(--shadow-card);
+}
+.sprint-win--featured {
+  border-color: var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top, hsl(180 74% 63% / .1), transparent 70%),
+    linear-gradient(180deg, hsl(240 15% 11%), hsl(240 15% 7%));
+  box-shadow:
+    0 0 0 1px hsl(180 74% 63% / .12) inset,
+    0 0 50px -14px hsl(180 74% 63% / .3),
+    0 30px 60px -30px hsl(0 0% 0% / .8);
+}
+
+/* The number is the scannable part — it carries the card. */
+.sprint-win__days {
+  display: flex;
+  align-items: baseline;
+  gap: .45rem;
+  color: var(--sprint-accent);
+}
+.sprint-win__num {
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: .95;
+  letter-spacing: -.045em;
+}
+.sprint-win__unit {
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.sprint-win__result {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -.015em;
+  color: var(--fg);
+}
+.sprint-win__quote {
+  margin: 0;
+  font-size: .88rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+  flex: 1;
+}
+.sprint-win__person {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin-top: .35rem;
+  padding-top: .75rem;
+  border-top: 1px solid var(--border-soft);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+.sprint-win__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.sprint-win__role { color: var(--fg-dim); font-weight: 400; }
+
+.sprint-wins__note {
+  margin: 1.5rem auto 0;
+  max-width: 46ch;
+  text-align: center;
+  font-size: .8rem;
+  color: var(--fg-dim);
+}
+
+/* Phones — horizontal swipe rail instead of a stack six cards deep. */
+@media (max-width: 700px) {
+  .sprint-wins__grid {
+    display: flex;
+    gap: .85rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Bleed to the viewport edges so the rail reads as scrollable. */
+    margin-inline: calc(-1 * max(1.25rem, env(safe-area-inset-left)));
+    padding-inline: max(1.25rem, env(safe-area-inset-left));
+    padding-bottom: .35rem;
+  }
+  .sprint-wins__grid::-webkit-scrollbar { display: none; }
+  .sprint-win {
+    flex: 0 0 78%;
+    max-width: 300px;
+    scroll-snap-align: center;
+  }
+  .sprint-win__num { font-size: 2.2rem; }
+}
+
+/* =========================================================
+   4 — THE 90 / 100 / 1 MOTIF
+   ========================================================= */
+
+.sprint-motif {
+  list-style: none;
+  margin: 0 auto clamp(2rem, 5vh, 3rem);
+  padding: 1.25rem 1rem;
+  max-width: 780px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, hsl(240 18% 9% / .8), hsl(240 20% 5% / .8));
+}
+.sprint-motif__item {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  position: relative;
+}
+.sprint-motif__item + .sprint-motif__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12%;
+  bottom: 12%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, hsl(180 74% 63% / .25), transparent);
+}
+.sprint-motif__num {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.045em;
+  color: var(--fg);
+}
+.sprint-motif__item--goal .sprint-motif__num {
+  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sprint-motif__label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* =========================================================
+   5 — THE THREE STEPS + THE FORK
+   ========================================================= */
+
+.sprint-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 860px) {
+  .sprint-steps { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+}
+
+.sprint-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding: 1.6rem 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  box-shadow: var(--shadow-card);
+}
+.sprint-step__head {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+}
+.sprint-step__index {
+  font-size: 2.1rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.05em;
+  color: hsl(240 8% 26%);
+}
+.sprint-step__verb {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  color: var(--sprint-accent);
+}
+.sprint-step__title {
+  margin: .1rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -.015em;
+}
+.sprint-step__text {
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+/* 0 -> 25 -> 50 -> 75 -> 100 */
+.sprint-progress { margin-top: .75rem; }
+.sprint-progress__track {
+  position: relative;
+  height: 6px;
+  border-radius: 999px;
+  background: hsl(240 10% 16%);
+  overflow: hidden;
+}
+.sprint-progress__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 72%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(180 74% 63% / .5), hsl(180 85% 66%), hsl(160 76% 56%));
+  box-shadow: 0 0 18px -4px hsl(180 80% 60% / .8);
+}
+.sprint-progress__marks {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: .45rem 0 0;
+  padding: 0;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--fg-dim);
+}
+.sprint-progress__marks .is-goal { color: var(--sprint-accent); }
+
+/* The two outcomes, side by side, so the guarantee reads as
+   mechanical rather than promotional. */
+.sprint-fork {
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  gap: .75rem;
+}
+@media (min-width: 860px) {
+  .sprint-fork { grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.25rem; }
+}
+.sprint-fork__branch {
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: hsl(240 16% 7% / .7);
+}
+.sprint-fork__branch--win {
+  border-color: hsl(160 76% 56% / .35);
+  background:
+    radial-gradient(ellipse at top left, hsl(160 76% 56% / .1), transparent 70%),
+    hsl(240 16% 7% / .7);
+}
+.sprint-fork__branch--refund {
+  border-color: var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top left, hsl(180 74% 63% / .12), transparent 70%),
+    hsl(240 16% 7% / .7);
+}
+.sprint-fork__tag {
+  display: inline-block;
+  margin-bottom: .5rem;
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.sprint-fork__branch--win .sprint-fork__tag { color: var(--mint); }
+.sprint-fork__branch--refund .sprint-fork__tag { color: var(--sprint-accent); }
+.sprint-fork__text {
+  margin: 0;
+  font-size: .92rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+.sprint-fork__text strong { color: var(--fg); font-weight: 800; }
+.sprint-fork__split {
+  align-self: center;
+  justify-self: center;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* =========================================================
+   6 — MARKETPLACE MECHANISM
+   ========================================================= */
+
+.sprint-page .sprint-market .section__lede { max-width: 60ch; }
+
+.sprint-mech {
+  list-style: none;
+  margin: clamp(2rem, 5vh, 3rem) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+@media (min-width: 720px) { .sprint-mech { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1080px) { .sprint-mech { grid-template-columns: repeat(4, 1fr); } }
+
+.sprint-mech__item {
+  padding: 1.35rem 1.35rem 1.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+}
+.sprint-mech__icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-bottom: .8rem;
+  border-radius: .7rem;
+  color: var(--sprint-accent);
+  background: var(--sprint-accent-soft);
+  border: 1px solid var(--sprint-accent-line);
+}
+.sprint-mech__icon svg { width: 19px; height: 19px; }
+.sprint-mech__title {
+  margin: 0 0 .35rem;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -.012em;
+}
+.sprint-mech__text {
+  margin: 0;
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+/* =========================================================
+   7 — OLD WAY vs THE SPRINT
+   ========================================================= */
+
+/* The .vs component ships with a "why" sub-line under each bullet.
+   The Sprint copy is one line per bullet on purpose, so the list
+   sits tighter here. */
+.sprint-page .sprint-vs .vs__bullets { gap: .85rem; }
+.sprint-page .sprint-vs .vs__bullet-title { font-size: .95rem; }
+
+.sprint-vs__note {
+  margin: clamp(2rem, 5vh, 2.75rem) auto 0;
+  max-width: 60ch;
+  text-align: center;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+
+/* =========================================================
+   8 — THE GUARANTEE
+   ========================================================= */
+
+.sprint-guarantee__card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border-radius: clamp(1.25rem, 2vw, 2rem);
+  border: 1px solid hsl(180 60% 60% / .35);
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, hsl(180 80% 50% / .16) 0%, transparent 70%),
+    linear-gradient(180deg, hsl(240 25% 9%) 0%, hsl(240 22% 5%) 55%, hsl(240 25% 8%) 100%);
+  box-shadow:
+    inset 0 1px 0 hsl(180 90% 90% / .2),
+    0 30px 80px -20px hsl(0 0% 0% / .75),
+    0 0 90px -14px hsl(180 70% 50% / .3);
+  text-align: center;
+}
+@media (min-width: 900px) {
+  .sprint-guarantee__card {
+    grid-template-columns: minmax(220px, 300px) 1fr;
+    text-align: left;
+  }
+}
+.sprint-guarantee__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'><g fill='none' stroke='%23b8f5f0' stroke-width='0.6' stroke-linejoin='round'><polygon points='28,1 55,16.5 55,48.5 28,64 1,48.5 1,16.5'/><polygon points='28,49 55,64.5 55,96.5 28,112 1,96.5 1,64.5'/></g></svg>");
+  background-size: 56px 97px;
+  opacity: .05;
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, black 0%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, black 0%, transparent 85%);
+  pointer-events: none;
+}
+
+/* Oversized 100% stamp. */
+.sprint-guarantee__stamp {
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  gap: .2rem;
+  aspect-ratio: 1;
+  width: clamp(160px, 22vw, 250px);
+  border-radius: 50%;
+  border: 2px solid hsl(180 74% 63% / .45);
+  background: radial-gradient(circle at 50% 30%, hsl(180 74% 63% / .16), transparent 70%);
+  box-shadow:
+    inset 0 0 0 8px hsl(180 74% 63% / .07),
+    0 0 70px -18px hsl(180 80% 55% / .8);
+}
+.sprint-guarantee__stamp-num {
+  font-size: clamp(3rem, 8vw, 4.6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.05em;
+  background: linear-gradient(135deg, hsl(180 100% 96%), hsl(180 88% 68%) 55%, hsl(180 78% 48%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sprint-guarantee__stamp-pct { font-size: .5em; }
+.sprint-guarantee__stamp-label {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: hsl(180 45% 78%);
+}
+
+.sprint-guarantee__body { display: flex; flex-direction: column; gap: .9rem; }
+.sprint-page .sprint-guarantee__body .kicker { align-self: center; }
+@media (min-width: 900px) {
+  .sprint-page .sprint-guarantee__body .kicker { align-self: flex-start; }
+}
+.sprint-page .sprint-guarantee__title {
+  font-size: clamp(1.8rem, 4vw, 2.9rem);
+  margin: 0;
+}
+.sprint-guarantee__lede {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  max-width: 62ch;
+}
+
+.sprint-qualify {
+  margin-top: .3rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: hsl(240 16% 7% / .65);
+  text-align: left;
+}
+.sprint-qualify__head {
+  margin: 0 0 .6rem;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.sprint-qualify__list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  font-size: .9rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.sprint-qualify__list li::marker { color: var(--sprint-accent); font-weight: 800; }
+
+.sprint-guarantee__payoff {
+  margin: .4rem 0 0;
+  font-size: 1rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+}
+.sprint-guarantee__payoff .grad {
+  display: inline-block;
+  margin-top: .2rem;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -.03em;
+}
+.sprint-guarantee__fine {
+  margin: 0;
+  font-size: .8rem;
+  color: var(--fg-dim);
+}
+
+.sprint-guarantee__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  margin-top: .6rem;
+}
+@media (min-width: 900px) {
+  .sprint-guarantee__actions { justify-content: flex-start; }
+}
+.sprint-terms-open { font-size: .85rem; }
+
+/* =========================================================
+   9 — AGGREGATE DATA (hidden until verified)
+   ========================================================= */
+
+.sprint-data__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.1rem;
+  max-width: 960px;
+  margin-inline: auto;
+}
+.sprint-data__stat {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding: 1.6rem 1.5rem;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+}
+.sprint-data__value {
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.04em;
+  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sprint-data__label {
+  font-size: .88rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.sprint-data__note {
+  margin: 1.5rem auto 0;
+  max-width: 62ch;
+  text-align: center;
+  font-size: .78rem;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+
+/* =========================================================
+   10 — WHAT YOU GET
+   ========================================================= */
+
+.sprint-included__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 720px) {
+  .sprint-included__grid { grid-template-columns: repeat(2, 1fr); }
+  /* Item 01 is the reason to buy — it gets the full width and the glow. */
+  .sprint-inc--hero { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) {
+  .sprint-included__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.sprint-inc {
+  position: relative;
+  padding: 1.35rem 1.4rem 1.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+}
+.sprint-inc__index {
+  display: block;
+  margin-bottom: .5rem;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .2em;
+  color: var(--fg-dim);
+}
+.sprint-inc__title {
+  margin: 0 0 .35rem;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -.015em;
+}
+.sprint-inc__text {
+  margin: 0;
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+
+.sprint-inc--hero {
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  border-color: var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse 70% 100% at 15% 0%, hsl(180 74% 63% / .14), transparent 70%),
+    linear-gradient(180deg, hsl(240 18% 11%), hsl(240 20% 7%));
+  box-shadow:
+    inset 0 1px 0 hsl(180 90% 95% / .16),
+    0 0 70px -18px hsl(180 80% 55% / .35);
+}
+.sprint-inc--hero .sprint-inc__index { color: var(--sprint-accent); }
+.sprint-inc--hero .sprint-inc__title {
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  letter-spacing: -.025em;
+}
+.sprint-inc--hero .sprint-inc__text {
+  font-size: 1rem;
+  max-width: 52ch;
+}
+
+/* =========================================================
+   11 — WHO THIS IS FOR
+   ========================================================= */
+
+.sprint-fit__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+  max-width: 1000px;
+  margin-inline: auto;
+}
+@media (min-width: 820px) { .sprint-fit__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+
+.sprint-fit__col {
+  padding: 1.6rem 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+}
+.sprint-fit__col--yes {
+  border-color: var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top, hsl(180 74% 63% / .1), transparent 70%),
+    linear-gradient(180deg, hsl(240 16% 10%), hsl(240 18% 6%));
+}
+.sprint-fit__col--no { opacity: .82; }
+
+.sprint-fit__title {
+  margin: 0 0 1rem;
+  padding-bottom: .85rem;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -.015em;
+}
+.sprint-fit__col--yes .sprint-fit__title { color: var(--fg); }
+.sprint-fit__col--no .sprint-fit__title { color: var(--fg-muted); }
+
+.sprint-fit__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+.sprint-fit__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+  font-size: .95rem;
+  line-height: 1.5;
+  color: var(--fg);
+}
+.sprint-fit__list--no li { color: var(--fg-muted); }
+.sprint-fit__mark {
+  flex-shrink: 0;
+  width: 18px;
+  margin-top: 1px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+.sprint-fit__col--yes .sprint-fit__mark { color: var(--sprint-accent); }
+.sprint-fit__col--no .sprint-fit__mark { color: hsl(0 30% 60%); font-weight: 500; opacity: .7; }
+
+.sprint-fit__close {
+  margin: clamp(1.75rem, 4vh, 2.5rem) auto 0;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -.015em;
+  color: var(--fg);
+}
+
+/* =========================================================
+   12 — PROOF WALL
+   ========================================================= */
+
+/* The marquee ships with its own section header on the main page;
+   here it runs straight on from the video wall above it. */
+.sprint-page .sprint-wall .testimonials__frame { padding-top: 0; }
+.sprint-page .sprint-proof { padding-bottom: 2rem; }
+
+/* =========================================================
+   13 — FOUNDER
+   ========================================================= */
+
+.sprint-founder__quote {
+  margin: 0 auto;
+  max-width: 62ch;
+  text-align: center;
+}
+.sprint-founder__quote blockquote {
+  margin: 0;
+  font-size: clamp(1rem, 1.7vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--fg-muted);
+}
+.sprint-founder__quote figcaption {
+  margin-top: 1rem;
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.sprint-founder__more {
+  margin: clamp(2rem, 5vh, 2.75rem) auto 0;
+  max-width: 820px;
+}
+.sprint-founder__more > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .2rem;
+  padding: .9rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: hsl(240 16% 8% / .6);
+  transition: border-color .2s ease, background .2s ease;
+}
+.sprint-founder__more > summary::-webkit-details-marker { display: none; }
+.sprint-founder__more > summary:hover {
+  border-color: var(--sprint-accent-line);
+  background: hsl(240 16% 10% / .8);
+}
+.sprint-founder__more-label {
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--sprint-accent);
+}
+.sprint-founder__more-note { font-size: .75rem; color: var(--fg-dim); }
+.sprint-founder__vsl { margin-top: 1rem; }
+
+/* =========================================================
+   14 — THE OFFER
+   ========================================================= */
+
+/* One offer, one decision. Centre the lone card instead of leaving
+   it in the left column of the two-up grid — same treatment /ads
+   uses for its single Pay Per Video plan. */
+.sprint-page .sprint-offer .pricing__plans {
+  grid-template-columns: min(560px, 100%);
+  justify-content: center;
+}
+/* The plan is --featured, which the shared CSS lifts 12px. There is
+   nothing beside it here for that to read against. */
+.sprint-page .sprint-offer .pricing__plan--featured { transform: none; }
+.sprint-page .sprint-offer .pricing__name { letter-spacing: .16em; font-size: .78rem; }
+
+.sprint-page .sprint-offer__guarantee-row .pricing__check {
+  color: hsl(240 25% 8%);
+  background: linear-gradient(135deg, hsl(180 95% 78%), hsl(180 80% 55%));
+}
+.sprint-page .sprint-offer__guarantee-row .pricing__feature-title { font-weight: 800; }
+
+.sprint-offer__assure {
+  list-style: none;
+  margin: .9rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem .5rem;
+}
+.sprint-offer__assure li {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--fg-muted);
+  padding: .3rem .65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: hsl(240 12% 12% / .6);
+}
+
+.sprint-offer__reminder {
+  margin: .9rem 0 0;
+  text-align: center;
+  font-size: .85rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+.sprint-offer__reminder strong { color: var(--fg); }
+.sprint-offer__reminder a {
+  display: inline-block;
+  margin-top: .2rem;
+  color: var(--sprint-accent);
+  border-bottom: 1px solid hsl(180 74% 63% / .4);
+}
+
+.sprint-cohort {
+  max-width: 640px;
+  margin: 0 auto 1.25rem;
+  padding: .7rem 1.1rem;
+  text-align: center;
+  font-size: .82rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  border-radius: 999px;
+  border: 1px solid var(--sprint-accent-line);
+  background: var(--sprint-accent-soft);
+}
+.sprint-cohort strong { color: var(--fg); }
+
+/* =========================================================
+   15 — FINAL CTA
+   ========================================================= */
+
+.sprint-final__promise {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--fg);
+}
+.sprint-final__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .5rem;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: hsl(180 45% 80%);
+  border: 1px solid var(--sprint-accent-line);
+  background: var(--sprint-accent-soft);
+}
+.sprint-final__badge svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* =========================================================
+   16 — STICKY CONVERSION BAR
+   ========================================================= */
+
+.sprint-sticky {
+  position: fixed;
+  z-index: 90;
+  opacity: 0;
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none;
+}
+.sprint-sticky.is-visible { opacity: 1; pointer-events: auto; }
+.sprint-sticky[hidden] { display: none; }
+
+/* Desktop — a restrained pill in the top-right, not a second header. */
+@media (min-width: 768px) {
+  .sprint-sticky {
+    top: 1rem;
+    right: max(1rem, env(safe-area-inset-right));
+    transform: translateY(-8px);
+  }
+  .sprint-sticky.is-visible { transform: translateY(0); }
+  .sprint-sticky__inner {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding: .5rem .5rem .5rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid hsl(0 0% 100% / .1);
+    background: hsl(240 18% 7% / .92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 20px 45px -20px hsl(0 0% 0% / .9);
+  }
+  .sprint-sticky__label { display: none; }
+  .sprint-sticky__btn-short { display: none; }
+}
+
+/* Phones — fixed bottom conversion bar. */
+@media (max-width: 767px) {
+  .sprint-sticky {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    border-top: 1px solid hsl(0 0% 100% / .1);
+    background: hsl(240 20% 5% / .96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 -18px 40px -20px hsl(0 0% 0% / .9);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .sprint-sticky.is-visible { transform: translateY(0); }
+  .sprint-sticky__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: .7rem max(1rem, env(safe-area-inset-left)) .7rem max(1rem, env(safe-area-inset-left));
+    min-height: var(--sprint-sticky-h);
+  }
+  .sprint-sticky__label {
+    margin: 0;
+    font-size: .82rem;
+    color: var(--fg-muted);
+    white-space: nowrap;
+  }
+  .sprint-sticky__label strong { color: var(--fg); font-weight: 800; }
+  .sprint-sticky__btn-long { display: none; }
+  /* Keep the footer clear of the bar while it is up. */
+  .sprint-page.sprint-has-sticky .footer__bottom { padding-bottom: var(--sprint-sticky-h); }
+}
+
+.sprint-sticky__btn {
+  padding: .7rem 1.15rem;
+  font-size: .88rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprint-sticky { transition: opacity .2s ease; transform: none; }
+  .sprint-sticky.is-visible { transform: none; }
+}
+
+/* =========================================================
+   17 — GUARANTEE TERMS MODAL
+   ========================================================= */
+
+.sprint-modal {
+  width: min(680px, calc(100vw - 2rem));
+  max-height: min(84vh, 900px);
+  padding: 0;
+  border: 1px solid hsl(180 60% 60% / .3);
+  border-radius: clamp(1rem, 2vw, 1.5rem);
+  background: linear-gradient(180deg, hsl(240 22% 9%), hsl(240 24% 5%));
+  color: var(--fg);
+  box-shadow: 0 40px 100px -30px hsl(0 0% 0% / .95);
+  overflow: hidden;
+}
+.sprint-modal::backdrop {
+  background: hsl(240 24% 2% / .82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+/* Fallback for browsers without <dialog>: the element is only ever
+   given [open] by the page script, so this cannot show unbidden. */
+.sprint-modal:not([open]) { display: none; }
+.sprint-modal[open] {
+  position: fixed;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+.sprint-page.sprint-modal-open { overflow: hidden; }
+
+.sprint-modal__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  overflow: hidden;
+}
+.sprint-modal__close {
+  position: absolute;
+  top: .85rem;
+  right: .85rem;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: hsl(240 15% 10% / .8);
+  color: var(--fg-muted);
+}
+.sprint-modal__close:hover { color: var(--fg); border-color: var(--sprint-accent-line); }
+.sprint-modal__close svg { width: 17px; height: 17px; }
+
+.sprint-modal__title {
+  margin: 0 2.5rem .25rem 0;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+.sprint-modal__sub {
+  margin: 0 0 1.1rem;
+  font-size: .82rem;
+  color: var(--sprint-accent);
+  font-weight: 600;
+}
+
+.sprint-modal__body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-right: .5rem;
+  border-top: 1px solid var(--border-soft);
+  padding-top: 1.1rem;
+}
+.sprint-modal__body h3 {
+  margin: 1.4rem 0 .45rem;
+  font-size: .95rem;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  color: var(--fg);
+}
+.sprint-modal__body h3:first-child { margin-top: 0; }
+.sprint-modal__body p,
+.sprint-modal__body li {
+  font-size: .88rem;
+  line-height: 1.65;
+  color: var(--fg-muted);
+}
+.sprint-modal__body p { margin: 0 0 .8rem; }
+.sprint-modal__body ol,
+.sprint-modal__body ul { margin: 0 0 .9rem; padding-left: 1.25rem; }
+.sprint-modal__body li { margin-bottom: .5rem; }
+.sprint-modal__body li::marker { color: var(--sprint-accent); }
+.sprint-modal__body strong { color: var(--fg); font-weight: 700; }
+.sprint-modal__body a {
+  color: var(--sprint-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sprint-modal__legal {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-soft);
+  font-size: .78rem !important;
+  color: var(--fg-dim) !important;
+}
+
+.sprint-modal__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+@media (max-width: 520px) {
+  .sprint-modal__foot .btn { width: 100%; justify-content: center; }
+}
+
+/* =========================================================
+   18 — REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .sprint-page .job-card { animation: none !important; }
+  .sprint-page .testimonials__track { animation: none !important; }
+}

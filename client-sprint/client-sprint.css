@@ -1,34 +1,29 @@
 /* =========================================================
-   /client-sprint — VP+ 90-Day Client Sprint. Page-only styles.
+   /client-sprint — VP+ 90-Day Client Acquisition Pass (V2).
+   Page-only styles, loaded AFTER the shared styles.css.
 
-   Loaded AFTER the shared styles.css. Every rule is scoped to
-   .sprint-page so the design system and every other route stay
-   untouched. Only the shared tokens are used — no new palette.
-
-   Accent note: the build brief asked for "the existing orange
-   accent". VP+ is cyan (--primary: hsl(180 74% 63%)). Built in
-   cyan so the page reads as VP+ rather than a rebrand. If it has
-   to be orange, override --sprint-accent in the block below and
-   the whole page follows.
+   Every rule is scoped to .sprint-page so the design system and
+   every other route stay untouched. Shared tokens only — no new
+   palette. The page reads: claim -> number -> screenshot -> one
+   sentence -> next proof. The CSS job is to keep that rhythm
+   fast, quiet and expensive-looking: big numerals, real UI,
+   generous space, restrained motion.
    ========================================================= */
 
 .sprint-page {
-  /* Single knob for the page's accent. Points at the VP+ cyan. */
   --sprint-accent: hsl(180 74% 63%);
   --sprint-accent-soft: hsl(180 74% 63% / .12);
   --sprint-accent-line: hsl(180 74% 63% / .35);
   --sprint-sticky-h: 68px;
 }
 
-/* Sentence-case headlines. The brief copy is written in sentence
-   case, and the default .section__title is uppercase. Mirrors the
-   existing .showcase / .tipra-page precedent. */
+/* Sentence-case headlines — the V2 copy is written in sentence case
+   and the shared .section__title defaults to uppercase. */
 .sprint-page .section__title {
   text-transform: none;
   letter-spacing: -.025em;
 }
 
-/* Skip link — the page is long and the nav is the first stop. */
 .sprint-skip {
   position: absolute;
   left: -9999px;
@@ -41,48 +36,89 @@
   font-weight: 700;
   font-size: .85rem;
 }
-.sprint-skip:focus {
-  left: 0;
-}
+.sprint-skip:focus { left: 0; }
 
 .sprint-page .sprint-dot { color: var(--fg-dim); margin: 0 .1rem; }
 
+/* Nav is logo + one CTA. No pill, no hamburger — the CTA has to be
+   visible at every width, so undo the shared <640px hiding. */
+.sprint-page .sprint-nav__right { display: inline-flex; }
+.sprint-page .sprint-nav .nav__cta.btn--glow::after {
+  inset: -12%;
+  filter: blur(14px);
+}
+.sprint-nav__cta-short { display: none; }
+@media (max-width: 640px) {
+  .sprint-page .sprint-nav .nav__cta { padding: .55rem .85rem; font-size: .8rem; }
+  /* The full label overflows its button beside the logo at phone
+     widths; swap to the short variant, same pattern as the sticky bar. */
+  .sprint-nav__cta-long { display: none; }
+  .sprint-nav__cta-short { display: inline; }
+  .sprint-page .sprint-nav .nav__logo { height: 22px; }
+}
+
+/* Long CTA labels are allowed to wrap on phones instead of overflowing. */
+.sprint-page .sprint-cta-main { white-space: normal; text-align: center; }
+
 /* =========================================================
-   1 — HERO
+   1 — HERO: copy left, real listings right
    ========================================================= */
 
-/* The main page locks its hero to 100svh and crops the card fan at
-   the fold. This page has more that must be readable before any
-   scroll — headline, price, and the guarantee card — so the hero
-   grows to fit its content instead. */
-/* Vertical budget matters more than drama here. Everything a cold
-   visitor has to answer before scrolling — what it is, the outcome,
-   the term, the price, and what happens if it doesn't work — has to
-   clear the fold on a 1280x720 laptop, which leaves roughly 600px
-   for the content stack and the rest for the deck. */
 .sprint-page .sprint-hero {
+  display: block;
   min-height: auto;
-  padding: clamp(5.25rem, 9vh, 6.5rem) 0 clamp(1.5rem, 4vh, 3rem);
-}
-/* .hero__inner is a flex column; pushing the deck to order:1 lets the
-   labels (DOM-ordered after it, so they stay next to the cards they
-   describe) render above it. */
-.sprint-page .sprint-hero .hero__cards {
-  order: 1;
-  margin-top: clamp(1rem, 2.5vh, 1.75rem);
+  padding: clamp(5rem, 8vh, 6.25rem) 0 clamp(2rem, 4vh, 3rem);
 }
 
-/* Eyebrow reuses the trusted-pill chrome, swapping the avatar stack
-   for a live dot — this page leads with the offer, not headcount. */
-.sprint-page .sprint-eyebrow {
-  gap: .55rem;
-  padding: .4rem .95rem;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  font-size: .7rem;
-  font-weight: 600;
+.sprint-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: center;
 }
-.sprint-page .sprint-eyebrow strong { font-weight: 800; color: var(--fg); }
+@media (min-width: 980px) {
+  .sprint-hero__inner { grid-template-columns: 1.08fr .92fr; }
+  .sprint-stats__wrap { grid-column: 1 / -1; }
+}
+@media (max-width: 979.98px) {
+  /* Copy -> receipts -> deck: a proof metric has to make the first
+     mobile screen, and the deck is the thing that can wait. */
+  .sprint-hero__inner { grid-template-columns: 1fr; }
+  .sprint-hero__copy { order: 1; }
+  .sprint-stats__wrap { order: 2; }
+  .sprint-deck { order: 3; }
+}
+
+.sprint-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  text-align: left;
+}
+@media (max-width: 979.98px) {
+  .sprint-hero__copy { align-items: center; text-align: center; }
+}
+
+.sprint-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  margin: 0;
+  padding: .4rem .95rem;
+  border-radius: 999px;
+  border: 1px solid hsl(0 0% 100% / .08);
+  background: hsl(240 15% 8% / .55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
 .sprint-eyebrow__dot {
   width: 7px;
   height: 7px;
@@ -91,151 +127,197 @@
   box-shadow: 0 0 0 4px hsl(180 74% 63% / .15);
   flex-shrink: 0;
 }
-.sprint-eyebrow__sub { color: var(--fg-dim); }
 
-/* Smaller than the main page's h1 on purpose: this headline is a
-   full sentence plus a guarantee, not three words. */
-.sprint-page .sprint-hero__title {
-  max-width: 32ch;
-  font-size: clamp(2rem, 3.8vw, 3.05rem);
-  line-height: 1.04;
-}
-.sprint-page .sprint-hero__lede {
-  max-width: 60ch;
-  margin-top: .3rem;
+/* Three full sentences, each on its own line — sized so the longest
+   ("We Find Video Editing Clients.") holds one line in the hero column
+   at every desktop width. */
+.sprint-hero__title {
+  margin: 0;
+  font-size: clamp(1.75rem, 2.85vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+  color: hsl(0 0% 96%);
 }
 
-.sprint-hero__price {
-  margin: .1rem 0 0;
-  font-size: .92rem;
+.sprint-hero__lede {
+  margin: 0;
+  max-width: 54ch;
   color: var(--fg-muted);
+  font-size: clamp(.95rem, 1.15vw, 1.08rem);
+  line-height: 1.55;
+}
+.sprint-hero__lede strong { color: var(--fg); font-weight: 600; }
+
+.sprint-hero__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .6rem;
+  margin-top: .35rem;
+}
+@media (max-width: 979.98px) {
+  .sprint-hero__cta { align-items: center; }
+}
+.sprint-hero__micro {
+  margin: 0;
+  font-size: .82rem;
+  color: var(--fg-dim);
   letter-spacing: .005em;
 }
-.sprint-hero__price strong { color: var(--fg); font-weight: 700; }
-
-/* Guarantee microcard — the risk reversal, above the fold. */
-.sprint-gcard {
-  display: flex;
-  align-items: flex-start;
-  gap: .9rem;
-  text-align: left;
-  max-width: 34rem;
-  margin-top: .75rem;
-  padding: .8rem 1.1rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--sprint-accent-line);
-  background:
-    radial-gradient(ellipse at top left, hsl(180 74% 63% / .1), transparent 65%),
-    hsl(240 18% 8% / .75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 20px 50px -28px hsl(0 0% 0% / .9);
-}
-.sprint-gcard__icon {
-  flex-shrink: 0;
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: var(--sprint-accent);
-  background: var(--sprint-accent-soft);
-  border: 1px solid var(--sprint-accent-line);
-}
-.sprint-gcard__icon svg { width: 18px; height: 18px; }
-.sprint-gcard__body { min-width: 0; }
-.sprint-gcard__title {
-  margin: 0 0 .25rem;
-  font-size: .92rem;
-  font-weight: 800;
-  letter-spacing: -.01em;
-}
-.sprint-gcard__text {
-  margin: 0;
-  font-size: .81rem;
-  line-height: 1.45;
-  color: var(--fg-muted);
-}
-.sprint-gcard__link {
-  display: inline-block;
-  margin-top: .3rem;
-  font-size: .79rem;
+.sprint-hero__gline {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .84rem;
   font-weight: 600;
-  color: var(--sprint-accent);
-  border-bottom: 1px solid hsl(180 74% 63% / .4);
-}
-.sprint-gcard__link:hover { color: var(--primary-2); }
-
-/* REAL JOBS / REAL BUDGETS / POSTED DAILY. Real text, not an image
-   caption — the fan itself is decorative and aria-hidden. */
-/* Above the deck rather than below it: on a laptop fold the cards
-   crop, and these three words are worth more than the extra 40px of
-   card. Ordered ahead of .hero__cards by flex order so the markup can
-   keep the deck next to the content it illustrates. */
-.sprint-hero__labels {
-  position: relative;
-  z-index: 2;
-  list-style: none;
-  margin: clamp(.85rem, 2.2vh, 1.4rem) 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: .5rem .75rem;
-}
-.sprint-hero__labels li {
-  font-size: .66rem;
-  font-weight: 800;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: hsl(180 45% 72%);
-  padding: .3rem .7rem;
+  color: hsl(180 45% 76%);
+  padding: .45rem .85rem;
   border-radius: 999px;
-  border: 1px solid hsl(180 74% 63% / .22);
-  background: hsl(180 74% 63% / .06);
+  border: 1px solid var(--sprint-accent-line);
+  background: var(--sprint-accent-soft);
+  transition: background .2s ease, border-color .2s ease;
 }
+.sprint-hero__gline:hover { background: hsl(180 74% 63% / .18); border-color: hsl(180 74% 63% / .5); }
+.sprint-hero__gline svg { width: 15px; height: 15px; flex-shrink: 0; }
 
+/* --- The deck of real listings ---------------------------------- */
+/* .job-card in the shared sheet is position:absolute and sized from
+   the .hero__cards custom properties. Outside that context the vars
+   are undefined, so the deck defines its own geometry. */
+.sprint-deck {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  pointer-events: none;
+}
+.sprint-page .sprint-deck .job-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(100%, 380px);
+  height: auto;
+  font-size: .78rem;
+}
+.sprint-page .sprint-deck .sprint-deck__card--front {
+  position: relative;
+  margin-left: auto;
+  z-index: 3;
+  animation: sprintDeckFloat 6s ease-in-out infinite;
+}
+.sprint-page .sprint-deck .sprint-deck__card--mid {
+  z-index: 2;
+  transform: translate(-26px, 44px) rotate(-4deg) scale(.94);
+  opacity: .85;
+}
+.sprint-page .sprint-deck .sprint-deck__card--back {
+  z-index: 1;
+  transform: translate(-52px, 96px) rotate(-8deg) scale(.88);
+  opacity: .6;
+}
+@keyframes sprintDeckFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@media (max-width: 979.98px) {
+  .sprint-deck { max-width: 360px; margin-top: .5rem; }
+  .sprint-page .sprint-deck .sprint-deck__card--mid  { transform: translate(-16px, 30px) rotate(-3deg) scale(.95); }
+  .sprint-page .sprint-deck .sprint-deck__card--back { transform: translate(-32px, 64px) rotate(-6deg) scale(.9); }
+}
 @media (max-width: 640px) {
-  .sprint-page .sprint-hero { padding: 5.25rem 0 1.5rem; }
-  /* The optional "Built for client-ready video editors" line wrapped the
-     eyebrow pill onto two lines on every phone width. Same trim the main
-     page applies to .trusted-pill__loc. */
-  .sprint-eyebrow__sub { display: none; }
-  /* The main page centres hero content in leftover viewport space;
-     with no viewport lock here that rule would fight the flow. */
-  .sprint-page .sprint-hero .hero__content { margin-block: 0; }
-  .sprint-page .sprint-hero__title { font-size: clamp(1.8rem, 8.2vw, 2.4rem); }
-  .sprint-hero__price { font-size: .82rem; }
-  .sprint-gcard { padding: .85rem .95rem; gap: .7rem; }
-  .sprint-gcard__title { font-size: .86rem; }
-  .sprint-gcard__text { font-size: .78rem; }
-  /* Tighter deck so the guarantee card is not pushed off screen. */
-  .sprint-page .sprint-hero .hero__cards {
-    height: 200px;
-    margin-top: 1rem;
-  }
-  .sprint-hero__labels li { font-size: .58rem; padding: .25rem .55rem; letter-spacing: .14em; }
+  /* One primary card with the two behind it peeking out — the fan
+     silhouette without the fan's vertical cost. */
+  .sprint-page .sprint-deck .job-card { padding: .95rem 1rem .9rem; gap: .55rem; font-size: .72rem; }
+  .sprint-page .sprint-deck .job-card__title { font-size: .88rem; }
+  .sprint-page .sprint-deck .job-card__price { font-size: .95rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sprint-page .sprint-deck .sprint-deck__card--front { animation: none; }
 }
 
-/* Short phones (iPhone SE and friends at 375x667). The seven answers
-   the acceptance test asks for still have to clear the fold there, so
-   the hero trims rather than scrolls. */
+/* Short phones (iPhone SE class). The fold checklist — H1, deal, CTA,
+   guarantee line, first stat — has to fit 667px, so the hero trims. */
 @media (max-width: 640px) and (max-height: 720px) {
   .sprint-page .sprint-hero { padding-top: 4.5rem; }
-  .sprint-page .sprint-hero__title { font-size: clamp(1.6rem, 7.2vw, 2.05rem); }
-  .sprint-page .sprint-hero__lede { font-size: .85rem; }
-  .sprint-page .sprint-hero .hero__cta { margin-top: .35rem; }
-  .sprint-page .sprint-hero .btn--glow.btn--xl { padding: .85rem 1.4rem; font-size: .92rem; }
-  .sprint-gcard { padding: .7rem .85rem; gap: .6rem; margin-top: .55rem; }
-  .sprint-gcard__icon { width: 28px; height: 28px; }
-  .sprint-gcard__icon svg { width: 15px; height: 15px; }
-  .sprint-gcard__title { font-size: .8rem; }
-  .sprint-gcard__text { font-size: .73rem; line-height: 1.4; }
-  .sprint-gcard__link { font-size: .74rem; }
+  .sprint-hero__title { font-size: clamp(1.9rem, 8.4vw, 2.3rem); }
+  .sprint-hero__lede { font-size: .88rem; }
+  .sprint-hero__copy { gap: .8rem; }
+  .sprint-page .sprint-hero .btn--glow.btn--xl { padding: .85rem 1.3rem; font-size: .95rem; }
+  .sprint-hero__gline { font-size: .78rem; padding: .4rem .75rem; }
+  .sprint-stats__wrap { margin-top: .9rem; }
+  .sprint-stat { padding: .9rem 1rem; }
+  .sprint-stat__num { font-size: 1.7rem; }
+  .sprint-stat__label { font-size: .7rem; }
 }
 
 /* =========================================================
-   2 — SHARED PAGE FURNITURE
+   2 — RECEIPTS: the stat band inside the hero
+   ========================================================= */
+
+.sprint-stats {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--border-soft);
+  box-shadow: var(--shadow-card);
+}
+@media (min-width: 880px) {
+  .sprint-stats { grid-template-columns: repeat(4, 1fr); }
+}
+.sprint-stat {
+  /* DOM keeps the valid dt-then-dd order; visually the number leads. */
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: .35rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1rem, 2vw, 1.5rem);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+}
+.sprint-stat__num {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+.sprint-stat:nth-child(2) .sprint-stat__num {
+  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sprint-stat__label {
+  margin: 0;
+  font-size: .78rem;
+  line-height: 1.4;
+  color: var(--fg-muted);
+}
+.sprint-stats__wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(1.1rem, 3vh, 2rem);
+}
+.sprint-stats__stamp {
+  position: relative;
+  z-index: 2;
+  margin: .6rem 0 0;
+  text-align: right;
+  font-size: .7rem;
+  color: var(--fg-dim);
+}
+
+/* =========================================================
+   Shared furniture
    ========================================================= */
 
 .sprint-cta-row {
@@ -252,7 +334,6 @@
   color: var(--fg-dim);
 }
 
-/* Text button that has to sit inline inside body copy. */
 .sprint-inline-link {
   background: none;
   border: 0;
@@ -264,8 +345,431 @@
 }
 .sprint-inline-link:hover { color: var(--primary-2); }
 
+/* Big number treatment shared by the growth + demand sections. */
+.sprint-bignum {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  flex-wrap: wrap;
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.045em;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+.sprint-bignum > span:first-child {
+  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sprint-bignum__unit {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--fg);
+}
+.sprint-bignum__sub {
+  margin: .35rem 0 0;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-weight: 600;
+  color: var(--fg);
+}
+
 /* =========================================================
-   3 — FAST-WIN PROOF
+   Screenshot slots — real image when the file exists, an honest
+   labelled frame while it doesn't. client-sprint.js flips the
+   states (.is-loaded / .is-empty) from the img load/error events.
+   ========================================================= */
+
+.sprint-shot {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.sprint-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* The labelled frame is the DEFAULT state: it shows immediately (even
+   while a lazy image is still pending) and the real screenshot simply
+   covers it once it loads. A missing file never flashes a blank box. */
+.sprint-shot[data-shot] { aspect-ratio: 16 / 10; }
+.sprint-shot[data-shot] img { position: absolute; inset: 0; visibility: hidden; }
+.sprint-shot.is-loaded { border-color: hsl(180 74% 63% / .25); }
+.sprint-shot.is-loaded img { visibility: visible; }
+.sprint-shot.is-loaded img[data-expand] { cursor: zoom-in; }
+.sprint-shot img[data-expand]:focus-visible,
+.sprint-page img[data-expand]:focus-visible {
+  outline: 2px solid hsl(180 74% 63% / .7);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+.sprint-shot__ph {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: 1rem;
+  text-align: center;
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 14px, hsl(0 0% 100% / .015) 14px 28px),
+    radial-gradient(ellipse at 50% 0%, hsl(180 74% 63% / .06), transparent 70%);
+}
+.sprint-shot[data-shot] .sprint-shot__ph { display: flex; }
+.sprint-shot.is-loaded .sprint-shot__ph { display: none; }
+.sprint-shot__ph svg {
+  width: 30px;
+  height: 30px;
+  color: hsl(180 40% 55% / .6);
+}
+.sprint-shot__ph-label {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.sprint-shot__ph-note {
+  font-size: .7rem;
+  color: hsl(240 5% 58%);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* =========================================================
+   3 — THE ENGINE: four steps, one connected line
+   ========================================================= */
+
+.sprint-engine__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  counter-reset: estep;
+}
+@media (min-width: 900px) {
+  .sprint-engine__steps { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  /* The connecting rail behind the step numbers. */
+  .sprint-engine__steps::before {
+    content: "";
+    position: absolute;
+    top: 17px;
+    left: 4%;
+    right: 4%;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent,
+      hsl(180 74% 63% / .4) 12%,
+      hsl(180 74% 63% / .4) 88%,
+      transparent);
+    z-index: 0;
+  }
+}
+
+.sprint-estep {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+}
+.sprint-estep__head {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+.sprint-estep__num {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  color: var(--sprint-accent);
+  background: hsl(240 18% 7%);
+  border: 1px solid var(--sprint-accent-line);
+  box-shadow: 0 0 20px -6px hsl(180 74% 63% / .5);
+}
+.sprint-estep__title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -.015em;
+}
+.sprint-estep__text {
+  margin: 0;
+  font-size: .86rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  min-height: 0;
+}
+@media (min-width: 900px) {
+  .sprint-estep__text { min-height: 3.9em; }
+}
+.sprint-estep__visual { margin-top: .4rem; }
+
+/* Step 03 shows a real job card rather than a screenshot. */
+.sprint-estep__jobcard { position: relative; }
+.sprint-page .sprint-minijob {
+  position: relative;
+  left: 0;
+  width: 100%;
+  height: auto;
+  font-size: .7rem;
+  padding: .9rem .95rem .85rem;
+  gap: .5rem;
+  pointer-events: none;
+}
+.sprint-page .sprint-minijob .job-card__title { font-size: .84rem; }
+.sprint-page .sprint-minijob .job-card__price { font-size: .92rem; }
+
+.sprint-engine__close {
+  margin: clamp(2.5rem, 6vh, 3.5rem) auto 0;
+  text-align: center;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.35;
+  color: var(--fg);
+}
+.sprint-engine__close span { color: var(--fg-muted); font-weight: 600; }
+
+/* The differentiation line — one big quiet statement. */
+.sprint-keyline {
+  margin: clamp(2rem, 5vh, 3rem) auto 0;
+  max-width: 800px;
+  padding: clamp(1.5rem, 3.5vw, 2.25rem) clamp(1.25rem, 3vw, 2rem);
+  text-align: center;
+  font-size: clamp(1.25rem, 2.6vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -.022em;
+  line-height: 1.3;
+  color: var(--fg);
+  border-radius: var(--radius-xl);
+  border: 1px solid hsl(180 60% 60% / .25);
+  background:
+    radial-gradient(ellipse 70% 90% at 50% 0%, hsl(180 80% 50% / .1), transparent 70%),
+    linear-gradient(180deg, hsl(240 22% 8%), hsl(240 24% 5%));
+  box-shadow:
+    inset 0 1px 0 hsl(180 90% 90% / .14),
+    0 30px 70px -30px hsl(0 0% 0% / .8);
+}
+
+/* Compact replacement for the old six-row comparison. */
+.sprint-minivs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .75rem;
+  max-width: 860px;
+  margin: clamp(1.75rem, 4vh, 2.5rem) auto 0;
+}
+@media (min-width: 760px) { .sprint-minivs { grid-template-columns: 1fr 1fr; gap: 1rem; } }
+.sprint-minivs__col {
+  padding: 1.15rem 1.35rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: hsl(240 16% 7% / .7);
+}
+.sprint-minivs__col--old { opacity: .7; }
+.sprint-minivs__col--new {
+  border-color: var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top left, hsl(180 74% 63% / .1), transparent 70%),
+    hsl(240 16% 7% / .7);
+}
+.sprint-minivs__title {
+  margin: 0 0 .3rem;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.sprint-minivs__col--old .sprint-minivs__title { color: var(--fg-dim); }
+.sprint-minivs__col--new .sprint-minivs__title { color: var(--sprint-accent); }
+.sprint-minivs__col p {
+  margin: 0;
+  font-size: .92rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+}
+.sprint-minivs__col--new p { color: var(--fg); }
+
+/* =========================================================
+   4 + 5 — GROWTH and DEMAND: number beside evidence
+   ========================================================= */
+
+.sprint-page .sprint-growth { padding-bottom: 2.5rem; }
+.sprint-page .sprint-demand { padding-top: 2.5rem; }
+
+.sprint-growth__grid,
+.sprint-demand__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+@media (min-width: 880px) {
+  .sprint-growth__grid { grid-template-columns: 1.1fr .9fr; }
+  .sprint-demand__grid { grid-template-columns: .9fr 1.1fr; }
+}
+/* On phones the number leads and the evidence follows. */
+@media (max-width: 879.98px) {
+  .sprint-growth__chart { order: 2; }
+  .sprint-growth__copy { order: 1; }
+}
+
+.sprint-growth__copy,
+.sprint-demand__copy { text-align: left; }
+.sprint-growth__note,
+.sprint-demand__note {
+  margin: 1rem 0 0;
+  max-width: 46ch;
+  font-size: .95rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+.sprint-demand__pair {
+  margin: 1rem 0 0;
+  font-size: 1.05rem;
+  color: var(--fg);
+}
+.sprint-demand__pair strong {
+  font-weight: 900;
+  font-size: 1.35rem;
+  color: var(--sprint-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   6 — RECORD DAYS
+   ========================================================= */
+
+.sprint-records__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 980px;
+  margin-inline: auto;
+}
+@media (min-width: 880px) { .sprint-records__grid { grid-template-columns: repeat(4, 1fr); } }
+
+.sprint-record {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1rem, 2vw, 1.5rem);
+  text-align: center;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  box-shadow: var(--shadow-card);
+}
+.sprint-record:first-child {
+  border-color: var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top, hsl(180 74% 63% / .12), transparent 70%),
+    linear-gradient(180deg, hsl(240 15% 11%), hsl(240 15% 7%));
+  box-shadow:
+    inset 0 0 0 1px hsl(180 74% 63% / .1),
+    0 0 50px -14px hsl(180 74% 63% / .35),
+    0 30px 60px -30px hsl(0 0% 0% / .8);
+}
+.sprint-record__value {
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+.sprint-record:first-child .sprint-record__value {
+  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sprint-record__meta {
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.sprint-records__note {
+  margin: 1.5rem auto 0;
+  text-align: center;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+
+/* =========================================================
+   7 — JOB FEED: full-bleed swipe rail of real listings
+   ========================================================= */
+
+.sprint-feed__railwrap {
+  position: relative;
+  overflow: hidden;
+  /* Edge fade so the rail reads as continuing off-screen. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+.sprint-feed__rail {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+  padding: .5rem max(calc((100vw - var(--container)) / 2 + 1.25rem), 1.25rem) 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.sprint-feed__rail::-webkit-scrollbar { display: none; }
+.sprint-feed__rail:focus-visible {
+  outline: 2px solid hsl(180 74% 63% / .7);
+  outline-offset: -4px;
+  border-radius: var(--radius);
+}
+.sprint-feed__item {
+  flex: 0 0 min(320px, 82vw);
+  scroll-snap-align: center;
+}
+.sprint-page .sprint-feedjob {
+  position: relative;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: .76rem;
+  pointer-events: none;
+}
+.sprint-page .sprint-feedjob .job-card__desc { -webkit-line-clamp: 2; }
+
+/* =========================================================
+   8 — EDITOR OUTCOMES (wins)
    ========================================================= */
 
 .sprint-wins__grid {
@@ -301,7 +805,6 @@
     0 30px 60px -30px hsl(0 0% 0% / .8);
 }
 
-/* The number is the scannable part — it carries the card. */
 .sprint-win__days {
   display: flex;
   align-items: baseline;
@@ -313,6 +816,7 @@
   font-weight: 900;
   line-height: .95;
   letter-spacing: -.045em;
+  font-variant-numeric: tabular-nums;
 }
 .sprint-win__unit {
   font-size: .78rem;
@@ -356,13 +860,14 @@
 
 .sprint-wins__note {
   margin: 1.5rem auto 0;
-  max-width: 46ch;
+  max-width: 52ch;
   text-align: center;
-  font-size: .8rem;
+  font-size: .78rem;
+  line-height: 1.6;
   color: var(--fg-dim);
 }
 
-/* Phones — horizontal swipe rail instead of a stack six cards deep. */
+/* Phones — swipe rail, same treatment as the job feed. */
 @media (max-width: 700px) {
   .sprint-wins__grid {
     display: flex;
@@ -371,15 +876,11 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* Bleed to the viewport edges so the rail reads as scrollable. */
     margin-inline: calc(-1 * max(1.25rem, env(safe-area-inset-left)));
     padding-inline: max(1.25rem, env(safe-area-inset-left));
     padding-bottom: .35rem;
   }
   .sprint-wins__grid::-webkit-scrollbar { display: none; }
-  /* The rail is tabbable so keyboard users can reach the cards that are
-     off-screen; give it the same focus ring the rest of the site uses,
-     inset so it is not clipped by the negative margin above. */
   .sprint-wins__grid:focus-visible {
     outline: 2px solid hsl(180 74% 63% / .7);
     outline-offset: -4px;
@@ -394,376 +895,170 @@
 }
 
 /* =========================================================
-   4 — THE 90 / 100 / 1 MOTIF
+   9 — THE BET: the page inhales, then states the deal
    ========================================================= */
 
-.sprint-motif {
-  list-style: none;
-  margin: 0 auto clamp(2rem, 5vh, 3rem);
-  padding: 1.25rem 1rem;
-  max-width: 780px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: .5rem;
+.sprint-page .sprint-bet {
+  padding-top: clamp(5rem, 12vh, 8rem);
+  padding-bottom: clamp(5rem, 12vh, 8rem);
   text-align: center;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, hsl(240 18% 9% / .8), hsl(240 20% 5% / .8));
 }
-.sprint-motif__item {
-  display: flex;
-  flex-direction: column;
-  gap: .15rem;
-  position: relative;
-}
-.sprint-motif__item + .sprint-motif__item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 12%;
-  bottom: 12%;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, hsl(180 74% 63% / .25), transparent);
-}
-.sprint-motif__num {
-  font-size: clamp(2rem, 6vw, 3.2rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -.045em;
+.sprint-bet__head { max-width: 640px; margin: 0 auto; }
+.sprint-bet__kicker {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -.015em;
   color: var(--fg);
 }
-.sprint-motif__item--goal .sprint-motif__num {
-  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.sprint-bet__body {
+  margin: .6rem 0 0;
+  font-size: .98rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
 }
-.sprint-motif__label {
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--fg-dim);
-}
-
-/* =========================================================
-   5 — THE THREE STEPS + THE FORK
-   ========================================================= */
-
-.sprint-steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1.1rem;
-  grid-template-columns: 1fr;
-}
-@media (min-width: 860px) {
-  .sprint-steps { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-}
-
-.sprint-step {
-  position: relative;
+.sprint-bet__lines {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
-  padding: 1.6rem 1.5rem;
+  gap: .35rem;
+  margin: clamp(2rem, 5vh, 3rem) 0 0;
+}
+.sprint-bet__line {
+  font-size: clamp(1.6rem, 4.2vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.12;
+  color: var(--fg);
+  text-wrap: balance;
+}
+.sprint-bet__line--payoff { margin-top: .25rem; }
+
+/* =========================================================
+   10 — GUARANTEE: the money flow, then the conditions
+   ========================================================= */
+
+.sprint-flow {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: .6rem;
+  max-width: 1000px;
+  margin: 0 auto clamp(2.5rem, 6vh, 3.5rem);
+}
+@media (min-width: 880px) {
+  .sprint-flow {
+    grid-template-columns: auto auto auto auto 1fr;
+    gap: 1rem;
+    justify-items: stretch;
+  }
+}
+
+.sprint-flow__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .25rem;
+  min-width: 150px;
+  padding: 1.15rem 1.4rem;
+  text-align: center;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: linear-gradient(180deg, var(--card-2), var(--card));
   box-shadow: var(--shadow-card);
 }
-.sprint-step__head {
-  display: flex;
-  align-items: baseline;
-  gap: .6rem;
-}
-.sprint-step__index {
-  font-size: 2.1rem;
+.sprint-flow__value {
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
   font-weight: 900;
-  line-height: 1;
-  letter-spacing: -.05em;
-  color: hsl(240 8% 26%);
+  letter-spacing: -.03em;
+  line-height: 1.1;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
 }
-.sprint-step__verb {
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .22em;
-  color: var(--sprint-accent);
-}
-.sprint-step__title {
-  margin: .1rem 0 0;
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -.015em;
-}
-.sprint-step__text {
-  margin: 0;
-  font-size: .9rem;
-  line-height: 1.55;
+.sprint-flow__label {
+  font-size: .74rem;
+  line-height: 1.4;
   color: var(--fg-muted);
 }
-
-/* 0 -> 25 -> 50 -> 75 -> 100 */
-.sprint-progress { margin-top: .75rem; }
-.sprint-progress__track {
-  position: relative;
-  height: 6px;
-  border-radius: 999px;
-  background: hsl(240 10% 16%);
-  overflow: hidden;
-}
-.sprint-progress__fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 72%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, hsl(180 74% 63% / .5), hsl(180 85% 66%), hsl(160 76% 56%));
-  box-shadow: 0 0 18px -4px hsl(180 80% 60% / .8);
-}
-.sprint-progress__marks {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  margin: .45rem 0 0;
-  padding: 0;
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  color: var(--fg-dim);
-}
-.sprint-progress__marks .is-goal { color: var(--sprint-accent); }
-
-/* The two outcomes, side by side, so the guarantee reads as
-   mechanical rather than promotional. */
-.sprint-fork {
-  margin-top: clamp(1.5rem, 4vh, 2.5rem);
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: stretch;
-  gap: .75rem;
-}
-@media (min-width: 860px) {
-  .sprint-fork { grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.25rem; }
-}
-.sprint-fork__branch {
-  padding: 1.25rem 1.4rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: hsl(240 16% 7% / .7);
-}
-.sprint-fork__branch--win {
-  border-color: hsl(160 76% 56% / .35);
-  background:
-    radial-gradient(ellipse at top left, hsl(160 76% 56% / .1), transparent 70%),
-    hsl(240 16% 7% / .7);
-}
-.sprint-fork__branch--refund {
+.sprint-flow__node--pay .sprint-flow__value { color: var(--fg); }
+.sprint-flow__node--days {
   border-color: var(--sprint-accent-line);
   background:
-    radial-gradient(ellipse at top left, hsl(180 74% 63% / .12), transparent 70%),
-    hsl(240 16% 7% / .7);
+    radial-gradient(ellipse at top, hsl(180 74% 63% / .12), transparent 70%),
+    linear-gradient(180deg, hsl(240 15% 11%), hsl(240 15% 7%));
 }
-.sprint-fork__tag {
-  display: inline-block;
-  margin-bottom: .5rem;
-  font-size: .66rem;
-  font-weight: 800;
-  letter-spacing: .18em;
-  text-transform: uppercase;
+.sprint-flow__node--days .sprint-flow__value {
+  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.sprint-fork__branch--win .sprint-fork__tag { color: var(--mint); }
-.sprint-fork__branch--refund .sprint-fork__tag { color: var(--sprint-accent); }
-.sprint-fork__text {
-  margin: 0;
-  font-size: .92rem;
-  line-height: 1.55;
-  color: var(--fg-muted);
+.sprint-flow__arrow {
+  display: grid;
+  place-items: center;
+  color: hsl(180 50% 60% / .7);
 }
-.sprint-fork__text strong { color: var(--fg); font-weight: 800; }
-.sprint-fork__split {
+.sprint-flow__arrow svg { width: 22px; height: 22px; }
+@media (max-width: 879.98px) {
+  .sprint-flow__arrow svg { transform: rotate(90deg); }
+}
+
+.sprint-flow__outcomes {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: .4rem;
+  width: 100%;
+}
+.sprint-flow__or {
   align-self: center;
-  justify-self: center;
-  font-size: .7rem;
+  font-size: .68rem;
   font-weight: 800;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--fg-dim);
 }
-
-/* =========================================================
-   6 — MARKETPLACE MECHANISM
-   ========================================================= */
-
-.sprint-page .sprint-market .section__lede { max-width: 60ch; }
-
-.sprint-mech {
-  list-style: none;
-  margin: clamp(2rem, 5vh, 3rem) 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.1rem;
-}
-@media (min-width: 720px) { .sprint-mech { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1080px) { .sprint-mech { grid-template-columns: repeat(4, 1fr); } }
-
-.sprint-mech__item {
-  padding: 1.35rem 1.35rem 1.25rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--card-2), var(--card));
-}
-.sprint-mech__icon {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  margin-bottom: .8rem;
-  border-radius: .7rem;
-  color: var(--sprint-accent);
-  background: var(--sprint-accent-soft);
-  border: 1px solid var(--sprint-accent-line);
-}
-.sprint-mech__icon svg { width: 19px; height: 19px; }
-.sprint-mech__title {
-  margin: 0 0 .35rem;
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: -.012em;
-}
-.sprint-mech__text {
-  margin: 0;
-  font-size: .88rem;
-  line-height: 1.55;
-  color: var(--fg-muted);
-}
-
-/* =========================================================
-   7 — OLD WAY vs THE SPRINT
-   ========================================================= */
-
-/* The .vs component ships with a "why" sub-line under each bullet.
-   The Sprint copy is one line per bullet on purpose, so the list
-   sits tighter here. */
-.sprint-page .sprint-vs .vs__bullets { gap: .85rem; }
-.sprint-page .sprint-vs .vs__bullet-title { font-size: .95rem; }
-
-.sprint-vs__note {
-  margin: clamp(2rem, 5vh, 2.75rem) auto 0;
-  max-width: 60ch;
-  text-align: center;
-  font-size: .9rem;
-  line-height: 1.6;
-  color: var(--fg-dim);
-}
-
-/* =========================================================
-   8 — THE GUARANTEE
-   ========================================================= */
-
-.sprint-guarantee__card {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: center;
-  padding: clamp(2rem, 5vw, 3.5rem);
-  border-radius: clamp(1.25rem, 2vw, 2rem);
-  border: 1px solid hsl(180 60% 60% / .35);
+.sprint-flow__node--won {
+  border-color: hsl(160 76% 56% / .4);
   background:
-    radial-gradient(ellipse 80% 55% at 50% 0%, hsl(180 80% 50% / .16) 0%, transparent 70%),
-    linear-gradient(180deg, hsl(240 25% 9%) 0%, hsl(240 22% 5%) 55%, hsl(240 25% 8%) 100%);
-  box-shadow:
-    inset 0 1px 0 hsl(180 90% 90% / .2),
-    0 30px 80px -20px hsl(0 0% 0% / .75),
-    0 0 90px -14px hsl(180 70% 50% / .3);
-  text-align: center;
+    radial-gradient(ellipse at top left, hsl(160 76% 56% / .12), transparent 70%),
+    hsl(240 16% 7% / .8);
 }
-@media (min-width: 900px) {
-  .sprint-guarantee__card {
-    grid-template-columns: minmax(220px, 300px) 1fr;
-    text-align: left;
-  }
+.sprint-flow__node--won .sprint-flow__value { color: var(--mint); }
+.sprint-flow__node--refund {
+  border-color: var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top left, hsl(180 74% 63% / .12), transparent 70%),
+    hsl(240 16% 7% / .8);
 }
-.sprint-guarantee__atmosphere {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'><g fill='none' stroke='%23b8f5f0' stroke-width='0.6' stroke-linejoin='round'><polygon points='28,1 55,16.5 55,48.5 28,64 1,48.5 1,16.5'/><polygon points='28,49 55,64.5 55,96.5 28,112 1,96.5 1,64.5'/></g></svg>");
-  background-size: 56px 97px;
-  opacity: .05;
-  mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, black 0%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, black 0%, transparent 85%);
-  pointer-events: none;
-}
+.sprint-flow__node--refund .sprint-flow__value { color: var(--sprint-accent); }
 
-/* Oversized 100% stamp. */
-.sprint-guarantee__stamp {
-  justify-self: center;
+/* Conditions + aside */
+.sprint-guarantee__cols {
   display: grid;
-  place-items: center;
-  gap: .2rem;
-  aspect-ratio: 1;
-  width: clamp(160px, 22vw, 250px);
-  border-radius: 50%;
-  border: 2px solid hsl(180 74% 63% / .45);
-  background: radial-gradient(circle at 50% 30%, hsl(180 74% 63% / .16), transparent 70%);
-  box-shadow:
-    inset 0 0 0 8px hsl(180 74% 63% / .07),
-    0 0 70px -18px hsl(180 80% 55% / .8);
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: start;
 }
-.sprint-guarantee__stamp-num {
-  font-size: clamp(3rem, 8vw, 4.6rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -.05em;
-  background: linear-gradient(135deg, hsl(180 100% 96%), hsl(180 88% 68%) 55%, hsl(180 78% 48%));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.sprint-guarantee__stamp-pct { font-size: .5em; }
-.sprint-guarantee__stamp-label {
-  font-size: .68rem;
-  font-weight: 800;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: hsl(180 45% 78%);
-}
-
-.sprint-guarantee__body { display: flex; flex-direction: column; gap: .9rem; }
-.sprint-page .sprint-guarantee__body .kicker { align-self: center; }
 @media (min-width: 900px) {
-  .sprint-page .sprint-guarantee__body .kicker { align-self: flex-start; }
-}
-.sprint-page .sprint-guarantee__title {
-  font-size: clamp(1.8rem, 4vw, 2.9rem);
-  margin: 0;
-}
-.sprint-guarantee__lede {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--fg-muted);
-  max-width: 62ch;
+  .sprint-guarantee__cols { grid-template-columns: 1.15fr .85fr; gap: 2rem; }
 }
 
 .sprint-qualify {
-  margin-top: .3rem;
-  padding: 1.1rem 1.25rem;
-  border-radius: var(--radius);
+  padding: 1.4rem 1.5rem;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: hsl(240 16% 7% / .65);
   text-align: left;
 }
 .sprint-qualify__head {
-  margin: 0 0 .6rem;
-  font-size: .7rem;
+  margin: 0 0 .8rem;
+  font-size: .72rem;
   font-weight: 800;
-  letter-spacing: .2em;
+  letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--fg-dim);
 }
@@ -772,19 +1067,16 @@
   padding-left: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: .45rem;
+  gap: .7rem;
   font-size: .9rem;
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--fg-muted);
 }
 .sprint-qualify__list li::marker { color: var(--sprint-accent); font-weight: 800; }
-
-/* The claim window and the counting rules sit under the qualify list rather
-   than only inside the modal - they are as material as the four conditions
-   above them, so they get the same weight, not fine print. */
+.sprint-qualify__list strong { color: var(--fg); font-weight: 700; }
 .sprint-qualify__foot {
-  margin: .9rem 0 0;
-  padding-top: .85rem;
+  margin: 1rem 0 0;
+  padding-top: .9rem;
   border-top: 1px solid var(--border-soft);
   font-size: .84rem;
   line-height: 1.6;
@@ -794,319 +1086,135 @@
 .sprint-qualify__foot a { color: var(--sprint-accent); text-decoration: underline; text-underline-offset: 3px; }
 .sprint-qualify__foot .sprint-inline-link { font-size: inherit; }
 
-.sprint-guarantee__payoff {
-  margin: .4rem 0 0;
-  font-size: 1rem;
-  color: var(--fg-muted);
-  line-height: 1.6;
-}
-.sprint-guarantee__payoff .grad {
-  display: inline-block;
-  margin-top: .2rem;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  font-weight: 900;
-  letter-spacing: -.03em;
-}
-.sprint-guarantee__fine {
-  margin: 0;
-  font-size: .8rem;
-  color: var(--fg-dim);
-}
-
-.sprint-guarantee__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: .75rem;
-  margin-top: .6rem;
-}
-@media (min-width: 900px) {
-  .sprint-guarantee__actions { justify-content: flex-start; }
-}
-.sprint-terms-open { font-size: .85rem; }
-
-/* =========================================================
-   9 — AGGREGATE DATA (hidden until verified)
-   ========================================================= */
-
-.sprint-data__grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.1rem;
-  max-width: 960px;
-  margin-inline: auto;
-}
-.sprint-data__stat {
+.sprint-guarantee__aside {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
-  padding: 1.6rem 1.5rem;
-  text-align: center;
+  gap: 1rem;
+}
+.sprint-guarantee__aside-line {
+  margin: 0;
+  padding: 1.1rem 1.25rem;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--card-2), var(--card));
+  border: 1px solid var(--sprint-accent-line);
+  background:
+    radial-gradient(ellipse at top left, hsl(180 74% 63% / .1), transparent 70%),
+    hsl(240 16% 7% / .7);
+  font-size: .92rem;
+  line-height: 1.6;
+  color: var(--fg);
 }
-.sprint-data__value {
-  font-size: clamp(2.4rem, 6vw, 3.4rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: -.04em;
-  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.sprint-data__label {
-  font-size: .88rem;
-  line-height: 1.5;
-  color: var(--fg-muted);
-}
-.sprint-data__note {
-  margin: 1.5rem auto 0;
-  max-width: 62ch;
-  text-align: center;
-  font-size: .78rem;
+.sprint-guarantee__aside-fine {
+  margin: 0;
+  font-size: .8rem;
   line-height: 1.6;
   color: var(--fg-dim);
 }
-
-/* =========================================================
-   10 — WHAT YOU GET
-   ========================================================= */
-
-.sprint-included__grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+.sprint-guarantee__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .6rem;
 }
-@media (min-width: 720px) {
-  .sprint-included__grid { grid-template-columns: repeat(2, 1fr); }
-  /* Item 01 is the reason to buy — it gets the full width and the glow. */
-  .sprint-inc--hero { grid-column: 1 / -1; }
-}
-@media (min-width: 1000px) {
-  .sprint-included__grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-.sprint-inc {
-  position: relative;
-  padding: 1.35rem 1.4rem 1.25rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--card-2), var(--card));
-}
-.sprint-inc__index {
-  display: block;
-  margin-bottom: .5rem;
-  font-size: .72rem;
-  font-weight: 900;
-  letter-spacing: .2em;
-  color: var(--fg-dim);
-}
-.sprint-inc__title {
-  margin: 0 0 .35rem;
-  font-size: 1.02rem;
-  font-weight: 800;
-  letter-spacing: -.015em;
-}
-.sprint-inc__text {
-  margin: 0;
-  font-size: .88rem;
-  line-height: 1.55;
-  color: var(--fg-muted);
-}
-
-.sprint-inc--hero {
-  padding: clamp(1.75rem, 4vw, 2.75rem);
-  border-color: var(--sprint-accent-line);
-  background:
-    radial-gradient(ellipse 70% 100% at 15% 0%, hsl(180 74% 63% / .14), transparent 70%),
-    linear-gradient(180deg, hsl(240 18% 11%), hsl(240 20% 7%));
-  box-shadow:
-    inset 0 1px 0 hsl(180 90% 95% / .16),
-    0 0 70px -18px hsl(180 80% 55% / .35);
-}
-.sprint-inc--hero .sprint-inc__index { color: var(--sprint-accent); }
-.sprint-inc--hero .sprint-inc__title {
-  font-size: clamp(1.3rem, 3vw, 1.9rem);
-  letter-spacing: -.025em;
-}
-.sprint-inc--hero .sprint-inc__text {
-  font-size: 1rem;
-  max-width: 52ch;
+.sprint-guarantee__actions .btn--xl { white-space: normal; text-align: center; }
+.sprint-terms-open { font-size: .85rem; }
+@media (max-width: 899.98px) {
+  .sprint-guarantee__actions { align-items: center; text-align: center; }
 }
 
 /* =========================================================
    11 — WHO THIS IS FOR
    ========================================================= */
 
-.sprint-fit__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.1rem;
-  max-width: 1000px;
-  margin-inline: auto;
+.sprint-fit__checks {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
 }
-@media (min-width: 820px) { .sprint-fit__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
-
-.sprint-fit__col {
-  padding: 1.6rem 1.5rem;
-  border-radius: var(--radius-lg);
+.sprint-fit__checks li {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .9rem 1.2rem;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--card-2), var(--card));
+  background: hsl(240 16% 7% / .65);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--fg);
 }
-.sprint-fit__col--yes {
-  border-color: var(--sprint-accent-line);
-  background:
-    radial-gradient(ellipse at top, hsl(180 74% 63% / .1), transparent 70%),
-    linear-gradient(180deg, hsl(240 16% 10%), hsl(240 18% 6%));
+.sprint-fit__mark {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: .85rem;
+  font-weight: 800;
+  color: hsl(240 25% 8%);
+  background: linear-gradient(135deg, hsl(180 95% 78%), hsl(180 80% 55%));
 }
-.sprint-fit__col--no { opacity: .82; }
-
-.sprint-fit__title {
-  margin: 0 0 1rem;
-  padding-bottom: .85rem;
-  border-bottom: 1px solid var(--border-soft);
-  font-size: 1.05rem;
+.sprint-fit__close {
+  margin: clamp(1.75rem, 4vh, 2.5rem) auto 0;
+  text-align: center;
+  font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: -.015em;
+  color: var(--fg);
 }
-.sprint-fit__col--yes .sprint-fit__title { color: var(--fg); }
-.sprint-fit__col--no .sprint-fit__title { color: var(--fg-muted); }
 
-.sprint-fit__list {
+/* =========================================================
+   12 — SUPPORT STRIP
+   ========================================================= */
+
+.sprint-support {
+  padding: 0 0 clamp(2rem, 5vh, 3rem);
+}
+.sprint-support__head {
+  margin: 0 0 .8rem;
+  text-align: center;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--fg-dim);
+}
+.sprint-support__list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: .8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem .6rem;
 }
-.sprint-fit__list li {
-  display: flex;
-  align-items: flex-start;
-  gap: .7rem;
-  font-size: .95rem;
-  line-height: 1.5;
-  color: var(--fg);
-}
-.sprint-fit__list--no li { color: var(--fg-muted); }
-.sprint-fit__mark {
-  flex-shrink: 0;
-  width: 18px;
-  margin-top: 1px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.05rem;
-  line-height: 1.4;
-}
-.sprint-fit__col--yes .sprint-fit__mark { color: var(--sprint-accent); }
-.sprint-fit__col--no .sprint-fit__mark { color: hsl(0 30% 60%); font-weight: 500; opacity: .7; }
-
-.sprint-fit__close {
-  margin: clamp(1.75rem, 4vh, 2.5rem) auto 0;
-  text-align: center;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: -.015em;
-  color: var(--fg);
-}
-
-/* =========================================================
-   12 — PROOF WALL
-   ========================================================= */
-
-/* Terms section 9 says earnings figures are examples, not projections. The
-   fast-win cards carry that line already; the video wall and the marquee are
-   the two biggest proof blocks on the page and need it just as much. */
-.sprint-proof__qualifier {
-  margin: 2rem auto 0;
-  max-width: 62ch;
-  text-align: center;
-  font-size: .78rem;
-  line-height: 1.6;
-  color: var(--fg-dim);
-}
-
-/* The marquee ships with its own section header on the main page;
-   here it runs straight on from the video wall above it. */
-.sprint-page .sprint-wall .testimonials__frame { padding-top: 0; }
-.sprint-page .sprint-proof { padding-bottom: 2rem; }
-
-/* =========================================================
-   13 — FOUNDER
-   ========================================================= */
-
-.sprint-founder__quote {
-  margin: 0 auto;
-  max-width: 62ch;
-  text-align: center;
-}
-.sprint-founder__quote blockquote {
-  margin: 0;
-  font-size: clamp(1rem, 1.7vw, 1.15rem);
-  line-height: 1.65;
+.sprint-support__list li {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .45rem .85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: hsl(240 12% 12% / .6);
+  font-size: .8rem;
+  font-weight: 600;
   color: var(--fg-muted);
 }
-.sprint-founder__quote figcaption {
-  margin-top: 1rem;
-  font-size: .85rem;
-  font-weight: 700;
-  color: var(--fg);
-}
-
-.sprint-founder__more {
-  margin: clamp(2rem, 5vh, 2.75rem) auto 0;
-  max-width: 820px;
-}
-.sprint-founder__more > summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .2rem;
-  padding: .9rem 1.2rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: hsl(240 16% 8% / .6);
-  transition: border-color .2s ease, background .2s ease;
-}
-.sprint-founder__more > summary::-webkit-details-marker { display: none; }
-.sprint-founder__more > summary:hover {
-  border-color: var(--sprint-accent-line);
-  background: hsl(240 16% 10% / .8);
-}
-.sprint-founder__more-label {
-  font-size: .88rem;
-  font-weight: 700;
-  color: var(--sprint-accent);
-}
-.sprint-founder__more-note { font-size: .75rem; color: var(--fg-dim); }
-.sprint-founder__vsl { margin-top: 1rem; }
+.sprint-support__list li span { color: var(--sprint-accent); font-weight: 800; }
 
 /* =========================================================
-   14 — THE OFFER
+   13 — CHECKOUT
    ========================================================= */
 
-/* One offer, one decision. Centre the lone card instead of leaving
-   it in the left column of the two-up grid — same treatment /ads
-   uses for its single Pay Per Video plan. */
 .sprint-page .sprint-offer .pricing__plans {
   grid-template-columns: min(560px, 100%);
   justify-content: center;
 }
-/* The plan is --featured, which the shared CSS lifts 12px. There is
-   nothing beside it here for that to read against. */
 .sprint-page .sprint-offer .pricing__plan--featured { transform: none; }
-.sprint-page .sprint-offer .pricing__name { letter-spacing: .16em; font-size: .78rem; }
+.sprint-page .sprint-offer .pricing__name { letter-spacing: .14em; font-size: .74rem; }
+.sprint-page .sprint-offer .pricing__cta { white-space: normal; }
 
 .sprint-page .sprint-offer__guarantee-row .pricing__check {
   color: hsl(240 25% 8%);
@@ -1149,20 +1257,6 @@
   border-bottom: 1px solid hsl(180 74% 63% / .4);
 }
 
-.sprint-cohort {
-  max-width: 640px;
-  margin: 0 auto 1.25rem;
-  padding: .7rem 1.1rem;
-  text-align: center;
-  font-size: .82rem;
-  line-height: 1.55;
-  color: var(--fg-muted);
-  border-radius: 999px;
-  border: 1px solid var(--sprint-accent-line);
-  background: var(--sprint-accent-soft);
-}
-.sprint-cohort strong { color: var(--fg); }
-
 /* =========================================================
    15 — FINAL CTA
    ========================================================= */
@@ -1174,25 +1268,10 @@
   letter-spacing: -.02em;
   color: var(--fg);
 }
-.sprint-final__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  margin-top: .5rem;
-  padding: .45rem .9rem;
-  border-radius: 999px;
-  font-size: .72rem;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: hsl(180 45% 80%);
-  border: 1px solid var(--sprint-accent-line);
-  background: var(--sprint-accent-soft);
-}
-.sprint-final__badge svg { width: 15px; height: 15px; flex-shrink: 0; }
+.sprint-page .sprint-final .btn--xl { white-space: normal; text-align: center; }
 
 /* =========================================================
-   16 — STICKY CONVERSION BAR
+   STICKY CONVERSION BAR
    ========================================================= */
 
 .sprint-sticky {
@@ -1205,7 +1284,6 @@
 .sprint-sticky.is-visible { opacity: 1; pointer-events: auto; }
 .sprint-sticky[hidden] { display: none; }
 
-/* Desktop — a restrained pill in the top-right, not a second header. */
 @media (min-width: 768px) {
   .sprint-sticky {
     top: 1rem;
@@ -1225,11 +1303,11 @@
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 20px 45px -20px hsl(0 0% 0% / .9);
   }
-  .sprint-sticky__label { display: none; }
+  .sprint-sticky__label { margin: 0; font-size: .82rem; color: var(--fg-muted); white-space: nowrap; }
+  .sprint-sticky__label strong { color: var(--fg); font-weight: 800; }
   .sprint-sticky__btn-short { display: none; }
 }
 
-/* Phones — fixed bottom conversion bar. */
 @media (max-width: 767.98px) {
   .sprint-sticky {
     left: 0;
@@ -1275,7 +1353,68 @@
 }
 
 /* =========================================================
-   17 — GUARANTEE TERMS MODAL
+   SCREENSHOT LIGHTBOX
+   ========================================================= */
+
+.sprint-lightbox {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: visible;
+}
+.sprint-lightbox::backdrop {
+  background: hsl(240 24% 2% / .9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.sprint-lightbox:not([open]) { display: none; }
+.sprint-lightbox[open] {
+  position: fixed;
+  inset: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+.sprint-lightbox--fallback::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: hsl(240 24% 2% / .9);
+}
+.sprint-lightbox__img {
+  display: block;
+  max-width: min(92vw, 1200px);
+  max-height: 86vh;
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(180 60% 60% / .3);
+  box-shadow: 0 40px 100px -30px hsl(0 0% 0% / .95);
+}
+.sprint-lightbox__close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: hsl(240 15% 10%);
+  color: var(--fg-muted);
+  z-index: 2;
+}
+.sprint-lightbox__close:hover { color: var(--fg); border-color: var(--sprint-accent-line); }
+.sprint-lightbox__close svg { width: 18px; height: 18px; }
+@media (max-width: 640px) {
+  .sprint-lightbox__close { top: -48px; right: 0; }
+}
+
+/* =========================================================
+   GUARANTEE TERMS MODAL (same mechanics as V1)
    ========================================================= */
 
 .sprint-modal {
@@ -1294,13 +1433,10 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-/* Fallback for browsers without <dialog>: the element is only ever
-   given [open] by the page script, so this cannot show unbidden. */
 .sprint-modal:not([open]) { display: none; }
-/* ...and no ::backdrop either, so paint one. It sits on the dialog itself
-   rather than on a separate node, which keeps click-outside-to-dismiss
-   working: a click on a pseudo-element is dispatched to its originating
-   element, so the handler's `e.target === modal` test still fires. */
+/* No-<dialog> fallback paints its own backdrop; clicks on the
+   pseudo-element dispatch to the dialog itself, so the click-outside
+   dismiss keeps working there too. */
 .sprint-modal--fallback::before {
   content: "";
   position: fixed;
@@ -1318,10 +1454,6 @@
   transform: translate(-50%, -50%);
   z-index: 1000;
 }
-/* Body-level overflow cannot lock this page (the shared stylesheet already
-   sets overflow:hidden on body, and html { overflow-x: clip } stops it
-   propagating to the viewport), so the real lock lives in client-sprint.js
-   on the root element. This class stays purely as a styling hook. */
 .sprint-page.sprint-modal-open .sprint-sticky { opacity: 0; pointer-events: none; }
 
 .sprint-modal__inner {
@@ -1363,8 +1495,6 @@
 
 .sprint-modal__body {
   overflow-y: auto;
-  /* iOS ignores a root-level overflow lock often enough that reaching the
-     end of the terms would chain the scroll into the page underneath. */
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   padding-right: .5rem;
@@ -1413,16 +1543,14 @@
   padding-top: 1.1rem;
   border-top: 1px solid var(--border-soft);
 }
-
 @media (max-width: 520px) {
   .sprint-modal__foot .btn { width: 100%; justify-content: center; }
 }
 
 /* =========================================================
-   18 — REDUCED MOTION
+   REDUCED MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .sprint-page .job-card { animation: none !important; }
-  .sprint-page .testimonials__track { animation: none !important; }
 }

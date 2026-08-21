@@ -1,0 +1,1781 @@
+<!doctype html>
+<!--
+  VP+ 90-DAY CLIENT SPRINT — served at /client-sprint
+  Offer: $129 one-time, 90 days of VP+ marketplace access, backed by the
+  100-Application Guarantee (100 genuine applications in 90 days and no
+  paying VP+ client => full $129 back).
+
+  Cold Meta traffic. One offer, one outcome, one CTA. No membership pricing
+  comparison, no monthly/annual toggle, no "cancel anytime" language.
+
+  Reuses the root design system (../styles.css) and shared interactions
+  (../script.js — nav menu, FAQ accordion, scroll-reveal all bind by class
+  name). Page-only styles live in /client-sprint/client-sprint.css scoped
+  under .sprint-page; page-only behaviour in /client-sprint/client-sprint.js.
+
+  NOTE FOR JACK — placeholders / decisions to confirm before going live.
+  Each is marked TODO(jack) in the file it lives in.
+  1. CHECKOUT URL. There is no $129 Sprint product yet. Every CTA on this
+     page carries data-cta and is pointed at SPRINT_CHECKOUT_URL, a single
+     constant at the top of client-sprint.js. Swap that one string.
+  2. ACCENT COLOUR. The build brief said "existing orange accent"; VP+ is
+     cyan (--primary: hsl(180 74% 63%)). Built in cyan so the page looks
+     like VP+ and not a rebrand. Say the word if you want orange and it is
+     a one-token change in client-sprint.css.
+  3. AGGREGATE DATA SECTION (the "40% of editors who submitted 25-49
+     applications landed at least one client" stat) is BUILT BUT OFF.
+     Turn it on in client-sprint.js -> SPRINT_DATA.enabled = true, only
+     once the cohort is defined and the number is verified.
+  4. FOUNDING COHORT SCARCITY is BUILT BUT OFF. Turn on in
+     client-sprint.js -> SPRINT_COHORT.enabled = true ONLY if you really
+     are capping the first cohort and really are tracking remaining seats.
+  5. GUARANTEE TERMS need a legal read before publication. Terms section 5
+     already anticipates a promoted guarantee and routes refunds to
+     hello@videoproductionplus.com, which is what the modal says, and
+     Terms section 9 says "no guarantee of results" — so this page is
+     careful to promise a refund of the $129 and never an earnings
+     outcome. Three specific things to settle with whoever reviews it:
+     a) Terms section 5 scopes the guarantee carve-out to a guarantee
+        "promoted on our pricing page" and scopes the 14-day-right waiver
+        to "the membership". The Sprint is a one-time access purchase sold
+        on this page, so it is arguably neither. Widen the Terms wording
+        to cover any promoted offer and any paid access product, or accept
+        that the carve-out may not reach this page.
+     b) The gated-access policy. See the TODO next to the guarantee block:
+        profile review time, when the 90-day clock starts, and what
+        happens to the $129 if a profile is declined.
+     c) The under-supply sentence in the modal ("If fewer than 100 relevant
+        jobs are posted during your Sprint..."). Without it the guarantee
+        is unwinnable in any Sprint where the board posts fewer than 100
+        suitable jobs. Confirm you will stand behind it.
+  6. "New jobs every day" — the FAQ deliberately uses the softer, provable
+     wording ("continuously... throughout the week"). The hero label still
+     says POSTED DAILY, matching the live site. Verify against real supply
+     and make the two agree before spending on this page.
+  7. VP+ takes 10% on marketplace bookings — stated plainly in the FAQ,
+     matching the existing site copy. Confirm it is still the live rate.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#080810" />
+    <title>VP+ 90-Day Client Sprint | Land a Video Editing Client in 90 Days or Get Your $129 Back</title>
+    <meta name="description" content="90 days inside the VP+ marketplace, where clients post paid video-editing jobs. $129 once. No subscription. No automatic renewal. Submit 100 genuine applications and don't land a paying client? Get your $129 back." />
+    <meta name="author" content="Video Production+" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://videoproduction.plus/client-sprint" />
+    <meta property="og:title" content="VP+ 90-Day Client Sprint | Land a Client in 90 Days or Get Your $129 Back" />
+    <meta property="og:description" content="90 days inside the VP+ marketplace, where clients post paid video-editing jobs. $129 once. No subscription. No auto-renewal. 100-Application Money-Back Guarantee." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@VidProPlus" />
+    <meta property="og:url" content="https://videoproduction.plus/client-sprint" />
+    <!-- TODO(jack): swap for a Sprint-specific 1200x630 share image. Using the
+         editor OG image for now so links never share blank. -->
+    <meta property="og:image" content="https://videoproduction.plus/media/og-editor.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="VP+ 90-Day Client Sprint: land a video editing client in 90 days or get 100% of your money back." />
+    <meta name="twitter:image" content="https://videoproduction.plus/media/og-editor.jpg" />
+    <link rel="icon" type="image/png" sizes="256x256" href="../media/Plain%20Logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../media/Plain%20Logo.png" />
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="/client-sprint/client-sprint.css" />
+    <!-- Meta (Facebook) Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1210831334403824');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1210831334403824&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body class="sprint-page">
+    <a class="sprint-skip" href="#sprint-main">Skip to content</a>
+
+    <!-- ============ NAV — stripped back, one exit path ============ -->
+    <header class="nav sprint-nav" id="top">
+      <div class="container nav__inner">
+        <a class="nav__brand" href="#top" aria-label="Video Production Plus home">
+          <img src="../media/VPP%20logo.png" alt="Video Production+" class="nav__logo" />
+        </a>
+        <nav class="nav__pill" id="navPill" aria-label="Primary">
+          <a href="#how-it-works">How It Works</a>
+          <a href="#results">Results</a>
+          <a href="#guarantee">Guarantee</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn btn--primary btn--glow nav__pill-cta" data-cta data-cta-location="nav-mobile" href="#offer">Start My Sprint</a>
+        </nav>
+        <div class="nav__right">
+          <a class="btn btn--primary btn--glow nav__cta" data-cta data-cta-location="nav" href="#offer">Start My Sprint</a>
+        </div>
+        <button class="nav__menu" id="navMenu" aria-label="Toggle menu" aria-expanded="false" aria-controls="navPill">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="sprint-main">
+
+    <!-- ============ 1 — HERO ============ -->
+    <section class="hero sprint-hero">
+      <div class="hero__beam" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__glow hero__glow--1"></div>
+        <div class="hero__glow hero__glow--2"></div>
+        <div class="hero__grid"></div>
+      </div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <div class="trusted-pill sprint-eyebrow">
+            <span class="sprint-eyebrow__dot" aria-hidden="true"></span>
+            <span><strong>The VP+ 90-Day Client Sprint</strong><span class="sprint-eyebrow__sub"> · Built for client-ready video editors</span></span>
+          </div>
+
+          <h1 class="hero__title sprint-hero__title">
+            Land a Video Editing Client in 90&nbsp;Days.<br />
+            <span class="grad grad--glow">Or Get 100% of Your Money Back.</span>
+          </h1>
+
+          <p class="hero__lede sprint-hero__lede">
+            Get 90 days inside VP+, where new video-editing jobs are posted every day.
+            <strong>One payment. No subscription. No automatic renewal.</strong>
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="hero" href="#offer">
+              Start My 90-Day Client Sprint
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <p class="sprint-hero__price" data-rv="up">
+            <strong>$129 once</strong>
+            <span class="sprint-dot" aria-hidden="true">·</span> 90 days access
+            <span class="sprint-dot" aria-hidden="true">·</span> No auto-renewal
+          </p>
+
+          <!-- Guarantee microcard — the risk reversal has to be visible
+               without scrolling, so it sits inside the hero content stack. -->
+          <div class="sprint-gcard" data-rv="up">
+            <span class="sprint-gcard__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <div class="sprint-gcard__body">
+              <p class="sprint-gcard__title">The 100-Application Guarantee</p>
+              <p class="sprint-gcard__text">
+                Submit 100 genuine applications during your 90-day Sprint. If you don't land a
+                paying VP+ client, we'll refund your full $129.
+              </p>
+              <a class="sprint-gcard__link" href="#guarantee">See guarantee details <span aria-hidden="true">&darr;</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real listings from the VP+ board — the product is the strongest
+             thing in the hero, so it gets the space. Decorative duplicate of
+             the marketplace itself, hence aria-hidden; the labels below are
+             real text. -->
+        <div class="hero__cards" aria-hidden="true">
+          <article class="job-card job-card--pos1">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Vanlife Content Editor</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#3ad29f">S</span>
+                  <span>Sami S</span>
+                  <span class="job-card__dot">·</span>
+                  <span>2d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>One-Off</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$1,000</span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--neutral">2 videos</span>
+              <span class="tag tag--violet">Travel</span>
+              <span class="tag tag--violet">Documentary</span>
+            </div>
+            <p class="job-card__desc">YouTube long form + short form (Reels, Shorts, TikToks) editing for a Travel brand&hellip;</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos3 job-card--featured">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Full Time Editor</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#5cb1ff">G</span>
+                  <span>Gage Andrews</span>
+                  <span class="job-card__dot">·</span>
+                  <span>3d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$2,500<span class="job-card__price-unit">/month</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--violet">Real Estate</span>
+              <span class="tag tag--violet">Ecom</span>
+              <span class="tag tag--cyan">Video Editing</span>
+            </div>
+            <p class="job-card__desc">Editor who understands Real Estate, Ecom, and Education. YouTube long form + short form&hellip;</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos2">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Poker / Sports Editor</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#e4669b">M</span>
+                  <span>Marin Ivanov</span>
+                  <span class="job-card__dot">·</span>
+                  <span>5d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$1,500<span class="job-card__price-unit">/month</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--violet">Entertainment</span>
+              <span class="tag tag--violet">Other</span>
+              <span class="tag tag--cyan">B-Roll &amp; Visuals</span>
+              <span class="tag tag--cyan">Sound Design</span>
+              <span class="tag tag--cyan">Repurposing</span>
+              <span class="tag tag--neutral">+1</span>
+            </div>
+            <p class="job-card__desc">Skilled editor for long-form Poker and Sports content. B-roll, sound design, repurposing&hellip;</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos4">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Short Form Editor Organic + Meta Ads</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#5b8bff">J</span>
+                  <span>Jabez Collective</span>
+                  <span class="job-card__dot">·</span>
+                  <span>1d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$750<span class="job-card__price-unit">/month</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">SHORT FORM</span>
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--neutral">5 videos</span>
+              <span class="tag tag--violet">Health &amp; Wellness</span>
+              <span class="tag tag--cyan">Hooks/Intros</span>
+              <span class="tag tag--cyan">Sound Design</span>
+              <span class="tag tag--neutral">+1</span>
+            </div>
+            <p class="job-card__desc">Editor who understands Health &amp; Wellness and Home Service brands. Short form + Meta ads&hellip;</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+
+          <article class="job-card job-card--pos5">
+            <header class="job-card__head">
+              <div class="job-card__title-block">
+                <h3 class="job-card__title">Private School Videos</h3>
+                <div class="job-card__meta">
+                  <span class="job-card__avatar" style="--av:#7c5cff">H</span>
+                  <span>Hassen Rasool</span>
+                  <span class="job-card__dot">·</span>
+                  <span>2d ago</span>
+                  <span class="job-card__dot">·</span>
+                  <span>Retainer</span>
+                </div>
+              </div>
+              <button class="job-card__bookmark" tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </header>
+            <div class="job-card__price-row">
+              <span class="job-card__price">$1,000<span class="job-card__price-unit">/month</span></span>
+            </div>
+            <div class="job-card__tags">
+              <span class="tag tag--cyan">LONG FORM</span>
+              <span class="tag tag--neutral">3 videos</span>
+              <span class="tag tag--violet">Marketing</span>
+              <span class="tag tag--violet">Business</span>
+              <span class="tag tag--cyan">Basic Editing</span>
+              <span class="tag tag--cyan">Sound Design</span>
+            </div>
+            <p class="job-card__desc">YouTube long form, talking head, documentary, ad content for Marketing &amp; Education niches&hellip;</p>
+            <div class="job-card__actions">
+              <span class="btn btn--ghost btn--sm">Details</span>
+              <span class="btn btn--apply btn--sm">Apply</span>
+            </div>
+          </article>
+        </div>
+
+        <ul class="sprint-hero__labels" data-rv="fade">
+          <li>Real jobs</li>
+          <li>Real budgets</li>
+          <li>Posted daily</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 2 — FAST-WIN PROOF ============ -->
+    <!-- Outcomes before explanation. Every card is an existing, real VP+
+         win, kept verbatim from the main sales page. -->
+    <section id="results" class="section sprint-wins">
+      <div class="container">
+        <header class="section__head" data-rv="up">
+          <span class="kicker">RESULTS</span>
+          <h2 class="section__title">Some Editors Didn't Need <span class="grad">90 Days.</span></h2>
+          <p class="section__lede">Real editors. Real clients. Real timelines.</p>
+        </header>
+
+        <ul class="sprint-wins__grid" data-rv="up" tabindex="0" role="group"
+            aria-label="Editor wins, by days to first client. Scrollable on small screens.">
+          <li class="sprint-win">
+            <div class="sprint-win__days"><span class="sprint-win__num">2</span> <span class="sprint-win__unit">days</span></div>
+            <p class="sprint-win__result">First client landed</p>
+            <blockquote class="sprint-win__quote">"Closed a former UFC fighter 2 days after joining VP+."</blockquote>
+            <div class="sprint-win__person">
+              <img class="sprint-win__avatar" src="../media/opt/Julian-pic-112.webp" width="112" height="112" alt="" loading="lazy" decoding="async" />
+              <span>Julian, <span class="sprint-win__role">VP+ Editor</span></span>
+            </div>
+          </li>
+
+          <li class="sprint-win">
+            <div class="sprint-win__days"><span class="sprint-win__num">4</span> <span class="sprint-win__unit">days</span></div>
+            <p class="sprint-win__result">Client came to him</p>
+            <blockquote class="sprint-win__quote">"New client 4 days after joining VP+. They DM'd me first."</blockquote>
+            <div class="sprint-win__person">
+              <img class="sprint-win__avatar" src="../media/opt/Mohammad-pic-112.webp" width="112" height="112" alt="" loading="lazy" decoding="async" />
+              <span>Mohamed, <span class="sprint-win__role">VP+ Editor</span></span>
+            </div>
+          </li>
+
+          <li class="sprint-win sprint-win--featured">
+            <div class="sprint-win__days"><span class="sprint-win__num">5</span> <span class="sprint-win__unit">days</span></div>
+            <p class="sprint-win__result">$1k+/mo retainer</p>
+            <blockquote class="sprint-win__quote">"In just 5 days at VP+, I closed my first long-term client paying $1k+ per month."</blockquote>
+            <div class="sprint-win__person">
+              <img class="sprint-win__avatar" src="../media/opt/caio-headshot-200.webp" width="200" height="200" alt="" loading="lazy" decoding="async" />
+              <span>Caio Lima, <span class="sprint-win__role">VP+ Editor</span></span>
+            </div>
+          </li>
+
+          <li class="sprint-win sprint-win--featured">
+            <div class="sprint-win__days"><span class="sprint-win__num">7</span> <span class="sprint-win__unit">days</span></div>
+            <p class="sprint-win__result">$3,500/mo retainer</p>
+            <blockquote class="sprint-win__quote">"7 days inside VP+ and closed a $3,500/m retainer."</blockquote>
+            <div class="sprint-win__person">
+              <img class="sprint-win__avatar" src="../media/opt/stinson-headshot-200.webp" width="200" height="200" alt="" loading="lazy" decoding="async" />
+              <span>Stinson Thomas, <span class="sprint-win__role">VP+ Editor</span></span>
+            </div>
+          </li>
+
+          <li class="sprint-win">
+            <div class="sprint-win__days"><span class="sprint-win__num">9</span> <span class="sprint-win__unit">days</span></div>
+            <p class="sprint-win__result">&pound;3,000 banked</p>
+            <blockquote class="sprint-win__quote">"&pound;3,000 in 9 days video editing in VP+."</blockquote>
+            <div class="sprint-win__person">
+              <img class="sprint-win__avatar" src="../media/opt/gawu-headshot-200.webp" width="200" height="200" alt="" loading="lazy" decoding="async" />
+              <span>Gawu, <span class="sprint-win__role">VP+ Editor</span></span>
+            </div>
+          </li>
+
+          <li class="sprint-win">
+            <div class="sprint-win__days"><span class="sprint-win__num">10</span> <span class="sprint-win__unit">days</span></div>
+            <p class="sprint-win__result">First client landed</p>
+            <blockquote class="sprint-win__quote">"Landed my first client 10 days after joining VP+!"</blockquote>
+            <div class="sprint-win__person">
+              <img class="sprint-win__avatar" src="../media/opt/sokky-pic-112.webp" width="112" height="112" alt="" loading="lazy" decoding="async" />
+              <span>sokyy, <span class="sprint-win__role">VP+ Editor</span></span>
+            </div>
+          </li>
+        </ul>
+
+        <p class="sprint-wins__note">
+          Individual results. Your Sprint is 90 days for a reason.
+        </p>
+
+        <div class="sprint-cta-row">
+          <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="fast-win-proof" href="#offer">
+            Start My Sprint &mdash; $129
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 — EXPLAIN THE SPRINT ============ -->
+    <section id="how-it-works" class="section sprint-how">
+      <div class="container">
+        <header class="section__head" data-rv="up">
+          <span class="kicker">THE CHALLENGE</span>
+          <h2 class="section__title">90 Days. 100 Applications. <span class="grad">One Goal.</span></h2>
+          <p class="section__lede">Land one paying video-editing client.</p>
+        </header>
+
+        <!-- The recurring 90 / 100 / 1 motif -->
+        <ol class="sprint-motif" data-rv="up" aria-label="The Sprint in three numbers">
+          <li class="sprint-motif__item">
+            <span class="sprint-motif__num">90</span>
+            <span class="sprint-motif__label">Days</span>
+          </li>
+          <li class="sprint-motif__item">
+            <span class="sprint-motif__num">100</span>
+            <span class="sprint-motif__label">Applications</span>
+          </li>
+          <li class="sprint-motif__item sprint-motif__item--goal">
+            <span class="sprint-motif__num">1</span>
+            <span class="sprint-motif__label">Client</span>
+          </li>
+        </ol>
+
+        <ol class="sprint-steps" data-rv="up">
+          <li class="sprint-step">
+            <div class="sprint-step__head">
+              <span class="sprint-step__index">01</span>
+              <span class="sprint-step__verb">JOIN</span>
+            </div>
+            <h3 class="sprint-step__title">Get 90 Days Inside VP+</h3>
+            <p class="sprint-step__text">Set up your profile and get access to the VP+ marketplace.</p>
+          </li>
+
+          <li class="sprint-step">
+            <div class="sprint-step__head">
+              <span class="sprint-step__index">02</span>
+              <span class="sprint-step__verb">APPLY</span>
+            </div>
+            <h3 class="sprint-step__title">Reach 100 Applications</h3>
+            <p class="sprint-step__text">New jobs are posted throughout the Sprint. Apply to opportunities that match your skills and portfolio.</p>
+            <div class="sprint-progress" aria-hidden="true">
+              <div class="sprint-progress__track"><span class="sprint-progress__fill"></span></div>
+              <ul class="sprint-progress__marks">
+                <li>0</li><li>25</li><li>50</li><li>75</li><li class="is-goal">100</li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="sprint-step">
+            <div class="sprint-step__head">
+              <span class="sprint-step__index">03</span>
+              <span class="sprint-step__verb">WIN</span>
+            </div>
+            <h3 class="sprint-step__title">Land Your Client</h3>
+            <p class="sprint-step__text">Get hired for a paying project or retainer through VP+.</p>
+          </li>
+        </ol>
+
+        <!-- The fork. Two outcomes, both defined. -->
+        <div class="sprint-fork" data-rv="up">
+          <div class="sprint-fork__branch sprint-fork__branch--win">
+            <span class="sprint-fork__tag">Client landed</span>
+            <p class="sprint-fork__text">
+              You won. Keep your 90-day access and continue using VP+ through the end of your Sprint.
+            </p>
+          </div>
+          <span class="sprint-fork__split" aria-hidden="true">or</span>
+          <div class="sprint-fork__branch sprint-fork__branch--refund">
+            <span class="sprint-fork__tag">No client after 100 applications</span>
+            <p class="sprint-fork__text">
+              You get your <strong>$129 back</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 — MARKETPLACE MECHANISM ============ -->
+    <section id="marketplace" class="section showcase sprint-market">
+      <div class="showcase__atmosphere" aria-hidden="true">
+        <span class="showcase__beam"></span>
+      </div>
+      <div class="container">
+        <header class="section__head showcase__head">
+          <span class="kicker">WHY THIS IS DIFFERENT</span>
+          <h2 class="section__title">
+            You Don't Need More Advice.<br />
+            <span class="grad">You Need More Opportunities.</span>
+          </h2>
+          <p class="section__lede">
+            Most freelance advice teaches you how to chase clients. VP+ does the opposite. We bring
+            clients into the marketplace, they post the work they need, and editors apply directly
+            to those jobs.
+          </p>
+        </header>
+
+        <div class="showcase__frame">
+          <img class="showcase__card showcase__card--left"
+               src="../media/opt/CARD_left-700.webp" width="700" height="404"
+               alt="Job status card inside VP+ — escrow funded, ready to start"
+               loading="lazy" decoding="async" />
+          <img class="showcase__img" src="../media/opt/dashboard-1600.webp" width="1600" height="795"
+               alt="Inside the Video Production+ marketplace dashboard — the Find Jobs view with live listings"
+               loading="lazy" decoding="async" />
+          <img class="showcase__card showcase__card--right"
+               src="../media/opt/CARD_right-700.webp" width="700" height="428"
+               alt="Version history card inside VP+ — three previous revisions"
+               loading="lazy" decoding="async" />
+        </div>
+
+        <p class="showcase__claim">Real jobs. Real budgets. Posted daily.</p>
+
+        <ul class="sprint-mech" data-rv="up">
+          <li class="sprint-mech__item">
+            <span class="sprint-mech__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="M12 14v4M10 16h4"/></svg>
+            </span>
+            <h3 class="sprint-mech__title">New opportunities posted every day</h3>
+            <p class="sprint-mech__text">Projects and retainers across different niches, formats and budgets.</p>
+          </li>
+          <li class="sprint-mech__item">
+            <span class="sprint-mech__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 10 2 2 4-4"/></svg>
+            </span>
+            <h3 class="sprint-mech__title">Clients come looking for editors</h3>
+            <p class="sprint-mech__text">You aren't starting every relationship with a cold DM.</p>
+          </li>
+          <li class="sprint-mech__item">
+            <span class="sprint-mech__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <h3 class="sprint-mech__title">Gated editor marketplace</h3>
+            <p class="sprint-mech__text">VP+ is built specifically around freelance video editing rather than every freelance service on the internet.</p>
+          </li>
+          <li class="sprint-mech__item">
+            <span class="sprint-mech__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <h3 class="sprint-mech__title">Payment protection</h3>
+            <p class="sprint-mech__text">Every job is posted with a budget, and clients fund the full project in escrow before you begin work.</p>
+          </li>
+        </ul>
+
+        <div class="sprint-cta-row">
+          <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="marketplace" href="#offer">
+            Give Me 90 Days Inside VP+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+          <p class="sprint-cta-row__note">$129 once. No subscription.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 — OLD WAY vs THE SPRINT ============ -->
+    <section class="section sprint-vs">
+      <div class="container">
+        <header class="section__head" data-rv="up">
+          <h2 class="section__title">
+            You Can Spend the Next 90 Days Chasing Clients.<br />
+            <span class="grad">Or Spend Them Applying to Clients Already Looking.</span>
+          </h2>
+        </header>
+
+        <div class="vs">
+          <aside class="vs__faded">
+            <h3 class="vs__faded-title">The Old Way</h3>
+            <ul class="vs__bullets vs__bullets--faded">
+              <li><span class="vs__cross" aria-hidden="true">&times;</span><div class="vs__bullet"><p class="vs__bullet-title">Send cold DMs every day.</p></div></li>
+              <li><span class="vs__cross" aria-hidden="true">&times;</span><div class="vs__bullet"><p class="vs__bullet-title">Email creators who never asked for an editor.</p></div></li>
+              <li><span class="vs__cross" aria-hidden="true">&times;</span><div class="vs__bullet"><p class="vs__bullet-title">Compete on generic freelance platforms.</p></div></li>
+              <li><span class="vs__cross" aria-hidden="true">&times;</span><div class="vs__bullet"><p class="vs__bullet-title">Spend hours making unpaid sample edits.</p></div></li>
+              <li><span class="vs__cross" aria-hidden="true">&times;</span><div class="vs__bullet"><p class="vs__bullet-title">Wake up every month wondering where the next project comes from.</p></div></li>
+              <li><span class="vs__cross" aria-hidden="true">&times;</span><div class="vs__bullet"><p class="vs__bullet-title">Take all the acquisition risk yourself.</p></div></li>
+            </ul>
+          </aside>
+
+          <article class="vs__card">
+            <h3 class="vs__card-title">The VP+ Client Sprint</h3>
+            <ul class="vs__bullets">
+              <li><span class="vs__check" aria-hidden="true">&check;</span><div class="vs__bullet"><p class="vs__bullet-title">Open one dedicated video-editing marketplace.</p></div></li>
+              <li><span class="vs__check" aria-hidden="true">&check;</span><div class="vs__bullet"><p class="vs__bullet-title">See new paid opportunities as they're posted.</p></div></li>
+              <li><span class="vs__check" aria-hidden="true">&check;</span><div class="vs__bullet"><p class="vs__bullet-title">Apply directly to jobs that fit you.</p></div></li>
+              <li><span class="vs__check" aria-hidden="true">&check;</span><div class="vs__bullet"><p class="vs__bullet-title">Track your progress toward 100 applications.</p></div></li>
+              <li><span class="vs__check" aria-hidden="true">&check;</span><div class="vs__bullet"><p class="vs__bullet-title">Give yourself 90 days of consistent opportunity flow.</p></div></li>
+              <li><span class="vs__check" aria-hidden="true">&check;</span><div class="vs__bullet"><p class="vs__bullet-title">Do the work &mdash; or get your $129 back if you complete the guarantee and still don't land a client.</p></div></li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="sprint-vs__note">
+          VP+ doesn't promise you'll never do outreach again. It gives you a second, more direct
+          source of client opportunities &mdash; one where the client is already looking.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 6 — THE GUARANTEE ============ -->
+    <section id="guarantee" class="section sprint-guarantee">
+      <div class="container">
+        <div class="sprint-guarantee__card" data-rv="scale">
+          <div class="sprint-guarantee__atmosphere" aria-hidden="true"></div>
+
+          <div class="sprint-guarantee__stamp" aria-hidden="true">
+            <span class="sprint-guarantee__stamp-num">100<span class="sprint-guarantee__stamp-pct">%</span></span>
+            <span class="sprint-guarantee__stamp-label">Money Back</span>
+          </div>
+
+          <div class="sprint-guarantee__body">
+            <span class="kicker">YOU DO THE REPS. WE TAKE THE RISK.</span>
+            <h2 class="section__title sprint-guarantee__title">The 100-Application <span class="grad">Guarantee</span></h2>
+
+            <p class="sprint-guarantee__lede">
+              We're not asking you to pay $129 and hope something happens.
+            </p>
+            <p class="sprint-guarantee__lede">
+              Complete your 90-Day Client Sprint. Submit 100 genuine applications to relevant VP+
+              jobs. If you still haven't landed one paying client through VP+, we'll refund your
+              entire&nbsp;$129.
+            </p>
+
+            <div class="sprint-qualify">
+              <p class="sprint-qualify__head">To qualify:</p>
+              <ol class="sprint-qualify__list">
+                <li>Complete an approved VP+ editor profile.</li>
+                <li>Submit 100 genuine applications to relevant jobs within your 90-day Sprint.</li>
+                <li>Remain reasonably responsive to clients who contact you.</li>
+                <li>Do not have a paying VP+ client secured during the Sprint.</li>
+              </ol>
+              <!-- The four conditions above are the ones the brief specifies, but
+                   the claim window and the counting rules decide just as directly
+                   whether a buyer gets their money back, so they stay on the page
+                   instead of living only inside the modal. -->
+              <p class="sprint-qualify__foot">
+                <strong>To claim:</strong> email
+                <a href="mailto:hello@videoproductionplus.com">hello@videoproductionplus.com</a>
+                from your VP+ account address within 14 days of your Sprint ending. Applications
+                are counted from VP+ platform records. One claim per person.
+                <button class="sprint-inline-link" type="button" data-guarantee-open>Read the full terms</button>
+              </p>
+            </div>
+
+            <p class="sprint-guarantee__payoff">
+              If you do that and still don't land a client:<br />
+              <span class="grad grad--glow">You Get $129 Back.</span>
+            </p>
+            <p class="sprint-guarantee__fine">
+              No credits. No extra subscription months. A refund of the original Sprint purchase.
+            </p>
+            <!-- TODO(jack): VP+ is a gated marketplace (Terms section 3 lets us
+                 decline an application at our discretion) and the guarantee's
+                 first condition is an APPROVED profile. Two policy calls are
+                 needed before launch and neither can be invented here:
+                   1. How long profile review takes, and whether the 90-day clock
+                      starts at purchase or at approval. The modal currently says
+                      access-start, which is the buyer-friendly reading.
+                   2. What happens to the $129 if a profile is declined. Until
+                      that is decided, this page discloses the gate and promises
+                      nothing about it. -->
+            <p class="sprint-guarantee__fine">
+              VP+ is a gated marketplace. Your editor profile is reviewed before your access
+              begins, and your 90 days start when your access starts.
+            </p>
+
+            <div class="sprint-guarantee__actions">
+              <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="guarantee" href="#offer">
+                Start My 90-Day Client Sprint
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+              </a>
+              <button class="btn btn--ghost sprint-terms-open" type="button" data-guarantee-open>
+                Read the full guarantee terms
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 — AGGREGATE DATA PROOF ============ ==============
+         Rendered from SPRINT_DATA in client-sprint.js and hidden until the
+         numbers are verified. See TODO(jack) #3 in the header comment. -->
+    <section id="sprint-data" class="section sprint-data" hidden>
+      <div class="container">
+        <header class="section__head" data-rv="up">
+          <span class="kicker">THE NUMBERS</span>
+          <h2 class="section__title" data-sprint-data-headline></h2>
+          <p class="section__lede" data-sprint-data-lede></p>
+        </header>
+        <ul class="sprint-data__grid" data-sprint-data-grid></ul>
+        <p class="sprint-data__note" data-sprint-data-note></p>
+      </div>
+    </section>
+
+    <!-- ============ 8 — WHAT YOU GET ============ -->
+    <section class="section sprint-included">
+      <div class="container">
+        <header class="section__head" data-rv="up">
+          <span class="kicker">WHAT'S INCLUDED</span>
+          <h2 class="section__title">Everything You Need <span class="grad">for the Sprint.</span></h2>
+        </header>
+
+        <ul class="sprint-included__grid" data-rv="up">
+          <li class="sprint-inc sprint-inc--hero">
+            <span class="sprint-inc__index">01</span>
+            <h3 class="sprint-inc__title">90 Days of VP+ Marketplace Access</h3>
+            <p class="sprint-inc__text">
+              The main event. Access new video-editing jobs posted by clients looking to hire.
+            </p>
+          </li>
+          <li class="sprint-inc">
+            <span class="sprint-inc__index">02</span>
+            <h3 class="sprint-inc__title">The 100-Application Client Sprint</h3>
+            <p class="sprint-inc__text">A simple objective that keeps you taking action rather than paying for access and forgetting to use it.</p>
+          </li>
+          <li class="sprint-inc">
+            <span class="sprint-inc__index">03</span>
+            <h3 class="sprint-inc__title">Weekly Live Coaching</h3>
+            <p class="sprint-inc__text">Get help fixing the things stopping you from converting opportunities into clients.</p>
+          </li>
+          <li class="sprint-inc">
+            <span class="sprint-inc__index">04</span>
+            <h3 class="sprint-inc__title">VP+ Editor Community</h3>
+            <p class="sprint-inc__text">Access the existing editor community for feedback, advice and support.</p>
+          </li>
+          <li class="sprint-inc">
+            <span class="sprint-inc__index">05</span>
+            <h3 class="sprint-inc__title">Client Acquisition Training</h3>
+            <p class="sprint-inc__text">Use existing training relevant to applications, client communication, closing and retention.</p>
+          </li>
+          <li class="sprint-inc">
+            <span class="sprint-inc__index">06</span>
+            <h3 class="sprint-inc__title">Editing Training &amp; Resources</h3>
+            <p class="sprint-inc__text">Existing editing courses, packs, practice assets and supporting resources.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 9 — WHO THIS IS FOR ============ -->
+    <section class="section sprint-fit">
+      <div class="container">
+        <header class="section__head" data-rv="up">
+          <h2 class="section__title">This Is for Editors Who Are <span class="grad">Ready to Work.</span></h2>
+          <p class="section__lede">VP+ can create opportunities. It cannot edit the videos for you.</p>
+        </header>
+
+        <div class="sprint-fit__grid" data-rv="up">
+          <div class="sprint-fit__col sprint-fit__col--yes">
+            <h3 class="sprint-fit__title">This Sprint is for you if:</h3>
+            <ul class="sprint-fit__list">
+              <li><span class="sprint-fit__mark" aria-hidden="true">&check;</span>You already know how to edit video to a commercially usable standard.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&check;</span>You have work you can show prospective clients.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&check;</span>You can communicate professionally with clients.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&check;</span>You are prepared to apply consistently.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&check;</span>You actually want paid editing work over the next 90 days.</li>
+            </ul>
+          </div>
+
+          <div class="sprint-fit__col sprint-fit__col--no">
+            <h3 class="sprint-fit__title">This is probably not for you if:</h3>
+            <ul class="sprint-fit__list sprint-fit__list--no">
+              <li><span class="sprint-fit__mark" aria-hidden="true">&times;</span>You have never edited a video before.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&times;</span>You have no portfolio or examples of your work.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&times;</span>You want clients without applying to jobs.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&times;</span>You are not available to take on paid client work.</li>
+              <li><span class="sprint-fit__mark" aria-hidden="true">&times;</span>You expect joining alone to create a result.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="sprint-fit__close">We bring the opportunities. You still have to show up.</p>
+      </div>
+    </section>
+
+    <!-- ============ 10 — PROOF WALL (video) ============ -->
+    <section id="proof-wall" class="section proof sprint-proof">
+      <div class="proof__atmosphere" aria-hidden="true">
+        <div class="proof__beam"></div>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">PROOF</span>
+          <h2 class="section__title">Don't Take <span class="grad">Our Word for It.</span></h2>
+          <p class="section__lede">See what editors are actually landing inside VP+.</p>
+        </header>
+
+        <div class="proof__carousel">
+          <div class="proof__track" tabindex="0" aria-label="Video testimonials from VP+ editors">
+            <article class="proof__card" data-index="0">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/new-testimonial.mp4" poster="../media/posters/new-testimonial-poster.jpg" preload="none" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Stinson's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Stinson</p>
+                  <span class="proof__stars" aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</span>
+                </div>
+                <p class="proof__quote">Zero to $11K/month</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="1">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/suleman-testimonial.mp4" poster="../media/posters/suleman-testimonial-poster.jpg" preload="none" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Suleman's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Suleman</p>
+                  <span class="proof__stars" aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</span>
+                </div>
+                <p class="proof__quote">$100K in 12 months</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="2">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/vexa-testimonial.mp4" poster="../media/posters/vexa-testimonial-poster.jpg" preload="none" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Vexa's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Vexa</p>
+                  <span class="proof__stars" aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</span>
+                </div>
+                <p class="proof__quote">Zero to $10K/month</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="3">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/riyo-testimonial.mp4" poster="../media/posters/riyo-testimonial-poster.jpg" preload="none" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Riyo's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Riyo</p>
+                  <span class="proof__stars" aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</span>
+                </div>
+                <p class="proof__quote">Zero to $11K/month</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="4">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/juh-testimonial.mp4" poster="../media/posters/juh-testimonial-poster.jpg" preload="none" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Juh's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Juh</p>
+                  <span class="proof__stars" aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</span>
+                </div>
+                <p class="proof__quote">Zero to $8K/month</p>
+              </div>
+            </article>
+
+            <article class="proof__card" data-index="5">
+              <div class="proof__video-wrap">
+                <video class="proof__video" src="../media/tipra-testimonial.mp4" poster="../media/posters/tipra-testimonial-poster.jpg" preload="none" playsinline muted></video>
+                <button class="proof__play" type="button" aria-label="Play Tipra's testimonial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>
+                </button>
+              </div>
+              <div class="proof__info">
+                <div class="proof__meta">
+                  <p class="proof__name">Tipra</p>
+                  <span class="proof__stars" aria-hidden="true">&starf;&starf;&starf;&starf;&starf;</span>
+                </div>
+                <p class="proof__quote">Zero to $6K/month</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="proof__controls">
+          <div class="proof__nav-group">
+            <button class="proof__nav" type="button" data-action="prev" aria-label="Previous testimonial">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            </button>
+            <button class="proof__nav" type="button" data-action="next" aria-label="Next testimonial">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="proof__dots" role="group" aria-label="Carousel position">
+            <button class="proof__dot" type="button" data-index="0" aria-label="Go to testimonial 1"></button>
+            <button class="proof__dot" type="button" data-index="1" aria-label="Go to testimonial 2"></button>
+            <button class="proof__dot" type="button" data-index="2" aria-label="Go to testimonial 3"></button>
+            <button class="proof__dot" type="button" data-index="3" aria-label="Go to testimonial 4"></button>
+            <button class="proof__dot" type="button" data-index="4" aria-label="Go to testimonial 5"></button>
+            <button class="proof__dot" type="button" data-index="5" aria-label="Go to testimonial 6"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10b — PROOF WALL (economic marquee) ============
+         Same component as the main sales page, filtered down to the
+         economic wins only. No "great community" / "lots of sauce"
+         cards: this page needs money, clients and timelines. -->
+    <section class="section testimonials sprint-wall" aria-label="Editor wins">
+      <div class="testimonials__frame">
+        <div class="testimonials__corner-glow" aria-hidden="true"></div>
+        <div class="testimonials__grid-bg" aria-hidden="true"></div>
+
+        <div class="testimonials__marquee">
+          <div class="testimonials__row testimonials__row--ltr">
+            <div class="testimonials__track">
+              <!-- Set A -->
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Kostya-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Kostya</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $1,600 week</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"$1,600 earned last week in VP+. Biggest so far."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/T...-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">T&hellip;</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $1,200/vid</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Bruh, closed a $1,200 per vid client."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Stinson-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Stinson Thomas</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $6,000/m</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Major win. Onboarded a $6,000/m client from VP+. 30 days in and this is the biggest yet."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Sam-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Sam</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 3 clients/wk</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"3 clients closed this week from VP+. A month ago I was stuck at $300/month."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/sophie-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">sophiemahdoul</p>
+                    <p class="testimonials__role">VP+ Editor &middot; First $2K</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"I just made my first $2K from video editing!!! Thank you VP+."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/riley-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Riley</p>
+                    <p class="testimonials__role">VP+ Editor &middot; First $1k/mo</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Just closed a single client for $1k a month. That used to be my goal in total!"</p>
+              </article>
+
+              <!-- Set B: byte-identical duplicate so translateX(-50%) loops seamlessly -->
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Kostya-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Kostya</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $1,600 week</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"$1,600 earned last week in VP+. Biggest so far."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/T...-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">T&hellip;</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $1,200/vid</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Bruh, closed a $1,200 per vid client."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Stinson-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Stinson Thomas</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $6,000/m</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Major win. Onboarded a $6,000/m client from VP+. 30 days in and this is the biggest yet."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Sam-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Sam</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 3 clients/wk</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"3 clients closed this week from VP+. A month ago I was stuck at $300/month."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/sophie-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">sophiemahdoul</p>
+                    <p class="testimonials__role">VP+ Editor &middot; First $2K</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"I just made my first $2K from video editing!!! Thank you VP+."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/riley-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Riley</p>
+                    <p class="testimonials__role">VP+ Editor &middot; First $1k/mo</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Just closed a single client for $1k a month. That used to be my goal in total!"</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="testimonials__row testimonials__row--rtl">
+            <div class="testimonials__track">
+              <!-- Set A -->
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Lev-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Lev Yalkovskiy</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 2 days in</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Just closed another client. 2nd day in VP+ lol."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Gopi-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Gopi</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $5K/mo</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"$5K/month has been a long dream of mine, and I finally hit it from VP+. Feels super good."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/faraz-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Faraz</p>
+                    <p class="testimonials__role">VP+ Editor &middot; Week 1</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Got my first client for $900 within my first week of joining VP+."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/bavleo-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Bavleo</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 4 days in</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"In just 4 days, I made 3X the money I invested in VP+."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/babyj-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">babyj</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 5 days in</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"$1k/mo client &amp; 3 interviews 5 days after joining VP+."</p>
+              </article>
+              <article class="testimonials__card">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/weston-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Weston</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 2 clients</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Closed my first client from VP+ ($600/m) and just closed another today ($1,400/m)."</p>
+              </article>
+
+              <!-- Set B: byte-identical duplicate so translateX(-50%) loops seamlessly -->
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Lev-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Lev Yalkovskiy</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 2 days in</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Just closed another client. 2nd day in VP+ lol."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="112" height="112" src="../media/opt/Gopi-pic-112.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Gopi</p>
+                    <p class="testimonials__role">VP+ Editor &middot; $5K/mo</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"$5K/month has been a long dream of mine, and I finally hit it from VP+. Feels super good."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/faraz-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Faraz</p>
+                    <p class="testimonials__role">VP+ Editor &middot; Week 1</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Got my first client for $900 within my first week of joining VP+."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/bavleo-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Bavleo</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 4 days in</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"In just 4 days, I made 3X the money I invested in VP+."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/babyj-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">babyj</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 5 days in</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"$1k/mo client &amp; 3 interviews 5 days after joining VP+."</p>
+              </article>
+              <article class="testimonials__card" aria-hidden="true">
+                <div class="testimonials__card-head">
+                  <img class="testimonials__avatar" width="200" height="200" src="../media/opt/weston-headshot-200.webp" alt="" loading="lazy" decoding="async" />
+                  <div class="testimonials__card-info">
+                    <p class="testimonials__name">Weston</p>
+                    <p class="testimonials__role">VP+ Editor &middot; 2 clients</p>
+                  </div>
+                </div>
+                <p class="testimonials__quote">"Closed my first client from VP+ ($600/m) and just closed another today ($1,400/m)."</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="sprint-proof__qualifier">
+          Individual results. These are examples of what some VP+ editors have achieved, not a
+          promise or projection of what you will earn.
+        </p>
+      </div>
+
+      <div class="container sprint-cta-row">
+        <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="proof-wall" href="#offer">
+          Start My 90-Day Client Sprint
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+        <p class="sprint-cta-row__note">$129 once. No subscription. No automatic renewal.</p>
+      </div>
+    </section>
+
+    <!-- ============ 11 — FOUNDER (short, deliberately late) ============ -->
+    <section class="section sprint-founder">
+      <div class="container">
+        <header class="section__head" data-rv="up">
+          <span class="kicker">WHY VP+ EXISTS</span>
+          <h2 class="section__title">
+            Editors Should Spend More Time Editing.<br />
+            <span class="grad">Not Hunting for Someone to Edit For.</span>
+          </h2>
+        </header>
+
+        <!-- TODO(jack): this quotation comes from the build brief, not from
+             anything you have said publicly — it appears nowhere on the live
+             site. Either confirm the wording is yours to attribute, or drop
+             the quotation marks and the attribution and run it as page copy
+             under the WHY VP+ EXISTS kicker above. -->
+        <figure class="sprint-founder__quote" data-rv="up">
+          <blockquote>
+            "I built VP+ because client acquisition was the part of freelancing most editors
+            hated. The goal is simple: bring clients and editors into the same place, make it
+            easier to find the right fit, and let great editors spend more time doing the work
+            they're actually good at."
+          </blockquote>
+          <figcaption>&mdash; Jack Cole, Founder of VP+</figcaption>
+        </figure>
+
+        <details class="sprint-founder__more" data-rv="up">
+          <summary>
+            <span class="sprint-founder__more-label">Watch the 2-minute founder video</span>
+            <span class="sprint-founder__more-note">Optional. Nothing on this page depends on it.</span>
+          </summary>
+          <div class="vsl sprint-founder__vsl">
+            <div class="vsl__frame">
+              <video class="vsl__video" controls preload="none" playsinline
+                     poster="../media/posters/vsl-poster-800.jpg"
+                     src="../media/Marketplace%20VSL%20v1222.mp4"></video>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============ 12 — THE OFFER ============ -->
+    <section id="offer" class="section pricing sprint-offer">
+      <div class="pricing__atmosphere" aria-hidden="true">
+        <div class="pricing__rays"></div>
+        <div class="pricing__sphere"></div>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <span class="kicker">START YOUR SPRINT</span>
+          <h2 class="section__title">Give Yourself 90 Days to <span class="grad">Land the Next Client.</span></h2>
+        </header>
+
+        <!-- Founding cohort scarcity — rendered from SPRINT_COHORT in
+             client-sprint.js and hidden unless the cap is real and tracked.
+             See TODO(jack) #4. -->
+        <p class="sprint-cohort" data-sprint-cohort hidden></p>
+
+        <div class="pricing__plans">
+          <article class="pricing__plan pricing__plan--featured">
+            <span class="pricing__badge">ONE-TIME PAYMENT</span>
+            <header class="pricing__head">
+              <h3 class="pricing__name">VP+ 90-DAY CLIENT SPRINT</h3>
+              <div class="pricing__price">
+                <span class="pricing__price-new">$129</span>
+                <span class="pricing__price-period">one-time</span>
+              </div>
+              <p class="pricing__billing">90 days of access. No subscription. No automatic renewal.</p>
+            </header>
+
+            <div class="pricing__divider"><span>WHAT'S INCLUDED</span></div>
+
+            <ul class="pricing__features">
+              <li>
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+                <div><p class="pricing__feature-title">90 days full VP+ access</p></div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+                <div><p class="pricing__feature-title">New video-editing jobs posted throughout your Sprint</p></div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+                <div><p class="pricing__feature-title">The 100-Application Client Sprint</p></div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+                <div><p class="pricing__feature-title">Weekly live coaching</p></div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+                <div><p class="pricing__feature-title">VP+ editor community</p></div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+                <div><p class="pricing__feature-title">Client acquisition training</p></div>
+              </li>
+              <li>
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg></span>
+                <div><p class="pricing__feature-title">Editing training and resources</p></div>
+              </li>
+              <li class="sprint-offer__guarantee-row">
+                <span class="pricing__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                <div><p class="pricing__feature-title">100-Application Money-Back Guarantee</p></div>
+              </li>
+            </ul>
+
+            <!-- The href here is the no-JS fallback and is the ONE place the
+                 checkout URL is duplicated. Keep it in sync with
+                 SPRINT_CHECKOUT_URL in client-sprint.js, which rewrites every
+                 data-cta link (this one included) and appends the visitor's
+                 UTMs and ad click IDs. -->
+            <a class="pricing__cta pricing__cta--featured" data-cta data-cta-location="offer-card"
+               href="https://checkout.videoproduction.plus/client-sprint">
+              Start My 90-Day Client Sprint
+            </a>
+
+            <ul class="sprint-offer__assure">
+              <li>Pay $129 once</li>
+              <li>No monthly subscription</li>
+              <li>No automatic renewal</li>
+              <li>No surprise rebilling on Day 91</li>
+            </ul>
+
+            <p class="sprint-offer__reminder">
+              Complete 100 applications and don't land a client? <strong>Get your $129 back.</strong>
+              <a href="#guarantee">How the guarantee works</a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13 — FAQ ============ -->
+    <section id="faq" class="section faq sprint-faq">
+      <div class="faq__atmosphere" aria-hidden="true">
+        <div class="faq__grid-bg"></div>
+        <div class="faq__corner-glow"></div>
+      </div>
+      <div class="container">
+        <header class="section__head">
+          <h2 class="section__title">Questions Before <span class="grad">You Start?</span></h2>
+        </header>
+
+        <div class="faq__layout">
+          <div class="faq__left">
+            <div class="faq__social-proof">
+              <div class="faq__avatars" aria-hidden="true">
+                <img class="faq__avatar" width="96" height="96" src="../media/opt/avatar-1-96.webp" alt="" loading="lazy" />
+                <img class="faq__avatar" width="96" height="96" src="../media/opt/avatar-2-96.webp" alt="" loading="lazy" />
+                <img class="faq__avatar" width="96" height="96" src="../media/opt/avatar-3-96.webp" alt="" loading="lazy" />
+                <div class="faq__avatar-count">+600</div>
+              </div>
+              <div class="faq__rating">
+                <div class="faq__stars" aria-label="Rated 4.9 out of 5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"/></svg>
+                </div>
+                <span class="faq__rating-text"><strong>4.9/5</strong> from 600+ editors</span>
+              </div>
+            </div>
+
+            <div class="faq__accordion">
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Is this a subscription?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>No. The Client Sprint costs $129 once and gives you 90 days of access. There is no automatic monthly renewal.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What happens after 90 days?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Your Sprint ends. Nothing is automatically charged. If you want to continue using VP+ afterward, you can choose a membership option separately.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">How does the money-back guarantee work?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Submit 100 genuine applications to relevant VP+ jobs during your 90-day Sprint. If you complete the guarantee requirements and don't land a paying VP+ client during those 90 days, you can request a full refund of your original $129 Sprint payment.</p>
+                  <p><button class="sprint-inline-link" type="button" data-guarantee-open>Read the full guarantee terms</button></p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What counts as landing a client?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>A client secured through VP+ who commits to a paid project or retainer with you through the platform.</p>
+                  <p>That is the same definition the guarantee turns on, so a hire that reaches you through VP+ counts whether it is a one-off project or an ongoing retainer.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What counts as an application?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>A genuine application submitted to a VP+ job you could reasonably perform, using your real portfolio and profile, and in accordance with marketplace rules.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Are there actually new jobs every day?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <!-- TODO(jack): "every day" is now a single, load-bearing claim.
+                       It appears in the hero lede, the POSTED DAILY hero label, the
+                       marketplace claim line and here, and it matches what the main
+                       sales page has said for months. Verify it against real supply
+                       before you spend on this page. If daily is not provable, the
+                       honest version is four string changes: this answer, the hero
+                       lede, the POSTED DAILY chip and the showcase claim line. -->
+                  <p>Yes. VP+ sources new client opportunities continuously and new jobs go up every day, across different niches, budgets and editing formats. Volume varies day to day, so some days bring a handful and some bring a lot more.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What kinds of jobs are posted?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Both one-off projects and recurring opportunities, from short-form editing to long-form YouTube, ads and other commercial video work. Budgets vary by client and project.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Is VP+ for beginners?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>The Client Sprint is designed for editors who are ready to take paid client work. You should already be able to edit and have work you can show potential clients.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">What if I land a client before Day 90?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Great. You keep your Sprint access for the remainder of your 90 days and can continue applying to additional opportunities.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Does VP+ take a fee when I land work?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Yes. VP+ takes 10% on what you book through the marketplace. That is the only fee beyond the $129 Sprint payment.</p>
+                </div>
+              </details>
+
+              <details class="faq__item">
+                <summary>
+                  <span class="faq__q-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span class="faq__q-text">Can I continue after the Sprint?</span>
+                  <span class="faq__toggle" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                </summary>
+                <div class="faq__answer">
+                  <p>Yes, but only if you choose to. There is no automatic renewal.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+
+          <div class="faq__right">
+            <div class="faq__visual">
+              <img src="../media/opt/Group-Shot-1280.webp" width="1080" height="1080" alt="VP+ editors at a community meet-up" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 14 — FINAL CTA ============ -->
+    <section class="section cta sprint-final">
+      <div class="container cta__inner card">
+        <div class="cta__atmosphere" aria-hidden="true">
+          <div class="cta__hex"></div>
+          <div class="cta__glow cta__glow--top"></div>
+          <div class="cta__glow cta__glow--bottom"></div>
+        </div>
+        <h2 class="cta__title">Your Next Client Could Be <span class="grad">Inside VP+.</span></h2>
+        <p class="cta__lede">Give yourself 90 days and 100 applications to find out.</p>
+        <p class="sprint-final__promise">Land a Client &mdash; Or Get Your $129 Back.</p>
+        <a class="btn btn--primary btn--xl btn--glow" data-cta data-cta-location="final-cta" href="#offer">
+          Start My 90-Day Client Sprint
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+        <p class="cta__fineprint">$129 once &middot; No subscription &middot; No auto-renewal</p>
+        <span class="sprint-final__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          100 applications &rarr; 1 client, or $129 back
+        </span>
+      </div>
+    </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container footer__inner footer__inner--slim">
+        <div class="footer__brand">
+          <a class="footer__logo" href="#top" aria-label="Video Production+ home">
+            <img src="../media/VPP%20logo.png" alt="Video Production+" />
+          </a>
+          <p class="footer__tagline">
+            The gated marketplace where clients post paid video-editing work
+            and editors apply directly.
+          </p>
+          <div class="footer__socials">
+            <a class="footer__social" href="https://x.com/VidProPlus" aria-label="X (Twitter)" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+            </a>
+            <a class="footer__social" href="https://www.instagram.com/vidproplus/" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h3 class="footer__heading">The Sprint</h3>
+          <ul class="footer__nav">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#guarantee">Guarantee</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__cta">
+          <span class="footer__cta-eyebrow">
+            <span class="footer__cta-dot" aria-hidden="true"></span>
+            $129 once. No auto-renewal.
+          </span>
+          <h3 class="footer__cta-title">90 days. 100 applications. 1 client.</h3>
+          <a class="btn btn--primary btn--glow footer__cta-btn" data-cta data-cta-location="footer" href="#offer">
+            Start My Sprint
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <div class="container footer__bottom-inner">
+          <span>&copy; <span id="year"></span> Video Production+. All rights reserved.</span>
+          <nav class="footer__legal-links" aria-label="Legal">
+            <a href="/terms">Terms</a>
+            <a href="/privacy">Privacy</a>
+            <a href="#guarantee">Guarantee</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============ STICKY CONVERSION BAR ============ -->
+    <!-- Bottom bar on phones, compact top-right pill on desktop. Hidden
+         until the hero has scrolled away, and hidden again whenever the
+         offer card or the final CTA is on screen. -->
+    <div class="sprint-sticky" id="sprintSticky" hidden>
+      <div class="sprint-sticky__inner">
+        <p class="sprint-sticky__label">
+          <strong>90-Day Sprint</strong>
+          <span class="sprint-dot" aria-hidden="true">&middot;</span> $129
+        </p>
+        <a class="btn btn--primary sprint-sticky__btn" data-cta data-cta-location="sticky" href="#offer">
+          <span class="sprint-sticky__btn-long">Start My Sprint &mdash; $129</span>
+          <span class="sprint-sticky__btn-short">Start Sprint</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ FULL GUARANTEE TERMS (modal) ============ -->
+    <dialog class="sprint-modal" id="guaranteeModal" aria-labelledby="guaranteeModalTitle">
+      <div class="sprint-modal__inner">
+        <button class="sprint-modal__close" type="button" data-guarantee-close aria-label="Close guarantee terms">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+        <h2 class="sprint-modal__title" id="guaranteeModalTitle">Full Guarantee Terms</h2>
+        <p class="sprint-modal__sub">VP+ 90-Day Client Sprint &mdash; 100-Application Money-Back Guarantee</p>
+
+        <!-- TODO(jack): legal review before publication. This is drafted to sit
+             consistently with Terms of Service section 5 (a specific guarantee
+             promoted with an offer applies on the terms stated with that offer)
+             and section 9 (no guarantee of results): the promise here is a
+             refund of the $129, never a promise of earnings. -->
+        <div class="sprint-modal__body">
+          <h3>What the guarantee is</h3>
+          <p>
+            If you buy the VP+ 90-Day Client Sprint and, after completing every requirement
+            below, you have not landed a paying client through VP+ within your 90-day Sprint,
+            Video Production+ will refund the $129 you paid for the Sprint in full.
+          </p>
+          <p>
+            This is a refund of the Sprint fee. It is not a promise of earnings, and nothing on
+            this page is a projection of what you will earn.
+          </p>
+
+          <h3>Your Sprint window</h3>
+          <p>
+            Your Sprint runs for 90 consecutive days from the date your VP+ access begins.
+            Day 1 is the day your access starts, not the day you complete your profile.
+          </p>
+
+          <h3>What you have to do to qualify</h3>
+          <ol>
+            <li>
+              <strong>Complete an approved VP+ editor profile.</strong> Your profile must be
+              submitted and approved, and must include real work samples that are yours.
+            </li>
+            <li>
+              <strong>Submit 100 genuine applications</strong> to relevant VP+ jobs inside your
+              90-day Sprint window. An application is genuine when it is sent to a job you could
+              reasonably perform, from your real profile and portfolio, and follows marketplace
+              rules. Duplicate, blank, automated, copy-pasted-to-everything or off-brief
+              applications do not count toward the 100.
+              <!-- TODO(jack): confirm you are happy to stand behind this sentence.
+                   Without it the guarantee is unwinnable in any Sprint where the
+                   board posts fewer than 100 jobs an editor could reasonably do -
+                   they can never hit 100, so they can never qualify for the
+                   refund. That is a trap, and a refund request that surfaces it
+                   is worse than the sentence. -->
+              If fewer than 100 relevant jobs are posted during your Sprint, applying to every
+              relevant job that is posted counts as meeting this requirement.
+            </li>
+            <li>
+              <strong>Stay reasonably responsive.</strong> Reply to clients who contact you about
+              your applications within a reasonable time during the Sprint.
+            </li>
+            <li>
+              <strong>Have no paying VP+ client secured during the Sprint.</strong> A client is
+              secured when they commit, through VP+, to a paid project or retainer with you.
+              If that happened at any point in the 90 days, the outcome was delivered and the
+              guarantee does not apply.
+              <!-- TODO(jack): this wording is the brief's recommended definition and
+                   is now used identically here, in the on-page guarantee block and
+                   in the FAQ. Confirm it matches the real booking and payment flow
+                   (does "commit" mean accepted offer, funded escrow, or first
+                   payment released?) before publishing. -->
+            </li>
+          </ol>
+
+          <h3>How to claim</h3>
+          <p>
+            Email <a href="mailto:hello@videoproductionplus.com">hello@videoproductionplus.com</a>
+            within 14 days of your Sprint ending, from the email address on your VP+ account,
+            with the subject line "Sprint Guarantee". We check your application count and profile
+            status against our records and, where the requirements are met, refund the $129 to
+            your original payment method.
+          </p>
+
+          <h3>Things worth being straight about</h3>
+          <ul>
+            <li>The refund is the original $129 Sprint payment. Not credits, not extra access.</li>
+            <li>One Sprint guarantee claim per person.</li>
+            <li>
+              Applications are counted from VP+ platform records. If the records and your own
+              count disagree, the platform records decide.
+            </li>
+            <li>
+              Marketplace booking fees, or anything you earned during the Sprint, are not affected
+              by a refund.
+            </li>
+            <li>
+              We can decline a claim where the requirements were not met, or where the account
+              breached the
+              <a href="/terms">VP+ Terms</a> (see section 11).
+            </li>
+          </ul>
+
+          <p class="sprint-modal__legal">
+            The Sprint is sold by Jack Cole Productions Limited (company no. 14388769), 64 Nile
+            Street, London, England, N1 7SR. This guarantee is offered in addition to your legal
+            rights and sits alongside the <a href="/terms">VP+ Terms of Service</a> and
+            <a href="/privacy">Privacy Policy</a>.
+          </p>
+        </div>
+
+        <div class="sprint-modal__foot">
+          <a class="btn btn--primary btn--glow" data-cta data-cta-location="guarantee-modal" href="#offer">
+            Start My 90-Day Client Sprint
+          </a>
+          <button class="btn btn--ghost" type="button" data-guarantee-close>Close</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="../script.js" defer></script>
+    <script src="/client-sprint/client-sprint.js" defer></script>
+  </body>
+</html>

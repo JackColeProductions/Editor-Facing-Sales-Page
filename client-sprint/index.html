@@ -20,10 +20,13 @@
   the guarantee section.
 
   NOTE FOR JACK — placeholders and decisions, marked TODO(jack) in place:
-  1. CHECKOUT URL. Still no $129 product in checkout. Every CTA carries
-     data-cta and is rewritten from SPRINT_CHECKOUT_URL at the top of
-     client-sprint.js. One string to change (plus the no-JS fallback href
-     on the offer card, commented there).
+  1. CHECKOUT. Every CTA carries data-cta and is rewritten from
+     SPRINT_CHECKOUT_URL at the top of client-sprint.js, which now points
+     at /client-sprint/checkout in this repo. That page needs your Stripe
+     PUBLISHABLE key pasted into client-sprint/checkout/checkout.js, and
+     one server endpoint your dev implements — the full contract is in
+     client-sprint/CHECKOUT-API.md. Until the key is set the checkout
+     shows a "not configured" notice rather than a broken form.
   2. SCREENSHOTS. Four proof images are yours to supply. Drop them into
      media/sprint/ with EXACTLY these names and the page picks them up on
      the next load — no HTML edits needed. Until a file exists, its slot
@@ -957,7 +960,7 @@
                  data-cta link (this one included) and appends the visitor's
                  UTMs and ad click IDs. -->
             <a class="pricing__cta pricing__cta--featured" data-cta data-cta-location="checkout"
-               href="https://checkout.videoproduction.plus/client-sprint">
+               href="/client-sprint/checkout">
               Get My 90-Day Pass &mdash; $129
             </a>
 

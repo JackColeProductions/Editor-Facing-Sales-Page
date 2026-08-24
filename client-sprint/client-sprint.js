@@ -28,11 +28,12 @@
   // 1 — CONFIGURATION
   // =======================================================
 
-  // TODO(jack): the one string to change. There is still no $129 product
-  // in checkout. Point this at the real Pass checkout before spending on
-  // traffic, and keep the no-JS fallback href on the offer card in
-  // index.html in sync with it.
-  var SPRINT_CHECKOUT_URL = 'https://checkout.videoproduction.plus/client-sprint';
+  // The checkout now lives in this repo at /client-sprint/checkout.
+  // Same-origin, which is what lets the attribution captured here in
+  // sessionStorage (vppSprintParams) carry straight into the charge.
+  // Keep the no-JS fallback href on the offer card in index.html in
+  // sync with this.
+  var SPRINT_CHECKOUT_URL = '/client-sprint/checkout';
 
   var SPRINT_PRICE = 129;
   var SPRINT_CURRENCY = 'USD';

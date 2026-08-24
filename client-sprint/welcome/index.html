@@ -1,0 +1,194 @@
+<!doctype html>
+<!--
+  VP+ 90-DAY CLIENT ACQUISITION PASS — THANK YOU
+  Served at /client-sprint/welcome  (Stripe return_url)
+
+  Nested under /client-sprint for the same reason as the checkout: the
+  vercel.json "/:code" rewrite swallows unmatched single-segment root
+  paths, so /thank-you or /welcome would hit the click tracker instead.
+
+  Stripe appends ?payment_intent=...&payment_intent_client_secret=...
+  &redirect_status=... to this URL. The page confirms the payment with
+  stripe.retrievePaymentIntent(), which needs only the publishable key —
+  no server call happens here.
+
+  This page fires the Purchase conversion. The sales page deliberately
+  does NOT (there is a comment in client-sprint.js saying so): a purchase
+  event belongs where the money actually landed.
+
+  TODO(jack) — DISCORD. The "Join the Discord" button below is driven by
+  DISCORD_INVITE_URL in welcome.js. Leave it blank and the block degrades
+  to a "we'll email you" state rather than showing a dead button.
+  The <div data-membership-slot> is the marked seam for your dev's proper
+  linked flow (the one that ties a Discord account to a paid pass) — they
+  can replace the contents of that block without touching anything else.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#080810" />
+    <title>You're in | VP+ 90-Day Client Acquisition Pass</title>
+    <meta name="description" content="Your VP+ 90-Day Client Acquisition Pass is active. Your 90 days start now." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" sizes="256x256" href="../../media/Plain%20Logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../media/Plain%20Logo.png" />
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <link rel="preconnect" href="https://js.stripe.com" />
+    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="/client-sprint/welcome/welcome.css" />
+    <!-- Meta (Facebook) Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1210831334403824');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" alt=""
+      src="https://www.facebook.com/tr?id=1210831334403824&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- async so it never blocks first paint on a page people arrive at
+         from a paid ad. checkout.js waits for window.Stripe rather than
+         assuming script order. -->
+    <script src="https://js.stripe.com/v3/" async></script>
+  </head>
+  <body class="sprint-welcome-page">
+
+    <header class="wc-head">
+      <div class="wc-head__inner">
+        <a class="wc-head__brand" href="/client-sprint" aria-label="Video Production+">
+          <img src="../../media/VPP%20logo.png" alt="Video Production+" class="wc-head__logo" />
+        </a>
+      </div>
+    </header>
+
+    <main class="wc-main">
+
+      <!-- Shown while retrievePaymentIntent() is in flight. -->
+      <section class="wc-state" data-state="loading">
+        <div class="wc-spinner" aria-hidden="true"></div>
+        <p class="wc-state__text">Confirming your payment&hellip;</p>
+      </section>
+
+      <!-- Payment succeeded. -->
+      <section class="wc-state" data-state="succeeded" hidden>
+        <div class="wc-hero">
+          <span class="wc-tick" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </span>
+          <p class="wc-eyebrow">Payment complete</p>
+          <h1 class="wc-title">Your 90 Days <span class="grad grad--glow">Start Now.</span></h1>
+          <p class="wc-lede">
+            You're in. Here's exactly what to do next &mdash; the editors who book work
+            fastest are the ones who set up properly on day one.
+          </p>
+        </div>
+
+        <ol class="wc-steps">
+          <li class="wc-step">
+            <span class="wc-step__num" aria-hidden="true">1</span>
+            <div>
+              <h2 class="wc-step__title">Complete your VP+ editor profile</h2>
+              <p class="wc-step__text">
+                Real work samples, the niches you edit, and turnaround you can actually hold.
+                Clients pick from your profile, so a thin one costs you jobs.
+              </p>
+            </div>
+          </li>
+          <li class="wc-step">
+            <span class="wc-step__num" aria-hidden="true">2</span>
+            <div>
+              <h2 class="wc-step__title">Start applying to live jobs</h2>
+              <p class="wc-step__text">
+                New opportunities are posted throughout your pass. Apply to the ones that
+                genuinely fit &mdash; the guarantee is built around consistent applying,
+                roughly 8 a week.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <!-- ===== Membership seam =====
+             Everything inside this block is owned by the membership
+             system. Replace its contents with the linked Discord flow
+             when that's ready — nothing outside it needs to change. -->
+        <div class="wc-access" data-membership-slot>
+          <h2 class="wc-access__title">Get into the community</h2>
+          <p class="wc-access__text" data-discord-text>
+            Your access is being set up. We'll email
+            <strong data-buyer-email>your inbox</strong> with your Discord invite and
+            marketplace login shortly.
+          </p>
+          <a class="btn btn--primary btn--glow wc-access__btn" data-discord-link href="#" hidden>
+            Join the VP+ Discord
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <!-- ===== End membership seam ===== -->
+
+        <div class="wc-receipt">
+          <p class="wc-receipt__line">
+            A receipt is on its way to <strong data-buyer-email>your email</strong>.
+            Reference <code data-payment-ref>&mdash;</code>
+          </p>
+          <p class="wc-receipt__line wc-receipt__line--muted">
+            $129 charged once. No subscription, no automatic renewal, and nothing on Day&nbsp;91.
+            Questions? <a href="mailto:hello@videoproductionplus.com">hello@videoproductionplus.com</a>
+          </p>
+        </div>
+      </section>
+
+      <!-- Payment still processing (rare — some methods settle async). -->
+      <section class="wc-state" data-state="processing" hidden>
+        <div class="wc-spinner" aria-hidden="true"></div>
+        <h1 class="wc-title wc-title--sm">Your payment is processing</h1>
+        <p class="wc-state__text">
+          This usually takes a few seconds. We'll email you the moment it clears &mdash;
+          you can safely close this page.
+        </p>
+      </section>
+
+      <!-- Payment failed or needs another method. -->
+      <section class="wc-state" data-state="failed" hidden>
+        <h1 class="wc-title wc-title--sm">That payment didn't go through</h1>
+        <p class="wc-state__text" data-failure-message>
+          Your card was not charged. You can try again with a different payment method.
+        </p>
+        <a class="btn btn--primary btn--glow wc-retry" href="/client-sprint/checkout">Try again</a>
+      </section>
+
+      <!-- Landed here without Stripe's parameters. -->
+      <section class="wc-state" data-state="unknown" hidden>
+        <h1 class="wc-title wc-title--sm">Nothing to confirm here</h1>
+        <p class="wc-state__text">
+          This page confirms a completed purchase. If you've just paid and are seeing this,
+          check your email for the receipt or contact
+          <a href="mailto:hello@videoproductionplus.com">hello@videoproductionplus.com</a>.
+        </p>
+        <a class="btn btn--primary btn--glow wc-retry" href="/client-sprint">Back to the offer</a>
+      </section>
+
+    </main>
+
+    <footer class="wc-foot">
+      <div class="wc-foot__inner">
+        <span>&copy; <span id="year"></span> Video Production+</span>
+        <nav class="wc-foot__links" aria-label="Legal">
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/client-sprint#guarantee">Guarantee</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="/client-sprint/welcome/welcome.js" defer></script>
+  </body>
+</html>

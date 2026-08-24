@@ -1,0 +1,371 @@
+/* =========================================================
+   /client-sprint/checkout — page-only styles.
+   Loaded AFTER the shared styles.css; every rule is scoped to
+   .sprint-checkout-page so nothing can leak into the sales page
+   or any other route. Shared design tokens only, no new palette.
+
+   Note: the Stripe Payment Element renders inside a cross-origin
+   iframe and CANNOT be reached from here. Its look is set by the
+   Appearance API in checkout.js — this file styles everything
+   around it and matches the two by hand.
+   ========================================================= */
+
+.sprint-checkout-page {
+  --ck-accent: hsl(180 74% 63%);
+  --ck-accent-line: hsl(180 74% 63% / .35);
+  --ck-accent-soft: hsl(180 74% 63% / .1);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+/* =========================================================
+   Header — logo + a lock. No nav: this page has one job.
+   ========================================================= */
+
+.ck-head {
+  border-bottom: 1px solid var(--border-soft);
+  background: hsl(240 18% 6% / .8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.ck-head__inner {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: 1rem max(1.25rem, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ck-head__brand { display: inline-flex; align-items: center; }
+.ck-head__logo { height: 24px; width: auto; display: block; }
+.ck-head__secure {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--fg-dim);
+  white-space: nowrap;
+}
+.ck-head__secure svg { width: 14px; height: 14px; color: var(--ck-accent); }
+
+/* =========================================================
+   Layout — summary and form.
+   Source order is summary-then-form so phones lead with what
+   they're buying; desktop swaps the form to the left column,
+   which is where buyers expect to type.
+   ========================================================= */
+
+.ck-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: clamp(1.75rem, 4vw, 3rem) max(1.25rem, env(safe-area-inset-left)) 3rem;
+}
+.ck-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .ck-grid { grid-template-columns: 1.05fr .95fr; }
+  .ck-form { order: 1; }
+  .ck-summary { order: 2; position: sticky; top: 1.5rem; }
+}
+
+/* =========================================================
+   Order summary
+   ========================================================= */
+
+.ck-summary__inner {
+  padding: clamp(1.35rem, 2.5vw, 1.85rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--card-2), var(--card));
+  box-shadow: var(--shadow-card);
+}
+.ck-summary__eyebrow {
+  margin: 0 0 .3rem;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+.ck-summary__title {
+  margin: 0;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.25;
+}
+.ck-summary__price {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  margin-top: .85rem;
+}
+.ck-summary__amount {
+  font-size: clamp(2.4rem, 5vw, 3rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(135deg, hsl(180 100% 95%), hsl(180 85% 62%) 55%, hsl(160 76% 56%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ck-summary__period { font-size: .9rem; color: var(--fg-muted); }
+.ck-summary__billing {
+  margin: .5rem 0 0;
+  font-size: .84rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
+.ck-summary__divider {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  margin: 1.25rem 0 .9rem;
+  color: var(--fg-dim);
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.ck-summary__divider::before,
+.ck-summary__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(0 0% 100% / .14), transparent);
+}
+
+.ck-summary__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+}
+.ck-summary__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  font-size: .88rem;
+  line-height: 1.45;
+  color: var(--fg);
+}
+.ck-check {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: .1rem;
+  border-radius: 50%;
+  font-size: .7rem;
+  font-weight: 800;
+  color: hsl(240 25% 8%);
+  background: linear-gradient(135deg, hsl(180 95% 78%), hsl(180 80% 55%));
+}
+
+.ck-guarantee {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+  margin-top: 1.15rem;
+  padding: .9rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--ck-accent-line);
+  background: var(--ck-accent-soft);
+}
+.ck-guarantee__icon {
+  flex-shrink: 0;
+  color: var(--ck-accent);
+  margin-top: .1rem;
+}
+.ck-guarantee__icon svg { width: 18px; height: 18px; }
+.ck-guarantee__text {
+  margin: 0;
+  font-size: .8rem;
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+.ck-guarantee__text strong { display: block; color: var(--fg); font-weight: 800; margin-bottom: .15rem; }
+.ck-guarantee__text a {
+  color: var(--ck-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.ck-summary__back {
+  display: inline-block;
+  margin-top: 1.1rem;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--fg-dim);
+  transition: color .2s ease;
+}
+.ck-summary__back:hover { color: var(--fg); }
+
+/* =========================================================
+   Payment form
+   ========================================================= */
+
+.ck-form__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+}
+.ck-form__lede {
+  margin: .5rem 0 1.5rem;
+  font-size: .92rem;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  max-width: 46ch;
+}
+
+.ck-field { margin-bottom: 1.15rem; }
+.ck-label {
+  display: block;
+  margin-bottom: .5rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.ck-field__hint {
+  margin: .5rem 0 0;
+  font-size: .76rem;
+  color: var(--fg-dim);
+}
+
+/* Reserve height while Stripe's iframes mount so the button does
+   not jump up the page and get mis-clicked mid-load. */
+#link-authentication-element { min-height: 62px; }
+#payment-element { min-height: 240px; }
+
+.ck-message {
+  margin: 0 0 1rem;
+  padding: .8rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid hsl(0 72% 71% / .35);
+  background: hsl(0 72% 71% / .1);
+  font-size: .86rem;
+  line-height: 1.5;
+  color: hsl(0 80% 85%);
+}
+.ck-message[hidden] { display: none; }
+.ck-message--info {
+  border-color: var(--ck-accent-line);
+  background: var(--ck-accent-soft);
+  color: hsl(180 45% 82%);
+}
+.ck-message a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+.sprint-checkout-page .ck-pay {
+  width: 100%;
+  justify-content: center;
+  white-space: normal;
+  text-align: center;
+  margin-top: .35rem;
+}
+.ck-pay[disabled] { opacity: .55; cursor: not-allowed; }
+.ck-pay[disabled]:active { transform: none; }
+.ck-pay__spinner {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 2px solid hsl(240 25% 8% / .35);
+  border-top-color: hsl(240 25% 8%);
+  animation: ckSpin .7s linear infinite;
+}
+.ck-pay__spinner[hidden] { display: none; }
+@keyframes ckSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .ck-pay__spinner { animation-duration: 2s; }
+}
+
+.ck-assure {
+  list-style: none;
+  margin: .9rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem .5rem;
+}
+.ck-assure li {
+  font-size: .72rem;
+  font-weight: 700;
+  color: var(--fg-muted);
+  padding: .3rem .65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: hsl(240 12% 12% / .6);
+}
+
+.ck-legal {
+  margin: 1.1rem 0 0;
+  font-size: .74rem;
+  line-height: 1.6;
+  color: var(--fg-dim);
+}
+.ck-legal a { color: var(--fg-muted); text-decoration: underline; text-underline-offset: 3px; }
+.ck-legal a:hover { color: var(--fg); }
+
+/* =========================================================
+   Footer
+   ========================================================= */
+
+.ck-foot {
+  border-top: 1px solid var(--border-soft);
+  padding: 1.25rem 0;
+}
+.ck-foot__inner {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: max(1.25rem, env(safe-area-inset-left));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem 1rem;
+  font-size: .76rem;
+  color: var(--fg-dim);
+}
+.ck-foot__links { display: flex; gap: 1rem; }
+.ck-foot__links a { color: var(--fg-dim); transition: color .2s ease; }
+.ck-foot__links a:hover { color: var(--fg); }
+
+/* =========================================================
+   Phones
+   ========================================================= */
+
+@media (max-width: 899.98px) {
+  .ck-summary__inner { padding: 1.15rem 1.15rem 1.25rem; }
+  .ck-summary__amount { font-size: 2.2rem; }
+  /* The full inclusion list is a scroll tax above the form on a
+     phone — the price, the billing terms and the guarantee are
+     what actually matter at this point. */
+  .ck-summary__divider,
+  .ck-summary__list { display: none; }
+  .ck-summary__back { display: none; }
+  .ck-form__lede { margin-bottom: 1.15rem; }
+}

@@ -1,0 +1,197 @@
+<!doctype html>
+<!--
+  VP+ 90-DAY CLIENT ACQUISITION PASS — CHECKOUT
+  Served at /client-sprint/checkout
+
+  Why this path: vercel.json rewrites every unmatched SINGLE-segment root
+  path to the uploadjuice click tracker (`"source": "/:code"`). A route at
+  /checkout would be silently swallowed by it. Two-segment paths are immune,
+  so the checkout and thank-you pages live under /client-sprint/.
+
+  FRONT END ONLY. This page collects the email + card and confirms the
+  payment. Everything after the money lands — granting the 90 days, the
+  Discord role, the expiry sweep — belongs to the existing membership
+  system and is NOT implemented here.
+
+  It needs exactly ONE endpoint, which Jack's dev implements:
+
+    POST {apiBase}/create-payment-intent
+    Idempotency-Key: <uuid, stable per attempt>
+    body: { email, product, page, attribution:{...} }
+    200 : { clientSecret, paymentIntentId }
+    err : { error: { message } }
+
+  The endpoint MUST derive the amount server-side from the Stripe Price on
+  prod_V8DaksbCULZhvP (must resolve to 12900/usd — this page builds its
+  Elements instance with that figure and Stripe fails loudly on mismatch,
+  which is the safety property we want). It must never trust an amount from
+  the browser. Full contract: /client-sprint/CHECKOUT-API.md
+
+  TODO(jack) — two values to fill in, both at the top of checkout.js:
+    1. STRIPE_PUBLISHABLE_KEY — pk_test_... to trial, pk_live_... to ship.
+       Publishable keys are public by design; safe in this file.
+       Until it is set the page shows a "checkout not configured" notice
+       instead of a broken form, so this can never ship silently broken.
+    2. API_BASE — defaults to "/api" (same origin). If the endpoint lives
+       on checkout.videoproduction.plus instead, prefer a vercel.json
+       rewrite proxying /api/checkout/(.*) to it so the browser call stays
+       same-origin and skips a CORS preflight on the critical path.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#080810" />
+    <title>Checkout | VP+ 90-Day Client Acquisition Pass</title>
+    <meta name="description" content="Complete your VP+ 90-Day Client Acquisition Pass — $129 once, 90 days of marketplace access, no subscription and no auto-renewal." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" sizes="256x256" href="../../media/Plain%20Logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../../media/Plain%20Logo.png" />
+    <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+    <link rel="preconnect" href="https://js.stripe.com" />
+    <link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.cdnfonts.com/css/lufga" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="/client-sprint/checkout/checkout.css" />
+    <!-- Meta (Facebook) Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1210831334403824');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" alt=""
+      src="https://www.facebook.com/tr?id=1210831334403824&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- async so it never blocks first paint on a page people arrive at
+         from a paid ad. checkout.js waits for window.Stripe rather than
+         assuming script order. -->
+    <script src="https://js.stripe.com/v3/" async></script>
+  </head>
+  <body class="sprint-checkout-page">
+
+    <header class="ck-head">
+      <div class="ck-head__inner">
+        <a class="ck-head__brand" href="/client-sprint" aria-label="Back to the VP+ 90-Day Client Acquisition Pass">
+          <img src="../../media/VPP%20logo.png" alt="Video Production+" class="ck-head__logo" />
+        </a>
+        <p class="ck-head__secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Secure checkout
+        </p>
+      </div>
+    </header>
+
+    <main class="ck-main">
+      <div class="ck-grid">
+
+        <!-- ===== Order summary. Source-ordered first so it leads on
+             phones, and pinned to the right column on desktop. ===== -->
+        <aside class="ck-summary" aria-labelledby="ck-summary-title">
+          <div class="ck-summary__inner">
+            <p class="ck-summary__eyebrow">You're buying</p>
+            <h2 class="ck-summary__title" id="ck-summary-title">VP+ 90-Day Client Acquisition Pass</h2>
+
+            <div class="ck-summary__price">
+              <span class="ck-summary__amount">$129</span>
+              <span class="ck-summary__period">one-time</span>
+            </div>
+            <p class="ck-summary__billing">90 days of access. No subscription. No automatic renewal.</p>
+
+            <div class="ck-summary__divider"><span>What's included</span></div>
+
+            <ul class="ck-summary__list">
+              <li><span class="ck-check" aria-hidden="true">&check;</span>90 days of VP+ marketplace access</li>
+              <li><span class="ck-check" aria-hidden="true">&check;</span>Paid video-editing opportunities sourced by VP+</li>
+              <li><span class="ck-check" aria-hidden="true">&check;</span>Full editor profile and application access</li>
+              <li><span class="ck-check" aria-hidden="true">&check;</span>Weekly coaching + community</li>
+              <li><span class="ck-check" aria-hidden="true">&check;</span>Escrow payment protection</li>
+            </ul>
+
+            <div class="ck-guarantee">
+              <span class="ck-guarantee__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </span>
+              <p class="ck-guarantee__text">
+                <strong>Make back your $129 &mdash; or get it back.</strong>
+                Book $129+ in paid VP+ work during your 90 days. If you don't and you've met the
+                guarantee requirements, we refund the $129.
+                <a href="/client-sprint#guarantee">See the terms</a>
+              </p>
+            </div>
+
+            <a class="ck-summary__back" href="/client-sprint">
+              <span aria-hidden="true">&larr;</span> Back to the offer
+            </a>
+          </div>
+        </aside>
+
+        <!-- ===== Payment form ===== -->
+        <section class="ck-form" aria-labelledby="ck-form-title">
+          <h1 class="ck-form__title" id="ck-form-title">Get your 90-day pass</h1>
+          <p class="ck-form__lede">One payment of $129. Nothing renews, and nothing is charged on Day&nbsp;91.</p>
+
+          <form id="payment-form" novalidate>
+            <div class="ck-field">
+              <label class="ck-label" for="link-authentication-element">Email</label>
+              <!-- Link Authentication Element: collects the email and offers
+                   Link autofill for returning Stripe customers. -->
+              <div id="link-authentication-element"></div>
+              <p class="ck-field__hint">Your receipt and access details go here.</p>
+            </div>
+
+            <div class="ck-field">
+              <label class="ck-label" for="payment-element">Payment details</label>
+              <!-- Stripe Payment Element. It renders in a cross-origin
+                   iframe, so it cannot be styled by checkout.css — it is
+                   themed entirely through the Appearance API in checkout.js. -->
+              <div id="payment-element"></div>
+            </div>
+
+            <!-- Errors, declines and configuration problems all surface here
+                 rather than in an alert(). -->
+            <div id="payment-message" class="ck-message" role="alert" hidden></div>
+
+            <button id="pay-button" class="btn btn--primary btn--xl btn--glow ck-pay" type="submit">
+              <span class="ck-pay__label">Pay $129 &mdash; Get My 90-Day Pass</span>
+              <span class="ck-pay__spinner" aria-hidden="true" hidden></span>
+            </button>
+
+            <ul class="ck-assure">
+              <li>One payment</li>
+              <li>No subscription</li>
+              <li>No auto-renewal</li>
+              <li>Nothing on Day 91</li>
+            </ul>
+
+            <p class="ck-legal">
+              By paying you agree to the <a href="/terms">Terms</a> and
+              <a href="/privacy">Privacy Policy</a>. Payments are processed by Stripe &mdash;
+              card details are entered directly into Stripe and never touch our servers.
+            </p>
+          </form>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="ck-foot">
+      <div class="ck-foot__inner">
+        <span>&copy; <span id="year"></span> Video Production+</span>
+        <nav class="ck-foot__links" aria-label="Legal">
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/client-sprint#guarantee">Guarantee</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="/client-sprint/checkout/checkout.js" defer></script>
+  </body>
+</html>
